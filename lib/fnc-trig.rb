@@ -8,22 +8,22 @@ module CAS
   class Sin < CAS::Op
     def diff(v)
       if @x.depend? v
-        return @x.diff(v) * CAS::cos(@x)
+        return @x.diff(v) * CAS.cos(@x)
       else
         return CAS::Zero
       end
     end
 
     def call(f)
-      Math::sin self.x.call(f)
+      Math::sin @x.call(f)
     end
 
     def to_s
-      "sin(#{self.x})"
+      "sin(#{@x})"
     end
   end
 
-  def sin(x)
+  def self.sin(x)
     CAS::Sin.new x
   end
 
@@ -33,19 +33,23 @@ module CAS
   # /_/ \_\/__/_|_||_|
   class Asin < CAS::Op
     def diff(v)
-
+      if @x.depend? v
+        return @x.diff(v) / CAS.sqrt(CAS::One - CAS.pow(@x, CAS::Two))
+      else
+        return CAS::Zero
+      end
     end
 
     def call(f)
-
+      Math::acos @x.call(f)
     end
 
     def to_s
-      "atan(#{self.x})"
+      "asin(#{@x})"
     end
   end
 
-  def asin(x)
+  def self.asin(x)
     CAS::Asin.new x
   end
 
@@ -56,7 +60,7 @@ module CAS
   class Cos < CAS::Op
     def diff(v)
       if @x.depend? v
-        return CAS::invert(@x.diff(v) * CAS::sin(@x))
+        return CAS.invert(@x.diff(v) * CAS.sin(@x))
       else
         return CAS::Zero
       end
@@ -71,7 +75,7 @@ module CAS
     end
   end
 
-  def cos(x)
+  def self.cos(x)
     CAS::Cos.new x
   end
 
@@ -81,7 +85,11 @@ module CAS
   # /_/ \_\__\___/__/
   class Acos < CAS::Op
     def diff(v)
-
+      if @x.depend? v
+        return CAS.invert(@x.diff(v)/CAS.sqrt(CAS::One - CAS.pow(@x, CAS::Two)))
+      else
+        return CAS::Zero
+      end
     end
 
     def call(f)
@@ -89,11 +97,11 @@ module CAS
     end
 
     def to_s
-      "atan(#{self.x})"
+      "acos(#{self.x})"
     end
   end
 
-  def acos(x)
+  def self.acos(x)
     CAS::Acos.new x
   end
 
@@ -103,13 +111,11 @@ module CAS
   #   |_|\__,_|_||_|
   class Tan < CAS::Op
     def diff(v)
-      CAS::Prod.new(
-        CAS::Sum.new(
-          CAS::Number.new(1.0),
-          CAS::Pow.new(CAS::Tan.new(self.x), CAS::Number.new(1.0))
-        ),
-        self.x.diff
-      )
+      if @x.depend? v
+        return @x.diff(v) * CAS.pow(CAS::One/CAS.cos(@x), CAS::Two)
+      else
+        return CAS::Zero
+      end
     end
 
     def call(f)
@@ -121,7 +127,7 @@ module CAS
     end
   end
 
-  def tan(x)
+  def self.tan(x)
     CAS::Tan.new x
   end
 
@@ -130,18 +136,16 @@ module CAS
   #  / _ \  _/ _` | ' \
   # /_/ \_\__\__,_|_||_|
   class Atan < CAS::Op
-    def diff
-      CAS::Div.new(
-        self.x.diff,
-        CAES::Sum.new(
-          CAES::Pow.new(self.x, CAES::Number.new(2.0)),
-          CAES::Number.new(1.0)
-        )
-      )
+    def diff(v)
+      if @x.depend? v
+        return @x.diff(v) / (CAS.pow(@x, CAS::Two) + CAS::One)
+      else
+        return CAS::Zero
+      end
     end
 
     def call
-      Math::atan2 self.x.call
+      Math::atan self.x.call
     end
 
     def to_s
@@ -149,7 +153,7 @@ module CAS
     end
   end
 
-  def atan(x)
+  def self.atan(x)
     CAS::Atan.new x
   end
 end

@@ -7,22 +7,26 @@ module CAS
   # |___/_\_\ .__/\___/_||_\___|_||_\__|
   #         |_|
   class Exp < CAS::Op
-    def initialize(x)
-      self.x = x
+    def diff(v)
+      if @x.depend? v
+        return @x.diff(v) * CAS.exp(@x)
+      else
+        return CAS::Zero
+      end
     end
 
-    def diff
-      CAS::Prod(self.x.diff, self)
-    end
-
-    def call
-      Math::exp(self.x.call)
+    def call(f)
+      Math::exp @x.call
     end
 
     def to_s
-      "exp(#{self.x})"
+      "exp(#{@x})"
     end
   end # Exp
+
+  def self.exp(x)
+    CAS::Exp.new x
+  end
 
   #  _                       _ _   _
   # | |   ___  __ _ __ _ _ _(_) |_| |_  _ __
@@ -30,12 +34,12 @@ module CAS
   # |____\___/\__, \__,_|_| |_|\__|_||_|_|_|_|
   #           |___/
   class Ln < CAS::Op
-    def initialize(x)
-      self.x = x
-    end
-
-    def diff
-      CAS::Div.new(self.x.diff, self.x)
+    def diff(v)
+      if @x.depend? v
+        return CAS::One / @x
+      else
+        return CAS::Zero
+      end
     end
 
     def call
@@ -46,4 +50,8 @@ module CAS
       "ln(#{self.x})"
     end
   end # Ln
+
+  def self.ln(x)
+    CAS::Ln.new x
+  end
 end

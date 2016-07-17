@@ -151,7 +151,7 @@ module CAS
   # |___|_||_\_/\___|_|  \__|
   class Invert < CAS::Op
     def diff(v)
-      if x.depend? v
+      if @x.depend? v
         CAS::const(-1.0) * @x.diff
       else
         CAS::Zero
@@ -176,6 +176,25 @@ module CAS
   #  / _ \| '_ (_-<
   # /_/ \_\_.__/__/
   class Abs < CAS::Op
-    
+    def diff(v)
+      if @x.depend? v
+        return @x.diff * (@x/CAS.abs(@x))
+      else
+        return CAS::Zero
+      end
+    end
+
+    def call(f)
+      s = (@x.call(f) >= 0 ? 1 : -1)
+      return s * @x.call(f)
+    end
+
+    def to_s
+      "|#{@x}|"
+    end
+  end
+
+  def self.abs(x)
+    CAS::Abs.new x
   end
 end
