@@ -19,9 +19,9 @@ two = CAS::Two
 three = CAS::const(3.0)
 
 # A simple function if defined:
-#   _______________
-# \/  x² + 2 x + 2
-f = CAS::sqrt(CAS::pow(x, two) + two * x + two) + three
+#   __________________________
+# \/  x² + 2 sin(x) + 3 exp(x)
+f = CAS.sqrt(CAS.pow(x, two) +  CAS.sin(x) * 2.0 + CAS.exp(x) * 3.0)
 
 # f_diff will contain the symbolic derivative of the previous
 # function
@@ -37,6 +37,12 @@ f_diff_value = f_diff.call({
 puts "#{f_diff} = #{f_diff_value}"
 
 # => (((((x^2 * 2) * 1)) / (x) + (1 * 2))) / ((2.0 * √(((x^2 + (2 * x)) + 2)))) = 0.8944271909999159
+
+# This equation is really messed up. We can try to simplify it
+f_diff.simplify
+puts "#{f_diff} = #{f_diff.call({x => 1.0})}"
+
+# =>
 
 ```
 

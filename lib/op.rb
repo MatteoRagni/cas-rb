@@ -64,8 +64,13 @@ module CAS
       CAS.pow(self, op)
     end
 
-    def simplify
-      @x.simplify
+    def simplify # TODO: improve this
+      hash = @x.to_s
+      @x = @x.simplify
+      while @x.to_s != hash
+        hash = @x.to_s
+        @x = @x.simplify
+      end
     end
   end # Op
 
@@ -120,9 +125,19 @@ module CAS
       raise CASError, "Not Implemented. This is a virtual method"
     end
 
-    def simplify
+    def simplify # TODO: improve this
+      hash = @x.to_s
       @x = @x.simplify
+      while @x.to_s != hash
+        hash = @x.to_s
+        @x = @x.simplify
+      end
+      hash = @y.to_s
       @y = @y.simplify
+      while @y.to_s != hash
+        hash = @y.to_s
+        @y = @y.simplify
+      end
     end
   end # BinaryOp
 end

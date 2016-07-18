@@ -16,7 +16,7 @@ module CAS
     end
 
     def call(f)
-      Math::exp @x.call
+      Math::exp @x.call(f)
     end
 
     def to_s
@@ -59,10 +59,10 @@ module CAS
       end
     end
 
-    def call
+    def call(f)
       # I'm leaving to Math the honor
       # of handling negative values...
-      Math::log @x.call
+      Math::log @x.call(f)
     end
 
     def to_s

@@ -106,7 +106,7 @@ module CAS
         return @y
       end
       if @y == CAS::One
-        return @y
+        return @x
       end
       if @x == @y
         return @x ** 2.0
