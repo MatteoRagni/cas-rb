@@ -16,12 +16,12 @@ x = CAS::Variable.new("x")
 # There are some constants defined
 # MINUS_ONE, One, Two, E, PI, INFINITY
 two = CAS::Two
+three = CAS::const(3.0)
 
 # A simple function if defined:
-#     _________________
-#    /   2
-# /\/  x   +  2 x + 2
-f = CAS::sqrt(CAS::pow(x, two) + two * x + two)
+#   _______________
+# \/  x² + 2 x + 2
+f = CAS::sqrt(CAS::pow(x, two) + two * x + two) + three
 
 # f_diff will contain the symbolic derivative of the previous
 # function

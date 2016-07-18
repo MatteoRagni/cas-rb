@@ -9,7 +9,19 @@ module CAS
   #  \___/| .__/
   #       |_|
   class Op
+    attr_reader :x
+
     def initialize(x)
+      if x.is_a? Numeric
+        case x
+        when 0
+          x = CAS::Zero
+        when 1
+          x = CAS::One
+        else
+          x = CAS.const x
+        end
+      end
       @x = x
     end
 
@@ -51,6 +63,10 @@ module CAS
     def **(op)
       CAS.pow(self, op)
     end
+
+    def simplify
+      @x.simplify
+    end
   end # Op
 
   #  ___ _                     ___
@@ -59,7 +75,29 @@ module CAS
   # |___/_|_||_\__,_|_|  \_, |\___/| .__/
   #                      |__/      |_|
   class BinaryOp < CAS::Op
+    attr_reader :x, :y
+
     def initialize(x, y)
+      if x.is_a? Numeric
+        case x
+        when 0
+          x = CAS::Zero
+        when 1
+          x = CAS::One
+        else
+          x = CAS.const x
+        end
+      end
+      if y.is_a? Numeric
+        case y
+        when 0
+          y = CAS::Zero
+        when 1
+          y = CAS::One
+        else
+          y = CAS.const y
+        end
+      end
       @x = x
       @y = y
     end
@@ -80,6 +118,11 @@ module CAS
 
     def to_s
       raise CASError, "Not Implemented. This is a virtual method"
+    end
+
+    def simplify
+      @x = @x.simplify
+      @y = @y.simplify
     end
   end # BinaryOp
 end

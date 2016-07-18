@@ -20,6 +20,23 @@ module CAS
     def to_s
       "(#{@x} + #{@y})"
     end
+
+    def simplify
+      super
+      if @x == CAS::Zero
+        return @y
+      end
+      if @y == CAS::Zero
+        return @x
+      end
+      if @x == @y
+        return @x * 2.0
+      end
+      if @x.is_a? CAS::Constant and @y.is_a? CAS::Constant
+        return CAS.const(self.call({}))
+      end
+      return self
+    end
   end # Sum
 
   #  ___  _  __  __
@@ -40,6 +57,23 @@ module CAS
 
     def to_s
       "(#{@x} - #{@y})"
+    end
+
+    def simplify
+      super
+      if @x == CAS::Zero
+        return CAS.invert(@y)
+      end
+      if @y == CAS::Zero
+        return @x
+      end
+      if @x == @y
+        return CAS::Zero
+      end
+      if @x.is_a? CAS::Constant and @y.is_a? CAS::Constant
+        return CAS.const(self.call({}))
+      end
+      return self
     end
   end # Difference
 
@@ -62,6 +96,26 @@ module CAS
     def to_s
       "(#{@x} * #{@y})"
     end
+
+    def simplify
+      super
+      if @x == CAS::Zero or @y == CAS::Zero
+        return CAS::Zero
+      end
+      if @x == CAS::One
+        return @y
+      end
+      if @y == CAS::One
+        return @y
+      end
+      if @x == @y
+        return @x ** 2.0
+      end
+      if @x.is_a? CAS::Constant and @y.is_a? CAS::Constant
+        return CAS.const(self.call({}))
+      end
+      return self
+    end
   end # Prod
 
   #  ___
@@ -72,7 +126,7 @@ module CAS
     def diff(v)
       diff_x, diff_y = super v
       if diff_y == nil or diff_y == CAS::Zero
-        return ((@x ** @y) * @y * diff_x) / @x
+        return ((@x ** (@y - 1.0)) * @y * diff_x)
       elsif diff_x == nil or diff_x == CAS::Zero
         return (@x ** @y) * diff_y * CAS.ln(@x)
       else
@@ -86,6 +140,26 @@ module CAS
 
     def to_s
       "#{@x}^#{@y}"
+    end
+
+    def simplify
+      super
+      if @x == CAS::Zero
+        return CAS::Zero
+      end
+      if @x == CAS::One
+        return CAS::One
+      end
+      if @y == CAS::One
+        return @x
+      end
+      if @y == CAS::Zero
+        return CAS::One
+      end
+      if @x.is_a? CAS::Constant and @y.is_a? CAS::Constant
+        return CAS.const(self.call({}))
+      end
+      return self
     end
   end
 
@@ -116,6 +190,26 @@ module CAS
     def to_s
       "(#{@x}) / (#{@y})"
     end
+
+    def simplify
+      super
+      if @x == CAS::Zero
+        return CAS::Zero
+      end
+      if @y == CAS::Zero
+        return CAS::Infinity
+      end
+      if @y == CAS::One
+        return @x
+      end
+      if @y == CAS::Infinity
+        return CAS::Zero
+      end
+      if @x.is_a? CAS::Constant and @y.is_a? CAS::Constant
+        return CAS.const(self.call({}))
+      end
+      return self
+    end
   end # Div
 
   #  ___           _
@@ -138,6 +232,23 @@ module CAS
 
     def to_s
       "√(#{@x})"
+    end
+
+    def simplify
+      super
+      if @x.is_a? CAS::Pow
+        return CAS.pow(@x.x, @y - 0.5)
+      end
+      if @x == CAS::Zero
+        return CAS::Zero
+      end
+      if @x == CAS::One
+        return CAS::One
+      end
+      if @x.is_a? CAS::Constant and @y.is_a? CAS::Constant
+        return CAS.const(self.call({}))
+      end
+      return self
     end
   end # Sqrt
 
@@ -165,6 +276,17 @@ module CAS
     def to_s
       "-#{@x}"
     end
+
+    def simplify
+      super
+      if @x == CAS::Zero
+        return CAS::Zero
+      end
+      if @x.is_a? CAS::Invert
+        return @x.x
+      end
+      return self
+    end
   end
 
   def self.invert(x)
@@ -191,6 +313,17 @@ module CAS
 
     def to_s
       "|#{@x}|"
+    end
+
+    def simplify
+      super
+      if @x == CAS::Zero
+        return CAS::Zero
+      end
+      if @x.is_a? CAS::Invert
+        return CAS.abs(@x.x)
+      end
+      return self
     end
   end
 

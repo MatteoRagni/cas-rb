@@ -22,6 +22,23 @@ module CAS
     def to_s
       "exp(#{@x})"
     end
+
+    def simplify
+      super
+      if @x == CAS::Zero
+        return CAS::One
+      end
+      if @x == CAS::One
+        return CAS::E
+      end
+      if @x == CAS::Infinity
+        return CAS::Infinity
+      end
+      if @x.is_a? CAS::Ln
+        return @x.x
+      end
+      return self
+    end
   end # Exp
 
   def self.exp(x)
@@ -43,15 +60,37 @@ module CAS
     end
 
     def call
-      Math::log self.x.call
+      # I'm leaving to Math the honor
+      # of handling negative values...
+      Math::log @x.call
     end
 
     def to_s
-      "ln(#{self.x})"
+      "log(#{@x})"
+    end
+
+    def simplify
+      super
+      if @x == CAS::Zero
+        return CAS.invert(CAS::Infinity)
+      end
+      if @x == CAS::One
+        return CAS::Zero
+      end
+      if @x == CAS::E
+        return CAS::One
+      end
+      if @x.is_a? CAS::Exp
+        return @x.x
+      end
+      return self
     end
   end # Ln
 
   def self.ln(x)
+    CAS::Ln.new x
+  end
+  def self.log(x)
     CAS::Ln.new x
   end
 end

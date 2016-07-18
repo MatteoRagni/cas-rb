@@ -21,7 +21,21 @@ module CAS
     def to_s
       "sin(#{@x})"
     end
-  end
+
+    def simplify
+      super
+      if @x == CAS::Zero
+        return CAS::Zero
+      end
+      if @x == CAS::Pi
+        return CAS::Zero
+      end
+      if @x.is_a? CAS::Asin
+        return @x.x
+      end
+      return self
+    end
+  end # Sin
 
   def self.sin(x)
     CAS::Sin.new x
@@ -46,6 +60,20 @@ module CAS
 
     def to_s
       "asin(#{@x})"
+    end
+
+    def simplify
+      super
+      if @x == CAS::Zero
+        return CAS::Zero
+      end
+      if @x == CAS::One
+        return CAS::Pi / 2
+      end
+      if @x.is_a? CAS::Sin
+        return @x.x
+      end
+      return self
     end
   end
 
@@ -73,6 +101,20 @@ module CAS
     def to_s
       "cos(#{self.x})"
     end
+
+    def simplify
+      super
+      if @x == CAS::Zero
+        return CAS::One
+      end
+      if @x == CAS::Pi
+        return CAS::One
+      end
+      if @x.is_a? CAS::Acos
+        return @x.x
+      end
+      return self
+    end
   end
 
   def self.cos(x)
@@ -98,6 +140,20 @@ module CAS
 
     def to_s
       "acos(#{self.x})"
+    end
+
+    def simplify
+      super
+      if @x == CAS::Zero
+        return CAS::Pi / 2
+      end
+      if @x == CAS::One
+        return CAS::Zero
+      end
+      if @x.is_a? CAS::Cos
+        return @x.x
+      end
+      return self
     end
   end
 
@@ -125,6 +181,20 @@ module CAS
     def to_s
       "tan(#{self.x})"
     end
+
+    def simplify
+      super
+      if @x == CAS::Zero
+        return CAS::Zero
+      end
+      if @x == CAS::Pi
+        return CAS::Zero
+      end
+      if @x.is_a? CAS::Atan
+        return @x.x
+      end
+      return self
+    end
   end
 
   def self.tan(x)
@@ -150,6 +220,23 @@ module CAS
 
     def to_s
       "atan(#{self.x})"
+    end
+
+    def simplify
+      super
+      if @x == CAS::Zero
+        return CAS::Zero
+      end
+      if @x == CAS::One
+        return CAS::Pi / 4
+      end
+      if @x == CAS::Infinity
+        return CAS::Pi / 2
+      end
+      if @x.is_a? CAS::Tan
+        return @x.x
+      end
+      return self
     end
   end
 

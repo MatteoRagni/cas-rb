@@ -11,9 +11,25 @@ module CAS
     end
 
     def diff(v); CAS::Zero; end
-    def call(f); @x; end
+    def call(f = {}); @x; end
     def depend?(v); false; end
     def to_s; "#{@x}"; end
+    def simplify
+      case x
+      when 0
+        return CAS::Zero
+      when 1
+        return CAS::One
+      when Math::PI
+        return CAS::Pi
+      when Math::E
+        return CAS::E
+      when 1.0/0.0
+        return CAS::Infinity
+      else
+        return self
+      end
+    end
   end
   def self.const(f)
     CAS::Constant.new f
@@ -46,6 +62,10 @@ module CAS
 
     def to_s
       "#{@name}"
+    end
+
+    def simplify
+      return self
     end
   end # Number
 
@@ -138,7 +158,7 @@ module CAS
       "∞"
     end
   end
-  INFINITY = CAS::INFINITY_CONSTANT.new
+  Infinity = CAS::INFINITY_CONSTANT.new
 
   #      _
   #  ___/ |
@@ -153,5 +173,5 @@ module CAS
       "-1"
     end
   end
-  MINUS_ONE = CAS::MINUS_ONE_CONSTANT.new
+  MinusOne = CAS::MINUS_ONE_CONSTANT.new
 end
