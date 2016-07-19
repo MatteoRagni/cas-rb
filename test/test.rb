@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require './lib/cas.rb'
+require '../lib/cas.rb'
 
 
 x = CAS::Variable.new("x")

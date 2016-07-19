@@ -36,13 +36,13 @@ f_diff_value = f_diff.call({
 # Printing the result
 puts "#{f_diff} = #{f_diff_value}"
 
-# => (((((x^2 * 2) * 1)) / (x) + (1 * 2))) / ((2.0 * √(((x^2 + (2 * x)) + 2)))) = 0.8944271909999159
+# => (((((x^(2 - 1) * 2) * 1) + ((1 * cos(x)) * 2.0)) + ((1 * exp(x)) * 3.0))) / ((2.0 * √(((x^2 + (sin(x) * 2.0)) + (exp(x) * 3.0))))) = 1.70643662864123
 
 # This equation is really messed up. We can try to simplify it
 f_diff.simplify
 puts "#{f_diff} = #{f_diff.call({x => 1.0})}"
 
-# =>
+# => ((((x * 2) + (cos(x) * 2.0)) + (exp(x) * 3.0))) / ((2.0 * √(((x^2 + (sin(x) * 2.0)) + (exp(x) * 3.0))))) = 1.70643662864123
 
 ```
 
