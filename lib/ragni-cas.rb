@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
-require_relative 'op.rb'
-require_relative 'numbers.rb'
-require_relative 'fnc-base.rb'
-require_relative 'fnc-trig.rb'
-require_relative 'fnc-trsc.rb'
+require './lib/op.rb'
+require './lib/numbers.rb'
+require './lib/fnc-base.rb'
+require './lib/fnc-trig.rb'
+require './lib/fnc-trsc.rb'

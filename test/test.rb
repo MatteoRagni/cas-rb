@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require 'ragni-cas'
+require '../lib/cas.rb'
 
 
 x = CAS::Variable.new("x")
