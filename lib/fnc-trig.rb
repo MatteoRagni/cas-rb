@@ -35,6 +35,10 @@ module CAS
       end
       return self
     end
+
+    def to_code
+      "Math::sin(#{@x.to_code})"
+    end
   end # Sin
 
   def self.sin(x)
@@ -74,6 +78,10 @@ module CAS
         return @x.x
       end
       return self
+    end
+
+    def to_code
+      "Math::asin(#{@x.to_code})"
     end
   end
 
@@ -115,6 +123,10 @@ module CAS
       end
       return self
     end
+
+    def to_code
+      "Math::cos(#{@x.to_code})"
+    end
   end
 
   def self.cos(x)
@@ -155,6 +167,10 @@ module CAS
       end
       return self
     end
+
+    def to_code
+      "Math::acos(#{@x.to_code})"
+    end
   end
 
   def self.acos(x)
@@ -194,6 +210,10 @@ module CAS
         return @x.x
       end
       return self
+    end
+
+    def to_code
+      "Math::tan(#{@x.to_code})"
     end
   end
 
@@ -237,6 +257,10 @@ module CAS
         return @x.x
       end
       return self
+    end
+
+    def to_code
+      "Math::atan(#{@x.to_code})"
     end
   end
 

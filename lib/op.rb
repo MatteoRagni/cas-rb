@@ -44,6 +44,10 @@ module CAS
       "#{@x}"
     end
 
+    def to_code
+      "#{@x}"
+    end
+
     def +(op)
       CAS::Sum.new self, op
     end
@@ -71,6 +75,18 @@ module CAS
         hash = @x.to_s
         @x = @x.simplify
       end
+    end
+
+    def inspect
+      self.to_code
+    end
+
+    def as_proc
+      eval <<-EOP
+      Proc.new do |var|
+        #{self.to_code}
+      end
+      EOP
     end
   end # Op
 
@@ -123,6 +139,10 @@ module CAS
 
     def to_s
       raise CASError, "Not Implemented. This is a virtual method"
+    end
+
+    def to_code
+      raise CASError, "Not implemented. This is a virtual method"
     end
 
     def simplify # TODO: improve this

@@ -37,6 +37,10 @@ module CAS
       end
       return self
     end
+
+    def to_code
+      "(#{@x.to_code} + #{@y.to_code})"
+    end
   end # Sum
 
   #  ___  _  __  __
@@ -74,6 +78,10 @@ module CAS
         return CAS.const(self.call({}))
       end
       return self
+    end
+
+    def to_code
+      "(#{@x.to_code} - #{@y.to_code})"
     end
   end # Difference
 
@@ -115,6 +123,10 @@ module CAS
         return CAS.const(self.call({}))
       end
       return self
+    end
+
+    def to_code
+      "(#{@x.to_code} * #{@y.to_code})"
     end
   end # Prod
 
@@ -160,6 +172,10 @@ module CAS
         return CAS.const(self.call({}))
       end
       return self
+    end
+
+    def to_code
+      "(#{@x.to_code} ** #{@y.to_code})"
     end
   end
 
@@ -210,6 +226,10 @@ module CAS
       end
       return self
     end
+
+    def to_code
+      "(#{@x.to_code} / #{@y.to_code})"
+    end
   end # Div
 
   #  ___           _
@@ -250,6 +270,10 @@ module CAS
       end
       return self
     end
+
+    def to_code
+      "Math::sqrt(#{@x.to_code})"
+    end
   end # Sqrt
 
   def self.sqrt(x)
@@ -286,6 +310,10 @@ module CAS
         return @x.x
       end
       return self
+    end
+
+    def to_code
+      "(-#{@x.to_code})"
     end
   end
 
@@ -324,6 +352,10 @@ module CAS
         return CAS.abs(@x.x)
       end
       return self
+    end
+
+    def to_code
+      "(#{@x.to_code}).abs"
     end
   end
 

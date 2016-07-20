@@ -40,12 +40,22 @@ module CAS
   #  \ V / _` | '_| / _` | '_ \ / -_)
   #   \_/\__,_|_| |_\__,_|_.__/_\___|
   class Variable < CAS::Op
+    @@counter = 0
+    @@vars = {}
+
+    def self.all_variables
+      @@vars
+    end
+
     def initialize(name = "x")
       self.is(name)
+      @@vars[@identifier] = self
+      @@counter = @@counter + 1
     end
 
     def is(name)
       @name = name
+      @identifier = "var[#{@@counter}]"
     end
 
     def diff(v)
@@ -62,6 +72,10 @@ module CAS
 
     def to_s
       "#{@name}"
+    end
+
+    def to_code
+      "#{@identifier}"
     end
 
     def simplify

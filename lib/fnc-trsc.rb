@@ -39,6 +39,10 @@ module CAS
       end
       return self
     end
+
+    def to_code
+      "Math::exp(#{@x.to_code})"
+    end
   end # Exp
 
   def self.exp(x)
@@ -84,6 +88,10 @@ module CAS
         return @x.x
       end
       return self
+    end
+
+    def to_code
+      "Math::log(#{@x.to_code})"
     end
   end # Ln
 
