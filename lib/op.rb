@@ -82,11 +82,7 @@ module CAS
     end
 
     def as_proc
-      eval <<-EOP
-      Proc.new do |var|
-        #{self.to_code}
-      end
-      EOP
+      eval("Proc.new do |var|; #{self.to_code}; end")
     end
   end # Op
 

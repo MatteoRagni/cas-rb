@@ -19,7 +19,7 @@ f_diff.simplify
 puts "#{f_diff} = #{f_diff.call({x => 1.0})}"
 
 pr = f_diff.as_proc
-puts pr
+puts pr.inspect
 puts pr.call([1.0])
 puts CAS::Variable.all_variables
 
