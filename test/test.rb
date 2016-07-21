@@ -21,7 +21,7 @@ puts "#{f_diff} = #{f_diff.call({x => 1.0})}"
 puts (f.args.map { |v| v.to_s }).join(" ")
 pr = f_diff.as_proc(binding())
 puts pr.inspect
-puts pr.call(x, {"x" => 1.0})
+puts pr.call({"x" => 1.0})
 puts CAS::Variable.list
 
 class Alpha
@@ -38,7 +38,7 @@ class Alpha
 end
 
 t = Alpha.new f, x
-puts t.f(x, {x => 1.0}), t.df(x, {x => 1.0})
+puts t.f({"x" => 1.0}), t.df({"x" => 1.0})
 
 puts f.args.inspect
 

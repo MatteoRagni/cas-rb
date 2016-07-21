@@ -41,7 +41,8 @@ module CAS
     end
 
     def subs(dt)
-      @x == dt[@x] if dt[@x].inspect == @x.inspect
+      @x == dt[@x] if dt.keys.include? @x
+      return self
     end
 
     def to_s
@@ -99,8 +100,10 @@ module CAS
     end
 
     def as_proc(bind)
-      arguments = (self.args.map { |e| e.to_s }).join(" ")
-      bind.eval("Proc.new do |#{arguments}, fd|; #{self.to_code}; end")
+      args_ext = self.args.map { |e| "#{e} = fd[\"#{e}\"];" }
+      code = "Proc.new do |fd|; #{args_ext.join " "} #{self.to_code}; end"
+      puts code
+      bind.eval(code)
     end
 
     def args
@@ -152,8 +155,9 @@ module CAS
     end
 
     def subs(dt)
-      @x = dt[@x] if dt[@x].inspect @x.inspect
-      @y = dt[@y] if dt[@y].inspect @y.inspect
+      @x = dt[@x] if dt.keys.include? @x
+      @y = dt[@y] if dt.keys.include? @y
+      return self
     end
 
     def call

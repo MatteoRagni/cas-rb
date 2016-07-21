@@ -44,6 +44,16 @@ puts "#{f_diff} = #{f_diff.call({x => 1.0})}"
 
 # => ((((x * 2) + (cos(x) * 2.0)) + (exp(x) * 3.0))) / ((2.0 * √(((x^2 + (sin(x) * 2.0)) + (exp(x) * 3.0))))) = 1.70643662864123
 
+# Something more is at initial stage right now:
+y, z = CAS::vars :x, :y
+
+puts (x + y == y + x)
+# => true
+
+eq = (x + y).subs({x => CAS::log(y)})
+puts eq
+# => (log(y) + y)
+
 ```
 
 ## Disclaimer

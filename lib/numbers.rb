@@ -47,7 +47,7 @@ module CAS
       "Const(#{@x})"
     end
   end
-  
+
   def self.const(f)
     CAS::Constant.new f
   end
@@ -95,7 +95,7 @@ module CAS
     end
 
     def to_code
-      "#{@name}.call(fd)"
+      "#{@name}"
     end
 
     def args
@@ -111,8 +111,13 @@ module CAS
     end
   end # Number
 
-  def self.variable(name)
-    CAS::Variable.new name
+  def self.vars(*name)
+    (return CAS::Variable.new(name[0])) if name.size == 1
+    ret = []
+    name.each do |n|
+      ret << CAS::Variable.new(n)
+    end
+    return ret
   end
 
   #  _______ ___  ___
