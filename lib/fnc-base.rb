@@ -32,10 +32,17 @@ module CAS
       if @x == @y
         return @x * 2.0
       end
+      if @x == -@y or -@x == @y
+        return CAS::Zero
+      end 
       if @x.is_a? CAS::Constant and @y.is_a? CAS::Constant
         return CAS.const(self.call({}))
       end
       return self
+    end
+
+    def ==(op)
+      self.class == op.class and ((@x == op.x and @y == op.y) or (@y == op.x and @x == op.y))
     end
 
     def to_code
@@ -78,6 +85,10 @@ module CAS
         return CAS.const(self.call({}))
       end
       return self
+    end
+
+    def ==(op)
+      self.class == op.class and ((@x == op.x and @y == op.y) or (@y == op.x and @x == op.y))
     end
 
     def to_code
@@ -123,6 +134,10 @@ module CAS
         return CAS.const(self.call({}))
       end
       return self
+    end
+
+    def ==(op)
+      self.class == op.class and ((@x == op.x and @y == op.y) or (@y == op.x and @x == op.y))
     end
 
     def to_code

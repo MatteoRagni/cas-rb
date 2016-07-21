@@ -11,9 +11,13 @@ module CAS
     end
 
     def diff(v); CAS::Zero; end
-    def call(f = {}); @x; end
+
+    def call(f); @x; end
+
     def depend?(v); false; end
+
     def to_s; "#{@x}"; end
+
     def simplify
       case x
       when 0
@@ -30,7 +34,20 @@ module CAS
         return self
       end
     end
+
+    def args
+      []
+    end
+
+    def ==(op)
+      @x == op.x
+    end
+
+    def inspect
+      "Const(#{@x})"
+    end
   end
+  
   def self.const(f)
     CAS::Constant.new f
   end
@@ -40,22 +57,20 @@ module CAS
   #  \ V / _` | '_| / _` | '_ \ / -_)
   #   \_/\__,_|_| |_\__,_|_.__/_\___|
   class Variable < CAS::Op
-    @@counter = 0
     @@vars = {}
+    @@counter = 0
 
-    def self.all_variables
-      @@vars
+    def self.list; @@vars; end
+    def self.size; @@counter; end
+    def self.exist?(name)
+      @@vars.keys.include? name
     end
 
-    def initialize(name = "x")
-      self.is(name)
-      @@vars[@identifier] = self
-      @@counter = @@counter + 1
-    end
-
-    def is(name)
+    def initialize(name)
+      raise CASError, "Variable #{name} already exists" if CAS::Variable.exist? name
       @name = name
-      @identifier = "var[#{@@counter}]"
+      @@vars[@name] = self
+      @@counter = @@counter + 1
     end
 
     def diff(v)
@@ -66,8 +81,13 @@ module CAS
       self == v
     end
 
+    def ==(op)
+      self.inspect == op.inspect
+    end
+
     def call(f)
-      f[self]
+      return f[self] if f[self]
+      return f[@name] if f[@name]
     end
 
     def to_s
@@ -75,13 +95,25 @@ module CAS
     end
 
     def to_code
-      "#{@identifier}"
+      "#{@name}.call(fd)"
+    end
+
+    def args
+      [self]
+    end
+
+    def inspect
+      "Var(#{@name})"
     end
 
     def simplify
-      return self
+      self
     end
   end # Number
+
+  def self.variable(name)
+    CAS::Variable.new name
+  end
 
   #  _______ ___  ___
   # |_  / __| _ \/ _ \

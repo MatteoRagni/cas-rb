@@ -18,17 +18,18 @@ puts "#{f_diff} = #{f_diff_value}"
 f_diff.simplify
 puts "#{f_diff} = #{f_diff.call({x => 1.0})}"
 
-pr = f_diff.as_proc
+puts (f.args.map { |v| v.to_s }).join(" ")
+pr = f_diff.as_proc(binding())
 puts pr.inspect
-puts pr.call([1.0])
-puts CAS::Variable.all_variables
+puts pr.call(x, {"x" => 1.0})
+puts CAS::Variable.list
 
 class Alpha
   def initialize(op, var)
     @f = op
     @df = op.diff(var).simplify
-    self.create_method(:f, @f.as_proc)
-    self.create_method(:df, @df.as_proc)
+    self.create_method(:f, @f.as_proc(binding()))
+    self.create_method(:df, @df.as_proc(binding()))
   end
 
   def create_method(name, block)
@@ -37,4 +38,12 @@ class Alpha
 end
 
 t = Alpha.new f, x
-puts t.f([1.0]), t.df([1.0])
+puts t.f(x, {x => 1.0}), t.df(x, {x => 1.0})
+
+puts f.args.inspect
+
+begin
+  y = CAS::Variable.new "x"
+rescue CAS::CASError
+  puts "Rescued y = #{y}"
+end

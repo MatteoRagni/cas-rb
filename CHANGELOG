@@ -2,3 +2,4 @@ Version 0.1.0: The first release of the Gem, complete of all classes.
 Version 0.1.2: Added `CAS::Op#to_code`
 Version 0.1.3: Automated some part of the build, changed inspection
 Version 0.1.4: Converting Op in proc
+Version 0.1.5: Added == methods ad some more simplifications

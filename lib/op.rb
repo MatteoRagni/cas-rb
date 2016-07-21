@@ -40,6 +40,10 @@ module CAS
       @x.call(f)
     end
 
+    def subs(dt)
+      @x == dt[@x] if dt[@x].inspect == @x.inspect
+    end
+
     def to_s
       "#{@x}"
     end
@@ -68,6 +72,10 @@ module CAS
       CAS.pow(self, op)
     end
 
+    def -@
+      CAS.invert(self)
+    end
+
     def simplify # TODO: improve this
       hash = @x.to_s
       @x = @x.simplify
@@ -78,11 +86,25 @@ module CAS
     end
 
     def inspect
-      self.to_code
+      "#{self.class}(#{@x.inspect})"
     end
 
-    def as_proc
-      eval("Proc.new do |var|; #{self.to_code}; end")
+
+    def ==(op)
+      self.class == op.class and @x == op.x
+    end
+
+    def !=(op)
+      not self.==(op)
+    end
+
+    def as_proc(bind)
+      arguments = (self.args.map { |e| e.to_s }).join(" ")
+      bind.eval("Proc.new do |#{arguments}, fd|; #{self.to_code}; end")
+    end
+
+    def args
+      @x.args.uniq
     end
   end # Op
 
@@ -129,6 +151,11 @@ module CAS
       return left, right
     end
 
+    def subs(dt)
+      @x = dt[@x] if dt[@x].inspect @x.inspect
+      @y = dt[@y] if dt[@y].inspect @y.inspect
+    end
+
     def call
       raise CASError, "Not Implemented. This is a virtual method"
     end
@@ -139,6 +166,18 @@ module CAS
 
     def to_code
       raise CASError, "Not implemented. This is a virtual method"
+    end
+
+    def args
+      (@x.args + @y.args).uniq
+    end
+
+    def inspect
+      "#{self.class}(#{@x.inspect}, #{@y.inspect})"
+    end
+
+    def ==(op)
+      self.class == op.class and @x == op.x and @y == op.y
     end
 
     def simplify # TODO: improve this
