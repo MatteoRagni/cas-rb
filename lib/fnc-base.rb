@@ -34,7 +34,7 @@ module CAS
       end
       if @x == -@y or -@x == @y
         return CAS::Zero
-      end 
+      end
       if @x.is_a? CAS::Constant and @y.is_a? CAS::Constant
         return CAS.const(self.call({}))
       end
@@ -302,7 +302,7 @@ module CAS
   class Invert < CAS::Op
     def diff(v)
       if @x.depend? v
-        CAS::const(-1.0) * @x.diff
+        CAS::const(-1.0) * @x.diff(v)
       else
         CAS::Zero
       end

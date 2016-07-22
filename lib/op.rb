@@ -102,7 +102,6 @@ module CAS
     def as_proc(bind)
       args_ext = self.args.map { |e| "#{e} = fd[\"#{e}\"];" }
       code = "Proc.new do |fd|; #{args_ext.join " "} #{self.to_code}; end"
-      puts code
       bind.eval(code)
     end
 

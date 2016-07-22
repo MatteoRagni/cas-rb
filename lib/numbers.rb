@@ -40,7 +40,11 @@ module CAS
     end
 
     def ==(op)
-      @x == op.x
+      if op.is_a? CAS::Constant
+        return @x == op.x
+      else
+        return false
+      end
     end
 
     def inspect
@@ -59,7 +63,7 @@ module CAS
     (return CAS::Constant.new(val[0])) if val.size == 1
     ret = []
     val.each do |n|
-      ret << CAS::Variable.new(n)
+      ret << CAS::Constant.new(n)
     end
     return ret
   end
@@ -78,6 +82,7 @@ module CAS
       @@vars.keys.include? name
     end
 
+    attr_reader :name
     def initialize(name)
       raise CASError, "Variable #{name} already exists" if CAS::Variable.exist? name
       @name = name
