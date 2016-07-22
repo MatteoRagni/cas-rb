@@ -109,6 +109,11 @@ module CAS
     def args
       @x.args.uniq
     end
+
+    def dot_graph(node)
+      cls = "#{self.class.to_s.gsub("CAS::", "")}_#{self.object_id}"
+      "#{cls} -> #{@x.dot_graph node}\n"
+    end
   end # Op
 
   #  ___ _                     ___
@@ -197,6 +202,11 @@ module CAS
         hash = @y.to_s
         @y = @y.simplify
       end
+    end
+
+    def dot_graph(node)
+      cls = "#{self.class.to_s.gsub("CAS::", "")}_#{self.object_id}"
+      "#{cls} -> #{@x.dot_graph node}\n  #{cls} -> #{@y.dot_graph node}"
     end
   end # BinaryOp
 end

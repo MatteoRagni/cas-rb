@@ -15,6 +15,8 @@ f_diff_value = f_diff.call({
 
 puts "#{f_diff} = #{f_diff_value}"
 
+puts CAS::export_dot("/tmp/dot_file0.dot", f_diff)
+
 f_diff.simplify
 puts "#{f_diff} = #{f_diff.call({x => 1.0})}"
 
@@ -47,3 +49,5 @@ begin
 rescue CAS::CASError
   puts "Rescued y = #{y}"
 end
+
+puts CAS::export_dot("/tmp/dot_file1.dot", f_diff)

@@ -46,10 +46,22 @@ module CAS
     def inspect
       "Const(#{@x})"
     end
+
+    def dot_graph(node)
+      "#{self.class.to_s.gsub("CAS::", "")}_#{self.object_id};"
+    end
   end
 
   def self.const(f)
     CAS::Constant.new f
+  end
+  def self.const(*val)
+    (return CAS::Constant.new(val[0])) if val.size == 1
+    ret = []
+    val.each do |n|
+      ret << CAS::Variable.new(n)
+    end
+    return ret
   end
 
   # __   __        _      _    _
@@ -108,6 +120,10 @@ module CAS
 
     def simplify
       self
+    end
+
+    def dot_graph(node)
+      "#{@name};"
     end
   end # Number
 
