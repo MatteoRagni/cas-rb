@@ -5,3 +5,4 @@ Version 0.1.4: Converting Op in proc
 Version 0.1.5: Added == methods ad some more simplifications
 Version 0.1.6: Implemented substitutions and reductions with subs method
 Version 0.1.7: Graphviz method
+Version 0.1.8: Unit test implemented, doc in sources
