@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class CAS::Constant - RDoc Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script src="../js/jquery.js"></script>
+<script src="../js/darkfish.js"></script>
+
+<link href="../css/fonts.css" rel="stylesheet">
+<link href="../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../table_of_contents.html#pages">Pages</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="Op.html">CAS::Op</a>
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-3D-3D">#==</a>
+    
+    <li ><a href="#method-i-args">#args</a>
+    
+    <li ><a href="#method-i-call">#call</a>
+    
+    <li ><a href="#method-i-depend-3F">#depend?</a>
+    
+    <li ><a href="#method-i-diff">#diff</a>
+    
+    <li ><a href="#method-i-dot_graph">#dot_graph</a>
+    
+    <li ><a href="#method-i-inspect">#inspect</a>
+    
+    <li ><a href="#method-i-simplify">#simplify</a>
+    
+    <li ><a href="#method-i-to_s">#to_s</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-CAS::Constant">
+  <h1 id="class-CAS::Constant" class="class">
+    class CAS::Constant
+  </h1>
+
+  <section class="description">
+    
+<p><strong>_ _ _  / |_ _ _ | |_ __ _ _ <em>| |</em> | (/ _ \ &#39; (<em>-&lt;
+/ ` | &#39; \ | 
+__</em>/<em>||</em>/</strong>/_<em>_</em>,<em>|</em>||<em>_</em>|</p>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(x)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/numbers.rb, line 9</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">x</span>)
+  <span class="ruby-ivar">@x</span> = <span class="ruby-identifier">x</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-3D-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">==</span><span
+            class="method-args">(op)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Same as <code>CAS::Op</code></p>
+          
+          
+
+          
+          <div class="method-source-code" id="3D-3D-source">
+            <pre><span class="ruby-comment"># File lib/numbers.rb, line 57</span>
+<span class="ruby-keyword">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">op</span>)
+  <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">op</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>)
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Constant</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-ivar">@x</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">x</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-args" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">args</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Same as <code>CAS::Op</code></p>
+          
+          
+
+          
+          <div class="method-source-code" id="args-source">
+            <pre><span class="ruby-comment"># File lib/numbers.rb, line 52</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">args</span>
+  []
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-call" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">call</span><span
+            class="method-args">(f)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Same as <code>CAS::Op</code></p>
+          
+          
+
+          
+          <div class="method-source-code" id="call-source">
+            <pre><span class="ruby-comment"># File lib/numbers.rb, line 19</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">f</span>)
+  <span class="ruby-ivar">@x</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-depend-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">depend?</span><span
+            class="method-args">(v)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Same as <code>CAS::Op</code></p>
+          
+          
+
+          
+          <div class="method-source-code" id="depend-3F-source">
+            <pre><span class="ruby-comment"># File lib/numbers.rb, line 24</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">depend?</span>(<span class="ruby-identifier">v</span>)
+  <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-diff" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">diff</span><span
+            class="method-args">(v)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The derivative of a constant is always zero</p>
+          
+          
+
+          
+          <div class="method-source-code" id="diff-source">
+            <pre><span class="ruby-comment"># File lib/numbers.rb, line 14</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)
+  <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-dot_graph" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">dot_graph</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Same as <code>CAS::Op</code></p>
+          
+          
+
+          
+          <div class="method-source-code" id="dot_graph-source">
+            <pre><span class="ruby-comment"># File lib/numbers.rb, line 73</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">dot_graph</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-node">&quot;#{self.class.to_s.gsub(&quot;CAS::&quot;, &quot;&quot;)}_#{self.object_id};&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-inspect" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">inspect</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Same as <code>CAS::Op</code></p>
+          
+          
+
+          
+          <div class="method-source-code" id="inspect-source">
+            <pre><span class="ruby-comment"># File lib/numbers.rb, line 68</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">inspect</span>
+  <span class="ruby-node">&quot;Const(#{@x})&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-simplify" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">simplify</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Same as <code>CAS::Op</code></p>
+          
+          
+
+          
+          <div class="method-source-code" id="simplify-source">
+            <pre><span class="ruby-comment"># File lib/numbers.rb, line 34</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">simplify</span>
+  <span class="ruby-keyword">case</span> <span class="ruby-ivar">@x</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-value">0</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-value">1</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">One</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-constant">Math</span><span class="ruby-operator">::</span><span class="ruby-constant">PI</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Pi</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-constant">Math</span><span class="ruby-operator">::</span><span class="ruby-constant">E</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">E</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-value">1.0</span><span class="ruby-operator">/</span><span class="ruby-value">0.0</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Infinity</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-to_s" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">to_s</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Same as <code>CAS::Op</code></p>
+          
+          
+
+          
+          <div class="method-source-code" id="to_s-source">
+            <pre><span class="ruby-comment"># File lib/numbers.rb, line 29</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
+  <span class="ruby-node">&quot;#{@x}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.1.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

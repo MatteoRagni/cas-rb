@@ -1,0 +1,18 @@
+Mon, 25 Jul 2016 12:59:40 +0200
+./certs/MatteoRagni.pem	Tue, 19 Jul 2016 11:42:37 +0200
+./CHANGELOG	Fri, 22 Jul 2016 09:43:34 +0200
+./lib/fnc-base.rb	Mon, 25 Jul 2016 12:36:51 +0200
+./lib/fnc-branch.rb	Mon, 25 Jul 2016 12:55:55 +0200
+./lib/fnc-trig.rb	Mon, 25 Jul 2016 12:39:15 +0200
+./lib/fnc-trsc.rb	Mon, 25 Jul 2016 12:40:25 +0200
+./lib/numbers.rb	Mon, 25 Jul 2016 12:53:29 +0200
+./lib/op.rb	Mon, 25 Jul 2016 12:16:56 +0200
+./lib/ragni-cas.rb	Mon, 25 Jul 2016 09:23:30 +0200
+./lib/version.rb	Mon, 25 Jul 2016 09:23:32 +0200
+./ragni-cas-0.1.4.gem	Thu, 21 Jul 2016 18:21:47 +0200
+./ragni-cas-0.1.5.gem	Thu, 21 Jul 2016 18:56:21 +0200
+./ragni-cas-0.1.6.gem	Fri, 22 Jul 2016 09:26:38 +0200
+./ragni-cas-0.1.7.gem	Mon, 25 Jul 2016 09:23:34 +0200
+./ragni-cas.gemspec	Sat, 23 Jul 2016 18:16:42 +0200
+./README.md	Thu, 21 Jul 2016 19:02:42 +0200
+./test/test.rb	Sun, 24 Jul 2016 11:40:31 +0200
