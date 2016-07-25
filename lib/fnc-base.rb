@@ -15,8 +15,9 @@ module CAS
     # ```
     def diff(v)
       left, right = super v
-      return left if (right == nil or right == CAS::Zero)
-      return right if (left == nil or left == CAS::Zero)
+
+      return left if right == CAS::Zero
+      return right if left == CAS::Zero
       left + right
     end
 
@@ -80,8 +81,8 @@ module CAS
     # ```
     def diff(v)
       left, right = super v
-      return left if (right == nil or right == CAS::Zero)
-      return CAS::Invert.new(right) if (left == nil or left == CAS::Zero)
+      return left if right == CAS::Zero
+      return CAS::Invert.new(right) if left == CAS::Zero
       left - right
     end
 
@@ -141,8 +142,8 @@ module CAS
     # ```
     def diff(v)
       left, right = super v
-      return left * @y if (right == nil or right == CAS::Zero)
-      return right * @x if (left == nil or left == CAS::Zero)
+      return left * @y if right == CAS::Zero
+      return right * @x if left == CAS::Zero
       (left * @y) + (right * @x)
     end
 
@@ -214,9 +215,9 @@ module CAS
     # ```
     def diff(v)
       diff_x, diff_y = super v
-      if diff_y == nil or diff_y == CAS::Zero
+      if diff_y == CAS::Zero
         return ((@x ** (@y - 1.0)) * @y * diff_x)
-      elsif diff_x == nil or diff_x == CAS::Zero
+      elsif diff_x == CAS::Zero
         return (@x ** @y) * diff_y * CAS.ln(@x)
       else
         return (@x ** @y) * ((diff_y * CAS.ln(@x)) + (@y * diff_x / @x))
@@ -280,9 +281,9 @@ module CAS
     # ```
     def diff(v)
       diff_x, diff_y = super v
-      if diff_y == nil or diff_y == CAS::Zero
+      if diff_y == CAS::Zero
         return (diff_x/@y)
-      elsif diff_x == nil or diff_x == CAS::Zero
+      elsif diff_x == CAS::Zero
         return CAS.invert(@x * diff_y / CAS.pow(@y, CAS.const(2.0)))
       else
         return ((diff_x * @y) - (diff_y * @x))/CAS.pow(@y, CAS.const(2.0))

@@ -310,9 +310,11 @@ module CAS
     # -> `Array` of differentiated branches ([0] for left, [1] for right)
     def diff(v)
       CAS::Help.assert(v, CAS::Op)
+      left, right = CAS::Zero, CAS::Zero
 
       left = @x.diff(v) if @x.depend? v
       right = @y.diff(v) if @y.depend? v
+
       return left, right
     end
 
@@ -371,7 +373,7 @@ module CAS
     def ==(op)
       CAS::Help.assert(op, CAS::Op)
       if op.is_a? CAS::BinaryOp
-        return self.class == op.class and @x == op.x and @y == op.y
+        return (self.class == op.class and @x == op.x and @y == op.y)
       else
         return false
       end
