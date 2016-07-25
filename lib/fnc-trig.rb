@@ -14,14 +14,19 @@ module CAS
       end
     end
 
+    # Same as `CAS::Op`
     def call(f)
+      CAS::Help.assert(f, Hash)
+
       Math::sin @x.call(f)
     end
 
+    # Same as `CAS::Op`
     def to_s
       "sin(#{@x})"
     end
 
+    # Same as `CAS::Op`
     def simplify
       super
       if @x == CAS::Zero
@@ -36,6 +41,7 @@ module CAS
       return self
     end
 
+    # Same as `CAS::Op`
     def to_code
       "Math::sin(#{@x.to_code})"
     end
@@ -58,14 +64,19 @@ module CAS
       end
     end
 
+    # Same as `CAS::Op`
     def call(f)
+      CAS::Help.assert(f, Hash)
+
       Math::acos @x.call(f)
     end
 
+    # Same as `CAS::Op`
     def to_s
       "asin(#{@x})"
     end
 
+    # Same as `CAS::Op`
     def simplify
       super
       if @x == CAS::Zero
@@ -80,6 +91,7 @@ module CAS
       return self
     end
 
+    # Same as `CAS::Op`
     def to_code
       "Math::asin(#{@x.to_code})"
     end
@@ -102,14 +114,19 @@ module CAS
       end
     end
 
+    # Same as `CAS::Op`
     def call(f)
-      Math::cos self.x.call(f)
+      CAS::Help.assert(f, Hash)
+
+      Math::cos @x.call(f)
     end
 
+    # Same as `CAS::Op`
     def to_s
-      "cos(#{self.x})"
+      "cos(#{@x})"
     end
 
+    # Same as `CAS::Op`
     def simplify
       super
       if @x == CAS::Zero
@@ -124,6 +141,7 @@ module CAS
       return self
     end
 
+    # Same as `CAS::Op`
     def to_code
       "Math::cos(#{@x.to_code})"
     end
@@ -146,14 +164,19 @@ module CAS
       end
     end
 
+    # Same as `CAS::Op`
     def call(f)
+      CAS::Help.assert(f, Hash)
 
+      return Math::acos @x
     end
 
+    # Same as `CAS::Op`
     def to_s
-      "acos(#{self.x})"
+      "acos(#{@x})"
     end
 
+    # Same as `CAS::Op`
     def simplify
       super
       if @x == CAS::Zero
@@ -168,6 +191,7 @@ module CAS
       return self
     end
 
+    # Same as `CAS::Op`
     def to_code
       "Math::acos(#{@x.to_code})"
     end
@@ -190,14 +214,19 @@ module CAS
       end
     end
 
+    # Same as `CAS::Op`
     def call(f)
-      Math::tan self.x.call
+      CAS::Help.assert(f, Hash)
+
+      Math::tan @x.call
     end
 
+    # Same as `CAS::Op`
     def to_s
-      "tan(#{self.x})"
+      "tan(#{@x})"
     end
 
+    # Same as `CAS::Op`
     def simplify
       super
       if @x == CAS::Zero
@@ -212,6 +241,7 @@ module CAS
       return self
     end
 
+    # Same as `CAS::Op`
     def to_code
       "Math::tan(#{@x.to_code})"
     end
@@ -234,14 +264,19 @@ module CAS
       end
     end
 
-    def call
-      Math::atan self.x.call
+    # Same as `CAS::Op`
+    def call(f)
+      CAS::Help.assert(f, Hash)
+
+      Math::atan @x.call
     end
 
+    # Same as `CAS::Op`
     def to_s
-      "atan(#{self.x})"
+      "atan(#{@x})"
     end
 
+    # Same as `CAS::Op`
     def simplify
       super
       if @x == CAS::Zero
@@ -259,6 +294,7 @@ module CAS
       return self
     end
 
+    # Same as `CAS::Op`
     def to_code
       "Math::atan(#{@x.to_code})"
     end

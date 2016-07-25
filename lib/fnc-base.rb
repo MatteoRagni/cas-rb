@@ -6,6 +6,13 @@ module CAS
   # \__ \ || | '  \
   # |___/\_,_|_|_|_|
   class Sum < CAS::BinaryOp
+    # Performs the sum between two `CAS::Op`
+    #
+    # ```
+    #   d
+    # ---- (f(x) + g(x)) = f'(x) + g'(x)
+    #  dx
+    # ```
     def diff(v)
       left, right = super v
       return left if (right == nil or right == CAS::Zero)
@@ -13,14 +20,19 @@ module CAS
       left + right
     end
 
+    # Same as `CAS::Op`
     def call(f)
+      CAS::Help.assert(f, Hash)
+
       return @x.call(f) + @y.call(f)
     end
 
+    # Same as `CAS::Op`
     def to_s
       "(#{@x} + #{@y})"
     end
 
+    # Same as `CAS::Op`
     def simplify
       super
       if @x == CAS::Zero
@@ -41,10 +53,14 @@ module CAS
       return self
     end
 
+    # Same as `CAS::Op`
     def ==(op)
+      CAS::Help.assert(op, CAS::Op)
+
       self.class == op.class and ((@x == op.x and @y == op.y) or (@y == op.x and @x == op.y))
     end
 
+    # Same as `CAS::Op`
     def to_code
       "(#{@x.to_code} + #{@y.to_code})"
     end
@@ -55,6 +71,13 @@ module CAS
   # | |) | |  _|  _/
   # |___/|_|_| |_|
   class Diff < CAS::BinaryOp
+    # Performs the difference between two `CAS::Op`s
+    #
+    # ```
+    #   d
+    # ---- (f(x) - g(x)) = f'(x) - g'(x)
+    #  dx
+    # ```
     def diff(v)
       left, right = super v
       return left if (right == nil or right == CAS::Zero)
@@ -62,14 +85,19 @@ module CAS
       left - right
     end
 
+    # Same as `CAS::Op`
     def call(f)
+      CAS::Help.assert(f, Hash)
+
       return @x.call(f) - @y.call(f)
     end
 
+    # Same as `CAS::Op`
     def to_s
       "(#{@x} - #{@y})"
     end
 
+    # Same as `CAS::Op`
     def simplify
       super
       if @x == CAS::Zero
@@ -87,10 +115,13 @@ module CAS
       return self
     end
 
+    # Same as `CAS::Op`
     def ==(op)
+      CAS::Help.assert(op, CAS::Op)
       self.class == op.class and ((@x == op.x and @y == op.y) or (@y == op.x and @x == op.y))
     end
 
+    # Same as `CAS::Op`
     def to_code
       "(#{@x.to_code} - #{@y.to_code})"
     end
@@ -101,6 +132,13 @@ module CAS
   # |  _/ '_/ _ \/ _` |
   # |_| |_| \___/\__,_|
   class Prod < CAS::BinaryOp
+    # Performs the product between two `CAS::Op`
+    #
+    # ```
+    #   d
+    # ---- (f(x) * g(x)) = f'(x) * g(x) + f(x) * g'(x)
+    #  dx
+    # ```
     def diff(v)
       left, right = super v
       return left * @y if (right == nil or right == CAS::Zero)
@@ -108,14 +146,19 @@ module CAS
       (left * @y) + (right * @x)
     end
 
+    # Same as `CAS::Op`
     def call(f)
+      CAS::Help.assert(f, Hash)
+
       return @x.call(f) * @y.call(f)
     end
 
+    # Same as `CAS::Op`
     def to_s
       "(#{@x} * #{@y})"
     end
 
+    # Same as `CAS::Op`
     def simplify
       super
       if @x == CAS::Zero or @y == CAS::Zero
@@ -136,10 +179,14 @@ module CAS
       return self
     end
 
+    # Same as `CAS::Op`
     def ==(op)
+      CAS::Help.assert(op, CAS::Op)
+
       self.class == op.class and ((@x == op.x and @y == op.y) or (@y == op.x and @x == op.y))
     end
 
+    # Same as `CAS::Op`
     def to_code
       "(#{@x.to_code} * #{@y.to_code})"
     end
@@ -150,6 +197,21 @@ module CAS
   # |  _/ _ \ V  V /
   # |_| \___/\_/\_/
   class Pow < CAS::BinaryOp
+    # Performs the power between two `CAS::Op`
+    #
+    # ```
+    #   d
+    # ---- (f(x)^a) = f(x)^(a - 1) * a * f'(x)
+    #  dx
+    #
+    #   d
+    # ---- (a^f(x)) = a^f(x) * f'(x) * ln a
+    #  dx
+    #
+    #   d
+    # ---- (f(x)^g(x)) = (f(x)^g(x)) * (g'(x) * ln f(x) + g(x) * f'(x) / f(x))
+    #  dx
+    # ```
     def diff(v)
       diff_x, diff_y = super v
       if diff_y == nil or diff_y == CAS::Zero
@@ -161,14 +223,19 @@ module CAS
       end
     end
 
+    # Same as `CAS::Op`
     def call(f)
+      CAS::Help.assert(f, Hash)
+
       @x.call(f) ** @y.call(f)
     end
 
+    # Same as `CAS::Op`
     def to_s
       "#{@x}^#{@y}"
     end
 
+    # Same as `CAS::Op`
     def simplify
       super
       if @x == CAS::Zero
@@ -189,6 +256,7 @@ module CAS
       return self
     end
 
+    # Same as `CAS::Op`
     def to_code
       "(#{@x.to_code} ** #{@y.to_code})"
     end
@@ -203,6 +271,13 @@ module CAS
   # | |) | \ V /
   # |___/|_|\_/
   class Div < CAS::BinaryOp
+    # Performs the division between two `CAS::Op`
+    #
+    # ```
+    #   d
+    # ---- (f(x) / g(x)) = (f'(x) * g(x) - f(x) * g'(x))/(g(x)^2)
+    #  dx
+    # ```
     def diff(v)
       diff_x, diff_y = super v
       if diff_y == nil or diff_y == CAS::Zero
@@ -214,14 +289,19 @@ module CAS
       end
     end
 
+    # Same as `CAS::Op`
     def call(f)
+      CAS::Help.assert(f, Hash)
+
       @x.call(f)/@y.call(f)
     end
 
+    # Same as `CAS::Op`
     def to_s
       "(#{@x}) / (#{@y})"
     end
 
+    # Same as `CAS::Op`
     def simplify
       super
       if @x == CAS::Zero
@@ -242,6 +322,7 @@ module CAS
       return self
     end
 
+    # Same as `CAS::Op`
     def to_code
       "(#{@x.to_code} / #{@y.to_code})"
     end
@@ -253,6 +334,13 @@ module CAS
   # |___/\__, |_|  \__|
   #         |_|
   class Sqrt < CAS::Op
+    # Performs the square root between two `CAS::Op`
+    #
+    # ```
+    #   d
+    # ---- √f(x) = 1/2 * f'(x) * √f(x)
+    #  dx
+    # ```
     def diff(v)
       if @x.depend? v
         return (@x.diff(v) / (CAS.const(2.0) * CAS.sqrt(@x)))
@@ -261,14 +349,19 @@ module CAS
       end
     end
 
+    # Same as `CAS::Op`
     def call(f)
+      CAS::Help.assert(f, Hash)
+
       Math::sqrt @x.call(f)
     end
 
+    # Same as `CAS::Op`
     def to_s
       "√(#{@x})"
     end
 
+    # Same as `CAS::Op`
     def simplify
       super
       if @x.is_a? CAS::Pow
@@ -286,6 +379,7 @@ module CAS
       return self
     end
 
+    # Same as `CAS::Op`
     def to_code
       "Math::sqrt(#{@x.to_code})"
     end
@@ -300,6 +394,13 @@ module CAS
   #  | || ' \ V / -_) '_|  _|
   # |___|_||_\_/\___|_|  \__|
   class Invert < CAS::Op
+    # Performs the inversion of a `CAS::Op`
+    #
+    # ```
+    #   d
+    # ---- (-f(x)) = -f'(x)
+    #  dx
+    # ```
     def diff(v)
       if @x.depend? v
         CAS::const(-1.0) * @x.diff(v)
@@ -308,14 +409,19 @@ module CAS
       end
     end
 
+    # Same as `CAS::Op`
     def call(f)
+      CAS::Help.assert(f, Hash)
+
       -1.0 * @x.call(f)
     end
 
+    # Same as `CAS::Op`
     def to_s
       "-#{@x}"
     end
 
+    # Same as `CAS::Op`
     def simplify
       super
       if @x == CAS::Zero
@@ -327,6 +433,7 @@ module CAS
       return self
     end
 
+    # Same as `CAS::Op`
     def to_code
       "(-#{@x.to_code})"
     end
@@ -341,6 +448,13 @@ module CAS
   #  / _ \| '_ (_-<
   # /_/ \_\_.__/__/
   class Abs < CAS::Op
+    # Performs the absolute value of a `CAS::Op`
+    #
+    # ```
+    #   d
+    # ---- |f(x)| = f'(x) * (f(x) / |f(x)|)
+    #  dx
+    # ```
     def diff(v)
       if @x.depend? v
         return @x.diff * (@x/CAS.abs(@x))
@@ -349,15 +463,20 @@ module CAS
       end
     end
 
+    # Same as `CAS::Op`
     def call(f)
+      CAS::Help.assert(f, Hash)
+
       s = (@x.call(f) >= 0 ? 1 : -1)
       return s * @x.call(f)
     end
 
+    # Same as `CAS::Op`
     def to_s
       "|#{@x}|"
     end
 
+    # Same as `CAS::Op`
     def simplify
       super
       if @x == CAS::Zero
@@ -369,6 +488,7 @@ module CAS
       return self
     end
 
+    # Same as `CAS::Op`
     def to_code
       "(#{@x.to_code}).abs"
     end

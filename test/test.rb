@@ -46,8 +46,10 @@ puts f.args.inspect
 
 begin
   y = CAS::Variable.new "x"
-rescue CAS::CASError
-  puts "Rescued y = #{y}"
+rescue CAS::CASError => e
+  puts "Rescued reassignment of a variable: #{e}"
 end
 
 puts CAS::export_dot("/tmp/dot_file1.dot", f_diff)
+puts CAS::max(f, f_diff)
+puts CAS::min(f, f_diff)

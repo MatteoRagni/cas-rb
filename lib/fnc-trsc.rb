@@ -15,14 +15,19 @@ module CAS
       end
     end
 
+    # Same as `CAS::Op`
     def call(f)
+      CAS::Help.assert(f, Hash)
+
       Math::exp @x.call(f)
     end
 
+    # Same as `CAS::Op`
     def to_s
       "exp(#{@x})"
     end
 
+    # Same as `CAS::Op`
     def simplify
       super
       if @x == CAS::Zero
@@ -40,6 +45,7 @@ module CAS
       return self
     end
 
+    # Same as `CAS::Op`
     def to_code
       "Math::exp(#{@x.to_code})"
     end
@@ -63,16 +69,21 @@ module CAS
       end
     end
 
+    # Same as `CAS::Op`
     def call(f)
       # I'm leaving to Math the honor
       # of handling negative values...
+      CAS::Help.assert(f, Hash)
+
       Math::log @x.call(f)
     end
 
+    # Same as `CAS::Op`
     def to_s
       "log(#{@x})"
     end
 
+    # Same as `CAS::Op`
     def simplify
       super
       if @x == CAS::Zero
@@ -90,6 +101,7 @@ module CAS
       return self
     end
 
+    # Same as `CAS::Op`
     def to_code
       "Math::log(#{@x.to_code})"
     end

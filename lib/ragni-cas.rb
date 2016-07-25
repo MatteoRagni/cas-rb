@@ -1,13 +1,45 @@
 #!/usr/bin/env ruby
 
+# ragni-cas
+# A very simple CAS engine with encapsuled graph
+# representation. This will make impossible to
+# perform complex high level simplifications, but
+# it is powerful enough to define simple algorithm
+# in a symbolic way.
+#
+# Mathematically, this is an implementation of the
+# forward chain rule for automatic differentiaition.
+# Each function is a container of function and the
+# derivation is in the form:
+#
+# ```
+#   d(f(g(x))
+#   --------- = g'(x) * f'(g(x))
+#      dx
+# ```
+#
+# Author:: Matteo Ragni (mailto:info@ragni.me)
+# Copyright:: Copyright (c) 2016 Matteo Ragni
+# License:: Distributed under MIT license term
+
 require_relative 'op.rb'
 require_relative 'numbers.rb'
 require_relative 'fnc-base.rb'
 require_relative 'fnc-trig.rb'
 require_relative 'fnc-trsc.rb'
+require_relative 'fnc-branch.rb'
 
 module CAS
+
+  # Return a string representation of the graph that is
+  # a Graphviz tree. Requires a `CAS::Op` as argument.
+  # In the next releases probably it will be moved inside
+  # `CAS::Op`.
+  # <- `CAS::Op` instance
+  # -> `String`
   def self.to_dot(op)
+    CAS::Help.assert(op, CAS::Op)
+
     node = {}
     string = op.dot_graph(node)
     labels = ""
@@ -64,7 +96,25 @@ digraph Op {
     EOG
   end
 
+  # Export the input `CAS::Op` graphviz representation to a file.
+  # <- `String` with filename
+  # <- `CAS::Op` with the tree
+  # -> `CAS::Op` in input
   def self.export_dot(fl, op)
+    CAS::Help.assert(fl, String)
+    CAS::Help.assert(op, CAS::Op)
+
     File.open(fl, "w") do |f| f.puts CAS.to_dot(op) end
+    return op
+  end
+
+
+  # Support functions are in this separate Helper class
+  module Help
+    # Check input `obj.class` against a `type` class
+    # raises an ArgumentError if check fails
+    def self.assert(obj, type)
+      raise ArgumentError, "required #{type}, received #{obj.class}" unless obj.is_a? type
+    end
   end
 end

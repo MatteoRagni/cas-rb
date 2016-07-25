@@ -42,6 +42,7 @@ Gem::Specification.new do |s|
     'lib/fnc-base.rb',
     'lib/fnc-trig.rb',
     'lib/fnc-trsc.rb',
+    'lib/fnc-branch.rb',
     'lib/version.rb'
   ]
   s.homepage = 'https://github.com/MatteoRagni/cas-rb'
