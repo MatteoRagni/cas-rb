@@ -8,6 +8,7 @@
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
+  var index_rel_prefix = "../";
 </script>
 
 <script src="../js/jquery.js"></script>
@@ -80,6 +81,8 @@
     
     <li ><a href="#method-i-to_code">#to_code</a>
     
+    <li ><a href="#method-i-to_latex">#to_latex</a>
+    
     <li ><a href="#method-i-to_s">#to_s</a>
     
   </ul>
@@ -95,7 +98,12 @@
 
   <section class="description">
     
-<p>_<em>_ _ _ _ | ()/ |/ | | |) | | | / |/||| |</em>|</p>
+<p>“`</p>
+
+<pre class="ruby"><span class="ruby-identifier">___</span>  <span class="ruby-identifier">_</span>  <span class="ruby-identifier">__</span>  <span class="ruby-identifier">__</span>
+</pre>
+
+<p>|   (_)/ _|/ _| | |) | |  _|  _/ |<em>_</em>/|_|_| |_| “`</p>
 
   </section>
 
@@ -131,13 +139,13 @@
 
         <div class="method-description">
           
-          <p>Same as <code>CAS::Op</code></p>
+          <p>Same as `CAS::Op`</p>
           
           
 
           
           <div class="method-source-code" id="3D-3D-source">
-            <pre><span class="ruby-comment"># File lib/fnc-base.rb, line 119</span>
+            <pre><span class="ruby-comment"># File lib/fnc-base.rb, line 138</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">op</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">op</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>)
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">class</span> <span class="ruby-keyword">and</span> ((<span class="ruby-ivar">@x</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">x</span> <span class="ruby-keyword">and</span> <span class="ruby-ivar">@y</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">y</span>) <span class="ruby-keyword">or</span> (<span class="ruby-ivar">@y</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">x</span> <span class="ruby-keyword">and</span> <span class="ruby-ivar">@x</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">y</span>))
@@ -165,13 +173,13 @@
 
         <div class="method-description">
           
-          <p>Same as <code>CAS::Op</code></p>
+          <p>Same as `CAS::Op`</p>
           
           
 
           
           <div class="method-source-code" id="call-source">
-            <pre><span class="ruby-comment"># File lib/fnc-base.rb, line 89</span>
+            <pre><span class="ruby-comment"># File lib/fnc-base.rb, line 102</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">f</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">f</span>, <span class="ruby-constant">Hash</span>)
 
@@ -200,11 +208,19 @@
 
         <div class="method-description">
           
-          <p>Performs the difference between two <code>CAS::Op</code>s</p>
+          <p>Performs the difference between two `CAS::Op`s</p>
 
-<pre>d
----- (f(x) - g(x)) = f&#39;(x) - g&#39;(x)
- dx</pre>
+<p>“`</p>
+
+<pre class="ruby"><span class="ruby-identifier">d</span>
+</pre>
+
+<p>—- (f(x) - g(x)) = f&#39;(x) - g&#39;(x)</p>
+
+<pre class="ruby"><span class="ruby-identifier">dx</span>
+</pre>
+
+<p>“`</p>
           
           
             <div class="method-calls-super">
@@ -215,11 +231,11 @@
 
           
           <div class="method-source-code" id="diff-source">
-            <pre><span class="ruby-comment"># File lib/fnc-base.rb, line 81</span>
+            <pre><span class="ruby-comment"># File lib/fnc-base.rb, line 94</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-identifier">left</span>, <span class="ruby-identifier">right</span> = <span class="ruby-keyword">super</span> <span class="ruby-identifier">v</span>
-  <span class="ruby-keyword">return</span> <span class="ruby-identifier">left</span> <span class="ruby-keyword">if</span> (<span class="ruby-identifier">right</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span> <span class="ruby-keyword">or</span> <span class="ruby-identifier">right</span> <span class="ruby-operator">==</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>)
-  <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Invert</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">right</span>) <span class="ruby-keyword">if</span> (<span class="ruby-identifier">left</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span> <span class="ruby-keyword">or</span> <span class="ruby-identifier">left</span> <span class="ruby-operator">==</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">left</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">right</span> <span class="ruby-operator">==</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Invert</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">right</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">left</span> <span class="ruby-operator">==</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>
   <span class="ruby-identifier">left</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">right</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -245,7 +261,7 @@
 
         <div class="method-description">
           
-          <p>Same as <code>CAS::Op</code></p>
+          <p>Same as `CAS::Op`</p>
           
           
             <div class="method-calls-super">
@@ -256,7 +272,7 @@
 
           
           <div class="method-source-code" id="simplify-source">
-            <pre><span class="ruby-comment"># File lib/fnc-base.rb, line 101</span>
+            <pre><span class="ruby-comment"># File lib/fnc-base.rb, line 114</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">simplify</span>
   <span class="ruby-keyword">super</span>
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span> <span class="ruby-operator">==</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>
@@ -270,6 +286,12 @@
   <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Constant</span> <span class="ruby-keyword">and</span> <span class="ruby-ivar">@y</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Constant</span>
     <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">const</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">call</span>({}))
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@y</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Invert</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-ivar">@x</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@y</span>.<span class="ruby-identifier">x</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Invert</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-operator">-</span>(<span class="ruby-ivar">@x</span>.<span class="ruby-identifier">x</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@y</span>)
   <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>
 <span class="ruby-keyword">end</span></pre>
@@ -296,15 +318,48 @@
 
         <div class="method-description">
           
-          <p>Same as <code>CAS::Op</code></p>
+          <p>Same as `CAS::Op`</p>
           
           
 
           
           <div class="method-source-code" id="to_code-source">
-            <pre><span class="ruby-comment"># File lib/fnc-base.rb, line 125</span>
+            <pre><span class="ruby-comment"># File lib/fnc-base.rb, line 144</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_code</span>
   <span class="ruby-node">&quot;(#{@x.to_code} - #{@y.to_code})&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-to_latex" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">to_latex</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns a latex representation of the current <a href="Op.html">Op</a></p>
+          
+          
+
+          
+          <div class="method-source-code" id="to_latex-source">
+            <pre><span class="ruby-comment"># File lib/fnc-base.rb, line 149</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_latex</span>
+  <span class="ruby-node">&quot;\\left(#{@x.to_latex} - #{@y.to_latex}\\right)&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -329,13 +384,13 @@
 
         <div class="method-description">
           
-          <p>Same as <code>CAS::Op</code></p>
+          <p>Same as `CAS::Op`</p>
           
           
 
           
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/fnc-base.rb, line 96</span>
+            <pre><span class="ruby-comment"># File lib/fnc-base.rb, line 109</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
   <span class="ruby-node">&quot;(#{@x} - #{@y})&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -357,7 +412,7 @@
 
 <footer id="validator-badges" role="contentinfo">
   <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.1.
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.2.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

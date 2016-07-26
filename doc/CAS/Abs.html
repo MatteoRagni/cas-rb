@@ -8,6 +8,7 @@
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
+  var index_rel_prefix = "../";
 </script>
 
 <script src="../js/jquery.js"></script>
@@ -78,6 +79,8 @@
     
     <li ><a href="#method-i-to_code">#to_code</a>
     
+    <li ><a href="#method-i-to_latex">#to_latex</a>
+    
     <li ><a href="#method-i-to_s">#to_s</a>
     
   </ul>
@@ -93,8 +96,11 @@
 
   <section class="description">
     
-<p>_ _  /<em>\ | |</em>_ <strong>_  / _ | &#39;_ (<em>-&lt; /</em>/
-__.</strong>/__/</p>
+<pre>  _   _
+ /_\ | |__ ___
+/ _ \| &#39;_ (_-&lt;</pre>
+
+<p>/_/ _<em>._</em>/__/</p>
 
   </section>
 
@@ -130,13 +136,13 @@ __.</strong>/__/</p>
 
         <div class="method-description">
           
-          <p>Same as <code>CAS::Op</code></p>
+          <p>Same as `CAS::Op`</p>
           
           
 
           
           <div class="method-source-code" id="call-source">
-            <pre><span class="ruby-comment"># File lib/fnc-base.rb, line 467</span>
+            <pre><span class="ruby-comment"># File lib/fnc-base.rb, line 522</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">f</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">f</span>, <span class="ruby-constant">Hash</span>)
 
@@ -166,17 +172,25 @@ __.</strong>/__/</p>
 
         <div class="method-description">
           
-          <p>Performs the absolute value of a <code>CAS::Op</code></p>
+          <p>Performs the absolute value of a `CAS::Op`</p>
 
-<pre>d
----- |f(x)| = f&#39;(x) * (f(x) / |f(x)|)
- dx</pre>
+<p>“`</p>
+
+<pre class="ruby"><span class="ruby-identifier">d</span>
+</pre>
+
+<p>—- |f(x)| = f&#39;(x) * (f(x) / |f(x)|)</p>
+
+<pre class="ruby"><span class="ruby-identifier">dx</span>
+</pre>
+
+<p>“`</p>
           
           
 
           
           <div class="method-source-code" id="diff-source">
-            <pre><span class="ruby-comment"># File lib/fnc-base.rb, line 458</span>
+            <pre><span class="ruby-comment"># File lib/fnc-base.rb, line 513</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">depend?</span> <span class="ruby-identifier">v</span>
     <span class="ruby-keyword">return</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">diff</span> <span class="ruby-operator">*</span> (<span class="ruby-ivar">@x</span><span class="ruby-operator">/</span><span class="ruby-constant">CAS</span>.<span class="ruby-identifier">abs</span>(<span class="ruby-ivar">@x</span>))
@@ -207,7 +221,7 @@ __.</strong>/__/</p>
 
         <div class="method-description">
           
-          <p>Same as <code>CAS::Op</code></p>
+          <p>Same as `CAS::Op`</p>
           
           
             <div class="method-calls-super">
@@ -218,7 +232,7 @@ __.</strong>/__/</p>
 
           
           <div class="method-source-code" id="simplify-source">
-            <pre><span class="ruby-comment"># File lib/fnc-base.rb, line 480</span>
+            <pre><span class="ruby-comment"># File lib/fnc-base.rb, line 535</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">simplify</span>
   <span class="ruby-keyword">super</span>
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span> <span class="ruby-operator">==</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>
@@ -252,15 +266,48 @@ __.</strong>/__/</p>
 
         <div class="method-description">
           
-          <p>Same as <code>CAS::Op</code></p>
+          <p>Same as `CAS::Op`</p>
           
           
 
           
           <div class="method-source-code" id="to_code-source">
-            <pre><span class="ruby-comment"># File lib/fnc-base.rb, line 492</span>
+            <pre><span class="ruby-comment"># File lib/fnc-base.rb, line 547</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_code</span>
   <span class="ruby-node">&quot;(#{@x.to_code}).abs&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-to_latex" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">to_latex</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns the latex representation of the current <a href="Op.html">Op</a></p>
+          
+          
+
+          
+          <div class="method-source-code" id="to_latex-source">
+            <pre><span class="ruby-comment"># File lib/fnc-base.rb, line 552</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_latex</span>
+  <span class="ruby-node">&quot;\\left|#{@x.to_latex}\\right|&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -285,13 +332,13 @@ __.</strong>/__/</p>
 
         <div class="method-description">
           
-          <p>Same as <code>CAS::Op</code></p>
+          <p>Same as `CAS::Op`</p>
           
           
 
           
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/fnc-base.rb, line 475</span>
+            <pre><span class="ruby-comment"># File lib/fnc-base.rb, line 530</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
   <span class="ruby-node">&quot;|#{@x}|&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -313,7 +360,7 @@ __.</strong>/__/</p>
 
 <footer id="validator-badges" role="contentinfo">
   <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.1.
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.2.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

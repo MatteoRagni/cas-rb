@@ -8,6 +8,7 @@
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
+  var index_rel_prefix = "../";
 </script>
 
 <script src="../js/jquery.js"></script>
@@ -118,6 +119,8 @@
     
     <li ><a href="#method-i-to_code">#to_code</a>
     
+    <li ><a href="#method-i-to_latex">#to_latex</a>
+    
     <li ><a href="#method-i-to_s">#to_s</a>
     
   </ul>
@@ -133,8 +136,13 @@
 
   <section class="description">
     
-<p><strong>_  / _ \ _ <em>_ | (</em>) | &#39;_ \  _</strong>/| ._<em>/ 
-|</em>|</p>
+<pre> ___
+/ _ \ _ __</pre>
+
+<p>| (_) | &#39;_ \</p>
+
+<pre>\___/| .__/
+     |_|</pre>
 
   </section>
 
@@ -193,12 +201,11 @@
           
           <p>Initialize a new empty operation container. This is a virtual class and the
 other must inherit from this basic container. Some methods raise a
-<code>CAS::CASError</code> if called. The input element is a Numric, to
-create a constant. <code>CAS::Op</code> specifies operations with a single
-variable</p>
+`CAS::CASError` if called. The input element is a Numric, to create a
+constant. `CAS::Op` specifies operations with a single variable</p>
 
-<p>&lt;- <code>Numeric</code> to be converted in <code>CAS::Constant</code> or
-<code>CAS::Op</code> child operation -&gt; <code>CAS::Op</code> instance</p>
+<p>&lt;- `Numeric` to be converted in `CAS::Constant` or `CAS::Op` child
+operation -&gt; `CAS::Op` instance</p>
           
           
 
@@ -252,16 +259,16 @@ variable</p>
         <div class="method-description">
           
           <p>Disequality operator, the standard operator is overloaded :warning: this
-operates on the graph, not on the math See <code>CAS::equal</code>, etc.</p>
+operates on the graph, not on the math See `CAS::equal`, etc.</p>
 
-<p>&lt;- <code>CAS::Op</code> to be tested against -&gt;
-<code>FalseClass</code> if equal, <code>TrueClass</code> if differs</p>
+<p>&lt;- `CAS::Op` to be tested against -&gt; `FalseClass` if equal,
+`TrueClass` if differs</p>
           
           
 
           
           <div class="method-source-code" id="21-3D-source">
-            <pre><span class="ruby-comment"># File lib/op.rb, line 210</span>
+            <pre><span class="ruby-comment"># File lib/op.rb, line 222</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">!=</span>(<span class="ruby-identifier">op</span>)
   <span class="ruby-keyword">not</span> <span class="ruby-keyword">self</span>.<span class="ruby-operator">==</span>(<span class="ruby-identifier">op</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -288,15 +295,15 @@ operates on the graph, not on the math See <code>CAS::equal</code>, etc.</p>
 
         <div class="method-description">
           
-          <p>Returns a product of two <code>CAS::Op</code>s</p>
+          <p>Returns a product of two `CAS::Op`s</p>
 
-<p>&lt;- <code>CAS::Op</code> tree -&gt; <code>CAS::Op</code> new object</p>
+<p>&lt;- `CAS::Op` tree -&gt; `CAS::Op` new object</p>
           
           
 
           
           <div class="method-source-code" id="2A-source">
-            <pre><span class="ruby-comment"># File lib/op.rb, line 146</span>
+            <pre><span class="ruby-comment"># File lib/op.rb, line 155</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">*</span>(<span class="ruby-identifier">op</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Prod</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword">self</span>, <span class="ruby-identifier">op</span>
 <span class="ruby-keyword">end</span></pre>
@@ -323,15 +330,15 @@ operates on the graph, not on the math See <code>CAS::equal</code>, etc.</p>
 
         <div class="method-description">
           
-          <p>Returns the power of two <code>CAS::Op</code>s</p>
+          <p>Returns the power of two `CAS::Op`s</p>
 
-<p>&lt;- <code>CAS::Op</code> tree -&gt; <code>CAS::Op</code> new object</p>
+<p>&lt;- `CAS::Op` tree -&gt; `CAS::Op` new object</p>
           
           
 
           
           <div class="method-source-code" id="2A-2A-source">
-            <pre><span class="ruby-comment"># File lib/op.rb, line 162</span>
+            <pre><span class="ruby-comment"># File lib/op.rb, line 171</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">**</span>(<span class="ruby-identifier">op</span>)
   <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">pow</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">op</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -358,15 +365,15 @@ operates on the graph, not on the math See <code>CAS::equal</code>, etc.</p>
 
         <div class="method-description">
           
-          <p>Returns a sum of two <code>CAS::Op</code>s</p>
+          <p>Returns a sum of two `CAS::Op`s</p>
 
-<p>&lt;- <code>CAS::Op</code> tree -&gt; <code>CAS::Op</code> new object</p>
+<p>&lt;- `CAS::Op` tree -&gt; `CAS::Op` new object</p>
           
           
 
           
           <div class="method-source-code" id="2B-source">
-            <pre><span class="ruby-comment"># File lib/op.rb, line 130</span>
+            <pre><span class="ruby-comment"># File lib/op.rb, line 139</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">+</span>(<span class="ruby-identifier">op</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Sum</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword">self</span>, <span class="ruby-identifier">op</span>
 <span class="ruby-keyword">end</span></pre>
@@ -393,15 +400,15 @@ operates on the graph, not on the math See <code>CAS::equal</code>, etc.</p>
 
         <div class="method-description">
           
-          <p>Returns a difference of two <code>CAS::Op</code>s</p>
+          <p>Returns a difference of two `CAS::Op`s</p>
 
-<p>&lt;- <code>CAS::Op</code> tree -&gt; <code>CAS::Op</code> new object</p>
+<p>&lt;- `CAS::Op` tree -&gt; `CAS::Op` new object</p>
           
           
 
           
           <div class="method-source-code" id="2D-source">
-            <pre><span class="ruby-comment"># File lib/op.rb, line 138</span>
+            <pre><span class="ruby-comment"># File lib/op.rb, line 147</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">-</span>(<span class="ruby-identifier">op</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Diff</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword">self</span>, <span class="ruby-identifier">op</span>
 <span class="ruby-keyword">end</span></pre>
@@ -428,15 +435,15 @@ operates on the graph, not on the math See <code>CAS::equal</code>, etc.</p>
 
         <div class="method-description">
           
-          <p>Unary operator for inversion of a <code>CAS::Op</code></p>
+          <p>Unary operator for inversion of a `CAS::Op`</p>
 
-<p>-&gt; <code>CAS::Op</code> new object</p>
+<p>-&gt; `CAS::Op` new object</p>
           
           
 
           
           <div class="method-source-code" id="2D-40-source">
-            <pre><span class="ruby-comment"># File lib/op.rb, line 169</span>
+            <pre><span class="ruby-comment"># File lib/op.rb, line 178</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">-@</span>
   <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">invert</span>(<span class="ruby-keyword">self</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -463,15 +470,15 @@ operates on the graph, not on the math See <code>CAS::equal</code>, etc.</p>
 
         <div class="method-description">
           
-          <p>Returns a division of two <code>CAS::Op</code>s</p>
+          <p>Returns a division of two `CAS::Op`s</p>
 
-<p>&lt;- <code>CAS::Op</code> tree -&gt; <code>CAS::Op</code> new object</p>
+<p>&lt;- `CAS::Op` tree -&gt; `CAS::Op` new object</p>
           
           
 
           
           <div class="method-source-code" id="2F-source">
-            <pre><span class="ruby-comment"># File lib/op.rb, line 154</span>
+            <pre><span class="ruby-comment"># File lib/op.rb, line 163</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">/</span>(<span class="ruby-identifier">op</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Div</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword">self</span>, <span class="ruby-identifier">op</span>
 <span class="ruby-keyword">end</span></pre>
@@ -499,20 +506,23 @@ operates on the graph, not on the math See <code>CAS::equal</code>, etc.</p>
         <div class="method-description">
           
           <p>Equality operator, the standard operator is overloaded :warning: this
-operates on the graph, not on the math See <code>CAS::equal</code>, etc.</p>
+operates on the graph, not on the math See `CAS::equal`, etc.</p>
 
-<p>&lt;- <code>CAS::Op</code> to be tested against -&gt;
-<code>TrueClass</code> if equal, <code>FalseClass</code> if differs</p>
+<p>&lt;- `CAS::Op` to be tested against -&gt; `TrueClass` if equal,
+`FalseClass` if differs</p>
           
           
 
           
           <div class="method-source-code" id="3D-3D-source">
-            <pre><span class="ruby-comment"># File lib/op.rb, line 198</span>
+            <pre><span class="ruby-comment"># File lib/op.rb, line 207</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">op</span>)
-  <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">op</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>)
-
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">class</span> <span class="ruby-keyword">and</span> <span class="ruby-ivar">@x</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">x</span>
+  <span class="ruby-comment"># CAS::Help.assert(op, CAS::Op)</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">BinaryOp</span>
+    <span class="ruby-keyword">return</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">class</span> <span class="ruby-keyword">and</span> <span class="ruby-ivar">@x</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">x</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">false</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -537,15 +547,15 @@ operates on the graph, not on the math See <code>CAS::equal</code>, etc.</p>
 
         <div class="method-description">
           
-          <p>Returns a list of all <code>CAS::Variable</code>s of the current tree</p>
+          <p>Returns a list of all `CAS::Variable`s of the current tree</p>
 
-<p>-&gt; <code>Array</code> of <code>CAS::Variable</code>s</p>
+<p>-&gt; `Array` of `CAS::Variable`s</p>
           
           
 
           
           <div class="method-source-code" id="args-source">
-            <pre><span class="ruby-comment"># File lib/op.rb, line 239</span>
+            <pre><span class="ruby-comment"># File lib/op.rb, line 251</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">args</span>
   <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">args</span>.<span class="ruby-identifier">uniq</span>
 <span class="ruby-keyword">end</span></pre>
@@ -573,24 +583,22 @@ operates on the graph, not on the math See <code>CAS::equal</code>, etc.</p>
         <div class="method-description">
           
           <p>Evaluates the proc against a given context. It is like having a snapshot of
-the tree transformed in a callable object. Obviously <strong>if the tree
-changes, the generated proc does notchanges</strong>. The proc takes as
-input a feed dictionary in which each variable is identified through the
-<code>CAS::Variable#name</code> key.</p>
+the tree transformed in a callable object. Obviously **if the tree changes,
+the generated proc does notchanges**. The proc takes as input a feed
+dictionary in which each variable is identified through the
+`CAS::Variable#name` key.</p>
 
-<p>The proc is evaluated in the context devined by the input
-<code>Binding</code> object If <code>nil</code> is passed, the
-<code>eval</code> will run in this local context</p>
+<p>The proc is evaluated in the context devined by the input `Binding` object
+If `nil` is passed, the `eval` will run in this local context</p>
 
-<p>&lt;- <code>Binding</code> or <code>NilClass</code> that is the context of
-the Ruby VM -&gt; <code>Proc</code> object with a single argument as an
-<code>Hash</code></p>
+<p>&lt;- `Binding` or `NilClass` that is the context of the Ruby VM -&gt;
+`Proc` object with a single argument as an `Hash`</p>
           
           
 
           
           <div class="method-source-code" id="as_proc-source">
-            <pre><span class="ruby-comment"># File lib/op.rb, line 225</span>
+            <pre><span class="ruby-comment"># File lib/op.rb, line 237</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">as_proc</span>(<span class="ruby-identifier">bind</span>=<span class="ruby-keyword">nil</span>)
   <span class="ruby-identifier">args_ext</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">args</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-node">&quot;#{e} = fd[\&quot;#{e}\&quot;];&quot;</span> }
   <span class="ruby-identifier">code</span> = <span class="ruby-node">&quot;Proc.new do |fd|; #{args_ext.join &quot; &quot;} #{self.to_code}; end&quot;</span>
@@ -624,19 +632,13 @@ the Ruby VM -&gt; <code>Proc</code> object with a single argument as an
 
         <div class="method-description">
           
-          <p>Call resolves the operation tree in a <code>Numeric</code> (if
-<code>Fixnum</code>) or <code>Float</code> depends upon promotions). As
-input, it requires an hash with <code>CAS::Variable</code> or
-<code>CAS::Variable#name</code> as keys, and a <code>Numeric</code> as a
-value</p>
+          <p>Call resolves the operation tree in a `Numeric` (if `Fixnum`) or `Float`
+depends upon promotions). As input, it requires an hash with
+`CAS::Variable` or `CAS::Variable#name` as keys, and a `Numeric` as a value</p>
 
-<pre class="ruby"><span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span> = <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">vars</span> :<span class="ruby-identifier">x</span>, :<span class="ruby-identifier">y</span>
-<span class="ruby-identifier">f</span> = (<span class="ruby-identifier">x</span> <span class="ruby-operator">**</span> <span class="ruby-value">2</span>) <span class="ruby-operator">+</span> (<span class="ruby-identifier">y</span> <span class="ruby-operator">**</span> <span class="ruby-value">2</span>)
-<span class="ruby-identifier">f</span>.<span class="ruby-identifier">call</span>({<span class="ruby-identifier">x</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>, <span class="ruby-identifier">y</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">2</span>})
-<span class="ruby-comment"># =&gt; 2</span>
-</pre>
-
-<p>&lt;- <code>Hash</code> with feed dictionary -&gt; <code>Numeric</code></p>
+<p>“` ruby x, y = <a href="../CAS.html#method-c-vars">CAS.vars</a> :x, :y f =
+(x ** 2) + (y ** 2) f.call({x =&gt; 1, y =&gt; 2}) # =&gt; 2 “` &lt;-
+`Hash` with feed dictionary -&gt; `Numeric`</p>
           
           
 
@@ -671,12 +673,11 @@ value</p>
 
         <div class="method-description">
           
-          <p>Return the dependencies of the operation. Requires a
-<code>CAS::Variable</code> and it is one of the recursve method (implicit
-tree resolution)</p>
+          <p>Return the dependencies of the operation. Requires a `CAS::Variable` and it
+is one of the recursve method (implicit tree resolution)</p>
 
-<p>&lt;- <code>CAS::Variable</code> instance -&gt; <code>TrueClass</code> if
-depends, <code>FalseClass</code> if not</p>
+<p>&lt;- `CAS::Variable` instance -&gt; `TrueClass` if depends, `FalseClass`
+if not</p>
           
           
 
@@ -712,19 +713,22 @@ depends, <code>FalseClass</code> if not</p>
         <div class="method-description">
           
           <p>Return the derivative of the operation using the chain rule The input is a
-<code>CAS::Op</code> because it can handle derivatives with respect to
-functions. E.g.:</p>
+`CAS::Op` because it can handle derivatives with respect to functions.
+E.g.:</p>
+
+<p>“`</p>
 
 <pre>f(x) = (ln(x))**2
- g(x) = ln(x)
+g(x) = ln(x)
 
- d f(x)
- ------ = 2 ln(x)
- d g(x)</pre>
+d f(x)
+------ = 2 ln(x)
+d g(x)</pre>
 
-<p>&lt;- <code>CAS::Op</code> object of the derivative -&gt;
-<code>CAS::Op</code> a derivated object, or <code>CAS::Zero</code> for
-constants</p>
+<p>“`</p>
+
+<p>&lt;- `CAS::Op` object of the derivative -&gt; `CAS::Op` a derivated
+object, or `CAS::Zero` for constants</p>
           
           
 
@@ -764,14 +768,14 @@ constants</p>
           
           <p>Return the local Graphviz node of the tree</p>
 
-<p>&lt;- <code>?</code> unused variable (TODO: to be removed) -&gt;
-<code>String</code> of local Graphiz node</p>
+<p>&lt;- `?` unused variable (TODO: to be removed) -&gt; `String` of local
+Graphiz node</p>
           
           
 
           
           <div class="method-source-code" id="dot_graph-source">
-            <pre><span class="ruby-comment"># File lib/op.rb, line 247</span>
+            <pre><span class="ruby-comment"># File lib/op.rb, line 259</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">dot_graph</span>(<span class="ruby-identifier">node</span>)
   <span class="ruby-identifier">cls</span> = <span class="ruby-node">&quot;#{self.class.to_s.gsub(&quot;CAS::&quot;, &quot;&quot;)}_#{self.object_id}&quot;</span>
   <span class="ruby-node">&quot;#{cls} -&gt; #{@x.dot_graph node}\n&quot;</span>
@@ -805,7 +809,7 @@ constants</p>
 
           
           <div class="method-source-code" id="equal-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 192</span>
+            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 216</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">equal</span>(<span class="ruby-identifier">v</span>); <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">equal</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">v</span>); <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -836,7 +840,7 @@ constants</p>
 
           
           <div class="method-source-code" id="greater-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 193</span>
+            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 217</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">greater</span>(<span class="ruby-identifier">v</span>); <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">greater</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">v</span>); <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -867,7 +871,7 @@ constants</p>
 
           
           <div class="method-source-code" id="greater_equal-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 195</span>
+            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 219</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">greater_equal</span>(<span class="ruby-identifier">v</span>); <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">greater_equal</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">v</span>); <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -894,13 +898,13 @@ constants</p>
           
           <p>Inspector for the current object</p>
 
-<p>-&gt; <code>String</code></p>
+<p>-&gt; `String`</p>
           
           
 
           
           <div class="method-source-code" id="inspect-source">
-            <pre><span class="ruby-comment"># File lib/op.rb, line 188</span>
+            <pre><span class="ruby-comment"># File lib/op.rb, line 197</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">inspect</span>
   <span class="ruby-node">&quot;#{self.class}(#{@x.inspect})&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -935,7 +939,7 @@ deterministic).</p>
 
           
           <div class="method-source-code" id="simplify-source">
-            <pre><span class="ruby-comment"># File lib/op.rb, line 176</span>
+            <pre><span class="ruby-comment"># File lib/op.rb, line 185</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">simplify</span> <span class="ruby-comment"># TODO: improve this</span>
   <span class="ruby-identifier">hash</span> = <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">to_s</span>
   <span class="ruby-ivar">@x</span> = <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">simplify</span>
@@ -973,7 +977,7 @@ deterministic).</p>
 
           
           <div class="method-source-code" id="smaller-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 194</span>
+            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 218</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">smaller</span>(<span class="ruby-identifier">v</span>); <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">smaller</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">v</span>); <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -1004,7 +1008,7 @@ deterministic).</p>
 
           
           <div class="method-source-code" id="smaller_equal-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 196</span>
+            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 220</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">smaller_equal</span>(<span class="ruby-identifier">v</span>); <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">smaller_equal</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">v</span>); <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -1031,16 +1035,12 @@ deterministic).</p>
           
           <p>Perform substitution of a part of the graph using a data table:</p>
 
-<pre class="ruby"><span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span> = <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">vars</span> :<span class="ruby-identifier">x</span>, :<span class="ruby-identifier">y</span>
-<span class="ruby-identifier">f</span> = (<span class="ruby-identifier">x</span> <span class="ruby-operator">**</span> <span class="ruby-value">2</span>) <span class="ruby-operator">+</span> (<span class="ruby-identifier">y</span> <span class="ruby-operator">**</span> <span class="ruby-value">2</span>)
-<span class="ruby-identifier">puts</span> <span class="ruby-identifier">f</span>
-<span class="ruby-comment"># =&gt; (x^2) + (y^2)</span>
-<span class="ruby-identifier">puts</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">subs</span>({<span class="ruby-identifier">x</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">ln</span>(<span class="ruby-identifier">y</span>)})
-<span class="ruby-comment"># =&gt; (ln(y)^2) + (y^2)</span>
-</pre>
+<p>“` ruby x, y = <a href="../CAS.html#method-c-vars">CAS.vars</a> :x, :y f =
+(x ** 2) + (y ** 2) puts f # =&gt; (x^2) + (y^2) puts f.subs({x =&gt; <a
+href="../CAS.html#method-c-ln">CAS.ln</a>}) # =&gt; (ln(y)^2) + (y^2) “`</p>
 
-<p>&lt;- <code>Hash</code> with substitution table -&gt; <code>CAS::Op</code>
-(<code>self</code>) with substitution performed</p>
+<p>&lt;- `Hash` with substitution table -&gt; `CAS::Op` (`self`) with
+substitution performed</p>
           
           
 
@@ -1049,8 +1049,17 @@ deterministic).</p>
             <pre><span class="ruby-comment"># File lib/op.rb, line 105</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">subs</span>(<span class="ruby-identifier">dt</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">dt</span>, <span class="ruby-constant">Hash</span>)
-
-  <span class="ruby-ivar">@x</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">dt</span>[<span class="ruby-ivar">@x</span>].<span class="ruby-identifier">dup</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">dt</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">include?</span> <span class="ruby-ivar">@x</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">dt</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">include?</span> <span class="ruby-ivar">@x</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">dt</span>[<span class="ruby-ivar">@x</span>].<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>
+      <span class="ruby-ivar">@x</span> = <span class="ruby-identifier">dt</span>[<span class="ruby-ivar">@x</span>]
+    <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">dt</span>[<span class="ruby-ivar">@x</span>].<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Numeric</span>
+      <span class="ruby-ivar">@x</span> = <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">const</span> <span class="ruby-identifier">dt</span>[<span class="ruby-ivar">@x</span>]
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">CASError</span>, <span class="ruby-node">&quot;Impossible subs. Received a #{dt[@x].class} = #{dt[@x]}&quot;</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">subs</span>(<span class="ruby-identifier">dt</span>)
+  <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -1076,19 +1085,52 @@ deterministic).</p>
 
         <div class="method-description">
           
-          <p>Convert expression to code (internal, for <code>CAS::Op#to_proc</code>
-method)</p>
+          <p>Convert expression to code (internal, for `CAS::Op#to_proc` method)</p>
 
-<p>-&gt; <code>String</code> that represent Ruby code to be parsed in
-<code>CAS::Op#to_proc</code></p>
+<p>-&gt; `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`</p>
           
           
 
           
           <div class="method-source-code" id="to_code-source">
-            <pre><span class="ruby-comment"># File lib/op.rb, line 122</span>
+            <pre><span class="ruby-comment"># File lib/op.rb, line 131</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_code</span>
   <span class="ruby-node">&quot;#{@x}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-to_latex" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">to_latex</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns the latex representation of the current <a href="Op.html">Op</a>.</p>
+
+<p>-&gt; `String`</p>
+          
+          
+
+          
+          <div class="method-source-code" id="to_latex-source">
+            <pre><span class="ruby-comment"># File lib/op.rb, line 267</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_latex</span>
+  <span class="ruby-node">&quot;#{self.class.gsub(&quot;CAS::&quot;, &quot;&quot;)}\\left(#{@x.to_latex}\\right)&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -1115,13 +1157,13 @@ method)</p>
           
           <p>Convert expression to string</p>
 
-<p>-&gt; <code>String</code> to print on screen</p>
+<p>-&gt; `String` to print on screen</p>
           
           
 
           
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/op.rb, line 115</span>
+            <pre><span class="ruby-comment"># File lib/op.rb, line 124</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
   <span class="ruby-node">&quot;#{@x}&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -1143,7 +1185,7 @@ method)</p>
 
 <footer id="validator-badges" role="contentinfo">
   <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.1.
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.2.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

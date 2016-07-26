@@ -8,6 +8,7 @@
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
+  var index_rel_prefix = "../";
 </script>
 
 <script src="../js/jquery.js"></script>
@@ -78,6 +79,8 @@
     
     <li ><a href="#method-i-to_code">#to_code</a>
     
+    <li ><a href="#method-i-to_latex">#to_latex</a>
+    
     <li ><a href="#method-i-to_s">#to_s</a>
     
   </ul>
@@ -93,10 +96,13 @@
 
   <section class="description">
     
-<p>_ _ _ _ | | <strong>_ <em>_ _ __ _ _ () |</em>| |_ _ <em>_ | |/ _ / <code>/
-_</code> | &#39;| | | &#39; | &#39; \ |</em></strong>_<strong>/_<em>,
-_</em>,<em>|</em>| |<em>|_</em>|<em>||</em>|<em>|</em>|<em>| 
-|</em></strong>/</p>
+<pre class="ruby"><span class="ruby-identifier">_</span>                       <span class="ruby-identifier">_</span> <span class="ruby-identifier">_</span>   <span class="ruby-identifier">_</span>
+</pre>
+
+<p>| |   <em>_</em>  __ _ __ _ _ _(_) |_| |_  _ __ | |__/ _ / _` / _` |
+&#39;_| |  _| &#39; | &#39;  \ |<em>__/</em>_, __,_|_| |_|__|_||_|_|_|_|</p>
+
+<pre>|___/</pre>
 
   </section>
 
@@ -132,13 +138,13 @@ _</em>,<em>|</em>| |<em>|_</em>|<em>||</em>|<em>|</em>|<em>|
 
         <div class="method-description">
           
-          <p>Same as <code>CAS::Op</code></p>
+          <p>Same as `CAS::Op`</p>
           
           
 
           
           <div class="method-source-code" id="call-source">
-            <pre><span class="ruby-comment"># File lib/fnc-trsc.rb, line 73</span>
+            <pre><span class="ruby-comment"># File lib/fnc-trsc.rb, line 78</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">f</span>)
   <span class="ruby-comment"># I&#39;m leaving to Math the honor</span>
   <span class="ruby-comment"># of handling negative values...</span>
@@ -175,7 +181,7 @@ _</em>,<em>|</em>| |<em>|_</em>|<em>||</em>|<em>|</em>|<em>|
 
           
           <div class="method-source-code" id="diff-source">
-            <pre><span class="ruby-comment"># File lib/fnc-trsc.rb, line 64</span>
+            <pre><span class="ruby-comment"># File lib/fnc-trsc.rb, line 69</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">depend?</span> <span class="ruby-identifier">v</span>
     <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">One</span> <span class="ruby-operator">/</span> <span class="ruby-ivar">@x</span>
@@ -206,7 +212,7 @@ _</em>,<em>|</em>| |<em>|_</em>|<em>||</em>|<em>|</em>|<em>|
 
         <div class="method-description">
           
-          <p>Same as <code>CAS::Op</code></p>
+          <p>Same as `CAS::Op`</p>
           
           
             <div class="method-calls-super">
@@ -217,7 +223,7 @@ _</em>,<em>|</em>| |<em>|_</em>|<em>||</em>|<em>|</em>|<em>|
 
           
           <div class="method-source-code" id="simplify-source">
-            <pre><span class="ruby-comment"># File lib/fnc-trsc.rb, line 87</span>
+            <pre><span class="ruby-comment"># File lib/fnc-trsc.rb, line 92</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">simplify</span>
   <span class="ruby-keyword">super</span>
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span> <span class="ruby-operator">==</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>
@@ -257,15 +263,48 @@ _</em>,<em>|</em>| |<em>|_</em>|<em>||</em>|<em>|</em>|<em>|
 
         <div class="method-description">
           
-          <p>Same as <code>CAS::Op</code></p>
+          <p>Same as `CAS::Op`</p>
           
           
 
           
           <div class="method-source-code" id="to_code-source">
-            <pre><span class="ruby-comment"># File lib/fnc-trsc.rb, line 105</span>
+            <pre><span class="ruby-comment"># File lib/fnc-trsc.rb, line 110</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_code</span>
   <span class="ruby-node">&quot;Math::log(#{@x.to_code})&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-to_latex" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">to_latex</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Return latex representation of current <a href="Op.html">Op</a></p>
+          
+          
+
+          
+          <div class="method-source-code" id="to_latex-source">
+            <pre><span class="ruby-comment"># File lib/fnc-trsc.rb, line 115</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_latex</span>
+  <span class="ruby-node">&quot;\\mathrm{ln}\\left( #{@x.to_latex} \\right))&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -290,13 +329,13 @@ _</em>,<em>|</em>| |<em>|_</em>|<em>||</em>|<em>|</em>|<em>|
 
         <div class="method-description">
           
-          <p>Same as <code>CAS::Op</code></p>
+          <p>Same as `CAS::Op`</p>
           
           
 
           
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/fnc-trsc.rb, line 82</span>
+            <pre><span class="ruby-comment"># File lib/fnc-trsc.rb, line 87</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
   <span class="ruby-node">&quot;log(#{@x})&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -318,7 +357,7 @@ _</em>,<em>|</em>| |<em>|_</em>|<em>||</em>|<em>|</em>|<em>|
 
 <footer id="validator-badges" role="contentinfo">
   <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.1.
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.2.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 
