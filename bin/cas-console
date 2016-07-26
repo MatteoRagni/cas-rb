@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+
+require 'ragni-cas'
+require 'colorize'
+require 'irb'
+require 'irb/completion'
+
+include CAS
+
+IRB::init_config nil
+IRB::conf[:SAVE_HISTORY] = 1000
+
+IRB::conf[:PROMPT][:CAS] = {
+  :AUTO_INDENT => true,
+  :PROMPT_I    => "CAS:%NNn << ".green,
+  :PROMPT_S    => "...:%NNn <s ".yellow,
+  :PROMPT_C    => "...:%NNn <+ ".yellow,
+  :RETURN      => ">> ".light_blue
+}
+
+IRB::conf[:PROMPT_MODE] = :CAS
+IRB::start

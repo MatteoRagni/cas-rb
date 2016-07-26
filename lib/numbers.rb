@@ -30,6 +30,20 @@ module CAS
       "#{@x}"
     end
 
+    # Subs for a constant is a dummy method
+    def subs(dt)
+      # CAS::Help.assert(dt, Hash)
+      # if dt.keys.include? self
+      #   if dt[self].is_a? CAS::Op
+      #     return dt[self]
+      #   elsif dt[self].is_a? Numeric
+      #     return CAS::const(dt[self])
+      #   else
+      #     raise CASError, "Impossible subs. Received a #{dt[self].class} = #{dt[self]}"
+      #   end
+      # end
+    end
+
     # Same as `CAS::Op`
     def simplify
       case @x
@@ -55,7 +69,7 @@ module CAS
 
     # Same as `CAS::Op`
     def ==(op)
-      CAS::Help.assert(op, CAS::Op)
+      # CAS::Help.assert(op, CAS::Op)
 
       if op.is_a? CAS::Constant
         return @x == op.x
@@ -156,7 +170,7 @@ module CAS
 
     # Same as `CAS::Op`
     def ==(op)
-      CAS::Help.assert(op, CAS::Op)
+      # CAS::Help.assert(op, CAS::Op)
       if op.is_a? CAS::Variable
         return self.inspect == op.inspect
       else
@@ -185,6 +199,20 @@ module CAS
     # Same as `CAS::Op`
     def args
       [self]
+    end
+
+    # Terminal substitutions for variables
+    def subs(dt)
+      CAS::Help.assert(dt, Hash)
+      if dt.keys.include? self
+        if dt[self].is_a? CAS::Op
+          return dt[self]
+        elsif dt[self].is_a? Numeric
+          return CAS::const(dt[self])
+        else
+          raise CASError, "Impossible subs. Received a #{dt[self].class} = #{dt[self]}"
+        end
+      end
     end
 
     # Same as `CAS::Op`

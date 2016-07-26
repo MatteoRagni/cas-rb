@@ -48,6 +48,9 @@ module CAS
       if @x == -@y or -@x == @y
         return CAS::Zero
       end
+      if @y.is_a? CAS::Invert
+        return (@x - @y.x)
+      end
       if @x.is_a? CAS::Constant and @y.is_a? CAS::Constant
         return CAS.const(self.call({}))
       end
@@ -112,6 +115,12 @@ module CAS
       end
       if @x.is_a? CAS::Constant and @y.is_a? CAS::Constant
         return CAS.const(self.call({}))
+      end
+      if @y.is_a? CAS::Invert
+        return @x + @y.x
+      end
+      if @x.is_a? CAS::Invert
+        return -(@x.x + @y)
       end
       return self
     end

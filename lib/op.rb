@@ -104,8 +104,17 @@ module CAS
     # -> `CAS::Op` (`self`) with substitution performed
     def subs(dt)
       CAS::Help.assert(dt, Hash)
-
-      @x == dt[@x].dup if dt.keys.include? @x
+      if dt.keys.include? @x
+        if dt[@x].is_a? CAS::Op
+          @x = dt[@x]
+        elsif dt[@x].is_a? Numeric
+          @x = CAS::const dt[@x]
+        else
+          raise CASError, "Impossible subs. Received a #{dt[@x].class} = #{dt[@x]}"
+        end
+      else
+        @x.subs(dt)
+      end
       return self
     end
 
@@ -196,9 +205,12 @@ module CAS
     # <- `CAS::Op` to be tested against
     # -> `TrueClass` if equal, `FalseClass` if differs
     def ==(op)
-      CAS::Help.assert(op, CAS::Op)
-
-      self.class == op.class and @x == op.x
+      # CAS::Help.assert(op, CAS::Op)
+      if op.is_a? CAS::Op
+        return false if op.is_a? CAS::BinaryOp
+        return (self.class == op.class and @x == op.x)
+      end
+      false
     end
 
     # Disequality operator, the standard operator is overloaded
@@ -324,9 +336,28 @@ module CAS
     # -> `CAS::BinaryOp`, in practice `self`
     def subs(dt)
       CAS::Help.assert(dt, Hash)
-
-      @x = dt[@x].dup if dt.keys.include? @x
-      @y = dt[@y].dup if dt.keys.include? @y
+      if dt.keys.include? @x
+        if dt[@x].is_a? CAS::Op
+          @x = dt[@x]
+        elsif dt[@x].is_a? Numeric
+          @x = CAS::const dt[@x]
+        else
+          raise CASError, "Impossible subs. Received a #{dt[@x].class} = #{dt[@x]}"
+        end
+      else
+        @x.subs(dt)
+      end
+      if dt.keys.include? @y
+        if dt[@y].is_a? CAS::Op
+          @y = dt[@y]
+        elsif dt[@y].is_a? Numeric
+          @y = CAS::const dt[@y]
+        else
+          raise CASError, "Impossible subs. Received a #{dt[@y].class} = #{dt[@y]}"
+        end
+      else
+        @y.subs(dt)
+      end
       return self
     end
 
