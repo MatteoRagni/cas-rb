@@ -1,6 +1,6 @@
 # CAS-RB
 
-![Gem Version](https://badge.fury.io/rb/ragni-cas.svg)]
+![Gem Version](https://badge.fury.io/rb/ragni-cas.svg)
 
 ## Introduction
 
