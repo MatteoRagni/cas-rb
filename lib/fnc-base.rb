@@ -1,10 +1,12 @@
 #!/usr/vin/env ruby
 
 module CAS
+  # ```
   #  ___
   # / __|_  _ _ __
   # \__ \ || | '  \
   # |___/\_,_|_|_|_|
+  # ```
   class Sum < CAS::BinaryOp
     # Performs the sum between two `CAS::Op`
     #
@@ -68,12 +70,19 @@ module CAS
     def to_code
       "(#{@x.to_code} + #{@y.to_code})"
     end
+    
+    # Returns a latex represenntation of the current Op
+    def to_latex
+      "\\left(#{@x.to_latex} + #{@y.to_latex}\\right)"
+    end
   end # Sum
 
+  # ```
   #  ___  _  __  __
   # |   \(_)/ _|/ _|
   # | |) | |  _|  _/
   # |___/|_|_| |_|
+  # ```
   class Diff < CAS::BinaryOp
     # Performs the difference between two `CAS::Op`s
     #
@@ -135,12 +144,19 @@ module CAS
     def to_code
       "(#{@x.to_code} - #{@y.to_code})"
     end
+    
+    # Returns a latex representation of the current Op
+    def to_latex
+      "\\left(#{@x.to_latex} - #{@y.to_latex}\\right)"
+    end
   end # Difference
 
+  # ```
   #  ___             _
   # | _ \_ _ ___  __| |
   # |  _/ '_/ _ \/ _` |
   # |_| |_| \___/\__,_|
+  # ```
   class Prod < CAS::BinaryOp
     # Performs the product between two `CAS::Op`
     #
@@ -200,12 +216,19 @@ module CAS
     def to_code
       "(#{@x.to_code} * #{@y.to_code})"
     end
+    
+    # Returns a latex represstation of the Op
+    def to_latex
+      "#{@x.to_latex}\\,#{@y.to_latex}"
+    end
   end # Prod
 
+  # ```
   #  ___
   # | _ \_____ __ __
   # |  _/ _ \ V  V /
   # |_| \___/\_/\_/
+  # ```
   class Pow < CAS::BinaryOp
     # Performs the power between two `CAS::Op`
     #
@@ -270,16 +293,23 @@ module CAS
     def to_code
       "(#{@x.to_code} ** #{@y.to_code})"
     end
+    
+    # Returns the latex representation of the op
+    def to_latex
+      "{#{@x.to_latex}}^{#{@y.to_latex}}"
+    end
   end
 
   def self.pow(x, y)
     CAS::Pow.new x, y
   end
 
+  # ```
   #  ___  _
   # |   \(_)_ __
   # | |) | \ V /
   # |___/|_|\_/
+  # ```
   class Div < CAS::BinaryOp
     # Performs the division between two `CAS::Op`
     #
@@ -335,6 +365,11 @@ module CAS
     # Same as `CAS::Op`
     def to_code
       "(#{@x.to_code} / #{@y.to_code})"
+    end
+    
+    # Returns the latex reppresentation of the current Op
+    def to_latex
+      "\\dfrac{#{@x.to_latex}}{#{@y.to_latex}}"
     end
   end # Div
 
@@ -393,6 +428,11 @@ module CAS
     def to_code
       "Math::sqrt(#{@x.to_code})"
     end
+    
+    # Returns the latex representation of the current Op
+    def to_latex
+      "\\sqrt{#{@x.to_latex}}"
+    end
   end # Sqrt
 
   def self.sqrt(x)
@@ -446,6 +486,11 @@ module CAS
     # Same as `CAS::Op`
     def to_code
       "(-#{@x.to_code})"
+    end
+    
+    # Returns the latex representation of the current op
+    def to_latex
+      "-{#{@x.to_latex}}"
     end
   end
 
@@ -501,6 +546,11 @@ module CAS
     # Same as `CAS::Op`
     def to_code
       "(#{@x.to_code}).abs"
+    end
+    
+    # Returns the latex representation of the current Op
+    def to_latex
+      "\\left|#{@x.to_latex}\\right|"
     end
   end
 

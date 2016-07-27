@@ -8,6 +8,7 @@
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
+  var index_rel_prefix = "../";
 </script>
 
 <script src="../js/jquery.js"></script>
@@ -78,6 +79,8 @@
     
     <li ><a href="#method-i-to_code">#to_code</a>
     
+    <li ><a href="#method-i-to_latex">#to_latex</a>
+    
     <li ><a href="#method-i-to_s">#to_s</a>
     
   </ul>
@@ -93,7 +96,11 @@
 
   <section class="description">
     
-<p>_  /<em>\ _ _ <strong>_  / _ / / _ (-&lt; // ___</strong>/</em>/</p>
+<pre>  _
+ /_\  __ ___ ___
+/ _ \/ _/ _ (_-&lt;</pre>
+
+<p>/_/ _<em>_/</em>/</p>
 
   </section>
 
@@ -129,13 +136,13 @@
 
         <div class="method-description">
           
-          <p>Same as <code>CAS::Op</code></p>
+          <p>Same as `CAS::Op`</p>
           
           
 
           
           <div class="method-source-code" id="call-source">
-            <pre><span class="ruby-comment"># File lib/fnc-trig.rb, line 168</span>
+            <pre><span class="ruby-comment"># File lib/fnc-trig.rb, line 183</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">f</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">f</span>, <span class="ruby-constant">Hash</span>)
 
@@ -170,7 +177,7 @@
 
           
           <div class="method-source-code" id="diff-source">
-            <pre><span class="ruby-comment"># File lib/fnc-trig.rb, line 159</span>
+            <pre><span class="ruby-comment"># File lib/fnc-trig.rb, line 174</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">depend?</span> <span class="ruby-identifier">v</span>
     <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">invert</span>(<span class="ruby-ivar">@x</span>.<span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)<span class="ruby-operator">/</span><span class="ruby-constant">CAS</span>.<span class="ruby-identifier">sqrt</span>(<span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">One</span> <span class="ruby-operator">-</span> <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">pow</span>(<span class="ruby-ivar">@x</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Two</span>)))
@@ -201,7 +208,7 @@
 
         <div class="method-description">
           
-          <p>Same as <code>CAS::Op</code></p>
+          <p>Same as `CAS::Op`</p>
           
           
             <div class="method-calls-super">
@@ -212,7 +219,7 @@
 
           
           <div class="method-source-code" id="simplify-source">
-            <pre><span class="ruby-comment"># File lib/fnc-trig.rb, line 180</span>
+            <pre><span class="ruby-comment"># File lib/fnc-trig.rb, line 195</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">simplify</span>
   <span class="ruby-keyword">super</span>
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span> <span class="ruby-operator">==</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>
@@ -249,15 +256,48 @@
 
         <div class="method-description">
           
-          <p>Same as <code>CAS::Op</code></p>
+          <p>Same as `CAS::Op`</p>
           
           
 
           
           <div class="method-source-code" id="to_code-source">
-            <pre><span class="ruby-comment"># File lib/fnc-trig.rb, line 195</span>
+            <pre><span class="ruby-comment"># File lib/fnc-trig.rb, line 210</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_code</span>
   <span class="ruby-node">&quot;Math::acos(#{@x.to_code})&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-to_latex" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">to_latex</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Return latex representation of current <a href="Op.html">Op</a></p>
+          
+          
+
+          
+          <div class="method-source-code" id="to_latex-source">
+            <pre><span class="ruby-comment"># File lib/fnc-trig.rb, line 215</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_latex</span>
+  <span class="ruby-node">&quot;\\mathrm{arccos}\\left( #{@x.to_latex} \\right))&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -282,13 +322,13 @@
 
         <div class="method-description">
           
-          <p>Same as <code>CAS::Op</code></p>
+          <p>Same as `CAS::Op`</p>
           
           
 
           
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/fnc-trig.rb, line 175</span>
+            <pre><span class="ruby-comment"># File lib/fnc-trig.rb, line 190</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
   <span class="ruby-node">&quot;acos(#{@x})&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -310,7 +350,7 @@
 
 <footer id="validator-badges" role="contentinfo">
   <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.1.
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.2.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

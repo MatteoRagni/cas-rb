@@ -47,6 +47,7 @@ Gem::Specification.new do |s|
   ]
   s.homepage = 'https://github.com/MatteoRagni/cas-rb'
   s.license = 'MIT'
+  s.required_ruby_version = '>= 2.0'
 
   s.cert_chain  = ['certs/MatteoRagni.pem']
   s.signing_key = File.expand_path("~/.ssh/gem-private_key.pem") if $0 =~ /gem\z/

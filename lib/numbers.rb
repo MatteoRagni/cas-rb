@@ -87,6 +87,11 @@ module CAS
     def dot_graph(node)
       "#{self.class.to_s.gsub("CAS::", "")}_#{self.object_id};"
     end
+    
+    # Return latex representation of current Op
+    def to_latex
+      self.to_s
+    end
   end
 
   # Allows to define a series of new constants.
@@ -229,6 +234,11 @@ module CAS
     def dot_graph(node)
       "#{@name};"
     end
+    
+    # Return latex representation of current Op
+    def to_latex
+      self.to_s
+    end
   end # Number
 
   def self.vars(*name)
@@ -297,6 +307,10 @@ module CAS
     def to_s
       "π"
     end
+    
+    def to_latex
+      "\\pi"
+    end
   end
   Pi = CAS::PI_CONSTANT.new
 
@@ -310,6 +324,10 @@ module CAS
     end
 
     def to_s
+      "e"
+    end
+    
+    def to_latex
       "e"
     end
   end
@@ -327,6 +345,10 @@ module CAS
 
     def to_s
       "∞"
+    end
+    
+    def to_latex
+      "\\infty"
     end
   end
   Infinity = CAS::INFINITY_CONSTANT.new

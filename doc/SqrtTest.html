@@ -4,18 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class CAS::TWO_CONSTANT - RDoc Documentation</title>
+<title>class SqrtTest - RDoc Documentation</title>
 
 <script type="text/javascript">
-  var rdoc_rel_prefix = "../";
-  var index_rel_prefix = "../";
+  var rdoc_rel_prefix = "./";
+  var index_rel_prefix = "./";
 </script>
 
-<script src="../js/jquery.js"></script>
-<script src="../js/darkfish.js"></script>
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
 
-<link href="../css/fonts.css" rel="stylesheet">
-<link href="../css/rdoc.css" rel="stylesheet">
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
 
 
 
@@ -24,13 +24,13 @@
   <div id="project-navigation">
     <div id="home-section" role="region" title="Quick navigation" class="nav-section">
   <h2>
-    <a href="../index.html" rel="home">Home</a>
+    <a href="./index.html" rel="home">Home</a>
   </h2>
 
   <div id="table-of-contents-navigation">
-    <a href="../table_of_contents.html#pages">Pages</a>
-    <a href="../table_of_contents.html#classes">Classes</a>
-    <a href="../table_of_contents.html#methods">Methods</a>
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
   </div>
 </div>
 
@@ -59,7 +59,7 @@
   <h3>Parent</h3>
 
   
-  <p class="link"><a href="Constant.html">CAS::Constant</a>
+  <p class="link">Test::Unit::TestCase
   
 </div>
 
@@ -71,9 +71,9 @@
 
   <ul class="link-list" role="directory">
     
-    <li ><a href="#method-c-new">::new</a>
+    <li ><a href="#method-i-test_init">#test_init</a>
     
-    <li ><a href="#method-i-to_s">#to_s</a>
+    <li ><a href="#method-i-test_to_code">#test_to_code</a>
     
   </ul>
 </div>
@@ -81,21 +81,13 @@
   </div>
 </nav>
 
-<main role="main" aria-labelledby="class-CAS::TWO_CONSTANT">
-  <h1 id="class-CAS::TWO_CONSTANT" class="class">
-    class CAS::TWO_CONSTANT
+<main role="main" aria-labelledby="class-SqrtTest">
+  <h1 id="class-SqrtTest" class="class">
+    class SqrtTest
   </h1>
 
   <section class="description">
     
-<pre class="ruby"><span class="ruby-identifier">_____</span>
-</pre>
-
-<p>|_   _|_ __ <em>_</em></p>
-
-<pre>| | \ V  V / _ \
-|_|  \_/\_/\___/</pre>
-
   </section>
 
   
@@ -111,16 +103,16 @@
     
 
     
-     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
        <header>
-         <h3>Public Class Methods</h3>
+         <h3>Public Instance Methods</h3>
        </header>
 
     
-      <div id="method-c-new" class="method-detail ">
+      <div id="method-i-test_init" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">new</span><span
+          <span class="method-name">test_init</span><span
             class="method-args">()</span>
           
           <span class="method-click-advice">click to toggle source</span>
@@ -135,10 +127,10 @@
           
 
           
-          <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/numbers.rb, line 288</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>
-  <span class="ruby-ivar">@x</span> = <span class="ruby-value">2.0</span>
+          <div class="method-source-code" id="test_init-source">
+            <pre><span class="ruby-comment"># File tests/test-FNC_BASE.rb, line 233</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">test_init</span>
+  <span class="ruby-identifier">assert_equal</span>(<span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">const</span>(<span class="ruby-value">1.0</span>), (<span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">sqrt</span>(<span class="ruby-identifier">$a</span>)).<span class="ruby-identifier">simplify</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -150,18 +142,10 @@
       </div>
 
     
-    </section>
-  
-     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
-       <header>
-         <h3>Public Instance Methods</h3>
-       </header>
-
-    
-      <div id="method-i-to_s" class="method-detail ">
+      <div id="method-i-test_to_code" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">to_s</span><span
+          <span class="method-name">test_to_code</span><span
             class="method-args">()</span>
           
           <span class="method-click-advice">click to toggle source</span>
@@ -176,10 +160,10 @@
           
 
           
-          <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/numbers.rb, line 292</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
-  <span class="ruby-string">&quot;2&quot;</span>
+          <div class="method-source-code" id="test_to_code-source">
+            <pre><span class="ruby-comment"># File tests/test-FNC_BASE.rb, line 237</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">test_to_code</span>
+  <span class="ruby-identifier">assert_equal</span>(<span class="ruby-string">&quot;Math::sqrt(x)&quot;</span>, (<span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">sqrt</span>(<span class="ruby-identifier">$x</span>)).<span class="ruby-identifier">to_code</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
           

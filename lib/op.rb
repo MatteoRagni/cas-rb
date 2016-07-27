@@ -260,6 +260,13 @@ module CAS
       cls = "#{self.class.to_s.gsub("CAS::", "")}_#{self.object_id}"
       "#{cls} -> #{@x.dot_graph node}\n"
     end
+    
+    # Returns the latex representation of the current Op.
+    #
+    # -> `String`
+    def to_latex
+      "#{self.class.gsub("CAS::", "")}\\left(#{@x.to_latex}\\right)"
+    end
   end # Op
 
   #  ___ _                     ___
@@ -435,6 +442,13 @@ module CAS
     def dot_graph(node)
       cls = "#{self.class.to_s.gsub("CAS::", "")}_#{self.object_id}"
       "#{cls} -> #{@x.dot_graph node}\n  #{cls} -> #{@y.dot_graph node}"
+    end
+    
+    # Returns the latex representation of the current Op.
+    #
+    # -> `String`
+    def to_latex
+      "#{self.class.gsub("CAS::", "")}\\left(#{@x.to_latex},\\,#{@y.to_latex}\\right)"
     end
   end # BinaryOp
 end

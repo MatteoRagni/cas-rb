@@ -45,6 +45,10 @@ module CAS
       cls = "#{self.class.to_s.gsub("CAS::", "")}_#{self.object_id}"
       "#{cls} -> #{@x.dot_graph node}\n  #{cls} -> #{@y.dot_graph node}\n  #{cls} -> #{@condition.dot_graph node}"
     end
+    
+    def to_latex
+      "\\left\\{ \\begin{array}{lr} #{@x.to_latex} & #{@condition.to_latex} \\\\ #{@y.to_latex} \\end{array} \\right."
+    end
   end
 
 
@@ -156,11 +160,19 @@ module CAS
     def initialize(x, y)
       super(:eq, x, y)
     end
+    
+    def to_latex
+      "#{@x.to_latex} = #{@y.to_latex}"
+    end
   end
 
   class Greater < CAS::Condition
     def initialize(x, y)
       super(:gt, x, y)
+    end
+    
+    def to_latex
+      "#{@x.to_latex} > #{@y.to_latex}"
     end
   end
 
@@ -168,17 +180,29 @@ module CAS
     def initialize(x, y)
       super(:geq, x, y)
     end
+    
+    def to_latex
+      "#{@x.to_latex} \\geq #{@y.to_latex}"
+    end
   end
 
   class Smaller < CAS::Condition
     def initialize(x, y)
       super(:lt, x, y)
     end
+    
+    def to_latex
+      "#{@x.to_latex} < #{@y.to_latex}"
+    end
   end
 
   class SmallerEqual < CAS::Condition
     def initialize(x, y)
       super(:leq, x, y)
+    end
+    
+    def to_latex
+      "#{@x.to_latex} \\leq #{@y.to_latex}"
     end
   end
 

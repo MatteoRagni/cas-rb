@@ -8,6 +8,7 @@
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
+  var index_rel_prefix = "../";
 </script>
 
 <script src="../js/jquery.js"></script>
@@ -194,7 +195,7 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 62</span>
+            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 66</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">type</span>, <span class="ruby-constant">Symbol</span>)
 
@@ -267,7 +268,7 @@
 
           
           <div class="method-source-code" id="21-3D-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 132</span>
+            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 136</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">!=</span>(<span class="ruby-identifier">op</span>)
   <span class="ruby-keyword">not</span> <span class="ruby-keyword">self</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">op</span>
 <span class="ruby-keyword">end</span></pre>
@@ -300,7 +301,7 @@
 
           
           <div class="method-source-code" id="3D-3D-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 124</span>
+            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 128</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">op</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">op</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>)
   <span class="ruby-identifier">condA</span> = (<span class="ruby-ivar">@x</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">x</span>) <span class="ruby-keyword">and</span> (<span class="ruby-ivar">@y</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">y</span>)
@@ -337,7 +338,7 @@
 
           
           <div class="method-source-code" id="args-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 110</span>
+            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 114</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">args</span>
   (<span class="ruby-ivar">@x</span>.<span class="ruby-identifier">args</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@y</span>.<span class="ruby-identifier">args</span>).<span class="ruby-identifier">uniq</span>
 <span class="ruby-keyword">end</span></pre>
@@ -370,7 +371,7 @@
 
           
           <div class="method-source-code" id="depend-3F-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 120</span>
+            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 124</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">depend?</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">depend?</span>(<span class="ruby-identifier">v</span>) <span class="ruby-keyword">or</span> <span class="ruby-ivar">@y</span>.<span class="ruby-identifier">depend?</span>(<span class="ruby-identifier">v</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -403,7 +404,7 @@
 
           
           <div class="method-source-code" id="diff-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 114</span>
+            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 118</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-ivar">@y</span>.<span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)
@@ -438,7 +439,7 @@
 
           
           <div class="method-source-code" id="dot_graph-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 149</span>
+            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 153</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">dot_graph</span>(<span class="ruby-identifier">node</span>)
   <span class="ruby-identifier">cls</span> = <span class="ruby-node">&quot;#{self.class.to_s.gsub(&quot;CAS::&quot;, &quot;&quot;)}_#{self.object_id}&quot;</span>
   <span class="ruby-node">&quot;#{cls} -&gt; #{@x.dot_graph node}\n  #{cls} -&gt; #{@y.dot_graph node}&quot;</span>
@@ -472,7 +473,7 @@
 
           
           <div class="method-source-code" id="inspect-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 98</span>
+            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 102</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">inspect</span>
   <span class="ruby-node">&quot;#{@x.inspect} #{@type} #{@y.inspect}&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -505,7 +506,7 @@
 
           
           <div class="method-source-code" id="simplify-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 136</span>
+            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 140</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">simplify</span>
   <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">simplify</span>
   <span class="ruby-ivar">@y</span>.<span class="ruby-identifier">simplify</span>
@@ -540,7 +541,7 @@
 
           
           <div class="method-source-code" id="subs-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 142</span>
+            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 146</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">subs</span>(<span class="ruby-identifier">fd</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">fd</span>, <span class="ruby-constant">Hash</span>)
   <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">subs</span>(<span class="ruby-identifier">fd</span>)
@@ -576,7 +577,7 @@
 
           
           <div class="method-source-code" id="to_code-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 106</span>
+            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 110</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_code</span>
   <span class="ruby-node">&quot;#{@x}.call(fd) #{@type} #{@y}.call(fd)&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -609,7 +610,7 @@
 
           
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 102</span>
+            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 106</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
   <span class="ruby-node">&quot;#{@x} #{@type} #{@y}&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -631,7 +632,7 @@
 
 <footer id="validator-badges" role="contentinfo">
   <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.1.
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.2.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

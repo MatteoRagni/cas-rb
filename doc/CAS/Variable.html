@@ -8,6 +8,7 @@
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
+  var index_rel_prefix = "../";
 </script>
 
 <script src="../js/jquery.js"></script>
@@ -94,7 +95,11 @@
     
     <li ><a href="#method-i-simplify">#simplify</a>
     
+    <li ><a href="#method-i-subs">#subs</a>
+    
     <li ><a href="#method-i-to_code">#to_code</a>
+    
+    <li ><a href="#method-i-to_latex">#to_latex</a>
     
     <li ><a href="#method-i-to_s">#to_s</a>
     
@@ -111,9 +116,10 @@
 
   <section class="description">
     
-<p><em>_ _ _ _ _ \ \ / / _ _ ()</em>_ <em>| || |_  \ V / <code>| &#39;_| /
-_</code> | &#39; \ / -</em>)  <em>/,</em>|<em>|
-|</em>_<em>,</em>|<em>._</em>/<em>__</em>|</p>
+<p>__   __        _      _    _ \ \ / /_ _ _ _(_)__ _| |__| |<em>_</em></p>
+
+<pre>\ V / _` | &#39;_| / _` | &#39;_ \ / -_)
+ \_/\__,_|_| |_\__,_|_.__/_\___|</pre>
 
   </section>
 
@@ -170,16 +176,16 @@ _</code> | &#39; \ / -</em>)  <em>/,</em>|<em>|
 
         <div class="method-description">
           
-          <p>Returns <code>true</code> if a variable already exists</p>
+          <p>Returns `true` if a variable already exists</p>
 
-<p>&lt;- <code>Object</code> that represent the variable -&gt;
-<code>TrueClass</code> if variable exists, <code>FalseClass</code> if not</p>
+<p>&lt;- `Object` that represent the variable -&gt; `TrueClass` if variable
+exists, `FalseClass` if not</p>
           
           
 
           
           <div class="method-source-code" id="exist-3F-source">
-            <pre><span class="ruby-comment"># File lib/numbers.rb, line 122</span>
+            <pre><span class="ruby-comment"># File lib/numbers.rb, line 141</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">name</span>)
   <span class="ruby-identifier">@@vars</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">name</span>
 <span class="ruby-keyword">end</span></pre>
@@ -206,15 +212,15 @@ _</code> | &#39; \ / -</em>)  <em>/,</em>|<em>|
 
         <div class="method-description">
           
-          <p>Returns the <code>Hash</code> that contains all the variable</p>
+          <p>Returns the `Hash` that contains all the variable</p>
 
-<p>-&gt; <code>Hash</code></p>
+<p>-&gt; `Hash`</p>
           
           
 
           
           <div class="method-source-code" id="list-source">
-            <pre><span class="ruby-comment"># File lib/numbers.rb, line 107</span>
+            <pre><span class="ruby-comment"># File lib/numbers.rb, line 126</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">list</span>
   <span class="ruby-identifier">@@vars</span>
 <span class="ruby-keyword">end</span></pre>
@@ -242,16 +248,16 @@ _</code> | &#39; \ / -</em>)  <em>/,</em>|<em>|
         <div class="method-description">
           
           <p><a href="Variable.html">Variable</a> is a container for an atomic simbol
-that becomes a number when <code>CAS::Op#call</code> method is used.</p>
+that becomes a number when `CAS::Op#call` method is used.</p>
 
-<p>&lt;- <code>Object</code> that is a identifier for the variable -&gt;
-<code>CAS::Variable</code> instance</p>
+<p>&lt;- `Object` that is a identifier for the variable -&gt; `CAS::Variable`
+instance</p>
           
           
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/numbers.rb, line 132</span>
+            <pre><span class="ruby-comment"># File lib/numbers.rb, line 151</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">name</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">CASError</span>, <span class="ruby-node">&quot;Variable #{name} already exists&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Variable</span>.<span class="ruby-identifier">exist?</span> <span class="ruby-identifier">name</span>
   <span class="ruby-ivar">@name</span> = <span class="ruby-identifier">name</span>
@@ -282,13 +288,13 @@ that becomes a number when <code>CAS::Op#call</code> method is used.</p>
           
           <p>Return the number of variable defined</p>
 
-<p>-&gt; <code>Fixnum</code></p>
+<p>-&gt; `Fixnum`</p>
           
           
 
           
           <div class="method-source-code" id="size-source">
-            <pre><span class="ruby-comment"># File lib/numbers.rb, line 114</span>
+            <pre><span class="ruby-comment"># File lib/numbers.rb, line 133</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">size</span>
   <span class="ruby-identifier">@@vars</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">size</span>
 <span class="ruby-keyword">end</span></pre>
@@ -323,15 +329,15 @@ that becomes a number when <code>CAS::Op#call</code> method is used.</p>
 
         <div class="method-description">
           
-          <p>Same as <code>CAS::Op</code></p>
+          <p>Same as `CAS::Op`</p>
           
           
 
           
           <div class="method-source-code" id="3D-3D-source">
-            <pre><span class="ruby-comment"># File lib/numbers.rb, line 158</span>
+            <pre><span class="ruby-comment"># File lib/numbers.rb, line 177</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">op</span>)
-  <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">op</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>)
+  <span class="ruby-comment"># CAS::Help.assert(op, CAS::Op)</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Variable</span>
     <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">inspect</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">inspect</span>
   <span class="ruby-keyword">else</span>
@@ -361,13 +367,13 @@ that becomes a number when <code>CAS::Op#call</code> method is used.</p>
 
         <div class="method-description">
           
-          <p>Same as <code>CAS::Op</code></p>
+          <p>Same as `CAS::Op`</p>
           
           
 
           
           <div class="method-source-code" id="args-source">
-            <pre><span class="ruby-comment"># File lib/numbers.rb, line 186</span>
+            <pre><span class="ruby-comment"># File lib/numbers.rb, line 205</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">args</span>
   [<span class="ruby-keyword">self</span>]
 <span class="ruby-keyword">end</span></pre>
@@ -394,13 +400,13 @@ that becomes a number when <code>CAS::Op#call</code> method is used.</p>
 
         <div class="method-description">
           
-          <p>Same as <code>CAS::Op</code></p>
+          <p>Same as `CAS::Op`</p>
           
           
 
           
           <div class="method-source-code" id="call-source">
-            <pre><span class="ruby-comment"># File lib/numbers.rb, line 168</span>
+            <pre><span class="ruby-comment"># File lib/numbers.rb, line 187</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">f</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">f</span>, <span class="ruby-constant">Hash</span>)
 
@@ -430,13 +436,13 @@ that becomes a number when <code>CAS::Op#call</code> method is used.</p>
 
         <div class="method-description">
           
-          <p>Same as <code>CAS::Op</code></p>
+          <p>Same as `CAS::Op`</p>
           
           
 
           
           <div class="method-source-code" id="depend-3F-source">
-            <pre><span class="ruby-comment"># File lib/numbers.rb, line 153</span>
+            <pre><span class="ruby-comment"># File lib/numbers.rb, line 172</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">depend?</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-keyword">self</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">v</span>
 <span class="ruby-keyword">end</span></pre>
@@ -465,18 +471,22 @@ that becomes a number when <code>CAS::Op#call</code> method is used.</p>
           
           <p>Returns the derivative of a variable</p>
 
-<pre>dx      dx
- -- = 1; -- = 0
- dx      dy</pre>
+<p>“`</p>
 
-<p>&lt;- <code>CAS::Op</code> for the derivative denominator -&gt;
-<code>CAS::Constant</code>, 0 if not depended, 1 if dependent</p>
+<pre>dx      dx
+-- = 1; -- = 0
+dx      dy</pre>
+
+<p>“`</p>
+
+<p>&lt;- `CAS::Op` for the derivative denominator -&gt; `CAS::Constant`, 0 if
+not depended, 1 if dependent</p>
           
           
 
           
           <div class="method-source-code" id="diff-source">
-            <pre><span class="ruby-comment"># File lib/numbers.rb, line 148</span>
+            <pre><span class="ruby-comment"># File lib/numbers.rb, line 167</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">One</span>
 <span class="ruby-keyword">end</span></pre>
@@ -503,13 +513,13 @@ that becomes a number when <code>CAS::Op#call</code> method is used.</p>
 
         <div class="method-description">
           
-          <p>Same as <code>CAS::Op</code></p>
+          <p>Same as `CAS::Op`</p>
           
           
 
           
           <div class="method-source-code" id="dot_graph-source">
-            <pre><span class="ruby-comment"># File lib/numbers.rb, line 201</span>
+            <pre><span class="ruby-comment"># File lib/numbers.rb, line 234</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">dot_graph</span>(<span class="ruby-identifier">node</span>)
   <span class="ruby-node">&quot;#{@name};&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -536,13 +546,13 @@ that becomes a number when <code>CAS::Op#call</code> method is used.</p>
 
         <div class="method-description">
           
-          <p>Same as <code>CAS::Op</code></p>
+          <p>Same as `CAS::Op`</p>
           
           
 
           
           <div class="method-source-code" id="inspect-source">
-            <pre><span class="ruby-comment"># File lib/numbers.rb, line 191</span>
+            <pre><span class="ruby-comment"># File lib/numbers.rb, line 224</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">inspect</span>
   <span class="ruby-node">&quot;Var(#{@name})&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -569,15 +579,57 @@ that becomes a number when <code>CAS::Op#call</code> method is used.</p>
 
         <div class="method-description">
           
-          <p>Same as <code>CAS::Op</code></p>
+          <p>Same as `CAS::Op`</p>
           
           
 
           
           <div class="method-source-code" id="simplify-source">
-            <pre><span class="ruby-comment"># File lib/numbers.rb, line 196</span>
+            <pre><span class="ruby-comment"># File lib/numbers.rb, line 229</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">simplify</span>
   <span class="ruby-keyword">self</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-subs" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">subs</span><span
+            class="method-args">(dt)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Terminal substitutions for variables</p>
+          
+          
+
+          
+          <div class="method-source-code" id="subs-source">
+            <pre><span class="ruby-comment"># File lib/numbers.rb, line 210</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">subs</span>(<span class="ruby-identifier">dt</span>)
+  <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">dt</span>, <span class="ruby-constant">Hash</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">dt</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">include?</span> <span class="ruby-keyword">self</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">dt</span>[<span class="ruby-keyword">self</span>].<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-identifier">dt</span>[<span class="ruby-keyword">self</span>]
+    <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">dt</span>[<span class="ruby-keyword">self</span>].<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Numeric</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">const</span>(<span class="ruby-identifier">dt</span>[<span class="ruby-keyword">self</span>])
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">CASError</span>, <span class="ruby-node">&quot;Impossible subs. Received a #{dt[self].class} = #{dt[self]}&quot;</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -602,15 +654,48 @@ that becomes a number when <code>CAS::Op#call</code> method is used.</p>
 
         <div class="method-description">
           
-          <p>Same as <code>CAS::Op</code></p>
+          <p>Same as `CAS::Op`</p>
           
           
 
           
           <div class="method-source-code" id="to_code-source">
-            <pre><span class="ruby-comment"># File lib/numbers.rb, line 181</span>
+            <pre><span class="ruby-comment"># File lib/numbers.rb, line 200</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_code</span>
   <span class="ruby-node">&quot;#{@name}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-to_latex" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">to_latex</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Return latex representation of current <a href="Op.html">Op</a></p>
+          
+          
+
+          
+          <div class="method-source-code" id="to_latex-source">
+            <pre><span class="ruby-comment"># File lib/numbers.rb, line 239</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_latex</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">to_s</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -635,13 +720,13 @@ that becomes a number when <code>CAS::Op#call</code> method is used.</p>
 
         <div class="method-description">
           
-          <p>Same as <code>CAS::Op</code></p>
+          <p>Same as `CAS::Op`</p>
           
           
 
           
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/numbers.rb, line 176</span>
+            <pre><span class="ruby-comment"># File lib/numbers.rb, line 195</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
   <span class="ruby-node">&quot;#{@name}&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -663,7 +748,7 @@ that becomes a number when <code>CAS::Op#call</code> method is used.</p>
 
 <footer id="validator-badges" role="contentinfo">
   <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.1.
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.2.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

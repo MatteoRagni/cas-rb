@@ -45,6 +45,11 @@ module CAS
     def to_code
       "Math::sin(#{@x.to_code})"
     end
+    
+    # Return latex representation of current Op
+    def to_latex
+      "\\mathrm{sin}\\left( #{@x.to_latex} \\right))"
+    end
   end # Sin
 
   def self.sin(x)
@@ -94,6 +99,11 @@ module CAS
     # Same as `CAS::Op`
     def to_code
       "Math::asin(#{@x.to_code})"
+    end
+    
+    # Return latex representation of current Op
+    def to_latex
+      "\\mathrm{arcsin}\\left( #{@x.to_latex} \\right))"
     end
   end
 
@@ -145,6 +155,11 @@ module CAS
     def to_code
       "Math::cos(#{@x.to_code})"
     end
+    
+    # Return latex representation of current Op
+    def to_latex
+      "\\mathrm{cos}\\left( #{@x.to_latex} \\right))"
+    end
   end
 
   def self.cos(x)
@@ -195,6 +210,11 @@ module CAS
     def to_code
       "Math::acos(#{@x.to_code})"
     end
+    
+    # Return latex representation of current Op
+    def to_latex
+      "\\mathrm{arccos}\\left( #{@x.to_latex} \\right))"
+    end
   end
 
   def self.acos(x)
@@ -244,6 +264,11 @@ module CAS
     # Same as `CAS::Op`
     def to_code
       "Math::tan(#{@x.to_code})"
+    end
+    
+    # Return latex representation of current Op
+    def to_latex
+      "\\mathrm{tan}\\left( #{@x.to_latex} \\right))"
     end
   end
 
@@ -297,6 +322,11 @@ module CAS
     # Same as `CAS::Op`
     def to_code
       "Math::atan(#{@x.to_code})"
+    end
+    
+    # Return latex representation of current Op
+    def to_latex
+      "\\mathrm{arctan}\\left( #{@x.to_latex} \\right))"
     end
   end
 

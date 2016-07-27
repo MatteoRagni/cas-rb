@@ -8,6 +8,7 @@
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "./";
+  var index_rel_prefix = "./";
 </script>
 
 <script src="./js/jquery.js"></script>
@@ -58,7 +59,14 @@
     <li><a href="#label-CAS-RB">CAS-RB</a>
     <li><a href="#label-Introduction">Introduction</a>
     <li><a href="#label-Example">Example</a>
+    <li><a href="#label-Execution">Execution</a>
+    <li><a href="#label-Installation">Installation</a>
+    <li><a href="#label-Define+a+function">Define a function</a>
+    <li><a href="#label-Derivatives">Derivatives</a>
+    <li><a href="#label-Substitutions">Substitutions</a>
+    <li><a href="#label-3D-3E+df-2Fdx+-3D+-28-28-281+-+x-29+-2A+2-29+-2A+-1-29">=&gt; df/dx = (((1 - x) * 2) * -1)</a>
     <li><a href="#label-Disclaimer">Disclaimer</a>
+    <li><a href="#label-Full+example+code">Full example code</a>
   </ul>
 </div>
 
@@ -87,71 +95,244 @@
 
 <h1 id="label-CAS-RB">CAS-RB<span><a href="#label-CAS-RB">&para;</a> <a href="#top">&uarr;</a></span></h1>
 
+<p><img src="https://badge.fury.io/rb/ragni-cas.svg"></p>
+
 <h2 id="label-Introduction">Introduction<span><a href="#label-Introduction">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
-<p>An extremely simple graph, that handles only differentiation.</p>
+<p>An extremely simple graph, that handles only differentiation and
+simplification with one step ahead in the graph.</p>
 
 <h2 id="label-Example">Example<span><a href="#label-Example">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
-<pre class="ruby"><span class="ruby-comment"># Loading CAS library</span>
-<span class="ruby-identifier">require</span> <span class="ruby-string">&#39;./lib/cas.rb&#39;</span>
+<p>Given the function of Rosenbrock, find the optimum of such a function.</p>
 
-<span class="ruby-comment"># Create a new variable called x</span>
-<span class="ruby-identifier">x</span> = <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Variable</span>.<span class="ruby-identifier">new</span>(<span class="ruby-string">&quot;x&quot;</span>)
+<h2 id="label-Execution">Execution<span><a href="#label-Execution">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
-<span class="ruby-comment"># There are some constants defined</span>
-<span class="ruby-comment"># MINUS_ONE, One, Two, E, PI, INFINITY</span>
-<span class="ruby-identifier">two</span> = <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Two</span>
-<span class="ruby-identifier">three</span> = <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">const</span>(<span class="ruby-value">3.0</span>)
+<h3 id="label-Installation">Installation<span><a href="#label-Installation">&para;</a> <a href="#top">&uarr;</a></span></h3>
 
-<span class="ruby-comment"># A simple function if defined:</span>
-<span class="ruby-comment">#   __________________________</span>
-<span class="ruby-comment"># \/  x² + 2 sin(x) + 3 exp(x)</span>
-<span class="ruby-identifier">f</span> = <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">sqrt</span>(<span class="ruby-constant">CAS</span>.<span class="ruby-identifier">pow</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">two</span>) <span class="ruby-operator">+</span>  <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">sin</span>(<span class="ruby-identifier">x</span>) <span class="ruby-operator">*</span> <span class="ruby-value">2.0</span> <span class="ruby-operator">+</span> <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">exp</span>(<span class="ruby-identifier">x</span>) <span class="ruby-operator">*</span> <span class="ruby-value">3.0</span>)
+<p>First of all is necessary to install and load the <code>ragni-cas</code>
+gem. <code>bash gem install ragni-cas </code></p>
 
-<span class="ruby-comment"># f_diff will contain the symbolic derivative of the previous</span>
-<span class="ruby-comment"># function</span>
-<span class="ruby-identifier">f_diff</span> = <span class="ruby-identifier">f</span>.<span class="ruby-identifier">diff</span>(<span class="ruby-identifier">x</span>)
-
-<span class="ruby-comment"># To evaluate what a CAS::Op contains variable value is mapped with</span>
-<span class="ruby-comment"># an Hash with variables as keys</span>
-<span class="ruby-identifier">f_diff_value</span> = <span class="ruby-identifier">f_diff</span>.<span class="ruby-identifier">call</span>({
-    <span class="ruby-identifier">x</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1.0</span>
-  })
-
-<span class="ruby-comment"># Printing the result</span>
-<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#{f_diff} = #{f_diff_value}&quot;</span>
-
-<span class="ruby-comment"># =&gt; (((((x^(2 - 1) * 2) * 1) + ((1 * cos(x)) * 2.0)) + ((1 * exp(x)) * 3.0))) / ((2.0 * √(((x^2 + (sin(x) * 2.0)) + (exp(x) * 3.0))))) = 1.70643662864123</span>
-
-<span class="ruby-comment"># This equation is really messed up. We can try to simplify it</span>
-<span class="ruby-identifier">f_diff</span>.<span class="ruby-identifier">simplify</span>
-<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#{f_diff} = #{f_diff.call({x =&gt; 1.0})}&quot;</span>
-
-<span class="ruby-comment"># =&gt; ((((x * 2) + (cos(x) * 2.0)) + (exp(x) * 3.0))) / ((2.0 * √(((x^2 + (sin(x) * 2.0)) + (exp(x) * 3.0))))) = 1.70643662864123</span>
-
-<span class="ruby-comment"># Something more is at initial stage right now:</span>
-<span class="ruby-identifier">y</span>, <span class="ruby-identifier">z</span> = <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">vars</span> :<span class="ruby-identifier">x</span>, :<span class="ruby-identifier">y</span>
-
-<span class="ruby-identifier">puts</span> (<span class="ruby-identifier">x</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">y</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">y</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">x</span>)
-<span class="ruby-comment"># =&gt; true</span>
-
-<span class="ruby-identifier">eq</span> = (<span class="ruby-identifier">x</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">y</span>).<span class="ruby-identifier">subs</span>({<span class="ruby-identifier">x</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">log</span>(<span class="ruby-identifier">y</span>)})
-<span class="ruby-identifier">puts</span> <span class="ruby-identifier">eq</span>
-<span class="ruby-comment"># =&gt; (log(y) + y)</span>
+<pre class="ruby"><span class="ruby-identifier">require</span> <span class="ruby-string">&#39;ragni-cas&#39;</span>
 </pre>
+
+<h3 id="label-Define+a+function">Define a function<span><a href="#label-Define+a+function">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>Now we can define the Rosenbrock function, that has two variable
+(<code>x</code> and <code>y</code>) and two constants (<code>a</code> and
+<code>b</code>, with the default value on 1 and 100 in this case). The
+variable <code>f</code> will contain our function:</p>
+
+<pre class="ruby">
+<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span> = <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">vars</span> :<span class="ruby-identifier">x</span>, :<span class="ruby-identifier">y</span>
+<span class="ruby-identifier">a</span>, <span class="ruby-identifier">b</span> = <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">const</span> <span class="ruby-value">1.0</span>, <span class="ruby-value">100.0</span>
+
+<span class="ruby-identifier">f</span> = ((<span class="ruby-identifier">a</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">x</span>) <span class="ruby-operator">**</span> <span class="ruby-value">2</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">b</span> <span class="ruby-operator">*</span> ((<span class="ruby-identifier">y</span> <span class="ruby-operator">-</span> (<span class="ruby-identifier">x</span> <span class="ruby-operator">**</span> <span class="ruby-value">2</span>)) <span class="ruby-operator">**</span> <span class="ruby-value">2</span>)
+</pre>
+
+<p>We can print this function as follows:</p>
+
+<pre class="ruby"><span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;f = #{f}&quot;</span>
+<span class="ruby-comment"># =&gt; ((1.0 - x)^2 + (100.0 * (y - x^2)^2))</span>
+</pre>
+
+<h3 id="label-Derivatives">Derivatives<span><a href="#label-Derivatives">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>To find the minimum we need to find the point in which the gradient of such
+a function is equal to zero</p>
+
+<p>The two derivatives are:</p>
+
+<pre class="ruby"><span class="ruby-identifier">dfx</span> = <span class="ruby-identifier">f</span>.<span class="ruby-identifier">diff</span>(<span class="ruby-identifier">x</span>).<span class="ruby-identifier">simplify</span>
+<span class="ruby-identifier">dfy</span> = <span class="ruby-identifier">f</span>.<span class="ruby-identifier">diff</span>(<span class="ruby-identifier">y</span>).<span class="ruby-identifier">simplify</span>
+
+<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;df/dx = #{dfx}&quot;</span>
+<span class="ruby-comment"># =&gt; df/dx = ((((1 - x) * 2) * -1) + ((((y - x^2) * 2) * -(x * 2)) * 100.0))</span>
+
+<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;df/dy = #{dfy}&quot;</span>
+<span class="ruby-comment"># =&gt; df/dy = (((y - x^2) * 2) * 100.0)</span>
+</pre>
+
+<h3 id="label-Substitutions">Substitutions<span><a href="#label-Substitutions">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>Now, from the second it is quite evident that <code> y = x^2 = g(x) </code>
+and thus we can perform on the first a substitution: “` ruby g = (x ** 2)
+dfx = dfx.subs({y =&gt; g})</p>
+
+<p>puts “df/dx = #{dfx}”</p>
+
+<h1 id="label-3D-3E+df-2Fdx+-3D+-28-28-281+-+x-29+-2A+2-29+-2A+-1-29">=&gt; df/dx = (((1 - x) * 2) * -1)<span><a href="#label-3D-3E+df-2Fdx+-3D+-28-28-281+-+x-29+-2A+2-29+-2A+-1-29">&para;</a> <a href="#top">&uarr;</a></span></h1>
+
+<pre>
+### Meta-Programming (a Newton algorithm...)
+
+That is something quite simple to solve (x = 1). Let&#39;s use this formulation for some meta-programming anyway! The stationary point is in the root of the function `dfx`, that depends
+only on one variable:</pre>
+
+<p>ruby puts “Arguments: #{dfx.args}” “`</p>
+
+<p>We can write a Newton method. The solution is found iteratively solving the
+recursive equation:</p>
+
+<pre>x[k + 1] = x[k] - ( f(x[k]) / f&#39;(x[k]) )</pre>
+
+<p>Let&#39;s write an algorithm that takes the symblic expression, and creates
+its own method (e.g.: using <code>Proc</code> objects). Here an example
+with our function:</p>
+
+<pre class="ruby"><span class="ruby-identifier">unused</span> = (<span class="ruby-identifier">dfx</span><span class="ruby-operator">/</span><span class="ruby-identifier">dfx</span>.<span class="ruby-identifier">diff</span>(<span class="ruby-identifier">x</span>)).<span class="ruby-identifier">simplify</span>
+<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;unused(x) = #{unused}&quot;</span>
+<span class="ruby-comment"># =&gt; unused(x) = ((((1 - x) * 2) * -1)) / (((-1 * 2) * -1))</span>
+
+<span class="ruby-identifier">unused_proc</span> = <span class="ruby-identifier">unused</span>.<span class="ruby-identifier">as_proc</span>
+<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;unused(12.0) = #{unused.call({&quot;x&quot; =&gt; 12.0})}&quot;</span>
+<span class="ruby-comment"># =&gt; unused(12.0) = 11.0</span>
+</pre>
+
+<p>First of all, let&#39;s write a function that contains the algorithm. We
+want to give as input a symbolic function of one variable, it must reply
+with the value of the variable in which the function as value equal to
+zero:</p>
+
+<pre class="ruby"><span class="ruby-keyword">def</span> <span class="ruby-identifier">newton</span>(<span class="ruby-identifier">f</span>, <span class="ruby-identifier">init</span>=<span class="ruby-value">3.0</span>, <span class="ruby-identifier">tol</span>=<span class="ruby-value">1E-8</span>, <span class="ruby-identifier">kmax</span>=<span class="ruby-value">100</span>)
+  <span class="ruby-identifier">k</span> = <span class="ruby-value">0</span>
+
+  <span class="ruby-identifier">x</span>   = <span class="ruby-identifier">f</span>.<span class="ruby-identifier">args</span>[<span class="ruby-value">0</span>]
+  <span class="ruby-identifier">s</span>   = {<span class="ruby-identifier">x</span>.<span class="ruby-identifier">name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">init</span>}      <span class="ruby-comment"># &lt;-This is the solution dictionary</span>
+
+  <span class="ruby-identifier">fp</span>  = <span class="ruby-identifier">f</span>.<span class="ruby-identifier">as_proc</span>             <span class="ruby-comment"># &lt;- This is a parsed object</span>
+  <span class="ruby-identifier">df</span>  = <span class="ruby-identifier">f</span>.<span class="ruby-identifier">diff</span>(<span class="ruby-identifier">x</span>).<span class="ruby-identifier">simplify</span>    <span class="ruby-comment"># &lt;- This is still symbolic</span>
+  <span class="ruby-identifier">res</span> = (<span class="ruby-identifier">f</span><span class="ruby-operator">/</span><span class="ruby-identifier">df</span>).<span class="ruby-identifier">as_proc</span>        <span class="ruby-comment"># &lt;- This is a parsed object</span>
+
+  <span class="ruby-identifier">f0</span> = <span class="ruby-identifier">fp</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">s</span>)
+  <span class="ruby-identifier">k</span> = <span class="ruby-value">0</span>
+
+  <span class="ruby-identifier">loop</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-comment"># Algorithm</span>
+    <span class="ruby-identifier">s</span>[<span class="ruby-identifier">x</span>.<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">s</span>[<span class="ruby-identifier">x</span>.<span class="ruby-identifier">name</span>] <span class="ruby-operator">-</span> <span class="ruby-identifier">res</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">s</span>)
+    <span class="ruby-comment"># Tolerance check</span>
+    <span class="ruby-identifier">f1</span>        = <span class="ruby-identifier">fp</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">s</span>)
+    <span class="ruby-keyword">if</span> (<span class="ruby-identifier">f1</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">f0</span>).<span class="ruby-identifier">abs</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">tol</span>
+      <span class="ruby-keyword">break</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">f0</span> = <span class="ruby-identifier">f1</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-comment"># Iterations check</span>
+    <span class="ruby-identifier">k</span> = <span class="ruby-identifier">k</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+    <span class="ruby-keyword">break</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">k</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">kmax</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Solution after #{k} iterations: #{x} = #{s[x.name]}, f(#{x}) = #{f0}&quot;</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">s</span>[<span class="ruby-identifier">x</span>.<span class="ruby-identifier">name</span>]
+<span class="ruby-keyword">end</span>
+</pre>
+
+<p><strong>Transforming the symbolic function into a <code>Proc</code> makes
+the code more efficient. It is not mandatory, but higlhy suggested in case
+of iterative algorithms</strong>.</p>
+
+<p>Let&#39;s call our new function, using as argument the derivative of the
+function that we want to optimize:</p>
+
+<pre class="ruby"><span class="ruby-identifier">x_opt</span> = <span class="ruby-identifier">newton</span>(<span class="ruby-identifier">dfx</span>)
+<span class="ruby-comment"># =&gt; Solution after 1 iterations: x = 1.0, f(x) = -0.0</span>
+</pre>
+
+<p>We can use the solution of <code>x</code>, to get the value of
+<code>y</code>: <code>ruby puts &quot;Optimum in #{x} = #{x_opt} and #{y} =
+#{g.call({x =&gt; x_opt})}&quot; </code></p>
 
 <h2 id="label-Disclaimer">Disclaimer<span><a href="#label-Disclaimer">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
-<p>This is a working in progress and only a proof of concept. What really is
-missing is a graph to perform simplifications.</p>
+<p>This is a work in progress and mainly a proof of concept. What really is
+missing is a ~~graph~~ a way to perform better simplifications.</p>
+
+<h2 id="label-Full+example+code">Full example code<span><a href="#label-Full+example+code">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<pre class="ruby"><span class="ruby-identifier">require</span> <span class="ruby-string">&#39;ragni-cas&#39;</span>
+
+<span class="ruby-comment"># Define the function</span>
+<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span> = <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">vars</span> <span class="ruby-string">&quot;x&quot;</span>, <span class="ruby-string">&quot;y&quot;</span>
+<span class="ruby-identifier">a</span>, <span class="ruby-identifier">b</span> = <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">const</span> <span class="ruby-value">1.0</span>, <span class="ruby-value">100.0</span>
+
+<span class="ruby-identifier">f</span> = ((<span class="ruby-identifier">a</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">x</span>) <span class="ruby-operator">**</span> <span class="ruby-value">2</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">b</span> <span class="ruby-operator">*</span> ((<span class="ruby-identifier">y</span> <span class="ruby-operator">-</span> (<span class="ruby-identifier">x</span> <span class="ruby-operator">**</span> <span class="ruby-value">2</span>)) <span class="ruby-operator">**</span> <span class="ruby-value">2</span>)
+
+<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;f = #{f}&quot;</span>
+
+<span class="ruby-comment"># Derivate wrt variables</span>
+<span class="ruby-identifier">dfx</span> = <span class="ruby-identifier">f</span>.<span class="ruby-identifier">diff</span>(<span class="ruby-identifier">x</span>).<span class="ruby-identifier">simplify</span>
+<span class="ruby-identifier">dfy</span> = <span class="ruby-identifier">f</span>.<span class="ruby-identifier">diff</span>(<span class="ruby-identifier">y</span>).<span class="ruby-identifier">simplify</span>
+
+<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;df/dx = #{dfx}&quot;</span>
+<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;df/dy = #{dfy}&quot;</span>
+
+<span class="ruby-comment"># Perform substitutions</span>
+<span class="ruby-identifier">g</span> = (<span class="ruby-identifier">x</span> <span class="ruby-operator">**</span> <span class="ruby-value">2</span>)
+<span class="ruby-identifier">dfx</span> = <span class="ruby-identifier">dfx</span>.<span class="ruby-identifier">subs</span>({<span class="ruby-identifier">y</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">g</span>}).<span class="ruby-identifier">simplify</span>
+<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;df/dx = #{dfx}&quot;</span>
+
+<span class="ruby-comment"># Arguments of a function</span>
+<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Arguments: #{dfx.args}&quot;</span>
+
+<span class="ruby-comment"># Metaprogramming: Create a Proc from symbolic math</span>
+<span class="ruby-identifier">unused</span> = (<span class="ruby-identifier">dfx</span><span class="ruby-operator">/</span><span class="ruby-identifier">dfx</span>.<span class="ruby-identifier">diff</span>(<span class="ruby-identifier">x</span>)).<span class="ruby-identifier">simplify</span>
+<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;unused(x) = #{unused}&quot;</span>
+<span class="ruby-identifier">unused_proc</span> = <span class="ruby-identifier">unused</span>.<span class="ruby-identifier">as_proc</span>
+
+<span class="ruby-comment"># Testing the Proc. The feed must have string as key to identify</span>
+<span class="ruby-comment"># the variable</span>
+<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;unused(12.0) = #{unused.call({&quot;x&quot; =&gt; 12.0})}&quot;</span>
+
+<span class="ruby-comment"># We will not use this function, instead we will let the</span>
+<span class="ruby-comment"># algorithm to create its own</span>
+
+
+<span class="ruby-comment"># Newton algorthm on the fly, that creates its own formula!</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">newton</span>(<span class="ruby-identifier">f</span>, <span class="ruby-identifier">init</span>=<span class="ruby-value">3.0</span>, <span class="ruby-identifier">tol</span>=<span class="ruby-value">1E-8</span>, <span class="ruby-identifier">kmax</span>=<span class="ruby-value">100</span>)
+  <span class="ruby-identifier">k</span> = <span class="ruby-value">0</span>
+
+  <span class="ruby-identifier">x</span>   = <span class="ruby-identifier">f</span>.<span class="ruby-identifier">args</span>[<span class="ruby-value">0</span>]
+  <span class="ruby-identifier">s</span>   = {<span class="ruby-identifier">x</span>.<span class="ruby-identifier">name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">init</span>}      <span class="ruby-comment"># &lt;-This is the solution dictionary</span>
+
+  <span class="ruby-identifier">fp</span>  = <span class="ruby-identifier">f</span>.<span class="ruby-identifier">as_proc</span>             <span class="ruby-comment"># &lt;- This is a parsed object</span>
+  <span class="ruby-identifier">df</span>  = <span class="ruby-identifier">f</span>.<span class="ruby-identifier">diff</span>(<span class="ruby-identifier">x</span>).<span class="ruby-identifier">simplify</span>    <span class="ruby-comment"># &lt;- This is still symbolic</span>
+  <span class="ruby-identifier">res</span> = (<span class="ruby-identifier">f</span><span class="ruby-operator">/</span><span class="ruby-identifier">df</span>).<span class="ruby-identifier">as_proc</span>        <span class="ruby-comment"># &lt;- This is a parsed object</span>
+
+  <span class="ruby-identifier">f0</span> = <span class="ruby-identifier">fp</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">s</span>)
+  <span class="ruby-identifier">k</span> = <span class="ruby-value">0</span>
+
+  <span class="ruby-identifier">loop</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-comment"># Algorithm</span>
+    <span class="ruby-identifier">s</span>[<span class="ruby-identifier">x</span>.<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">s</span>[<span class="ruby-identifier">x</span>.<span class="ruby-identifier">name</span>] <span class="ruby-operator">-</span> <span class="ruby-identifier">res</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">s</span>)
+    <span class="ruby-comment"># Tolerance check</span>
+    <span class="ruby-identifier">f1</span>        = <span class="ruby-identifier">fp</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">s</span>)
+    <span class="ruby-keyword">if</span> (<span class="ruby-identifier">f1</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">f0</span>).<span class="ruby-identifier">abs</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">tol</span>
+      <span class="ruby-keyword">break</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">f0</span> = <span class="ruby-identifier">f1</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-comment"># Iterations check</span>
+    <span class="ruby-identifier">k</span> = <span class="ruby-identifier">k</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+    <span class="ruby-keyword">break</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">k</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">kmax</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Solution after #{k} iterations: #{x} = #{s[x.name]}, f(#{x}) = #{f0}&quot;</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">s</span>[<span class="ruby-identifier">x</span>.<span class="ruby-identifier">name</span>]
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># Let&#39;s call our shining algorithm:</span>
+<span class="ruby-identifier">x_opt</span> = <span class="ruby-identifier">newton</span>(<span class="ruby-identifier">dfx</span>)
+
+<span class="ruby-comment"># Let&#39;s see the final result for both:</span>
+<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Optimum in #{x} = #{x_opt} and #{y} = #{g.call({x =&gt; x_opt})}&quot;</span>
+</pre>
 </main>
 
 
 
 <footer id="validator-badges" role="contentinfo">
   <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.1.
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.2.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 
