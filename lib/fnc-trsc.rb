@@ -49,7 +49,7 @@ module CAS
     def to_code
       "Math::exp(#{@x.to_code})"
     end
-    
+
     # Return latex representation of current Op
     def to_latex
       "e^{#{@x.to_latex}}"
@@ -110,10 +110,10 @@ module CAS
     def to_code
       "Math::log(#{@x.to_code})"
     end
-    
+
     # Return latex representation of current Op
     def to_latex
-      "\\mathrm{ln}\\left( #{@x.to_latex} \\right))"
+      "\\log\\left( #{@x.to_latex} \\right)"
     end
   end # Ln
 

@@ -21,10 +21,10 @@ module CAS
     # -> `CAS::Op` instance
     def initialize(x)
       if x.is_a? Numeric
-        case x
-        when 0
+        case x.to_f
+        when 0.0
           x = CAS::Zero
-        when 1
+        when 1.0
           x = CAS::One
         else
           x = CAS.const x
@@ -41,7 +41,7 @@ module CAS
     # <- `CAS::Variable` instance
     # -> `TrueClass` if depends, `FalseClass` if not
     def depend?(v)
-      CAS::Help.assert(v, CAS::Variable)
+      CAS::Help.assert(v, CAS::Op)
 
       @x.depend? v
     end
@@ -110,7 +110,7 @@ module CAS
         elsif dt[@x].is_a? Numeric
           @x = CAS::const dt[@x]
         else
-          raise CASError, "Impossible subs. Received a #{dt[@x].class} = #{dt[@x]}"
+          raise CAS::CASError, "Impossible subs. Received a #{dt[@x].class} = #{dt[@x]}"
         end
       else
         @x.subs(dt)
@@ -237,8 +237,8 @@ module CAS
     def as_proc(bind=nil)
       args_ext = self.args.map { |e| "#{e} = fd[\"#{e}\"];" }
       code = "Proc.new do |fd|; #{args_ext.join " "} #{self.to_code}; end"
-      if bind
-        CAS::Help.assert(bind, Binding)
+      if bind # All objects have eval value, we bind when not nil
+        # CAS::Help.assert(bind, Binding)
         bind.eval(code)
       else
         eval(code)
@@ -260,7 +260,7 @@ module CAS
       cls = "#{self.class.to_s.gsub("CAS::", "")}_#{self.object_id}"
       "#{cls} -> #{@x.dot_graph node}\n"
     end
-    
+
     # Returns the latex representation of the current Op.
     #
     # -> `String`
@@ -443,7 +443,7 @@ module CAS
       cls = "#{self.class.to_s.gsub("CAS::", "")}_#{self.object_id}"
       "#{cls} -> #{@x.dot_graph node}\n  #{cls} -> #{@y.dot_graph node}"
     end
-    
+
     # Returns the latex representation of the current Op.
     #
     # -> `String`

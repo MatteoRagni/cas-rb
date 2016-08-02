@@ -70,7 +70,7 @@ module CAS
     def to_code
       "(#{@x.to_code} + #{@y.to_code})"
     end
-    
+
     # Returns a latex represenntation of the current Op
     def to_latex
       "\\left(#{@x.to_latex} + #{@y.to_latex}\\right)"
@@ -144,7 +144,7 @@ module CAS
     def to_code
       "(#{@x.to_code} - #{@y.to_code})"
     end
-    
+
     # Returns a latex representation of the current Op
     def to_latex
       "\\left(#{@x.to_latex} - #{@y.to_latex}\\right)"
@@ -216,7 +216,7 @@ module CAS
     def to_code
       "(#{@x.to_code} * #{@y.to_code})"
     end
-    
+
     # Returns a latex represstation of the Op
     def to_latex
       "#{@x.to_latex}\\,#{@y.to_latex}"
@@ -293,7 +293,7 @@ module CAS
     def to_code
       "(#{@x.to_code} ** #{@y.to_code})"
     end
-    
+
     # Returns the latex representation of the op
     def to_latex
       "{#{@x.to_latex}}^{#{@y.to_latex}}"
@@ -366,7 +366,7 @@ module CAS
     def to_code
       "(#{@x.to_code} / #{@y.to_code})"
     end
-    
+
     # Returns the latex reppresentation of the current Op
     def to_latex
       "\\dfrac{#{@x.to_latex}}{#{@y.to_latex}}"
@@ -428,7 +428,7 @@ module CAS
     def to_code
       "Math::sqrt(#{@x.to_code})"
     end
-    
+
     # Returns the latex representation of the current Op
     def to_latex
       "\\sqrt{#{@x.to_latex}}"
@@ -487,7 +487,7 @@ module CAS
     def to_code
       "(-#{@x.to_code})"
     end
-    
+
     # Returns the latex representation of the current op
     def to_latex
       "-{#{@x.to_latex}}"
@@ -512,7 +512,7 @@ module CAS
     # ```
     def diff(v)
       if @x.depend? v
-        return @x.diff * (@x/CAS.abs(@x))
+        return @x.diff(x) * (@x/CAS.abs(@x))
       else
         return CAS::Zero
       end
@@ -547,7 +547,7 @@ module CAS
     def to_code
       "(#{@x.to_code}).abs"
     end
-    
+
     # Returns the latex representation of the current Op
     def to_latex
       "\\left|#{@x.to_latex}\\right|"

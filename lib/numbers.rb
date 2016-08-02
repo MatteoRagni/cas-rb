@@ -87,7 +87,7 @@ module CAS
     def dot_graph(node)
       "#{self.class.to_s.gsub("CAS::", "")}_#{self.object_id};"
     end
-    
+
     # Return latex representation of current Op
     def to_latex
       self.to_s
@@ -165,7 +165,7 @@ module CAS
     # <- `CAS::Op` for the derivative denominator
     # -> `CAS::Constant`, 0 if not depended, 1 if dependent
     def diff(v)
-      CAS::One
+      (self == v ? CAS::One : CAS::Zero)
     end
 
     # Same as `CAS::Op`
@@ -234,7 +234,7 @@ module CAS
     def dot_graph(node)
       "#{@name};"
     end
-    
+
     # Return latex representation of current Op
     def to_latex
       self.to_s
@@ -307,7 +307,7 @@ module CAS
     def to_s
       "π"
     end
-    
+
     def to_latex
       "\\pi"
     end
@@ -326,7 +326,7 @@ module CAS
     def to_s
       "e"
     end
-    
+
     def to_latex
       "e"
     end
@@ -346,12 +346,32 @@ module CAS
     def to_s
       "∞"
     end
-    
+
     def to_latex
       "\\infty"
     end
   end
   Infinity = CAS::INFINITY_CONSTANT.new
+
+  #  _  _          ___       __ _      _ _
+  # | \| |___ __ _|_ _|_ _  / _(_)_ _ (_) |_ _  _
+  # | .` / -_) _` || || ' \|  _| | ' \| |  _| || |
+  # |_|\_\___\__, |___|_||_|_| |_|_||_|_|\__|\_, |
+  #          |___/                           |__/
+  class NEG_INFINITY_CONSTANT < CAS::Constant
+    def initialize
+      @x = -(1.0/0.0)
+    end
+
+    def to_s
+      "-∞"
+    end
+
+    def to_latex
+      "-\\infty"
+    end
+  end
+  NegInfinity = CAS::NEG_INFINITY_CONSTANT.new
 
   #      _
   #  ___/ |

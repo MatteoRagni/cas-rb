@@ -32,7 +32,7 @@ Gem::Specification.new do |s|
   s.name = 'ragni-cas'
   s.version = VERSION
   s.date = "#{'%04d' % DATE.year}-#{'%02d' % DATE.month}-#{'%02d' % DATE.day}"
-  s.summary = 'An extremely simple CAS system for my optimizers'
+  s.summary = 'An extremely simple CAS, for rapid prototyping and meta-programming'
   s.authors = ['Matteo Ragni']
   s.email = 'info@ragni.me'
   s.files = [

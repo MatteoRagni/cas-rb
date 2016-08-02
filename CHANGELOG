@@ -8,3 +8,5 @@ Version 0.1.7: Graphviz method
 Version 0.1.8: Unit test implemented, doc in sources
 Version 0.1.9: Corrected `subs` method
 Version 0.2.0: First version with a web interface
+Version 0.2.1: Added box conditions
+Version 0.2.2: Solved an issue with diff, added nAryOp, to be used with Sum and Prod
