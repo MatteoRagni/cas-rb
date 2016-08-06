@@ -8,7 +8,6 @@
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
-  var index_rel_prefix = "../";
 </script>
 
 <script src="../js/jquery.js"></script>
@@ -65,7 +64,41 @@
 
     
     
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
     
+    <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-3D-3D">#==</a>
+    
+    <li ><a href="#method-i-args">#args</a>
+    
+    <li ><a href="#method-i-call">#call</a>
+    
+    <li ><a href="#method-i-depend-3F">#depend?</a>
+    
+    <li ><a href="#method-i-diff">#diff</a>
+    
+    <li ><a href="#method-i-dot_graph">#dot_graph</a>
+    
+    <li ><a href="#method-i-inspect">#inspect</a>
+    
+    <li ><a href="#method-i-simplify">#simplify</a>
+    
+    <li ><a href="#method-i-subs">#subs</a>
+    
+    <li ><a href="#method-i-to_code">#to_code</a>
+    
+    <li ><a href="#method-i-to_latex">#to_latex</a>
+    
+    <li ><a href="#method-i-to_s">#to_s</a>
+    
+  </ul>
+</div>
+
   </div>
 </nav>
 
@@ -76,9 +109,9 @@
 
   <section class="description">
     
-<p>This is an attempt to build some sort of node in the graph that  has
-arbitrary number of node. It should help implement more easily some sort of
-better engine for simplification</p>
+<p>This is an attempt to build some sort of node in the graph that has
+arbitrary number of childs node. It should help implement more easily some
+sort of better simplifications engine</p>
 
 <p>This is an incredibly experimental feature.</p>
 
@@ -95,15 +128,589 @@ better engine for simplification</p>
     
 
     
+    <section class="attribute-method-details" class="method-section">
+      <header>
+        <h3>Attributes</h3>
+      </header>
+
+      
+      <div id="attribute-i-x" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">x</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+    </section>
+    
 
     
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(*xs)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Initialize a new empty N-elements operation container. This is a virtual
+class, and other must inherit from this basical container</p>
+
+<p>&lt;- `Numeric` to be converted in `CAS::Constant` or `CAS::Op` child
+operations -&gt; `CAS::NaryOp` instance</p>
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/nary-op.rb, line 17</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">xs</span>)
+  <span class="ruby-ivar">@x</span> = []
+  <span class="ruby-identifier">xs</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Numeric</span>
+      <span class="ruby-keyword">case</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">to_f</span>
+      <span class="ruby-keyword">when</span> <span class="ruby-value">0.0</span>
+        <span class="ruby-identifier">x</span> = <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>
+      <span class="ruby-keyword">when</span> <span class="ruby-value">1.0</span>
+        <span class="ruby-identifier">x</span> = <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">One</span>
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">x</span> = <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">const</span> <span class="ruby-identifier">x</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">x</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>)
+    <span class="ruby-ivar">@x</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">x</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-3D-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">==</span><span
+            class="method-args">(op)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Equality operator, the standard operator is overloaded :warning: this
+operates on the graph, not on the math See `CAS::equal`, etc.</p>
+
+<p>&lt;- `CAS::Op` to be tested against -&gt; `TrueClass` if equal,
+`FalseClass` if differs</p>
+          
+          
+
+          
+          <div class="method-source-code" id="3D-3D-source">
+            <pre><span class="ruby-comment"># File lib/nary-op.rb, line 157</span>
+<span class="ruby-keyword">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">op</span>)
+  <span class="ruby-comment"># CAS::Help.assert(op, CAS::Op)</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">NaryOp</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">x</span>.<span class="ruby-identifier">size</span>
+    <span class="ruby-value">0</span>.<span class="ruby-identifier">upto</span>(<span class="ruby-ivar">@x</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">!=</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">x</span>[<span class="ruby-identifier">i</span>]
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-args" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">args</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns a list of all `CAS::Variable`s of the current tree</p>
+
+<p>-&gt; `Array` of `CAS::Variable`s</p>
+          
+          
+
+          
+          <div class="method-source-code" id="args-source">
+            <pre><span class="ruby-comment"># File lib/nary-op.rb, line 172</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">args</span>
+  <span class="ruby-identifier">r</span> = []
+  <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">r</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">args</span> }
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">r</span>.<span class="ruby-identifier">uniq</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-call" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">call</span><span
+            class="method-args">(fd)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Call resolves the operation tree in a `Numeric` (if `Fixnum`) or `Float`
+depends upon promotions). As input, it requires an hash with
+`CAS::Variable` or `CAS::Variable#name` as keys, and a `Numeric` as a value</p>
+
+<p>“` ruby x, y = <a href="../CAS.html#method-c-vars">CAS.vars</a> :x, :y f =
+(x ** 2) + (y ** 2) f.call({x =&gt; 1, y =&gt; 2}) # =&gt; 2 “` &lt;-
+`Hash` with feed dictionary -&gt; `Array` of `Numeric`</p>
+          
+          
+
+          
+          <div class="method-source-code" id="call-source">
+            <pre><span class="ruby-comment"># File lib/nary-op.rb, line 84</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>)
+  <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">fd</span>, <span class="ruby-constant">Hash</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>) }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-depend-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">depend?</span><span
+            class="method-args">(v)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns the dependencies of the operation. Require a `CAS::Variable` and it
+is one of the recursive method (implicit tree resolution)</p>
+
+<p>&lt;- `CAS::Variable` instance -&gt; `TrueClass` or `FalseClass`</p>
+          
+          
+
+          
+          <div class="method-source-code" id="depend-3F-source">
+            <pre><span class="ruby-comment"># File lib/nary-op.rb, line 40</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">depend?</span>(<span class="ruby-identifier">v</span>)
+  <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">v</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>)
+  <span class="ruby-identifier">dep</span> = <span class="ruby-keyword">false</span>
+  <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">dep</span> = (<span class="ruby-identifier">x</span>.<span class="ruby-identifier">depend?</span>(<span class="ruby-identifier">v</span>) <span class="ruby-keyword">or</span> <span class="ruby-identifier">dep</span>) }
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">dep</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-diff" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">diff</span><span
+            class="method-args">(v)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Return a list of derivative using the chain rule. The input is a operation:</p>
+
+<p>“`</p>
+
+<pre>f(x) = g(x) + h(x) + l(x) + m(x)
+
+d f(x)
+------ = g&#39;(x) + h&#39;(x) + l&#39;(x) + m&#39;(x)
+  dx
+
+d f(x)
+------ = 1
+d g(x)</pre>
+
+<p>“` &lt;- `CAS::Op` object of the derivative -&gt; `CAS::NaryOp` of
+derivative</p>
+          
+          
+
+          
+          <div class="method-source-code" id="diff-source">
+            <pre><span class="ruby-comment"># File lib/nary-op.rb, line 63</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)
+  <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">v</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">depend?</span>(<span class="ruby-identifier">v</span>)
+    <span class="ruby-keyword">return</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>) }
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-dot_graph" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">dot_graph</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Return the local Graphviz node of the tree</p>
+
+<p>&lt;- `?` unused variable (TODO: to be removed) -&gt; `String` of local
+Graphiz node</p>
+          
+          
+
+          
+          <div class="method-source-code" id="dot_graph-source">
+            <pre><span class="ruby-comment"># File lib/nary-op.rb, line 182</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">dot_graph</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">cls</span> = <span class="ruby-node">&quot;#{self.class.to_s.gsub(&quot;CAS::&quot;, &quot;&quot;)}_#{self.object_id}&quot;</span>
+  <span class="ruby-identifier">ret</span> = <span class="ruby-string">&quot;&quot;</span>
+  <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">ret</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;#{cls} -&gt; #{x.dot_graph node}\n&quot;</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">ret</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-inspect" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">inspect</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Inspector for the current object</p>
+
+<p>-&gt; `String`</p>
+          
+          
+
+          
+          <div class="method-source-code" id="inspect-source">
+            <pre><span class="ruby-comment"># File lib/nary-op.rb, line 147</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">inspect</span>
+  <span class="ruby-node">&quot;#{self.class}(#{@x.map(&amp;:inspect).join(&quot;, &quot;)})&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-simplify" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">simplify</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Simplification callback. It simplify the subgraph of each node until all
+possible simplification are performed (thus the execution time is not
+deterministic).</p>
+          
+          
+
+          
+          <div class="method-source-code" id="simplify-source">
+            <pre><span class="ruby-comment"># File lib/nary-op.rb, line 135</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">simplify</span> <span class="ruby-comment"># TODO: improve this</span>
+  <span class="ruby-identifier">hash</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">to_s</span>
+  <span class="ruby-ivar">@x</span> = <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">simplify</span> }
+  <span class="ruby-keyword">while</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">hash</span>
+    <span class="ruby-identifier">hash</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">to_s</span>
+    <span class="ruby-ivar">@x</span> = <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">simplify</span> }
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-subs" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">subs</span><span
+            class="method-args">(dt)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Perform substitution of a part of the graph using a data table:</p>
+
+<p>“` ruby x, y = <a href="../CAS.html#method-c-vars">CAS.vars</a> :x, :y f =
+(x ** 2) + (y ** 2) puts f # =&gt; (x^2) + (y^2) puts f.subs({x =&gt; <a
+href="../CAS.html#method-c-ln">CAS.ln</a>}) # =&gt; (ln(y)^2) + (y^2) “`</p>
+
+<p>&lt;- `Hash` with substitution table -&gt; `CAS::NaryOp` (`self`) with
+substitution performed</p>
+          
+          
+
+          
+          <div class="method-source-code" id="subs-source">
+            <pre><span class="ruby-comment"># File lib/nary-op.rb, line 102</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">subs</span>(<span class="ruby-identifier">dt</span>)
+  <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">dt</span>, <span class="ruby-constant">Hash</span>)
+  <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span>, <span class="ruby-identifier">k</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">dt</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">x</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">dt</span>[<span class="ruby-identifier">x</span>].<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>
+        <span class="ruby-ivar">@x</span>[<span class="ruby-identifier">k</span>] = <span class="ruby-identifier">dt</span>[<span class="ruby-identifier">x</span>]
+      <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">dt</span>[<span class="ruby-identifier">x</span>].<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Numeric</span>
+        <span class="ruby-ivar">@x</span>[<span class="ruby-identifier">k</span>] = <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">const</span> <span class="ruby-identifier">dt</span>[<span class="ruby-identifier">x</span>]
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">CASError</span>, <span class="ruby-node">&quot;Impossible subs. Received a #{dt[x].class} = #{dt[x]}&quot;</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-to_code" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">to_code</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Convert expression to code (internal, for `CAS::Op#to_proc` method)</p>
+
+<p>-&gt; `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`</p>
+          
+          
+
+          
+          <div class="method-source-code" id="to_code-source">
+            <pre><span class="ruby-comment"># File lib/nary-op.rb, line 128</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_code</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-node">&quot;(#{@x.map(&amp;:to_code).join(&quot;, &quot;)})&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-to_latex" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">to_latex</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns the latex representation of the current <a href="Op.html">Op</a>.</p>
+
+<p>-&gt; `String`</p>
+          
+          
+
+          
+          <div class="method-source-code" id="to_latex-source">
+            <pre><span class="ruby-comment"># File lib/nary-op.rb, line 195</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_latex</span>
+  <span class="ruby-node">&quot;#{self.class.gsub(&quot;CAS::&quot;, &quot;&quot;)}\\left(#{@x.map(&amp;:to_latex).join(&quot;,\\,&quot;)}\\right)&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-to_s" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">to_s</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Convert expression to string</p>
+
+<p>-&gt; `String` to print on screen</p>
+          
+          
+
+          
+          <div class="method-source-code" id="to_s-source">
+            <pre><span class="ruby-comment"># File lib/nary-op.rb, line 121</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-node">&quot;(#{@x.map(&amp;:to_s).join(&quot;, &quot;)})&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
   </section>
 </main>
 
 
 <footer id="validator-badges" role="contentinfo">
   <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.2.
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.1.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

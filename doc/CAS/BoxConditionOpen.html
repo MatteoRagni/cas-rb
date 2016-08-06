@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class CAS::Smaller - RDoc Documentation</title>
+<title>class CAS::BoxConditionOpen - RDoc Documentation</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
@@ -58,7 +58,7 @@
   <h3>Parent</h3>
 
   
-  <p class="link"><a href="Condition.html">CAS::Condition</a>
+  <p class="link"><a href="BoxCondition.html">CAS::BoxCondition</a>
   
 </div>
 
@@ -72,17 +72,15 @@
     
     <li class="calls-super" ><a href="#method-c-new">::new</a>
     
-    <li ><a href="#method-i-to_latex">#to_latex</a>
-    
   </ul>
 </div>
 
   </div>
 </nav>
 
-<main role="main" aria-labelledby="class-CAS::Smaller">
-  <h1 id="class-CAS::Smaller" class="class">
-    class CAS::Smaller
+<main role="main" aria-labelledby="class-CAS::BoxConditionOpen">
+  <h1 id="class-CAS::BoxConditionOpen" class="class">
+    class CAS::BoxConditionOpen
   </h1>
 
   <section class="description">
@@ -112,7 +110,7 @@
         
         <div class="method-heading">
           <span class="method-name">new</span><span
-            class="method-args">(x, y)</span>
+            class="method-args">(x, a, b)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -126,56 +124,15 @@
           
             <div class="method-calls-super">
               Calls superclass method
-              <a href="Condition.html#method-c-new">CAS::Condition.new</a>
+              <a href="BoxCondition.html#method-c-new">CAS::BoxCondition.new</a>
             </div>
           
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 190</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>)
-  <span class="ruby-keyword">super</span>(<span class="ruby-value">:lt</span>, <span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>)
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-    </section>
-  
-     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
-       <header>
-         <h3>Public Instance Methods</h3>
-       </header>
-
-    
-      <div id="method-i-to_latex" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">to_latex</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="to_latex-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 194</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_latex</span>
-  <span class="ruby-node">&quot;#{@x.to_latex} &lt; #{@y.to_latex}&quot;</span>
+            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 335</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">a</span>, <span class="ruby-identifier">b</span>)
+  <span class="ruby-keyword">super</span> <span class="ruby-identifier">x</span>, <span class="ruby-identifier">a</span>, <span class="ruby-identifier">b</span>, <span class="ruby-value">:open</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
