@@ -20,7 +20,7 @@
 #
 # Author:: Matteo Ragni (mailto:info@ragni.me)
 # Copyright:: Copyright (c) 2016 Matteo Ragni
-# License:: Distributed under MIT license term
+# License:: Distributed under MIT license terms
 
 #  ___               _
 # | _ \___ __ _ _  _(_)_ _ ___ ___

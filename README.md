@@ -66,10 +66,12 @@ puts "df/dy = #{dfy}"
 ### Substitutions
 
 Now, from the second it is quite evident that
+
 ```
 y = x^2 = g(x)
 ```
 and thus we can perform on the first a substitution:
+
 ``` ruby
 g = (x ** 2)
 dfx = dfx.subs({y => g})
@@ -157,6 +159,7 @@ x_opt = newton(dfx)
 We can use the solution of `x`, to get the value of `y`:
 ``` ruby
 puts "Optimum in #{x} = #{x_opt} and #{y} = #{g.call({x => x_opt})}"
+# => Optimum in x = 1.0 and y = 1.0
 ```
 
 ## Disclaimer

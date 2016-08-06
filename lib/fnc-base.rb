@@ -1,12 +1,15 @@
 #!/usr/vin/env ruby
 
 module CAS
-  # ```
   #  ___
   # / __|_  _ _ __
   # \__ \ || | '  \
   # |___/\_,_|_|_|_|
-  # ```
+  #
+
+  ##
+  # **Sum basic operation**. As for now it is implemented as a simple
+  # binary operation. It will be implemented as n-ary op.
   class Sum < CAS::BinaryOp
     # Performs the sum between two `CAS::Op`
     #
@@ -36,6 +39,15 @@ module CAS
     end
 
     # Same as `CAS::Op`
+    #
+    # Simplifcation engine supports:
+    #
+    # * x + 0 = x
+    # * 0 + y = y
+    # * x + x = 2 x
+    # * x + (-x) = 0
+    # * x + (-y) = x - y
+    # * 1 + 2 = 3 (constants reduction)
     def simplify
       super
       if @x == CAS::Zero
@@ -77,12 +89,13 @@ module CAS
     end
   end # Sum
 
-  # ```
   #  ___  _  __  __
   # |   \(_)/ _|/ _|
   # | |) | |  _|  _/
   # |___/|_|_| |_|
-  # ```
+
+  ##
+  # Diff basic operation. It's a binary operation
   class Diff < CAS::BinaryOp
     # Performs the difference between two `CAS::Op`s
     #
@@ -151,12 +164,14 @@ module CAS
     end
   end # Difference
 
-  # ```
   #  ___             _
   # | _ \_ _ ___  __| |
   # |  _/ '_/ _ \/ _` |
   # |_| |_| \___/\__,_|
-  # ```
+
+  ##
+  # Product class. Performs the product between two elements.
+  # This class will be soon modified as an n-ary operator.
   class Prod < CAS::BinaryOp
     # Performs the product between two `CAS::Op`
     #

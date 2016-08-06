@@ -8,7 +8,6 @@
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
-  var index_rel_prefix = "../";
 </script>
 
 <script src="../js/jquery.js"></script>
@@ -108,6 +107,8 @@
     <li ><a href="#method-i-greater_equal">#greater_equal</a>
     
     <li ><a href="#method-i-inspect">#inspect</a>
+    
+    <li ><a href="#method-i-limit">#limit</a>
     
     <li ><a href="#method-i-simplify">#simplify</a>
     
@@ -214,10 +215,10 @@ operation -&gt; `CAS::Op` instance</p>
             <pre><span class="ruby-comment"># File lib/op.rb, line 22</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">x</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Numeric</span>
-    <span class="ruby-keyword">case</span> <span class="ruby-identifier">x</span>
-    <span class="ruby-keyword">when</span> <span class="ruby-value">0</span>
+    <span class="ruby-keyword">case</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">to_f</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-value">0.0</span>
       <span class="ruby-identifier">x</span> = <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>
-    <span class="ruby-keyword">when</span> <span class="ruby-value">1</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-value">1.0</span>
       <span class="ruby-identifier">x</span> = <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">One</span>
     <span class="ruby-keyword">else</span>
       <span class="ruby-identifier">x</span> = <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">const</span> <span class="ruby-identifier">x</span>
@@ -602,8 +603,8 @@ If `nil` is passed, the `eval` will run in this local context</p>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">as_proc</span>(<span class="ruby-identifier">bind</span>=<span class="ruby-keyword">nil</span>)
   <span class="ruby-identifier">args_ext</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">args</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-node">&quot;#{e} = fd[\&quot;#{e}\&quot;];&quot;</span> }
   <span class="ruby-identifier">code</span> = <span class="ruby-node">&quot;Proc.new do |fd|; #{args_ext.join &quot; &quot;} #{self.to_code}; end&quot;</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">bind</span>
-    <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">bind</span>, <span class="ruby-constant">Binding</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">bind</span> <span class="ruby-comment"># All objects have eval value, we bind when not nil</span>
+    <span class="ruby-comment"># CAS::Help.assert(bind, Binding)</span>
     <span class="ruby-identifier">bind</span>.<span class="ruby-identifier">eval</span>(<span class="ruby-identifier">code</span>)
   <span class="ruby-keyword">else</span>
     <span class="ruby-identifier">eval</span>(<span class="ruby-identifier">code</span>)
@@ -685,7 +686,7 @@ if not</p>
           <div class="method-source-code" id="depend-3F-source">
             <pre><span class="ruby-comment"># File lib/op.rb, line 43</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">depend?</span>(<span class="ruby-identifier">v</span>)
-  <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">v</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Variable</span>)
+  <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">v</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>)
 
   <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">depend?</span> <span class="ruby-identifier">v</span>
 <span class="ruby-keyword">end</span></pre>
@@ -809,7 +810,7 @@ Graphiz node</p>
 
           
           <div class="method-source-code" id="equal-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 216</span>
+            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 380</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">equal</span>(<span class="ruby-identifier">v</span>); <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">equal</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">v</span>); <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -840,7 +841,7 @@ Graphiz node</p>
 
           
           <div class="method-source-code" id="greater-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 217</span>
+            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 381</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">greater</span>(<span class="ruby-identifier">v</span>); <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">greater</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">v</span>); <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -871,7 +872,7 @@ Graphiz node</p>
 
           
           <div class="method-source-code" id="greater_equal-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 219</span>
+            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 383</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">greater_equal</span>(<span class="ruby-identifier">v</span>); <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">greater_equal</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">v</span>); <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -908,6 +909,37 @@ Graphiz node</p>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">inspect</span>
   <span class="ruby-node">&quot;#{self.class}(#{@x.inspect})&quot;</span>
 <span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-limit" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">limit</span><span
+            class="method-args">(a, b, type=:closed)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="limit-source">
+            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 386</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">limit</span>(<span class="ruby-identifier">a</span>, <span class="ruby-identifier">b</span>, <span class="ruby-identifier">type</span>=<span class="ruby-value">:closed</span>); <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">box</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">a</span>, <span class="ruby-identifier">b</span>, <span class="ruby-identifier">type</span>); <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -977,7 +1009,7 @@ deterministic).</p>
 
           
           <div class="method-source-code" id="smaller-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 218</span>
+            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 382</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">smaller</span>(<span class="ruby-identifier">v</span>); <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">smaller</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">v</span>); <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -1008,7 +1040,7 @@ deterministic).</p>
 
           
           <div class="method-source-code" id="smaller_equal-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 220</span>
+            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 384</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">smaller_equal</span>(<span class="ruby-identifier">v</span>); <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">smaller_equal</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">v</span>); <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -1055,7 +1087,7 @@ substitution performed</p>
     <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">dt</span>[<span class="ruby-ivar">@x</span>].<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Numeric</span>
       <span class="ruby-ivar">@x</span> = <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">const</span> <span class="ruby-identifier">dt</span>[<span class="ruby-ivar">@x</span>]
     <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">raise</span> <span class="ruby-constant">CASError</span>, <span class="ruby-node">&quot;Impossible subs. Received a #{dt[@x].class} = #{dt[@x]}&quot;</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">CASError</span>, <span class="ruby-node">&quot;Impossible subs. Received a #{dt[@x].class} = #{dt[@x]}&quot;</span>
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">else</span>
     <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">subs</span>(<span class="ruby-identifier">dt</span>)
@@ -1185,7 +1217,7 @@ substitution performed</p>
 
 <footer id="validator-badges" role="contentinfo">
   <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.2.
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.1.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

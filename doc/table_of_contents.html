@@ -8,7 +8,6 @@
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "./";
-  var index_rel_prefix = "./";
 </script>
 
 <script src="./js/jquery.js"></script>
@@ -26,9 +25,6 @@
 <h2 id="pages">Pages</h2>
 <ul>
   <li class="file">
-    <a href="CHANGELOG.html">CHANGELOG</a>
-  </li>
-    <li class="file">
     <a href="README_md.html">README</a>
 
     <ul>
@@ -40,25 +36,16 @@
       <li><a href="README_md.html#label-Define+a+function">Define a function</a>
       <li><a href="README_md.html#label-Derivatives">Derivatives</a>
       <li><a href="README_md.html#label-Substitutions">Substitutions</a>
-      <li><a href="README_md.html#label-3D-3E+df-2Fdx+-3D+-28-28-281+-+x-29+-2A+2-29+-2A+-1-29">=&gt; df/dx = (((1 - x) * 2) * -1)</a>
+      <li><a href="README_md.html#label-Meta-Programming+-28a+Newton+algorithm...-29">Meta-Programming (a Newton algorithm…)</a>
       <li><a href="README_md.html#label-Disclaimer">Disclaimer</a>
       <li><a href="README_md.html#label-Full+example+code">Full example code</a>
     </ul>
-  </li>
-    <li class="file">
-    <a href="certs/MatteoRagni_pem.html">MatteoRagni.pem</a>
-  </li>
-    <li class="file">
-    <a href="ragni-cas_gemspec.html">ragni-cas.gemspec</a>
   </li>
   
 </ul>
 
 <h2 id="classes">Classes and Modules</h2>
 <ul>
-  <li class="class">
-    <a href="Alpha.html">Alpha</a>
-  </li>
   <li class="module">
     <a href="CAS.html">CAS</a>
   </li>
@@ -76,6 +63,21 @@
   </li>
   <li class="class">
     <a href="CAS/BinaryOp.html">CAS::BinaryOp</a>
+  </li>
+  <li class="class">
+    <a href="CAS/BoxCondition.html">CAS::BoxCondition</a>
+  </li>
+  <li class="class">
+    <a href="CAS/BoxConditionClosed.html">CAS::BoxConditionClosed</a>
+  </li>
+  <li class="class">
+    <a href="CAS/BoxConditionLowerClosed.html">CAS::BoxConditionLowerClosed</a>
+  </li>
+  <li class="class">
+    <a href="CAS/BoxConditionOpen.html">CAS::BoxConditionOpen</a>
+  </li>
+  <li class="class">
+    <a href="CAS/BoxConditionUpperClosed.html">CAS::BoxConditionUpperClosed</a>
   </li>
   <li class="class">
     <a href="CAS/CASError.html">CAS::CASError</a>
@@ -126,6 +128,9 @@
     <a href="CAS/MINUS_ONE_CONSTANT.html">CAS::MINUS_ONE_CONSTANT</a>
   </li>
   <li class="class">
+    <a href="CAS/NEG_INFINITY_CONSTANT.html">CAS::NEG_INFINITY_CONSTANT</a>
+  </li>
+  <li class="class">
     <a href="CAS/NaryOp.html">CAS::NaryOp</a>
   </li>
   <li class="class">
@@ -173,29 +178,11 @@
   <li class="class">
     <a href="CAS/ZERO_CONSTANT.html">CAS::ZERO_CONSTANT</a>
   </li>
-  <li class="module">
-    <a href="SandBox.html">SandBox</a>
+  <li class="class">
+    <a href="Fixnum.html">Fixnum</a>
   </li>
   <li class="class">
-    <a href="SqrtTest.html">SqrtTest</a>
-  </li>
-  <li class="class">
-    <a href="TestConstant.html">TestConstant</a>
-  </li>
-  <li class="class">
-    <a href="TestDiff.html">TestDiff</a>
-  </li>
-  <li class="class">
-    <a href="TestDiv.html">TestDiv</a>
-  </li>
-  <li class="class">
-    <a href="TestProd.html">TestProd</a>
-  </li>
-  <li class="class">
-    <a href="TestSum.html">TestSum</a>
-  </li>
-  <li class="class">
-    <a href="TestVariable.html">TestVariable</a>
+    <a href="Float.html">Float</a>
   </li>
 </ul>
 
@@ -224,6 +211,11 @@
 
   <li class="method">
     <a href="CAS.html#method-c-atan">::atan</a>
+    &mdash;
+    <span class="container">CAS</span>
+
+  <li class="method">
+    <a href="CAS.html#method-c-box">::box</a>
     &mdash;
     <span class="container">CAS</span>
 
@@ -333,9 +325,39 @@
     <span class="container">CAS::SmallerEqual</span>
 
   <li class="method">
+    <a href="CAS/BoxCondition.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">CAS::BoxCondition</span>
+
+  <li class="method">
+    <a href="CAS/BoxConditionOpen.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">CAS::BoxConditionOpen</span>
+
+  <li class="method">
+    <a href="CAS/BoxConditionClosed.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">CAS::BoxConditionClosed</span>
+
+  <li class="method">
+    <a href="CAS/BoxConditionUpperClosed.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">CAS::BoxConditionUpperClosed</span>
+
+  <li class="method">
+    <a href="CAS/BoxConditionLowerClosed.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">CAS::BoxConditionLowerClosed</span>
+
+  <li class="method">
     <a href="CAS/Op.html#method-c-new">::new</a>
     &mdash;
     <span class="container">CAS::Op</span>
+
+  <li class="method">
+    <a href="CAS/NaryOp.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">CAS::NaryOp</span>
 
   <li class="method">
     <a href="CAS/Constant.html#method-c-new">::new</a>
@@ -378,6 +400,11 @@
     <span class="container">CAS::INFINITY_CONSTANT</span>
 
   <li class="method">
+    <a href="CAS/NEG_INFINITY_CONSTANT.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">CAS::NEG_INFINITY_CONSTANT</span>
+
+  <li class="method">
     <a href="CAS/MINUS_ONE_CONSTANT.html#method-c-new">::new</a>
     &mdash;
     <span class="container">CAS::MINUS_ONE_CONSTANT</span>
@@ -386,11 +413,6 @@
     <a href="CAS/BinaryOp.html#method-c-new">::new</a>
     &mdash;
     <span class="container">CAS::BinaryOp</span>
-
-  <li class="method">
-    <a href="Alpha.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">Alpha</span>
 
   <li class="method">
     <a href="CAS.html#method-c-pow">::pow</a>
@@ -443,6 +465,11 @@
     <span class="container">CAS::Condition</span>
 
   <li class="method">
+    <a href="CAS/BoxCondition.html#method-i-21-3D">#!=</a>
+    &mdash;
+    <span class="container">CAS::BoxCondition</span>
+
+  <li class="method">
     <a href="CAS/Op.html#method-i-21-3D">#!=</a>
     &mdash;
     <span class="container">CAS::Op</span>
@@ -453,9 +480,29 @@
     <span class="container">CAS::Op</span>
 
   <li class="method">
+    <a href="Fixnum.html#method-i-2A">#*</a>
+    &mdash;
+    <span class="container">Fixnum</span>
+
+  <li class="method">
+    <a href="Float.html#method-i-2A">#*</a>
+    &mdash;
+    <span class="container">Float</span>
+
+  <li class="method">
     <a href="CAS/Op.html#method-i-2A-2A">#**</a>
     &mdash;
     <span class="container">CAS::Op</span>
+
+  <li class="method">
+    <a href="Fixnum.html#method-i-2A-2A">#**</a>
+    &mdash;
+    <span class="container">Fixnum</span>
+
+  <li class="method">
+    <a href="Float.html#method-i-2A-2A">#**</a>
+    &mdash;
+    <span class="container">Float</span>
 
   <li class="method">
     <a href="CAS/Op.html#method-i-2B">#+</a>
@@ -463,9 +510,29 @@
     <span class="container">CAS::Op</span>
 
   <li class="method">
+    <a href="Fixnum.html#method-i-2B">#+</a>
+    &mdash;
+    <span class="container">Fixnum</span>
+
+  <li class="method">
+    <a href="Float.html#method-i-2B">#+</a>
+    &mdash;
+    <span class="container">Float</span>
+
+  <li class="method">
     <a href="CAS/Op.html#method-i-2D">#-</a>
     &mdash;
     <span class="container">CAS::Op</span>
+
+  <li class="method">
+    <a href="Fixnum.html#method-i-2D">#-</a>
+    &mdash;
+    <span class="container">Fixnum</span>
+
+  <li class="method">
+    <a href="Float.html#method-i-2D">#-</a>
+    &mdash;
+    <span class="container">Float</span>
 
   <li class="method">
     <a href="CAS/Op.html#method-i-2D-40">#-@</a>
@@ -476,6 +543,16 @@
     <a href="CAS/Op.html#method-i-2F">#/</a>
     &mdash;
     <span class="container">CAS::Op</span>
+
+  <li class="method">
+    <a href="Fixnum.html#method-i-2F">#/</a>
+    &mdash;
+    <span class="container">Fixnum</span>
+
+  <li class="method">
+    <a href="Float.html#method-i-2F">#/</a>
+    &mdash;
+    <span class="container">Float</span>
 
   <li class="method">
     <a href="CAS/Sum.html#method-i-3D-3D">#==</a>
@@ -503,9 +580,19 @@
     <span class="container">CAS::Condition</span>
 
   <li class="method">
+    <a href="CAS/BoxCondition.html#method-i-3D-3D">#==</a>
+    &mdash;
+    <span class="container">CAS::BoxCondition</span>
+
+  <li class="method">
     <a href="CAS/Op.html#method-i-3D-3D">#==</a>
     &mdash;
     <span class="container">CAS::Op</span>
+
+  <li class="method">
+    <a href="CAS/NaryOp.html#method-i-3D-3D">#==</a>
+    &mdash;
+    <span class="container">CAS::NaryOp</span>
 
   <li class="method">
     <a href="CAS/Constant.html#method-i-3D-3D">#==</a>
@@ -531,6 +618,11 @@
     <a href="CAS/Op.html#method-i-args">#args</a>
     &mdash;
     <span class="container">CAS::Op</span>
+
+  <li class="method">
+    <a href="CAS/NaryOp.html#method-i-args">#args</a>
+    &mdash;
+    <span class="container">CAS::NaryOp</span>
 
   <li class="method">
     <a href="CAS/Constant.html#method-i-args">#args</a>
@@ -643,6 +735,11 @@
     <span class="container">CAS::Ln</span>
 
   <li class="method">
+    <a href="CAS/NaryOp.html#method-i-call">#call</a>
+    &mdash;
+    <span class="container">CAS::NaryOp</span>
+
+  <li class="method">
     <a href="CAS/Constant.html#method-i-call">#call</a>
     &mdash;
     <span class="container">CAS::Constant</span>
@@ -658,24 +755,24 @@
     <span class="container">CAS::BinaryOp</span>
 
   <li class="method">
-    <a href="SandBox.html#method-i-const">#const</a>
-    &mdash;
-    <span class="container">SandBox</span>
-
-  <li class="method">
-    <a href="Alpha.html#method-i-create_method">#create_method</a>
-    &mdash;
-    <span class="container">Alpha</span>
-
-  <li class="method">
     <a href="CAS/Condition.html#method-i-depend-3F">#depend?</a>
     &mdash;
     <span class="container">CAS::Condition</span>
 
   <li class="method">
+    <a href="CAS/BoxCondition.html#method-i-depend-3F">#depend?</a>
+    &mdash;
+    <span class="container">CAS::BoxCondition</span>
+
+  <li class="method">
     <a href="CAS/Op.html#method-i-depend-3F">#depend?</a>
     &mdash;
     <span class="container">CAS::Op</span>
+
+  <li class="method">
+    <a href="CAS/NaryOp.html#method-i-depend-3F">#depend?</a>
+    &mdash;
+    <span class="container">CAS::NaryOp</span>
 
   <li class="method">
     <a href="CAS/Constant.html#method-i-depend-3F">#depend?</a>
@@ -743,6 +840,11 @@
     <span class="container">CAS::Condition</span>
 
   <li class="method">
+    <a href="CAS/BoxCondition.html#method-i-diff">#diff</a>
+    &mdash;
+    <span class="container">CAS::BoxCondition</span>
+
+  <li class="method">
     <a href="CAS/Op.html#method-i-diff">#diff</a>
     &mdash;
     <span class="container">CAS::Op</span>
@@ -788,6 +890,11 @@
     <span class="container">CAS::Ln</span>
 
   <li class="method">
+    <a href="CAS/NaryOp.html#method-i-diff">#diff</a>
+    &mdash;
+    <span class="container">CAS::NaryOp</span>
+
+  <li class="method">
     <a href="CAS/Constant.html#method-i-diff">#diff</a>
     &mdash;
     <span class="container">CAS::Constant</span>
@@ -813,9 +920,19 @@
     <span class="container">CAS::Condition</span>
 
   <li class="method">
+    <a href="CAS/BoxCondition.html#method-i-dot_graph">#dot_graph</a>
+    &mdash;
+    <span class="container">CAS::BoxCondition</span>
+
+  <li class="method">
     <a href="CAS/Op.html#method-i-dot_graph">#dot_graph</a>
     &mdash;
     <span class="container">CAS::Op</span>
+
+  <li class="method">
+    <a href="CAS/NaryOp.html#method-i-dot_graph">#dot_graph</a>
+    &mdash;
+    <span class="container">CAS::NaryOp</span>
 
   <li class="method">
     <a href="CAS/Constant.html#method-i-dot_graph">#dot_graph</a>
@@ -858,6 +975,11 @@
     <span class="container">CAS::Op</span>
 
   <li class="method">
+    <a href="CAS/NaryOp.html#method-i-inspect">#inspect</a>
+    &mdash;
+    <span class="container">CAS::NaryOp</span>
+
+  <li class="method">
     <a href="CAS/Constant.html#method-i-inspect">#inspect</a>
     &mdash;
     <span class="container">CAS::Constant</span>
@@ -871,6 +993,61 @@
     <a href="CAS/BinaryOp.html#method-i-inspect">#inspect</a>
     &mdash;
     <span class="container">CAS::BinaryOp</span>
+
+  <li class="method">
+    <a href="CAS/Op.html#method-i-limit">#limit</a>
+    &mdash;
+    <span class="container">CAS::Op</span>
+
+  <li class="method">
+    <a href="Fixnum.html#method-i-overloaded_div">#overloaded_div</a>
+    &mdash;
+    <span class="container">Fixnum</span>
+
+  <li class="method">
+    <a href="Float.html#method-i-overloaded_div">#overloaded_div</a>
+    &mdash;
+    <span class="container">Float</span>
+
+  <li class="method">
+    <a href="Fixnum.html#method-i-overloaded_minus">#overloaded_minus</a>
+    &mdash;
+    <span class="container">Fixnum</span>
+
+  <li class="method">
+    <a href="Float.html#method-i-overloaded_minus">#overloaded_minus</a>
+    &mdash;
+    <span class="container">Float</span>
+
+  <li class="method">
+    <a href="Fixnum.html#method-i-overloaded_mul">#overloaded_mul</a>
+    &mdash;
+    <span class="container">Fixnum</span>
+
+  <li class="method">
+    <a href="Float.html#method-i-overloaded_mul">#overloaded_mul</a>
+    &mdash;
+    <span class="container">Float</span>
+
+  <li class="method">
+    <a href="Fixnum.html#method-i-overloaded_plus">#overloaded_plus</a>
+    &mdash;
+    <span class="container">Fixnum</span>
+
+  <li class="method">
+    <a href="Float.html#method-i-overloaded_plus">#overloaded_plus</a>
+    &mdash;
+    <span class="container">Float</span>
+
+  <li class="method">
+    <a href="Fixnum.html#method-i-overloaded_pow">#overloaded_pow</a>
+    &mdash;
+    <span class="container">Fixnum</span>
+
+  <li class="method">
+    <a href="Float.html#method-i-overloaded_pow">#overloaded_pow</a>
+    &mdash;
+    <span class="container">Float</span>
 
   <li class="method">
     <a href="CAS/Sum.html#method-i-simplify">#simplify</a>
@@ -918,6 +1095,11 @@
     <span class="container">CAS::Condition</span>
 
   <li class="method">
+    <a href="CAS/BoxCondition.html#method-i-simplify">#simplify</a>
+    &mdash;
+    <span class="container">CAS::BoxCondition</span>
+
+  <li class="method">
     <a href="CAS/Op.html#method-i-simplify">#simplify</a>
     &mdash;
     <span class="container">CAS::Op</span>
@@ -963,6 +1145,11 @@
     <span class="container">CAS::Ln</span>
 
   <li class="method">
+    <a href="CAS/NaryOp.html#method-i-simplify">#simplify</a>
+    &mdash;
+    <span class="container">CAS::NaryOp</span>
+
+  <li class="method">
     <a href="CAS/Constant.html#method-i-simplify">#simplify</a>
     &mdash;
     <span class="container">CAS::Constant</span>
@@ -993,9 +1180,19 @@
     <span class="container">CAS::Condition</span>
 
   <li class="method">
+    <a href="CAS/BoxCondition.html#method-i-subs">#subs</a>
+    &mdash;
+    <span class="container">CAS::BoxCondition</span>
+
+  <li class="method">
     <a href="CAS/Op.html#method-i-subs">#subs</a>
     &mdash;
     <span class="container">CAS::Op</span>
+
+  <li class="method">
+    <a href="CAS/NaryOp.html#method-i-subs">#subs</a>
+    &mdash;
+    <span class="container">CAS::NaryOp</span>
 
   <li class="method">
     <a href="CAS/Constant.html#method-i-subs">#subs</a>
@@ -1011,196 +1208,6 @@
     <a href="CAS/BinaryOp.html#method-i-subs">#subs</a>
     &mdash;
     <span class="container">CAS::BinaryOp</span>
-
-  <li class="method">
-    <a href="TestVariable.html#method-i-test_call">#test_call</a>
-    &mdash;
-    <span class="container">TestVariable</span>
-
-  <li class="method">
-    <a href="TestDiv.html#method-i-test_call">#test_call</a>
-    &mdash;
-    <span class="container">TestDiv</span>
-
-  <li class="method">
-    <a href="TestVariable.html#method-i-test_diff">#test_diff</a>
-    &mdash;
-    <span class="container">TestVariable</span>
-
-  <li class="method">
-    <a href="TestConstant.html#method-i-test_diff">#test_diff</a>
-    &mdash;
-    <span class="container">TestConstant</span>
-
-  <li class="method">
-    <a href="TestSum.html#method-i-test_diff">#test_diff</a>
-    &mdash;
-    <span class="container">TestSum</span>
-
-  <li class="method">
-    <a href="TestDiff.html#method-i-test_diff">#test_diff</a>
-    &mdash;
-    <span class="container">TestDiff</span>
-
-  <li class="method">
-    <a href="TestProd.html#method-i-test_diff">#test_diff</a>
-    &mdash;
-    <span class="container">TestProd</span>
-
-  <li class="method">
-    <a href="TestDiv.html#method-i-test_diff">#test_diff</a>
-    &mdash;
-    <span class="container">TestDiv</span>
-
-  <li class="method">
-    <a href="TestVariable.html#method-i-test_exist-3F">#test_exist?</a>
-    &mdash;
-    <span class="container">TestVariable</span>
-
-  <li class="method">
-    <a href="TestVariable.html#method-i-test_init">#test_init</a>
-    &mdash;
-    <span class="container">TestVariable</span>
-
-  <li class="method">
-    <a href="TestConstant.html#method-i-test_init">#test_init</a>
-    &mdash;
-    <span class="container">TestConstant</span>
-
-  <li class="method">
-    <a href="TestSum.html#method-i-test_init">#test_init</a>
-    &mdash;
-    <span class="container">TestSum</span>
-
-  <li class="method">
-    <a href="TestDiff.html#method-i-test_init">#test_init</a>
-    &mdash;
-    <span class="container">TestDiff</span>
-
-  <li class="method">
-    <a href="TestProd.html#method-i-test_init">#test_init</a>
-    &mdash;
-    <span class="container">TestProd</span>
-
-  <li class="method">
-    <a href="TestDiv.html#method-i-test_init">#test_init</a>
-    &mdash;
-    <span class="container">TestDiv</span>
-
-  <li class="method">
-    <a href="SqrtTest.html#method-i-test_init">#test_init</a>
-    &mdash;
-    <span class="container">SqrtTest</span>
-
-  <li class="method">
-    <a href="TestConstant.html#method-i-test_initialize">#test_initialize</a>
-    &mdash;
-    <span class="container">TestConstant</span>
-
-  <li class="method">
-    <a href="TestVariable.html#method-i-test_inspect">#test_inspect</a>
-    &mdash;
-    <span class="container">TestVariable</span>
-
-  <li class="method">
-    <a href="TestConstant.html#method-i-test_inspect">#test_inspect</a>
-    &mdash;
-    <span class="container">TestConstant</span>
-
-  <li class="method">
-    <a href="TestVariable.html#method-i-test_simplify">#test_simplify</a>
-    &mdash;
-    <span class="container">TestVariable</span>
-
-  <li class="method">
-    <a href="TestSum.html#method-i-test_subs">#test_subs</a>
-    &mdash;
-    <span class="container">TestSum</span>
-
-  <li class="method">
-    <a href="TestDiff.html#method-i-test_subs">#test_subs</a>
-    &mdash;
-    <span class="container">TestDiff</span>
-
-  <li class="method">
-    <a href="TestProd.html#method-i-test_subs">#test_subs</a>
-    &mdash;
-    <span class="container">TestProd</span>
-
-  <li class="method">
-    <a href="TestDiv.html#method-i-test_subs">#test_subs</a>
-    &mdash;
-    <span class="container">TestDiv</span>
-
-  <li class="method">
-    <a href="TestSum.html#method-i-test_to_code">#test_to_code</a>
-    &mdash;
-    <span class="container">TestSum</span>
-
-  <li class="method">
-    <a href="TestDiff.html#method-i-test_to_code">#test_to_code</a>
-    &mdash;
-    <span class="container">TestDiff</span>
-
-  <li class="method">
-    <a href="TestProd.html#method-i-test_to_code">#test_to_code</a>
-    &mdash;
-    <span class="container">TestProd</span>
-
-  <li class="method">
-    <a href="TestDiv.html#method-i-test_to_code">#test_to_code</a>
-    &mdash;
-    <span class="container">TestDiv</span>
-
-  <li class="method">
-    <a href="SqrtTest.html#method-i-test_to_code">#test_to_code</a>
-    &mdash;
-    <span class="container">SqrtTest</span>
-
-  <li class="method">
-    <a href="TestVariable.html#method-i-test_to_s">#test_to_s</a>
-    &mdash;
-    <span class="container">TestVariable</span>
-
-  <li class="method">
-    <a href="TestConstant.html#method-i-test_to_s">#test_to_s</a>
-    &mdash;
-    <span class="container">TestConstant</span>
-
-  <li class="method">
-    <a href="TestSum.html#method-i-test_to_s">#test_to_s</a>
-    &mdash;
-    <span class="container">TestSum</span>
-
-  <li class="method">
-    <a href="TestDiff.html#method-i-test_to_s">#test_to_s</a>
-    &mdash;
-    <span class="container">TestDiff</span>
-
-  <li class="method">
-    <a href="TestProd.html#method-i-test_to_s">#test_to_s</a>
-    &mdash;
-    <span class="container">TestProd</span>
-
-  <li class="method">
-    <a href="TestDiv.html#method-i-test_to_s">#test_to_s</a>
-    &mdash;
-    <span class="container">TestDiv</span>
-
-  <li class="method">
-    <a href="TestConstant.html#method-i-test_typicalconst">#test_typicalconst</a>
-    &mdash;
-    <span class="container">TestConstant</span>
-
-  <li class="method">
-    <a href="TestVariable.html#method-i-test_vars">#test_vars</a>
-    &mdash;
-    <span class="container">TestVariable</span>
-
-  <li class="method">
-    <a href="TestVariable.html#method-i-text_list">#text_list</a>
-    &mdash;
-    <span class="container">TestVariable</span>
 
   <li class="method">
     <a href="CAS/Sum.html#method-i-to_code">#to_code</a>
@@ -1296,6 +1303,11 @@
     <a href="CAS/Ln.html#method-i-to_code">#to_code</a>
     &mdash;
     <span class="container">CAS::Ln</span>
+
+  <li class="method">
+    <a href="CAS/NaryOp.html#method-i-to_code">#to_code</a>
+    &mdash;
+    <span class="container">CAS::NaryOp</span>
 
   <li class="method">
     <a href="CAS/Variable.html#method-i-to_code">#to_code</a>
@@ -1423,6 +1435,11 @@
     <span class="container">CAS::Ln</span>
 
   <li class="method">
+    <a href="CAS/NaryOp.html#method-i-to_latex">#to_latex</a>
+    &mdash;
+    <span class="container">CAS::NaryOp</span>
+
+  <li class="method">
     <a href="CAS/Constant.html#method-i-to_latex">#to_latex</a>
     &mdash;
     <span class="container">CAS::Constant</span>
@@ -1446,6 +1463,11 @@
     <a href="CAS/INFINITY_CONSTANT.html#method-i-to_latex">#to_latex</a>
     &mdash;
     <span class="container">CAS::INFINITY_CONSTANT</span>
+
+  <li class="method">
+    <a href="CAS/NEG_INFINITY_CONSTANT.html#method-i-to_latex">#to_latex</a>
+    &mdash;
+    <span class="container">CAS::NEG_INFINITY_CONSTANT</span>
 
   <li class="method">
     <a href="CAS/BinaryOp.html#method-i-to_latex">#to_latex</a>
@@ -1548,6 +1570,11 @@
     <span class="container">CAS::Ln</span>
 
   <li class="method">
+    <a href="CAS/NaryOp.html#method-i-to_s">#to_s</a>
+    &mdash;
+    <span class="container">CAS::NaryOp</span>
+
+  <li class="method">
     <a href="CAS/Constant.html#method-i-to_s">#to_s</a>
     &mdash;
     <span class="container">CAS::Constant</span>
@@ -1588,6 +1615,11 @@
     <span class="container">CAS::INFINITY_CONSTANT</span>
 
   <li class="method">
+    <a href="CAS/NEG_INFINITY_CONSTANT.html#method-i-to_s">#to_s</a>
+    &mdash;
+    <span class="container">CAS::NEG_INFINITY_CONSTANT</span>
+
+  <li class="method">
     <a href="CAS/MINUS_ONE_CONSTANT.html#method-i-to_s">#to_s</a>
     &mdash;
     <span class="container">CAS::MINUS_ONE_CONSTANT</span>
@@ -1596,18 +1628,13 @@
     <a href="CAS/BinaryOp.html#method-i-to_s">#to_s</a>
     &mdash;
     <span class="container">CAS::BinaryOp</span>
-
-  <li class="method">
-    <a href="SandBox.html#method-i-vars">#vars</a>
-    &mdash;
-    <span class="container">SandBox</span>
 </ul>
 </main>
 
 
 <footer id="validator-badges" role="contentinfo">
   <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.2.
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.1.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 
