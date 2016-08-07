@@ -29,7 +29,6 @@ module CAS
     # Same as `CAS::Op`
     def call(f)
       CAS::Help.assert(f, Hash)
-
       return @x.call(f).overloaded_plus(@y.call(f))
     end
 
@@ -57,13 +56,6 @@ module CAS
       return (@x - @y.x) if @y.is_a? CAS::Invert
       return CAS.const(self.call({})) if (@x.is_a? CAS::Constant and @y.is_a? CAS::Constant)
       return self
-    end
-
-    # Same as `CAS::Op`
-    def ==(op)
-      CAS::Help.assert(op, CAS::Op)
-
-      self.class == op.class and ((@x == op.x and @y == op.y) or (@y == op.x and @x == op.y))
     end
 
     # Same as `CAS::Op`
@@ -124,12 +116,6 @@ module CAS
     end
 
     # Same as `CAS::Op`
-    def ==(op)
-      CAS::Help.assert(op, CAS::Op)
-      self.class == op.class and ((@x == op.x and @y == op.y) or (@y == op.x and @x == op.y))
-    end
-
-    # Same as `CAS::Op`
     def to_code
       "(#{@x.to_code} - #{@y.to_code})"
     end
@@ -184,13 +170,6 @@ module CAS
       return @x ** 2.0 if @x == @y
       return CAS.const(self.call({})) if @x.is_a? CAS::Constant and @y.is_a? CAS::Constant
       return self
-    end
-
-    # Same as `CAS::Op`
-    def ==(op)
-      CAS::Help.assert(op, CAS::Op)
-
-      self.class == op.class and ((@x == op.x and @y == op.y) or (@y == op.x and @x == op.y))
     end
 
     # Same as `CAS::Op`
