@@ -60,6 +60,6 @@ task :publish => [:build, :install] do
 end
 
 desc "Locally deploy the gem (build and install)"
-task :deploy => [:build, :install] do
+task :deploy => [:rdoc, :build, :install] do
   puts "Deployed"
 end
