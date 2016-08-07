@@ -54,53 +54,12 @@ module CAS
 
     string.scan(/\w+\_\d+/) do |m|
       if m =~ /(\w+)\_\d+/
-        case $1
-        when "Sum"
-          l = "+"
-        when "Diff"
-          l = "-"
-        when "Prod"
-          l = "×"
-        when "Div"
-          l = "÷"
-        when "Sqrt"
-          l = "√(∙)"
-        when "Abs"
-          l = "|∙|"
-        when "Invert"
-          l = "-(∙)"
-        when "Exp"
-          l = "exp(∙)"
-        when "Log"
-          l = "log(∙)"
-        when "Pow"
-          l = "(∙)^(∙)"
-        when "ZERO_CONSTANT"
-          l = "0"
-        when "ONE_CONSTANT"
-          l = "1"
-        when "TWO_CONSTANT"
-          l = "2"
-        when "PI_CONSTANT"
-          l= "π"
-        when "INFINITY_CONSTANT"
-          l = "∞"
-        when "E_CONSTANT"
-          l = "e"
-        when "MINUS_ONE_CONSTANT"
-          l = "-1"
-        else
-          l = $1
-        end
-        lab[m] = l
+        lab[m] = ($dot_subs_hash[$1] ? $dot_subs_hash[$1] : $1)
       end
     end
     lab.each { |k, v| labels += "  #{k} [label=\"#{v}\"]\n" }
 
-    return <<-EOG
-digraph Op {
-  #{string}#{labels}}
-    EOG
+    return "digraph Op {\n  #{string}#{labels}}"
   end
 
   # Export the input `CAS::Op` graphviz representation to a file.
@@ -124,4 +83,25 @@ digraph Op {
       raise ArgumentError, "required #{type}, received #{obj.class}" unless obj.is_a? type
     end
   end
+
+  #
+  $dot_subs_hash = {
+    "Sum"                => "+",
+    "Diff"               => "-",
+    "Prod"               => "×",
+    "Div"                => "÷",
+    "Sqrt"               => "√(∙)",
+    "Abs"                => "|∙|",
+    "Invert"             => "-(∙)",
+    "Exp"                => "exp(∙)",
+    "Log"                => "log(∙)",
+    "Pow"                => "(∙)^(∙)",
+    "ZERO_CONSTANT"      => "0",
+    "ONE_CONSTANT"       => "1",
+    "TWO_CONSTANT"       => "2",
+    "PI_CONSTANT"        => "π",
+    "INFINITY_CONSTANT"  => "∞",
+    "E_CONSTANT"         => "e",
+    "MINUS_ONE_CONSTANT" => "-1"
+  }
 end
