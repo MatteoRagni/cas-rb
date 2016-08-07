@@ -37,12 +37,22 @@ Gem::Specification.new do |s|
   s.email = 'info@ragni.me'
   s.files = [
     'lib/ragni-cas.rb',
-    'lib/op.rb',
-    'lib/numbers.rb',
-    'lib/fnc-base.rb',
-    'lib/fnc-trig.rb',
-    'lib/fnc-trsc.rb',
-    'lib/fnc-branch.rb',
+    # Overloading
+    'lib/overloading/fixnum.rb',
+    'lib/overloading/float.rb',
+    # Operators
+    'lib/operators/op.rb',
+    'lib/operators/bary-op.rb',
+    'lib/operators/nary-op.rb',
+    # Numbers
+    'lib/numbers/constants.rb',
+    'lib/numbers/variables.rb',
+    # Functions
+    'lib/functions/fnc-base.rb',
+    'lib/functions/fnc-trig.rb',
+    'lib/functions/fnc-trsc.rb',
+    'lib/functions/fnc-branch.rb',
+    # Versioning
     'lib/version.rb'
   ]
   s.homepage = 'https://github.com/MatteoRagni/cas-rb'

@@ -28,7 +28,11 @@
 # |_|_\___\__, |\_,_|_|_| \___/__/
 #            |_|
 
-%w|op.rb numbers.rb fnc-base.rb fnc-trig.rb fnc-trsc.rb fnc-branch.rb version.rb|.each do |r|
+%w|operators/op.rb operators/bary-op.rb operators/nary-op.rb
+   numbers/constants.rb numbers/variables.rb
+   functions/fnc-base.rb functions/fnc-trig.rb functions/fnc-trsc.rb functions/fnc-branch.rb
+   overloading/fixnum.rb overloading/float.rb
+   version.rb|.each do |r|
   require File.expand_path(r, File.dirname(__FILE__))
 end
 
@@ -118,108 +122,6 @@ digraph Op {
     # raises an ArgumentError if check fails
     def self.assert(obj, type)
       raise ArgumentError, "required #{type}, received #{obj.class}" unless obj.is_a? type
-    end
-  end
-end
-
-
-#   ___              _              _ _             _  _                    _
-#  / _ \__ _____ _ _| |___  __ _ __| (_)_ _  __ _  | \| |_  _ _ __  ___ _ _(_)__
-# | (_) \ V / -_) '_| / _ \/ _` / _` | | ' \/ _` | | .` | || | '  \/ -_) '_| / _|
-#  \___/ \_/\___|_| |_\___/\__,_\__,_|_|_||_\__, | |_|\_|\_,_|_|_|_\___|_| |_\__|
-#                                           |___/
-class Fixnum
-  alias :overloaded_plus  :+
-  alias :overloaded_minus :-
-  alias :overloaded_mul   :*
-  alias :overloaded_div   :/
-  alias :overloaded_pow   :**
-
-  def +(a)
-    if a.is_a? CAS::Op
-      CAS::const(self) + a
-    else
-      self.overloaded_plus a
-    end
-  end
-
-  def -(a)
-    if a.is_a? CAS::Op
-      CAS::const(self) - a
-    else
-      self.overloaded_minus a
-    end
-  end
-
-  def *(a)
-    if a.is_a? CAS::Op
-      CAS::const(self) * a
-    else
-      self.overloaded_mul a
-    end
-  end
-
-  def /(a)
-    if a.is_a? CAS::Op
-      CAS::const(self) / a
-    else
-      self.overloaded_div a
-    end
-  end
-
-  def **(a)
-    if a.is_a? CAS::Op
-      CAS::const(self) ** a
-    else
-      self.overloaded_pow a
-    end
-  end
-end
-
-class Float
-  alias :overloaded_plus  :+
-  alias :overloaded_minus :-
-  alias :overloaded_mul   :*
-  alias :overloaded_div   :/
-  alias :overloaded_pow   :**
-
-  def +(a)
-    if a.is_a? CAS::Op
-      CAS::const(self) + a
-    else
-      self.overloaded_plus a
-    end
-  end
-
-  def -(a)
-    if a.is_a? CAS::Op
-      CAS::const(self) - a
-    else
-      self.overloaded_minus a
-    end
-  end
-
-  def *(a)
-    if a.is_a? CAS::Op
-      CAS::const(self) * a
-    else
-      self.overloaded_mul a
-    end
-  end
-
-  def /(a)
-    if a.is_a? CAS::Op
-      CAS::const(self) / a
-    else
-      self.overloaded_div a
-    end
-  end
-
-  def **(a)
-    if a.is_a? CAS::Op
-      CAS::const(self) ** a
-    else
-      self.overloaded_pow a
     end
   end
 end
