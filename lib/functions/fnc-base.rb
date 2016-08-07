@@ -50,24 +50,12 @@ module CAS
     # * 1 + 2 = 3 (constants reduction)
     def simplify
       super
-      if @x == CAS::Zero
-        return @y
-      end
-      if @y == CAS::Zero
-        return @x
-      end
-      if @x == @y
-        return @x * 2.0
-      end
-      if @x == -@y or -@x == @y
-        return CAS::Zero
-      end
-      if @y.is_a? CAS::Invert
-        return (@x - @y.x)
-      end
-      if @x.is_a? CAS::Constant and @y.is_a? CAS::Constant
-        return CAS.const(self.call({}))
-      end
+      return @y if @x == CAS::Zero
+      return @x if @y == CAS::Zero
+      return @x * 2.0 if @x == @y
+      return CAS::Zero if @x == -@y or -@x == @y
+      return (@x - @y.x) if @y.is_a? CAS::Invert
+      return CAS.const(self.call({})) if (@x.is_a? CAS::Constant and @y.is_a? CAS::Constant)
       return self
     end
 
@@ -126,24 +114,12 @@ module CAS
     # Same as `CAS::Op`
     def simplify
       super
-      if @x == CAS::Zero
-        return CAS.invert(@y)
-      end
-      if @y == CAS::Zero
-        return @x
-      end
-      if @x == @y
-        return CAS::Zero
-      end
-      if @x.is_a? CAS::Constant and @y.is_a? CAS::Constant
-        return CAS.const(self.call({}))
-      end
-      if @y.is_a? CAS::Invert
-        return @x + @y.x
-      end
-      if @x.is_a? CAS::Invert
-        return -(@x.x + @y)
-      end
+      return CAS.invert(@y) if @x == CAS::Zero
+      return @x if @y == CAS::Zero
+      return CAS::Zero if @x == @y
+      return CAS.const(self.call({})) if (@x.is_a? CAS::Constant and @y.is_a? CAS::Constant)
+      return @x + @y.x if @y.is_a? CAS::Invert
+      return -(@x.x + @y) if @x.is_a? CAS::Invert
       return self
     end
 
@@ -202,21 +178,11 @@ module CAS
     # Same as `CAS::Op`
     def simplify
       super
-      if @x == CAS::Zero or @y == CAS::Zero
-        return CAS::Zero
-      end
-      if @x == CAS::One
-        return @y
-      end
-      if @y == CAS::One
-        return @x
-      end
-      if @x == @y
-        return @x ** 2.0
-      end
-      if @x.is_a? CAS::Constant and @y.is_a? CAS::Constant
-        return CAS.const(self.call({}))
-      end
+      return CAS::Zero if @x == CAS::Zero or @y == CAS::Zero
+      return @y if @x == CAS::One
+      return @x if @y == CAS::One
+      return @x ** 2.0 if @x == @y
+      return CAS.const(self.call({})) if @x.is_a? CAS::Constant and @y.is_a? CAS::Constant
       return self
     end
 
@@ -286,21 +252,11 @@ module CAS
     # Same as `CAS::Op`
     def simplify
       super
-      if @x == CAS::Zero
-        return CAS::Zero
-      end
-      if @x == CAS::One
-        return CAS::One
-      end
-      if @y == CAS::One
-        return @x
-      end
-      if @y == CAS::Zero
-        return CAS::One
-      end
-      if @x.is_a? CAS::Constant and @y.is_a? CAS::Constant
-        return CAS.const(self.call({}))
-      end
+      return CAS::Zero if @x == CAS::Zero
+      return CAS::One if @x == CAS::One
+      return @x if @y == CAS::One
+      return CAS::One if @y == CAS::Zero
+      return CAS.const(self.call({})) if (@x.is_a? CAS::Constant and @y.is_a? CAS::Constant)
       return self
     end
 
@@ -359,21 +315,11 @@ module CAS
     # Same as `CAS::Op`
     def simplify
       super
-      if @x == CAS::Zero
-        return CAS::Zero
-      end
-      if @y == CAS::Zero
-        return CAS::Infinity
-      end
-      if @y == CAS::One
-        return @x
-      end
-      if @y == CAS::Infinity
-        return CAS::Zero
-      end
-      if @x.is_a? CAS::Constant and @y.is_a? CAS::Constant
-        return CAS.const(self.call({}))
-      end
+      return CAS::Zero if @x == CAS::Zero
+      return CAS::Infinity if @y == CAS::Zero
+      return @x if @y == CAS::One
+      return CAS::Zero if @y == CAS::Infinity
+      return CAS.const(self.call({})) if (@x.is_a? CAS::Constant and @y.is_a? CAS::Constant)
       return self
     end
 
@@ -424,18 +370,10 @@ module CAS
     # Same as `CAS::Op`
     def simplify
       super
-      if @x.is_a? CAS::Pow
-        return CAS.pow(@x.x, @y - 0.5)
-      end
-      if @x == CAS::Zero
-        return CAS::Zero
-      end
-      if @x == CAS::One
-        return CAS::One
-      end
-      if @x.is_a? CAS::Constant and @y.is_a? CAS::Constant
-        return CAS.const(self.call({}))
-      end
+      return CAS.pow(@x.x, @y - 0.5) if @x.is_a? CAS::Pow
+      return CAS::Zero if @x == CAS::Zero
+      return CAS::One if @x == CAS::One
+      return CAS.const(self.call({})) if (@x.is_a? CAS::Constant and @y.is_a? CAS::Constant)
       return self
     end
 
@@ -489,12 +427,8 @@ module CAS
     # Same as `CAS::Op`
     def simplify
       super
-      if @x == CAS::Zero
-        return CAS::Zero
-      end
-      if @x.is_a? CAS::Invert
-        return @x.x
-      end
+      return CAS::Zero if @x == CAS::Zero
+      return @x.x if @x.is_a? CAS::Invert
       return self
     end
 
@@ -549,12 +483,8 @@ module CAS
     # Same as `CAS::Op`
     def simplify
       super
-      if @x == CAS::Zero
-        return CAS::Zero
-      end
-      if @x.is_a? CAS::Invert
-        return CAS.abs(@x.x)
-      end
+      return CAS::Zero if @x == CAS::Zero
+      return CAS.abs(@x.x) if @x.is_a? CAS::Invert
       return self
     end
 

@@ -104,7 +104,7 @@ module CAS
     #
     # <- `Hash` of values
     # -> `Numeric` for result
-    def call(fd)
+    def call(_fd)
       raise CASError, "Not Implemented. This is a virtual method"
     end
 

@@ -313,7 +313,7 @@ module CAS
     end
 
     def diff(v)
-      CAS::equal(@x.diff(x).simplify, CAS::Zero)
+      CAS::equal(@x.diff(v).simplify, CAS::Zero)
     end
 
     def dot_graph(node)

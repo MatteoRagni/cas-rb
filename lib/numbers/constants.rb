@@ -11,17 +11,17 @@ module CAS
     end
 
     # The derivative of a constant is always zero
-    def diff(v)
+    def diff(_v)
       CAS::Zero
     end
 
     # Same as `CAS::Op`
-    def call(f)
+    def call(_f)
       @x
     end
 
     # Same as `CAS::Op`
-    def depend?(v)
+    def depend?(_v)
       false
     end
 
