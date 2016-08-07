@@ -84,8 +84,9 @@ module CAS
     end
 
     # Same as `CAS::Op`
-    def dot_graph(node)
-      "#{self.class.to_s.gsub("CAS::", "")}_#{self.object_id};"
+    def dot_graph
+      n = "#{self.class.to_s.gsub("CAS::", "")}_#{self.object_id}"
+      "#{n};\n  #{n} [label=\"#{@x}\"];"
     end
 
     # Return latex representation of current Op

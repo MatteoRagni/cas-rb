@@ -182,7 +182,7 @@ module CAS
     # Simplification callback. It simplify the subgraph of each node
     # until all possible simplification are performed (thus the execution
     # time is not deterministic).
-    def simplify # TODO: improve this
+    def simplify
       hash = @x.to_s
       @x = @x.simplify
       while @x.to_s != hash
@@ -256,9 +256,9 @@ module CAS
     #
     # <- `?` unused variable (TODO: to be removed)
     # -> `String` of local Graphiz node
-    def dot_graph(node)
+    def dot_graph
       cls = "#{self.class.to_s.gsub("CAS::", "")}_#{self.object_id}"
-      "#{cls} -> #{@x.dot_graph node}\n"
+      "#{cls} -> #{@x.dot_graph}\n"
     end
 
     # Returns the latex representation of the current Op.

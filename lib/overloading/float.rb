@@ -16,6 +16,7 @@ class Float
   alias :overloaded_mul   :*
   alias :overloaded_div   :/
   alias :overloaded_pow   :**
+  alias :dot_graph :to_s
 
   ##
   # If `a` is a `CAS::Op` transform self in a `CAS::Const`

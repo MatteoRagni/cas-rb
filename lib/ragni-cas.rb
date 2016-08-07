@@ -46,12 +46,10 @@ module CAS
   # -> `String`
   def self.to_dot(op)
     CAS::Help.assert(op, CAS::Op)
-
-    node = {}
-    string = op.dot_graph(node)
+    string = op.dot_graph
     labels = ""
-    lab = {}
 
+    lab = {}
     string.scan(/\w+\_\d+/) do |m|
       if m =~ /(\w+)\_\d+/
         lab[m] = ($dot_subs_hash[$1] ? $dot_subs_hash[$1] : $1)

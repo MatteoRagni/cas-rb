@@ -1,9 +1,10 @@
 #!/usr/bin/env ruby
 
 require 'ragni-cas'
+require 'pry-byebug'
 
 
-x = CAS::Variable.new("x")
+x = CAS::Variable.new(:x)
 two = CAS::Two
 
 f = CAS::sqrt(CAS.pow(x, two) +  CAS::sin(x) * 2.0 + CAS::exp(x) * 3.0)
@@ -20,8 +21,10 @@ puts CAS::export_dot("/tmp/dot_file0.dot", f_diff)
 f_diff.simplify
 puts "#{f_diff} = #{f_diff.call({x => 1.0})}"
 
+binding.pry if ARGV[0] == "d"
+
 puts (f.args.map { |v| v.to_s }).join(" ")
-pr = f_diff.as_proc(binding())
+pr = f_diff.as_proc
 puts pr.inspect
 puts pr.call({"x" => 1.0})
 puts CAS::Variable.list

@@ -30,7 +30,7 @@ module CAS
     def call(f)
       CAS::Help.assert(f, Hash)
 
-      return @x.call(f) + @y.call(f)
+      return @x.call(f).overloaded_plus(@y.call(f))
     end
 
     # Same as `CAS::Op`
@@ -103,7 +103,7 @@ module CAS
     def call(f)
       CAS::Help.assert(f, Hash)
 
-      return @x.call(f) - @y.call(f)
+      return @x.call(f).overloaded_minus(@y.call(f))
     end
 
     # Same as `CAS::Op`
@@ -167,7 +167,7 @@ module CAS
     def call(f)
       CAS::Help.assert(f, Hash)
 
-      return @x.call(f) * @y.call(f)
+      return @x.call(f).overloaded_mul(@y.call(f))
     end
 
     # Same as `CAS::Op`
@@ -241,7 +241,7 @@ module CAS
     def call(f)
       CAS::Help.assert(f, Hash)
 
-      @x.call(f) ** @y.call(f)
+      @x.call(f).overloaded_pow(@y.call(f))
     end
 
     # Same as `CAS::Op`
@@ -304,7 +304,7 @@ module CAS
     def call(f)
       CAS::Help.assert(f, Hash)
 
-      @x.call(f)/@y.call(f)
+      @x.call(f).overloaded_pow(@y.call(f))
     end
 
     # Same as `CAS::Op`

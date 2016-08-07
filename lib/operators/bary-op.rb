@@ -152,7 +152,7 @@ module CAS
     # Executes simplifications of the two branches of the graph
     #
     # -> `CAS::BinaryOp` as `self`
-    def simplify # TODO: improve this
+    def simplify
       hash = @x.to_s
       @x = @x.simplify
       while @x.to_s != hash
@@ -169,11 +169,11 @@ module CAS
 
     # Returns the graphviz representation of the current node
     #
-    # <- `?` to be removed
+    # <- `?` unused removed
     # -> `String`
-    def dot_graph(node)
+    def dot_graph
       cls = "#{self.class.to_s.gsub("CAS::", "")}_#{self.object_id}"
-      "#{cls} -> #{@x.dot_graph node}\n  #{cls} -> #{@y.dot_graph node}"
+      "#{cls} -> #{@x.dot_graph}\n  #{cls} -> #{@y.dot_graph}"
     end
 
     # Returns the latex representation of the current Op.

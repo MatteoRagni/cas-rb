@@ -41,9 +41,9 @@ module CAS
       "(#{@condition} ? #{@x} : #{@y})"
     end
 
-    def dot_graph(node)
+    def dot_graph
       cls = "#{self.class.to_s.gsub("CAS::", "")}_#{self.object_id}"
-      "#{cls} -> #{@x.dot_graph node}\n  #{cls} -> #{@y.dot_graph node}\n  #{cls} -> #{@condition.dot_graph node}"
+      "#{cls} -> #{@x.dot_graph}\n  #{cls} -> #{@y.dot_graph}\n  #{cls} -> #{@condition.dot_graph}"
     end
 
     def to_latex
@@ -316,9 +316,9 @@ module CAS
       CAS::equal(@x.diff(v).simplify, CAS::Zero)
     end
 
-    def dot_graph(node)
+    def dot_graph
       cls = "#{self.class.to_s.gsub("CAS::", "")}_#{self.object_id}"
-      " #{cls} -> #{@lower.dot_graph node}\n #{cls} -> #{@x.dot_graph node}\n #{cls} -> #{@upper.dot_graph node}\n"
+      " #{cls} -> #{@lower.dot_graph}\n #{cls} -> #{@x.dot_graph}\n #{cls} -> #{@upper.dot_graph}\n"
     end
 
     def ==(cond)

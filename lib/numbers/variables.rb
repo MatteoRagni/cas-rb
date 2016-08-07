@@ -121,7 +121,7 @@ module CAS
     end
 
     # Same as `CAS::Op`
-    def dot_graph(node)
+    def dot_graph
       "#{@name};"
     end
 
@@ -139,4 +139,4 @@ module CAS
     end
     return ret
   end
-end 
+end
