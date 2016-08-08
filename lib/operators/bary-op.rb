@@ -91,21 +91,21 @@ module CAS
     # <- `Hash` of values
     # -> `Numeric` for result
     def call(_fd)
-      raise CASError, "Not Implemented. This is a virtual method"
+      raise CAS::CASError, "Not Implemented. This is a virtual method"
     end
 
     # String representation of the tree
     #
     # -> `String`
     def to_s
-      raise CASError, "Not Implemented. This is a virtual method"
+      raise CAS::CASError, "Not Implemented. This is a virtual method"
     end
 
     # Code to be used in `CAS::BinaryOp#to_proc`
     #
     # -> `String`
     def to_code
-      raise CASError, "Not implemented. This is a virtual method"
+      raise CAS::CASError, "Not implemented. This is a virtual method"
     end
 
     # Returns an array of all the variables that are in the graph
