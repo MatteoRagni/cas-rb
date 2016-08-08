@@ -22,20 +22,6 @@
 # Copyright:: Copyright (c) 2016 Matteo Ragni
 # License:: Distributed under MIT license terms
 
-#  ___               _
-# | _ \___ __ _ _  _(_)_ _ ___ ___
-# |   / -_) _` | || | | '_/ -_|_-<
-# |_|_\___\__, |\_,_|_|_| \___/__/
-#            |_|
-
-%w|operators/op.rb operators/bary-op.rb operators/nary-op.rb
-   numbers/constants.rb numbers/variables.rb
-   functions/fnc-base.rb functions/fnc-trig.rb functions/fnc-trsc.rb functions/fnc-branch.rb
-   overloading/fixnum.rb overloading/float.rb
-   version.rb|.each do |r|
-  require File.expand_path(r, File.dirname(__FILE__))
-end
-
 module CAS
 
   # Return a string representation of the graph that is
@@ -71,18 +57,6 @@ module CAS
     File.open(fl, "w") do |f| f.puts CAS.to_dot(op) end
     return op
   end
-
-
-  # Support functions are in this separate Helper class
-  module Help
-    # Check input `obj.class` against a `type` class
-    # raises an ArgumentError if check fails
-    def self.assert(obj, type)
-      raise ArgumentError, "required #{type}, received #{obj.class}" unless obj.is_a? type
-    end
-  end
-
-  #
   $dot_subs_hash = {
     "Sum"                => "+",
     "Diff"               => "-",
@@ -102,4 +76,27 @@ module CAS
     "E_CONSTANT"         => "e",
     "MINUS_ONE_CONSTANT" => "-1"
   }
+
+  # Support functions are in this separate Helper class
+  module Help
+    # Check input `obj.class` against a `type` class
+    # raises an ArgumentError if check fails
+    def self.assert(obj, type)
+      raise ArgumentError, "required #{type}, received #{obj.class}" unless obj.is_a? type
+    end
+  end
+end
+
+#  ___               _
+# | _ \___ __ _ _  _(_)_ _ ___ ___
+# |   / -_) _` | || | | '_/ -_|_-<
+# |_|_\___\__, |\_,_|_|_| \___/__/
+#            |_|
+
+%w|operators/op.rb operators/bary-op.rb operators/nary-op.rb
+   numbers/constants.rb numbers/variables.rb
+   functions/fnc-base.rb functions/fnc-trig.rb functions/fnc-trsc.rb functions/fnc-branch.rb
+   overloading/fixnum.rb overloading/float.rb
+   version.rb|.each do |r|
+  require File.expand_path(r, File.dirname(__FILE__))
 end

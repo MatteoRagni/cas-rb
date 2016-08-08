@@ -32,16 +32,7 @@ module CAS
 
     # Subs for a constant is a dummy method
     def subs(dt)
-      # CAS::Help.assert(dt, Hash)
-      # if dt.keys.include? self
-      #   if dt[self].is_a? CAS::Op
-      #     return dt[self]
-      #   elsif dt[self].is_a? Numeric
-      #     return CAS::const(dt[self])
-      #   else
-      #     raise CASError, "Impossible subs. Received a #{dt[self].class} = #{dt[self]}"
-      #   end
-      # end
+      return self
     end
 
     # Same as `CAS::Op`
@@ -80,7 +71,7 @@ module CAS
 
     # Same as `CAS::Op`
     def inspect
-      "Const(#{@x})"
+      "Const(#{self.to_s})"
     end
 
     # Same as `CAS::Op`

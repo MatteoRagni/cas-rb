@@ -18,8 +18,7 @@ module CAS
     # Same as `CAS::Op`
     def call(f)
       CAS::Help.assert(f, Hash)
-
-      Math::exp @x.call(f)
+      Math::exp(@x.call(f))
     end
 
     # Same as `CAS::Op`
@@ -30,20 +29,14 @@ module CAS
     # Same as `CAS::Op`
     def simplify
       super
-      if @x == CAS::Zero
-        return CAS::One
-      end
-      if @x == CAS::One
-        return CAS::E
-      end
-      if @x == CAS::Infinity
-        return CAS::Infinity
-      end
-      if @x.is_a? CAS::Ln
-        return @x.x
-      end
-      return self
+      return @x.x if @x.is_a? CAS::Ln
+      return self.simplify_dictionary
     end
+    @@simplify_dict = {
+      CAS::Zero => CAS::One,
+      CAS::One => CAS::E,
+      CAS::Infinity => CAS::Infinity
+    }
 
     # Same as `CAS::Op`
     def to_code
@@ -79,8 +72,7 @@ module CAS
       # I'm leaving to Math the honor
       # of handling negative values...
       CAS::Help.assert(f, Hash)
-
-      Math::log @x.call(f)
+      Math::log(@x.call(f))
     end
 
     # Same as `CAS::Op`
@@ -91,20 +83,14 @@ module CAS
     # Same as `CAS::Op`
     def simplify
       super
-      if @x == CAS::Zero
-        return CAS.invert(CAS::Infinity)
-      end
-      if @x == CAS::One
-        return CAS::Zero
-      end
-      if @x == CAS::E
-        return CAS::One
-      end
-      if @x.is_a? CAS::Exp
-        return @x.x
-      end
-      return self
+      return @x.x if @x.is_a? CAS::Exp
+      return self.simplify_dictionary
     end
+    @@simplify_dict = {
+      CAS::Zero => CAS.invert(CAS::Infinity),
+      CAS::One => CAS::Zero,
+      CAS::E => CAS::One
+    }
 
     # Same as `CAS::Op`
     def to_code

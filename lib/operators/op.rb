@@ -191,6 +191,17 @@ module CAS
       end
     end
 
+    # Simplify dictionary performs a dictionary simplification
+    # that is the class variable `@@simplify_dict`
+    def simplify_dictionary
+      if @@simplify_dict[@x]
+        return @@simplify_dict[@x]
+      else
+        return self
+      end
+    end
+    @@simplify_dict = { }
+
     # Inspector for the current object
     #
     # -> `String`

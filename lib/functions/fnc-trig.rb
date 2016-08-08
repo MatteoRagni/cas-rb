@@ -17,8 +17,7 @@ module CAS
     # Same as `CAS::Op`
     def call(f)
       CAS::Help.assert(f, Hash)
-
-      Math::sin @x.call(f)
+      Math::sin(@x.call(f))
     end
 
     # Same as `CAS::Op`
@@ -29,17 +28,13 @@ module CAS
     # Same as `CAS::Op`
     def simplify
       super
-      if @x == CAS::Zero
-        return CAS::Zero
-      end
-      if @x == CAS::Pi
-        return CAS::Zero
-      end
-      if @x.is_a? CAS::Asin
-        return @x.x
-      end
-      return self
+      return @x.x if @x.is_a? CAS::Asin
+      return self.simplify_dictionary
     end
+    @@simplify_dict = {
+      CAS::Zero => CAS::Zero,
+      CAS::Pi => CAS::Zero
+    }
 
     # Same as `CAS::Op`
     def to_code
@@ -72,8 +67,7 @@ module CAS
     # Same as `CAS::Op`
     def call(f)
       CAS::Help.assert(f, Hash)
-
-      Math::acos @x.call(f)
+      Math::acos(@x.call(f))
     end
 
     # Same as `CAS::Op`
@@ -84,17 +78,13 @@ module CAS
     # Same as `CAS::Op`
     def simplify
       super
-      if @x == CAS::Zero
-        return CAS::Zero
-      end
-      if @x == CAS::One
-        return CAS::Pi / 2
-      end
-      if @x.is_a? CAS::Sin
-        return @x.x
-      end
-      return self
+      return @x.x if @x.is_a? CAS::Sin
+      return self.simplify_dictionary
     end
+    @@simplify_dict = {
+      CAS::Zero => CAS::Zero,
+      CAS::One => (CAS::Pi / 2)
+    }
 
     # Same as `CAS::Op`
     def to_code
@@ -127,8 +117,7 @@ module CAS
     # Same as `CAS::Op`
     def call(f)
       CAS::Help.assert(f, Hash)
-
-      Math::cos @x.call(f)
+      Math::cos(@x.call(f))
     end
 
     # Same as `CAS::Op`
@@ -139,17 +128,13 @@ module CAS
     # Same as `CAS::Op`
     def simplify
       super
-      if @x == CAS::Zero
-        return CAS::One
-      end
-      if @x == CAS::Pi
-        return CAS::One
-      end
-      if @x.is_a? CAS::Acos
-        return @x.x
-      end
-      return self
+      return @x.x if @x.is_a? CAS::Acos
+      return self.simplify_dictionary
     end
+    @simplify_dict = {
+      CAS::Zero => CAS::One,
+      CAS::Pi => CAS::One
+    }
 
     # Same as `CAS::Op`
     def to_code
@@ -182,8 +167,7 @@ module CAS
     # Same as `CAS::Op`
     def call(f)
       CAS::Help.assert(f, Hash)
-
-      return Math::acos @x
+      return Math::acos(@x.call(f))
     end
 
     # Same as `CAS::Op`
@@ -194,17 +178,13 @@ module CAS
     # Same as `CAS::Op`
     def simplify
       super
-      if @x == CAS::Zero
-        return CAS::Pi / 2
-      end
-      if @x == CAS::One
-        return CAS::Zero
-      end
-      if @x.is_a? CAS::Cos
-        return @x.x
-      end
-      return self
+      return @x.x if @x.is_a? CAS::Cos
+      return self.simplify_dictionary
     end
+    @@simplify_dict = {
+      CAS::Zero => (CAS::Pi / 2),
+      CAS::One => CAS::Zero
+    }
 
     # Same as `CAS::Op`
     def to_code
@@ -237,8 +217,7 @@ module CAS
     # Same as `CAS::Op`
     def call(f)
       CAS::Help.assert(f, Hash)
-
-      Math::tan @x.call
+      Math::tan(@x.call(f))
     end
 
     # Same as `CAS::Op`
@@ -249,17 +228,13 @@ module CAS
     # Same as `CAS::Op`
     def simplify
       super
-      if @x == CAS::Zero
-        return CAS::Zero
-      end
-      if @x == CAS::Pi
-        return CAS::Zero
-      end
-      if @x.is_a? CAS::Atan
-        return @x.x
-      end
-      return self
+      return @x.x if @x.is_a? CAS::Atan
+      return self.simplify_dictionary
     end
+    @@simplify_dict = {
+      CAS::Zero => CAS::Zero,
+      CAS::Pi => CAS::Zero
+    }
 
     # Same as `CAS::Op`
     def to_code
@@ -292,8 +267,7 @@ module CAS
     # Same as `CAS::Op`
     def call(f)
       CAS::Help.assert(f, Hash)
-
-      Math::atan @x.call
+      Math::atan(@x.call(f))
     end
 
     # Same as `CAS::Op`
@@ -304,20 +278,14 @@ module CAS
     # Same as `CAS::Op`
     def simplify
       super
-      if @x == CAS::Zero
-        return CAS::Zero
-      end
-      if @x == CAS::One
-        return CAS::Pi / 4
-      end
-      if @x == CAS::Infinity
-        return CAS::Pi / 2
-      end
-      if @x.is_a? CAS::Tan
-        return @x.x
-      end
-      return self
+      return @x.x if @x.is_a? CAS::Tan
+      return self.simplify_dictionary
     end
+    @@simplify_dict = {
+      CAS::Zero => CAS::Zero,
+      CAS::One => (CAS::Pi/4),
+      CAS::Infinity => (CAS::Pi/2)
+    }
 
     # Same as `CAS::Op`
     def to_code

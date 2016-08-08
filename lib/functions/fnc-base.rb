@@ -219,7 +219,6 @@ module CAS
     # Same as `CAS::Op`
     def call(f)
       CAS::Help.assert(f, Hash)
-
       @x.call(f).overloaded_pow(@y.call(f))
     end
 
@@ -283,7 +282,7 @@ module CAS
     def call(f)
       CAS::Help.assert(f, Hash)
 
-      @x.call(f).overloaded_pow(@y.call(f))
+      @x.call(f).overloaded_div(@y.call(f))
     end
 
     # Same as `CAS::Op`
