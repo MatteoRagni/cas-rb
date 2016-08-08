@@ -405,10 +405,12 @@ module CAS
     # Same as `CAS::Op`
     def simplify
       super
-      return CAS::Zero if @x == CAS::Zero
       return @x.x if @x.is_a? CAS::Invert
-      return self
+      return self.simplify_dict
     end
+    @@simplify_dict = {
+      CAS::Zero => CAS::Zero
+    }
 
     # Same as `CAS::Op`
     def to_code
@@ -461,10 +463,12 @@ module CAS
     # Same as `CAS::Op`
     def simplify
       super
-      return CAS::Zero if @x == CAS::Zero
       return CAS.abs(@x.x) if @x.is_a? CAS::Invert
-      return self
+      return self.simplify_dictionary
     end
+    @@simplify_dict = {
+      CAS::Zero => CAs::Zero
+    }
 
     # Same as `CAS::Op`
     def to_code

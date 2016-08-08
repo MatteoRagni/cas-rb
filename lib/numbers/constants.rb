@@ -240,4 +240,16 @@ module CAS
     end
   end
   MinusOne = CAS::MINUS_ONE_CONSTANT.new
+
+  NumericToConst = {
+    0 => CAS::Zero,
+    0.0 => CAS::Zero,
+    1 => CAS::One,
+    1.0 => CAS::One,
+    2 => CAS::Two,
+    2.0 => CAS::Two,
+    Math::PI => CAS::Pi,
+    Math::E => CAS::E,
+    (1.0/0.0) => CAS::Infinity,
+  }
 end

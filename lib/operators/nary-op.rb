@@ -18,14 +18,7 @@ module CAS
       @x = []
       xs.each do |x|
         if x.is_a? Numeric
-          case x.to_f
-          when 0.0
-            x = CAS::Zero
-          when 1.0
-            x = CAS::One
-          else
-            x = CAS.const x
-          end
+          x = Op.numeric_to_const x
         end
         CAS::Help.assert(x, CAS::Op)
         @x << x

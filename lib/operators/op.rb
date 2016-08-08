@@ -21,18 +21,19 @@ module CAS
     # -> `CAS::Op` instance
     def initialize(x)
       if x.is_a? Numeric
-        case x.to_f
-        when 0.0
-          x = CAS::Zero
-        when 1.0
-          x = CAS::One
-        else
-          x = CAS.const x
-        end
+        x = Op.numeric_to_const x
       end
       CAS::Help.assert(x, CAS::Op)
 
       @x = x
+    end
+
+    def self.numeric_to_const(x)
+      if CAS::NumericToConst[x]
+        return CAS::NumericToConst[x]
+      else
+        return CAS::const x
+      end
     end
 
     # Return the dependencies of the operation. Requires a `CAS::Variable`

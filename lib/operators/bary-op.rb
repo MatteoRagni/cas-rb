@@ -20,24 +20,10 @@ module CAS
     # -> `CAS::BinaryOp` instance
     def initialize(x, y)
       if x.is_a? Numeric
-        case x
-        when 0
-          x = CAS::Zero
-        when 1
-          x = CAS::One
-        else
-          x = CAS.const x
-        end
+        x = BinaryOp.numeric_to_const x
       end
       if y.is_a? Numeric
-        case y
-        when 0
-          y = CAS::Zero
-        when 1
-          y = CAS::One
-        else
-          y = CAS.const y
-        end
+        y = BinaryOp.numeric_to_const y
       end
       CAS::Help.assert(x, CAS::Op)
       CAS::Help.assert(y, CAS::Op)

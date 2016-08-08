@@ -100,3 +100,9 @@ end
    version.rb|.each do |r|
   require File.expand_path(r, File.dirname(__FILE__))
 end
+
+module CAS
+  CAS::NumericToConst[(-Math::PI)] = (-CAS::Pi)
+  CAS::NumericToConst[(-Math::E) ] = (-CAS::E)
+  CAS::NumericToConst[(-1.0/0.0)]  = (CAS::NegInfinity)
+end
