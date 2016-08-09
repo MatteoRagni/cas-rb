@@ -31,7 +31,7 @@ module CAS
     end
 
     # Subs for a constant is a dummy method
-    def subs(dt)
+    def subs(_dt)
       return self
     end
 
@@ -60,8 +60,6 @@ module CAS
 
     # Same as `CAS::Op`
     def ==(op)
-      # CAS::Help.assert(op, CAS::Op)
-
       if op.is_a? CAS::Constant
         return @x == op.x
       else
@@ -71,7 +69,7 @@ module CAS
 
     # Same as `CAS::Op`
     def inspect
-      "Const(#{self.to_s})"
+      "Const(#{self})"
     end
 
     # Same as `CAS::Op`

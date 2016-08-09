@@ -60,7 +60,16 @@ module CAS
     # <- `Hash` of substitutions
     # -> `CAS::BinaryOp`, in practice `self`
     def subs(dt)
+      return self.subs_lhs(dt).subs_rhs(dt)
+    end
+
+    # Substituitions for left branch of the graph, same as `CAS::Op#subs`
+    #
+    # <- `Hash` of substitutions
+    # -> `CAS::BinaryOp`, in practice `self`
+    def subs_lhs(dt)
       CAS::Help.assert(dt, Hash)
+
       if dt.keys.include? @x
         if dt[@x].is_a? CAS::Op
           @x = dt[@x]
@@ -72,6 +81,15 @@ module CAS
       else
         @x.subs(dt)
       end
+      return self
+    end
+
+    # Substituitions for left branch of the graph, same as `CAS::Op#subs`
+    #
+    # <- `Hash` of substitutions
+    # -> `CAS::BinaryOp`, in practice `self`
+    def subs_rhs(dt)
+      CAS::Help.assert(dt, Hash)
       if dt.keys.include? @y
         if dt[@y].is_a? CAS::Op
           @y = dt[@y]

@@ -266,7 +266,6 @@ module CAS
 
     # Return the local Graphviz node of the tree
     #
-    # <- `?` unused variable (TODO: to be removed)
     # -> `String` of local Graphiz node
     def dot_graph
       cls = "#{self.class.to_s.gsub("CAS::", "")}_#{self.object_id}"

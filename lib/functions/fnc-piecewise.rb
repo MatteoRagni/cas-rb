@@ -96,6 +96,7 @@ module CAS
       "(#{@condition} ? #{@x} : #{@y})"
     end
 
+    alias :binary_dot_graph :dot_graph
     # Convert piecewise function into a dot graphviz representation
     #
     # -> `String`
@@ -136,14 +137,7 @@ module CAS
       "#{@@type}(#{@x}, #{@y})"
     end
 
-    # Convert MinMax function into a dot graphviz representation. `CAS::MinMax` will not report
-    # the condition in the graph
-    #
-    # -> `String`
-    def dot_graph
-      cls = "#{self.class.to_s.gsub("CAS::", "")}_#{self.object_id}"
-      "#{cls} -> #{@x.dot_graph}\n  #{cls} -> #{@y.dot_graph}"
-    end
+    alias :dot_graph :binary_dot_graph
   end # MinMax
 
   #  __  __
