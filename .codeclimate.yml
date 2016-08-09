@@ -1,9 +1,4 @@
 ---
-languages:
-  Ruby: true
-  JavaScript: false
-  PHP: false
-  Python: false
 exclude_paths:
 - doc
 - mrblib
@@ -14,3 +9,5 @@ engines:
     config:
     - ruby:
         mass_threshold: 25
+  rubocop:
+    enabled: true
