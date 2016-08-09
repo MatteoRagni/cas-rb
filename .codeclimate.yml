@@ -1,13 +1,15 @@
----
-exclude_paths:
-- doc
-- mrblib
-- tests
 engines:
+  rubocop:
+    enabled: true
   duplication:
     enabled: true
     config:
-    - ruby:
-        mass_threshold: 25
-rubocop:
-  enabled: true
+      languages:
+        ruby:
+          mass_threshold: 25
+exclude_paths:
+- doc/**
+- mrblib/**
+- tests/**
+- certs/**
+- .git/**
