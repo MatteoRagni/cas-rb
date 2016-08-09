@@ -12,5 +12,5 @@ engines:
   duplication:
     enabled: true
     config:
-      Ruby:
+    - Ruby:
         mass_threshold: 25
