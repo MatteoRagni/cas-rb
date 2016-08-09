@@ -143,13 +143,12 @@
 
           
           <div class="method-source-code" id="call-source">
-            <pre><span class="ruby-comment"># File lib/fnc-trsc.rb, line 78</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-trsc.rb, line 71</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">f</span>)
   <span class="ruby-comment"># I&#39;m leaving to Math the honor</span>
   <span class="ruby-comment"># of handling negative values...</span>
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">f</span>, <span class="ruby-constant">Hash</span>)
-
-  <span class="ruby-constant">Math</span><span class="ruby-operator">::</span><span class="ruby-identifier">log</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">f</span>)
+  <span class="ruby-constant">Math</span><span class="ruby-operator">::</span><span class="ruby-identifier">log</span>(<span class="ruby-ivar">@x</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">f</span>))
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -180,7 +179,7 @@
 
           
           <div class="method-source-code" id="diff-source">
-            <pre><span class="ruby-comment"># File lib/fnc-trsc.rb, line 69</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-trsc.rb, line 62</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">depend?</span> <span class="ruby-identifier">v</span>
     <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">One</span> <span class="ruby-operator">/</span> <span class="ruby-ivar">@x</span>
@@ -222,22 +221,11 @@
 
           
           <div class="method-source-code" id="simplify-source">
-            <pre><span class="ruby-comment"># File lib/fnc-trsc.rb, line 92</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-trsc.rb, line 84</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">simplify</span>
   <span class="ruby-keyword">super</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span> <span class="ruby-operator">==</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">invert</span>(<span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Infinity</span>)
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span> <span class="ruby-operator">==</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">One</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span> <span class="ruby-operator">==</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">E</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">One</span>
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Exp</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">x</span>
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">x</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Exp</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">simplify_dictionary</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -268,7 +256,7 @@
 
           
           <div class="method-source-code" id="to_code-source">
-            <pre><span class="ruby-comment"># File lib/fnc-trsc.rb, line 110</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-trsc.rb, line 96</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_code</span>
   <span class="ruby-node">&quot;Math::log(#{@x.to_code})&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -301,7 +289,7 @@
 
           
           <div class="method-source-code" id="to_latex-source">
-            <pre><span class="ruby-comment"># File lib/fnc-trsc.rb, line 115</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-trsc.rb, line 101</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_latex</span>
   <span class="ruby-node">&quot;\\log\\left( #{@x.to_latex} \\right)&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -334,7 +322,7 @@
 
           
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/fnc-trsc.rb, line 87</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-trsc.rb, line 79</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
   <span class="ruby-node">&quot;log(#{@x})&quot;</span>
 <span class="ruby-keyword">end</span></pre>

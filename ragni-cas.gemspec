@@ -51,7 +51,9 @@ Gem::Specification.new do |s|
     'lib/functions/fnc-base.rb',
     'lib/functions/fnc-trig.rb',
     'lib/functions/fnc-trsc.rb',
-    'lib/functions/fnc-branch.rb',
+    'lib/functions/fnc-conditions.rb',
+    'lib/functions/fnc-box-conditions.rb',
+    'lib/functions/fnc-piecewise.rb',
     # Versioning
     'lib/version.rb'
   ]

@@ -112,6 +112,40 @@ module CAS
     end
   end
 
+  #  __  __ _      __  __
+  # |  \/  (_)_ _ |  \/  |__ ___ __
+  # | |\/| | | ' \| |\/| / _` \ \ /
+  # |_|  |_|_|_||_|_|  |_\__,_/_\_\
+
+  ##
+  # Class MinMax is an intermediate class for Min and Max functions. It contains shared code
+  # and methods
+  class MinMax < CAS::Piecewise
+    @@type = "minmax"
+    # Convert MinMax function into LaTeX representation
+    #
+    # -> `String` of LaTeX code
+    def to_latex
+      "\\mathrm{#{@@type}}\\left( \\begin{array}{c} #{@x.to_latex} \\\\ #{@y.to_latex} \\end{array} \\right)"
+    end
+
+    # Returns a string representation for the current operation
+    #
+    # -> `String`
+    def to_s
+      "#{@@type}(#{@x}, #{@y})"
+    end
+
+    # Convert MinMax function into a dot graphviz representation. `CAS::MinMax` will not report
+    # the condition in the graph
+    #
+    # -> `String`
+    def dot_graph
+      cls = "#{self.class.to_s.gsub("CAS::", "")}_#{self.object_id}"
+      "#{cls} -> #{@x.dot_graph}\n  #{cls} -> #{@y.dot_graph}"
+    end
+  end # MinMax
+
   #  __  __
   # |  \/  |__ ___ __
   # | |\/| / _` \ \ /
@@ -120,6 +154,8 @@ module CAS
   # Max class represent a piecewise in which the condition is `f(x) ≥ g(x)`. Derivate a `CAS::Max`
   # will return a `CAS::Piecewise` (since condition will not depend anymore on object functions)
   class Max < CAS::Piecewise
+    @@type = "max"
+
     # To initialize `CAS::Max` only the two functions are necessary. The condition is automatically
     # generated
     #
@@ -127,29 +163,6 @@ module CAS
     # <- `CAS::Op` second function
     def initialize(x, y)
       super(x, y, CAS::greater_equal(x, y))
-    end
-
-    # Returns a string representation for the current operation
-    #
-    # -> `String`
-    def to_s
-      "max(#{@x}, #{@y})"
-    end
-
-    # Convert Max function into a dot graphviz representation. `CAS::Max` will not report
-    # the condition in the graph
-    #
-    # -> `String`
-    def dot_graph
-      cls = "#{self.class.to_s.gsub("CAS::", "")}_#{self.object_id}"
-      "#{cls} -> #{@x.dot_graph}\n  #{cls} -> #{@y.dot_graph}"
-    end
-
-    # Convert Max function into LaTeX representation
-    #
-    # -> `String` of LaTeX code
-    def to_latex
-      "\\mathrm{max}\\left( \\begin{array}{c} #{@x.to_latex} \\\\ #{@y.to_latex} \\end{array} \\right)"
     end
   end # Max
 
@@ -161,6 +174,8 @@ module CAS
   # Min class represent a piecewise in which the condition is `f(x) ≤ g(x)`. Derivate a `CAS::Min`
   # will return a `CAS::Piecewise` (since condition will not depend anymore on object functions)
   class Min < CAS::Piecewise
+    @@type = "min"
+
     # To initialize `CAS::Min` only the two functions are necessary. The condition is automatically
     # generated
     #
@@ -169,30 +184,7 @@ module CAS
     def initialize(x, y)
       super(x, y, CAS::smaller_equal(x, y))
     end
-
-    # Returns a string representation for the current operation
-    #
-    # -> `String`
-    def to_s
-      "min(#{@x}, #{@y})"
-    end
-
-    # Convert Max function into a dot graphviz representation. `CAS::Min` will not report
-    # the condition in the graph
-    #
-    # -> `String`
-    def dot_graph
-      cls = "#{self.class.to_s.gsub("CAS::", "")}_#{self.object_id}"
-      "#{cls} -> #{@x.dot_graph}\n  #{cls} -> #{@y.dot_graph}"
-    end
-
-    # Convert Max function into LaTeX representation
-    #
-    # -> `String` of LaTeX code
-    def to_latex
-      "\\mathrm{min}\\left( \\begin{array}{c} #{@x.to_latex} \\\\ #{@y.to_latex} \\end{array} \\right)"
-    end
-  end # Max
+  end # Min
 
   def self.max(x, y)
     CAS::Max.new(x, y)

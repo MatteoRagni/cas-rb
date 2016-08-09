@@ -144,11 +144,10 @@
 
           
           <div class="method-source-code" id="call-source">
-            <pre><span class="ruby-comment"># File lib/fnc-trsc.rb, line 19</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-trsc.rb, line 19</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">f</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">f</span>, <span class="ruby-constant">Hash</span>)
-
-  <span class="ruby-constant">Math</span><span class="ruby-operator">::</span><span class="ruby-identifier">exp</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">f</span>)
+  <span class="ruby-constant">Math</span><span class="ruby-operator">::</span><span class="ruby-identifier">exp</span>(<span class="ruby-ivar">@x</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">f</span>))
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -179,7 +178,7 @@
 
           
           <div class="method-source-code" id="diff-source">
-            <pre><span class="ruby-comment"># File lib/fnc-trsc.rb, line 10</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-trsc.rb, line 10</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">depend?</span> <span class="ruby-identifier">v</span>
     <span class="ruby-keyword">return</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>) <span class="ruby-operator">*</span> <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">exp</span>(<span class="ruby-ivar">@x</span>)
@@ -221,22 +220,11 @@
 
           
           <div class="method-source-code" id="simplify-source">
-            <pre><span class="ruby-comment"># File lib/fnc-trsc.rb, line 31</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-trsc.rb, line 30</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">simplify</span>
   <span class="ruby-keyword">super</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span> <span class="ruby-operator">==</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">One</span>
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span> <span class="ruby-operator">==</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">One</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">E</span>
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span> <span class="ruby-operator">==</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Infinity</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Infinity</span>
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Ln</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">x</span>
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">x</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Ln</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">simplify_dictionary</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -267,7 +255,7 @@
 
           
           <div class="method-source-code" id="to_code-source">
-            <pre><span class="ruby-comment"># File lib/fnc-trsc.rb, line 49</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-trsc.rb, line 42</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_code</span>
   <span class="ruby-node">&quot;Math::exp(#{@x.to_code})&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -300,7 +288,7 @@
 
           
           <div class="method-source-code" id="to_latex-source">
-            <pre><span class="ruby-comment"># File lib/fnc-trsc.rb, line 54</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-trsc.rb, line 47</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_latex</span>
   <span class="ruby-node">&quot;e^{#{@x.to_latex}}&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -333,7 +321,7 @@
 
           
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/fnc-trsc.rb, line 26</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-trsc.rb, line 25</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
   <span class="ruby-node">&quot;exp(#{@x})&quot;</span>
 <span class="ruby-keyword">end</span></pre>

@@ -143,11 +143,10 @@
 
           
           <div class="method-source-code" id="call-source">
-            <pre><span class="ruby-comment"># File lib/fnc-trig.rb, line 238</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-trig.rb, line 218</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">f</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">f</span>, <span class="ruby-constant">Hash</span>)
-
-  <span class="ruby-constant">Math</span><span class="ruby-operator">::</span><span class="ruby-identifier">tan</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">call</span>
+  <span class="ruby-constant">Math</span><span class="ruby-operator">::</span><span class="ruby-identifier">tan</span>(<span class="ruby-ivar">@x</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">f</span>))
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -178,7 +177,7 @@
 
           
           <div class="method-source-code" id="diff-source">
-            <pre><span class="ruby-comment"># File lib/fnc-trig.rb, line 229</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-trig.rb, line 209</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">depend?</span> <span class="ruby-identifier">v</span>
     <span class="ruby-keyword">return</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>) <span class="ruby-operator">*</span> <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">pow</span>(<span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">One</span><span class="ruby-operator">/</span><span class="ruby-constant">CAS</span>.<span class="ruby-identifier">cos</span>(<span class="ruby-ivar">@x</span>), <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Two</span>)
@@ -220,19 +219,11 @@
 
           
           <div class="method-source-code" id="simplify-source">
-            <pre><span class="ruby-comment"># File lib/fnc-trig.rb, line 250</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-trig.rb, line 229</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">simplify</span>
   <span class="ruby-keyword">super</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span> <span class="ruby-operator">==</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span> <span class="ruby-operator">==</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Pi</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Atan</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">x</span>
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">x</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Atan</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">simplify_dictionary</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -263,7 +254,7 @@
 
           
           <div class="method-source-code" id="to_code-source">
-            <pre><span class="ruby-comment"># File lib/fnc-trig.rb, line 265</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-trig.rb, line 240</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_code</span>
   <span class="ruby-node">&quot;Math::tan(#{@x.to_code})&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -296,7 +287,7 @@
 
           
           <div class="method-source-code" id="to_latex-source">
-            <pre><span class="ruby-comment"># File lib/fnc-trig.rb, line 270</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-trig.rb, line 245</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_latex</span>
   <span class="ruby-node">&quot;\\tan\\left( #{@x.to_latex} \\right)&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -329,7 +320,7 @@
 
           
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/fnc-trig.rb, line 245</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-trig.rb, line 224</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
   <span class="ruby-node">&quot;tan(#{@x})&quot;</span>
 <span class="ruby-keyword">end</span></pre>

@@ -142,7 +142,7 @@
 
           
           <div class="method-source-code" id="call-source">
-            <pre><span class="ruby-comment"># File lib/fnc-base.rb, line 402</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 337</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">f</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">f</span>, <span class="ruby-constant">Hash</span>)
 
@@ -189,7 +189,7 @@
 
           
           <div class="method-source-code" id="diff-source">
-            <pre><span class="ruby-comment"># File lib/fnc-base.rb, line 393</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 328</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">depend?</span> <span class="ruby-identifier">v</span>
     <span class="ruby-keyword">return</span> (<span class="ruby-ivar">@x</span>.<span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>) <span class="ruby-operator">/</span> (<span class="ruby-constant">CAS</span>.<span class="ruby-identifier">const</span>(<span class="ruby-value">2.0</span>) <span class="ruby-operator">*</span> <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">sqrt</span>(<span class="ruby-ivar">@x</span>)))
@@ -231,21 +231,13 @@
 
           
           <div class="method-source-code" id="simplify-source">
-            <pre><span class="ruby-comment"># File lib/fnc-base.rb, line 414</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 349</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">simplify</span>
   <span class="ruby-keyword">super</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Pow</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">pow</span>(<span class="ruby-ivar">@x</span>.<span class="ruby-identifier">x</span>, <span class="ruby-ivar">@y</span> <span class="ruby-operator">-</span> <span class="ruby-value">0.5</span>)
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span> <span class="ruby-operator">==</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span> <span class="ruby-operator">==</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">One</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">One</span>
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Constant</span> <span class="ruby-keyword">and</span> <span class="ruby-ivar">@y</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Constant</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">const</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">call</span>({}))
-  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">pow</span>(<span class="ruby-ivar">@x</span>.<span class="ruby-identifier">x</span>, <span class="ruby-ivar">@y</span> <span class="ruby-operator">-</span> <span class="ruby-value">0.5</span>) <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Pow</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span> <span class="ruby-operator">==</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">One</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span> <span class="ruby-operator">==</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">One</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">const</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">call</span>({})) <span class="ruby-keyword">if</span> (<span class="ruby-ivar">@x</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Constant</span> <span class="ruby-keyword">and</span> <span class="ruby-ivar">@y</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Constant</span>)
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -277,7 +269,7 @@
 
           
           <div class="method-source-code" id="to_code-source">
-            <pre><span class="ruby-comment"># File lib/fnc-base.rb, line 432</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 359</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_code</span>
   <span class="ruby-node">&quot;Math::sqrt(#{@x.to_code})&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -310,7 +302,7 @@
 
           
           <div class="method-source-code" id="to_latex-source">
-            <pre><span class="ruby-comment"># File lib/fnc-base.rb, line 437</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 364</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_latex</span>
   <span class="ruby-node">&quot;\\sqrt{#{@x.to_latex}}&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -343,7 +335,7 @@
 
           
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/fnc-base.rb, line 409</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 344</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
   <span class="ruby-node">&quot;√(#{@x})&quot;</span>
 <span class="ruby-keyword">end</span></pre>

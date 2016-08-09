@@ -95,7 +95,8 @@ end
 
 %w|operators/op.rb operators/bary-op.rb operators/nary-op.rb
    numbers/constants.rb numbers/variables.rb
-   functions/fnc-base.rb functions/fnc-trig.rb functions/fnc-trsc.rb functions/fnc-branch.rb
+   functions/fnc-base.rb functions/fnc-trig.rb functions/fnc-trsc.rb
+   functions/fnc-conditions.rb functions/fnc-box-conditions.rb functions/fnc-piecewise.rb
    overloading/fixnum.rb overloading/float.rb
    version.rb|.each do |r|
   require File.expand_path(r, File.dirname(__FILE__))

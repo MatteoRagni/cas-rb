@@ -103,6 +103,20 @@
 
   <section class="description">
     
+<p>Overloading operators for <a href="Float.html">Float</a>. Operations that
+are oveloaded are:</p>
+<ul><li>
+<p>`overloaded_plus` for `+`</p>
+</li><li>
+<p>`overloaded_minus` for `-`</p>
+</li><li>
+<p>`overloaded_mul` for `*`</p>
+</li><li>
+<p>`overloaded_div` for `/`</p>
+</li><li>
+<p>`overloaded_pow` for `**`</p>
+</li></ul>
+
   </section>
 
   
@@ -137,19 +151,17 @@
 
         <div class="method-description">
           
-          
+          <p>If `a` is a `CAS::Op` transform self in a `CAS::Const` and return a
+symbolic operation</p>
           
           
 
           
           <div class="method-source-code" id="2A-source">
-            <pre><span class="ruby-comment"># File lib/ragni-cas.rb, line 202</span>
+            <pre><span class="ruby-comment"># File lib/overloading/float.rb, line 41</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">*</span>(<span class="ruby-identifier">a</span>)
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>
-    <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">const</span>(<span class="ruby-keyword">self</span>) <span class="ruby-operator">*</span> <span class="ruby-identifier">a</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">overloaded_mul</span> <span class="ruby-identifier">a</span>
-  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> (<span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">const</span>(<span class="ruby-keyword">self</span>) <span class="ruby-operator">*</span> <span class="ruby-identifier">a</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">overloaded_mul</span> <span class="ruby-identifier">a</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -178,19 +190,17 @@
 
         <div class="method-description">
           
-          
+          <p>If `a` is a `CAS::Op` transform self in a `CAS::Const` and return a
+symbolic operation</p>
           
           
 
           
           <div class="method-source-code" id="2A-2A-source">
-            <pre><span class="ruby-comment"># File lib/ragni-cas.rb, line 218</span>
+            <pre><span class="ruby-comment"># File lib/overloading/float.rb, line 57</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">**</span>(<span class="ruby-identifier">a</span>)
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>
-    <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">const</span>(<span class="ruby-keyword">self</span>) <span class="ruby-operator">**</span> <span class="ruby-identifier">a</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">overloaded_pow</span> <span class="ruby-identifier">a</span>
-  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> (<span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">const</span>(<span class="ruby-keyword">self</span>) <span class="ruby-operator">**</span> <span class="ruby-identifier">a</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">overloaded_pow</span> <span class="ruby-identifier">a</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -219,19 +229,17 @@
 
         <div class="method-description">
           
-          
+          <p>If `a` is a `CAS::Op` transform self in a `CAS::Const` and return a
+symbolic operation. If</p>
           
           
 
           
           <div class="method-source-code" id="2B-source">
-            <pre><span class="ruby-comment"># File lib/ragni-cas.rb, line 186</span>
+            <pre><span class="ruby-comment"># File lib/overloading/float.rb, line 25</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">+</span>(<span class="ruby-identifier">a</span>)
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>
-    <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">const</span>(<span class="ruby-keyword">self</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">a</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">overloaded_plus</span> <span class="ruby-identifier">a</span>
-  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> (<span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">const</span>(<span class="ruby-keyword">self</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">a</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">overloaded_plus</span> <span class="ruby-identifier">a</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -260,19 +268,17 @@
 
         <div class="method-description">
           
-          
+          <p>If `a` is a `CAS::Op` transform self in a `CAS::Const` and return a
+symbolic operation</p>
           
           
 
           
           <div class="method-source-code" id="2D-source">
-            <pre><span class="ruby-comment"># File lib/ragni-cas.rb, line 194</span>
+            <pre><span class="ruby-comment"># File lib/overloading/float.rb, line 33</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">-</span>(<span class="ruby-identifier">a</span>)
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>
-    <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">const</span>(<span class="ruby-keyword">self</span>) <span class="ruby-operator">-</span> <span class="ruby-identifier">a</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">overloaded_minus</span> <span class="ruby-identifier">a</span>
-  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> (<span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">const</span>(<span class="ruby-keyword">self</span>) <span class="ruby-operator">-</span> <span class="ruby-identifier">a</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">overloaded_minus</span> <span class="ruby-identifier">a</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -301,19 +307,17 @@
 
         <div class="method-description">
           
-          
+          <p>If `a` is a `CAS::Op` transform self in a `CAS::Const` and return a
+symbolic operation</p>
           
           
 
           
           <div class="method-source-code" id="2F-source">
-            <pre><span class="ruby-comment"># File lib/ragni-cas.rb, line 210</span>
+            <pre><span class="ruby-comment"># File lib/overloading/float.rb, line 49</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">/</span>(<span class="ruby-identifier">a</span>)
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>
-    <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">const</span>(<span class="ruby-keyword">self</span>) <span class="ruby-operator">/</span> <span class="ruby-identifier">a</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">overloaded_div</span> <span class="ruby-identifier">a</span>
-  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> (<span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">const</span>(<span class="ruby-keyword">self</span>) <span class="ruby-operator">/</span> <span class="ruby-identifier">a</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">overloaded_div</span> <span class="ruby-identifier">a</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -424,7 +428,7 @@
 
         <div class="method-description">
           
-          
+          <p>Setting aliasese</p>
           
           
 

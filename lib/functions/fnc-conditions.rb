@@ -38,6 +38,15 @@ module CAS
       @y = y
     end
 
+    # Function call will evaluate left and right functions to solve the
+    # relation
+    #
+    # <- `Hash` with feed dictionary
+    # -> `Trueclass` or `Falseclass`
+    def call(_fd)
+      raise CAS::CASError, "This is a virtual method"
+    end
+
     # Inspector for the class. It is class specific
     #
     # -> `String`
@@ -142,27 +151,54 @@ module CAS
     end
   end # Condition
 
-  class Equal < CAS::Condition
-    @@type = "=="
-    @@repr = "≡"
-    @@latex = "="
+  #  ___                _
+  # | __|__ _ _  _ __ _| |
+  # | _|/ _` | || / _` | |
+  # |___\__, |\_,_\__,_|_|
+  #        |_|
 
+  ##
+  # This class is a Condition for two equal function
+  class Equal < CAS::Condition
+    @@type, @@repr, @@latex = "==", "≡", "="
+
+    # Function call will evaluate left and right functions to solve the
+    # relation
+    #
+    # <- `Hash` with feed dictionary
+    # -> `Trueclass` or `Falseclass`
     def call(fd)
       CAS::Help.assert fd, Hash
 
       return (@x.call(fd) == @y.call(fd))
     end
 
+    # Return true if two functions are equal, false if different
+    #
+    # <- `CAS::Op` operator to check against for equality
+    # -> `TrueClass` or `FalseClass`
     def ==(op)
-      super
+      CAS::Help.assert(op, CAS::Op)
+      cond_f = ((@x == op.x) and (@y == op.y)) or ((@x == op.y) and (@y == op.x))
+      return (cond_f and (self.class == op.class))
     end
   end # Equal
 
-  class Smaller < CAS::Condition
-    @@type = "<"
-    @@repr = "<"
-    @@latex = "<"
+  #  ___            _ _
+  # / __|_ __  __ _| | |___ _ _
+  # \__ \ '  \/ _` | | / -_) '_|
+  # |___/_|_|_\__,_|_|_\___|_|
 
+  ##
+  # This class is a Condition for left smaller function
+  class Smaller < CAS::Condition
+    @@type = @@repr = @@latex = "<"
+
+    # Function call will evaluate left and right functions to solve the
+    # relation
+    #
+    # <- `Hash` with feed dictionary
+    # -> `Trueclass` or `Falseclass`
     def call(fd)
       CAS::Help.assert fd, Hash
 
@@ -170,11 +206,21 @@ module CAS
     end
   end # Smaller
 
-  class Greater < CAS::Condition
-    @@type = ">"
-    @@repr = ">"
-    @@latex = ">"
+  #   ___              _
+  #  / __|_ _ ___ __ _| |_ ___ _ _
+  # | (_ | '_/ -_) _` |  _/ -_) '_|
+  #  \___|_| \___\__,_|\__\___|_|
 
+  ##
+  # This class is a Condition for right smaller function
+  class Greater < CAS::Condition
+    @@type = @@repr = @@latex = ">"
+
+    # Function call will evaluate left and right functions to solve the
+    # relation
+    #
+    # <- `Hash` with feed dictionary
+    # -> `Trueclass` or `Falseclass`
     def call(fd)
       CAS::Help.assert fd, Hash
 
@@ -182,11 +228,24 @@ module CAS
     end
   end # Greater
 
+  #  ___            _ _         ___                _
+  # / __|_ __  __ _| | |___ _ _| __|__ _ _  _ __ _| |
+  # \__ \ '  \/ _` | | / -_) '_| _|/ _` | || / _` | |
+  # |___/_|_|_\__,_|_|_\___|_| |___\__, |\_,_\__,_|_|
+  #                                   |_|
+
+  ##
+  # This class is a Condition for left smaller or equal function
   class SmallerEqual < CAS::Condition
     @@type = "<="
     @@repr = "≤"
     @@latex = "\\leq"
 
+    # Function call will evaluate left and right functions to solve the
+    # relation
+    #
+    # <- `Hash` with feed dictionary
+    # -> `Trueclass` or `Falseclass`
     def call(fd)
       CAS::Help.assert fd, Hash
 
@@ -194,15 +253,95 @@ module CAS
     end
   end # SmallerEqual
 
+  #   ___              _           ___                _
+  #  / __|_ _ ___ __ _| |_ ___ _ _| __|__ _ _  _ __ _| |
+  # | (_ | '_/ -_) _` |  _/ -_) '_| _|/ _` | || / _` | |
+  #  \___|_| \___\__,_|\__\___|_| |___\__, |\_,_\__,_|_|
+  #                                      |_|
+
+  ##
+  # This class is a condition for right smaller or equal function
   class GreaterEqual < CAS::Condition
     @@type = ">="
     @@repr = "≥"
     @@latex = "\\geq"
 
+    # Function call will evaluate left and right functions to solve the
+    # relation
+    #
+    # <- `Hash` with feed dictionary
+    # -> `Trueclass` or `Falseclass`
     def call(fd)
       CAS::Help.assert fd, Hash
 
       return (@x.call(fd) >= @y.call(fd))
     end
   end # SmallerEqual
+
+  # Shortcut creates a `CAS::Equal` object
+  def self.equal(x, y)
+    CAS::Equal.new(x, y)
+  end
+
+  # Shortcut creates a `CAS::Greater` object
+  def self.greater(x, y)
+    CAS::Greater.new(x, y)
+  end
+
+  # Shortcut creates a `CAS::GreaterEqual` object
+  def self.greater_equal(x, y)
+    CAS::GreaterEqual.new(x, y)
+  end
+
+  # Shortcut creates `CAS::Smaller` object
+  def self.smaller(x, y)
+    CAS::Smaller.new(x, y)
+  end
+
+  # Shortcut creates a `CAs::SmallerEqual` object
+  def self.smaller_equal(x, y)
+    CAS::SmallerEqual.new(x, y)
+  end
+
+  class Op
+    # Shortcut for creating equality condition.
+    #
+    # <- `CAS::Op` ther element of the condition
+    # -> `CAS::Equal` new instance
+    def equal(v)
+      CAS.equal(self, v)
+    end
+
+    # Shortcut for creating greater kind condition.
+    #
+    # <- `CAS::Op` ther element of the condition
+    # -> `CAS::Greater` new instance
+    def greater(v)
+      CAS.greater(self, v)
+    end
+
+    # Shortcut for creating a smaller kind condition.
+    #
+    # <- `CAS::Op` ther element of the condition
+    # -> `CAS::Smaller` new instance
+    def smaller(v)
+      CAS.smaller(self, v)
+    end
+
+    # Shortcut for creating a greater equal kind condition.
+    #
+    # <- `CAS::Op` ther element of the condition
+    # -> `CAS::GreaterEqual` new instance
+    def greater_equal(v)
+      CAS.greater_equal(self, v)
+    end
+
+    # Shortcut for creating a smaller equal kind condition.
+    #
+    # <- `CAS::Op` ther element of the condition
+    # -> `CAS::SmallerEqual` new instance
+    def smaller_equal(v)
+      CAS.smaller_equal(self, v)
+    end
+  end # Op
 end

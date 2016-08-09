@@ -406,7 +406,7 @@ module CAS
     def simplify
       super
       return @x.x if @x.is_a? CAS::Invert
-      return self.simplify_dict
+      return self.simplify_dictionary
     end
     @@simplify_dict = {
       CAS::Zero => CAS::Zero
@@ -467,7 +467,7 @@ module CAS
       return self.simplify_dictionary
     end
     @@simplify_dict = {
-      CAS::Zero => CAs::Zero
+      CAS::Zero => CAS::Zero
     }
 
     # Same as `CAS::Op`

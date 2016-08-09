@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class CAS::MINUS_ONE_CONSTANT - RDoc Documentation</title>
+<title>class CAS::MinMax - RDoc Documentation</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
@@ -58,7 +58,7 @@
   <h3>Parent</h3>
 
   
-  <p class="link"><a href="Constant.html">CAS::Constant</a>
+  <p class="link"><a href="Piecewise.html">CAS::Piecewise</a>
   
 </div>
 
@@ -70,7 +70,9 @@
 
   <ul class="link-list" role="directory">
     
-    <li ><a href="#method-c-new">::new</a>
+    <li ><a href="#method-i-dot_graph">#dot_graph</a>
+    
+    <li ><a href="#method-i-to_latex">#to_latex</a>
     
     <li ><a href="#method-i-to_s">#to_s</a>
     
@@ -80,19 +82,16 @@
   </div>
 </nav>
 
-<main role="main" aria-labelledby="class-CAS::MINUS_ONE_CONSTANT">
-  <h1 id="class-CAS::MINUS_ONE_CONSTANT" class="class">
-    class CAS::MINUS_ONE_CONSTANT
+<main role="main" aria-labelledby="class-CAS::MinMax">
+  <h1 id="class-CAS::MinMax" class="class">
+    class CAS::MinMax
   </h1>
 
   <section class="description">
     
-<pre>    _
-___/ |</pre>
-
-<p>|<em>_</em>| |</p>
-
-<pre>|_|</pre>
+<p>Class <a href="MinMax.html">MinMax</a> is an intermediate class for <a
+href="Min.html">Min</a> and <a href="Max.html">Max</a> functions. It
+contains shared code and methods</p>
 
   </section>
 
@@ -109,16 +108,16 @@ ___/ |</pre>
     
 
     
-     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
        <header>
-         <h3>Public Class Methods</h3>
+         <h3>Public Instance Methods</h3>
        </header>
 
     
-      <div id="method-c-new" class="method-detail ">
+      <div id="method-i-dot_graph" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">new</span><span
+          <span class="method-name">dot_graph</span><span
             class="method-args">()</span>
           
           <span class="method-click-advice">click to toggle source</span>
@@ -128,15 +127,19 @@ ___/ |</pre>
 
         <div class="method-description">
           
-          
+          <p>Convert <a href="MinMax.html">MinMax</a> function into a dot graphviz
+representation. `CAS::MinMax` will not report the condition in the graph</p>
+
+<p>-&gt; `String`</p>
           
           
 
           
-          <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 234</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>
-  <span class="ruby-ivar">@x</span> = <span class="ruby-value">-1.0</span>
+          <div class="method-source-code" id="dot_graph-source">
+            <pre><span class="ruby-comment"># File lib/functions/fnc-piecewise.rb, line 143</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">dot_graph</span>
+  <span class="ruby-identifier">cls</span> = <span class="ruby-node">&quot;#{self.class.to_s.gsub(&quot;CAS::&quot;, &quot;&quot;)}_#{self.object_id}&quot;</span>
+  <span class="ruby-node">&quot;#{cls} -&gt; #{@x.dot_graph}\n  #{cls} -&gt; #{@y.dot_graph}&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -148,12 +151,39 @@ ___/ |</pre>
       </div>
 
     
-    </section>
-  
-     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
-       <header>
-         <h3>Public Instance Methods</h3>
-       </header>
+      <div id="method-i-to_latex" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">to_latex</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Convert <a href="MinMax.html">MinMax</a> function into LaTeX representation</p>
+
+<p>-&gt; `String` of LaTeX code</p>
+          
+          
+
+          
+          <div class="method-source-code" id="to_latex-source">
+            <pre><span class="ruby-comment"># File lib/functions/fnc-piecewise.rb, line 128</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_latex</span>
+  <span class="ruby-node">&quot;\\mathrm{#{@@type}}\\left( \\begin{array}{c} #{@x.to_latex} \\\\ #{@y.to_latex} \\end{array} \\right)&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
 
     
       <div id="method-i-to_s" class="method-detail ">
@@ -169,15 +199,17 @@ ___/ |</pre>
 
         <div class="method-description">
           
-          
+          <p>Returns a string representation for the current operation</p>
+
+<p>-&gt; `String`</p>
           
           
 
           
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 238</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-piecewise.rb, line 135</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
-  <span class="ruby-string">&quot;-1&quot;</span>
+  <span class="ruby-node">&quot;#{@@type}(#{@x}, #{@y})&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           

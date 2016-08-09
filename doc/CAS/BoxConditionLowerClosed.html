@@ -58,7 +58,7 @@
   <h3>Parent</h3>
 
   
-  <p class="link"><a href="BoxCondition.html">CAS::BoxCondition</a>
+  <p class="link"><a href="Condition.html">CAS::Condition</a>
   
 </div>
 
@@ -70,7 +70,7 @@
 
   <ul class="link-list" role="directory">
     
-    <li class="calls-super" ><a href="#method-c-new">::new</a>
+    <li ><a href="#method-i-call">#call</a>
     
   </ul>
 </div>
@@ -85,6 +85,10 @@
 
   <section class="description">
     
+<p>Implements the box condition with lower bound closed and upper open</p>
+
+<p>“` a ≤ f(x) &lt; b “`</p>
+
   </section>
 
   
@@ -100,17 +104,17 @@
     
 
     
-     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
        <header>
-         <h3>Public Class Methods</h3>
+         <h3>Public Instance Methods</h3>
        </header>
 
     
-      <div id="method-c-new" class="method-detail ">
+      <div id="method-i-call" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">new</span><span
-            class="method-args">(x, a, b)</span>
+          <span class="method-name">call</span><span
+            class="method-args">(fd)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -122,17 +126,13 @@
           
           
           
-            <div class="method-calls-super">
-              Calls superclass method
-              <a href="BoxCondition.html#method-c-new">CAS::BoxCondition.new</a>
-            </div>
-          
 
           
-          <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 353</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">a</span>, <span class="ruby-identifier">b</span>)
-  <span class="ruby-keyword">super</span> <span class="ruby-identifier">x</span>, <span class="ruby-identifier">a</span>, <span class="ruby-identifier">b</span>, <span class="ruby-value">:lower_closed</span>
+          <div class="method-source-code" id="call-source">
+            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 199</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>)
+  <span class="ruby-identifier">x_call</span> = <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>)
+  <span class="ruby-keyword">return</span> ((<span class="ruby-ivar">@lower</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>) <span class="ruby-operator">&lt;=</span> <span class="ruby-identifier">x_call</span>) <span class="ruby-keyword">and</span> (<span class="ruby-identifier">x_call</span> <span class="ruby-operator">&lt;</span> <span class="ruby-ivar">@upper</span>))
 <span class="ruby-keyword">end</span></pre>
           </div>
           

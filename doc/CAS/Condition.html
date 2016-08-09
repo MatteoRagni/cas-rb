@@ -72,11 +72,11 @@
     
     <li ><a href="#method-c-new">::new</a>
     
-    <li ><a href="#method-i-21-3D">#!=</a>
-    
     <li ><a href="#method-i-3D-3D">#==</a>
     
     <li ><a href="#method-i-args">#args</a>
+    
+    <li ><a href="#method-i-call">#call</a>
     
     <li ><a href="#method-i-depend-3F">#depend?</a>
     
@@ -91,6 +91,8 @@
     <li ><a href="#method-i-subs">#subs</a>
     
     <li ><a href="#method-i-to_code">#to_code</a>
+    
+    <li ><a href="#method-i-to_latex">#to_latex</a>
     
     <li ><a href="#method-i-to_s">#to_s</a>
     
@@ -107,6 +109,22 @@
 
   <section class="description">
     
+<p><a href="Condition.html">Condition</a> class is a pseudo-class for all the
+other kind of conditions:</p>
+
+<pre>* Equal
+* Greater
+* GreaterEqual
+* Smaller
+* SmallerEqual</pre>
+
+<p>When derivated, the two functions (that can be considered as the difference
+of two elements) are derived autonoumouosly. A condition is composed by:</p>
+
+<pre>* left function (x)
+* right function (y)
+* type of condition</pre>
+
   </section>
 
   
@@ -125,19 +143,6 @@
         <h3>Attributes</h3>
       </header>
 
-      
-      <div id="attribute-i-type" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">type</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
-
-        <div class="method-description">
-        
-        
-        
-        </div>
-      </div>
       
       <div id="attribute-i-x" class="method-detail">
         <div class="method-heading attribute-method-heading">
@@ -179,7 +184,7 @@
         
         <div class="method-heading">
           <span class="method-name">new</span><span
-            class="method-args">(type, x, y)</span>
+            class="method-args">(x, y)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -188,47 +193,20 @@
 
         <div class="method-description">
           
-          
+          <p>Initializer for a new condition. The condition is implicit in the class,
+thus a pure `CAS::Condition` cannot be used.</p>
+
+<p>&lt;- `CAS::Op` left argument &lt;- `CAS::Op` right argument -&gt;
+`CAS::Condition` new instance</p>
           
           
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 66</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>)
-  <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">type</span>, <span class="ruby-constant">Symbol</span>)
-
+            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 36</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>)
   <span class="ruby-ivar">@x</span> = <span class="ruby-identifier">x</span>
   <span class="ruby-ivar">@y</span> = <span class="ruby-identifier">y</span>
-  <span class="ruby-keyword">case</span> <span class="ruby-identifier">type</span>
-  <span class="ruby-keyword">when</span> <span class="ruby-value">:eq</span>
-    <span class="ruby-ivar">@type</span> = <span class="ruby-string">&quot;==&quot;</span>
-    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">define_singleton_method</span>(<span class="ruby-string">&quot;call&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">fd</span><span class="ruby-operator">|</span>
-      <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>) <span class="ruby-operator">==</span> <span class="ruby-ivar">@y</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>)
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">when</span> <span class="ruby-value">:gt</span>
-    <span class="ruby-ivar">@type</span> = <span class="ruby-string">&quot;&gt;&quot;</span>
-    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">define_singleton_method</span>(<span class="ruby-string">&quot;call&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">fd</span><span class="ruby-operator">|</span>
-      <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>) <span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@y</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>)
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">when</span> <span class="ruby-value">:lt</span>
-    <span class="ruby-ivar">@type</span> = <span class="ruby-string">&quot;&lt;&quot;</span>
-    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">define_singleton_method</span>(<span class="ruby-string">&quot;call&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">fd</span><span class="ruby-operator">|</span>
-      <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>) <span class="ruby-operator">&lt;</span> <span class="ruby-ivar">@y</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>)
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">when</span> <span class="ruby-value">:geq</span>
-    <span class="ruby-ivar">@type</span> = <span class="ruby-string">&quot;≥&quot;</span>
-    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">define_singleton_method</span>(<span class="ruby-string">&quot;call&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">fd</span><span class="ruby-operator">|</span>
-      <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>) <span class="ruby-operator">&gt;=</span> <span class="ruby-ivar">@y</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>)
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">when</span> <span class="ruby-value">:leq</span>
-    <span class="ruby-ivar">@type</span> = <span class="ruby-string">&quot;≤&quot;</span>
-    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">define_singleton_method</span>(<span class="ruby-string">&quot;call&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">fd</span><span class="ruby-operator">|</span>
-      <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>) <span class="ruby-operator">&lt;=</span> <span class="ruby-ivar">@y</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>)
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-constant">CASError</span>, <span class="ruby-node">&quot;Unknown condition #{@type}&quot;</span>
-  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -248,39 +226,6 @@
        </header>
 
     
-      <div id="method-i-21-3D" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">!=</span><span
-            class="method-args">(op)</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="21-3D-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 136</span>
-<span class="ruby-keyword">def</span> <span class="ruby-operator">!=</span>(<span class="ruby-identifier">op</span>)
-  <span class="ruby-keyword">not</span> <span class="ruby-keyword">self</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">op</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
       <div id="method-i-3D-3D" class="method-detail ">
         
         <div class="method-heading">
@@ -294,19 +239,21 @@
 
         <div class="method-description">
           
-          
+          <p>Return true if two functions are equal, false if different</p>
+
+<p>&lt;- `CAS::Op` operator to check against for equality -&gt; `TrueClass` or
+`FalseClass`</p>
           
           
 
           
           <div class="method-source-code" id="3D-3D-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 128</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 119</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">op</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">op</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>)
-  <span class="ruby-identifier">condA</span> = (<span class="ruby-ivar">@x</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">x</span>) <span class="ruby-keyword">and</span> (<span class="ruby-ivar">@y</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">y</span>)
-  <span class="ruby-identifier">condB</span> = (<span class="ruby-ivar">@x</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">y</span>) <span class="ruby-keyword">and</span> (<span class="ruby-ivar">@y</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">x</span>)
-  <span class="ruby-identifier">condC</span> = <span class="ruby-identifier">condA</span> <span class="ruby-keyword">or</span> <span class="ruby-identifier">condB</span>
-  <span class="ruby-keyword">return</span> (<span class="ruby-identifier">condC</span> <span class="ruby-keyword">and</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">class</span>) <span class="ruby-keyword">and</span> (<span class="ruby-ivar">@type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">type</span>))
+
+  <span class="ruby-comment"># condB = (@x == op.y) and (@y == op.x)</span>
+  <span class="ruby-keyword">return</span> ((<span class="ruby-ivar">@x</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">x</span>) <span class="ruby-keyword">and</span> (<span class="ruby-ivar">@y</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">y</span>) <span class="ruby-keyword">and</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">class</span>))
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -331,15 +278,52 @@
 
         <div class="method-description">
           
-          
+          <p>Returns an array of variables of the two functions in the condition</p>
+
+<p>-&gt; `Array` of `CAS::Variable`</p>
           
           
 
           
           <div class="method-source-code" id="args-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 114</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 82</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">args</span>
   (<span class="ruby-ivar">@x</span>.<span class="ruby-identifier">args</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@y</span>.<span class="ruby-identifier">args</span>).<span class="ruby-identifier">uniq</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-call" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">call</span><span
+            class="method-args">(_fd)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Function call will evaluate left and right functions to solve the relation</p>
+
+<p>&lt;- `Hash` with feed dictionary -&gt; `Trueclass` or `Falseclass`</p>
+          
+          
+
+          
+          <div class="method-source-code" id="call-source">
+            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 46</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">_fd</span>)
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">CASError</span>, <span class="ruby-string">&quot;This is a virtual method&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -364,14 +348,20 @@
 
         <div class="method-description">
           
-          
+          <p>Returns true if one of the two functions depends upon the expression
+included</p>
+
+<p>&lt;- `CAS::Op` operator to check against for dependencies -&gt;
+`TrueClass` or `FalseClass`</p>
           
           
 
           
           <div class="method-source-code" id="depend-3F-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 124</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 109</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">depend?</span>(<span class="ruby-identifier">v</span>)
+  <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span> <span class="ruby-identifier">v</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>
+
   <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">depend?</span>(<span class="ruby-identifier">v</span>) <span class="ruby-keyword">or</span> <span class="ruby-ivar">@y</span>.<span class="ruby-identifier">depend?</span>(<span class="ruby-identifier">v</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -397,14 +387,27 @@
 
         <div class="method-description">
           
-          
+          <p>Performs the derivative of the two elements:</p>
+
+<p>“`</p>
+
+<pre class="ruby"><span class="ruby-identifier">d</span>
+</pre>
+
+<p>– [f(x) &gt; g(y)] = f&#39;(x) &gt; g&#39;(x) dx “`</p>
+
+<p>since between the two there is a difference relation.</p>
+
+<p>&lt;- `CAS::Op` to perform the derivative</p>
           
           
 
           
           <div class="method-source-code" id="diff-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 118</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 97</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)
+  <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span> <span class="ruby-identifier">v</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>
+
   <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-ivar">@y</span>.<span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">simplify</span>
@@ -432,13 +435,15 @@
 
         <div class="method-description">
           
-          
+          <p>Returns the dot graphviz representation of the code</p>
+
+<p>-&gt; `String`</p>
           
           
 
           
           <div class="method-source-code" id="dot_graph-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 153</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 148</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">dot_graph</span>(<span class="ruby-identifier">node</span>)
   <span class="ruby-identifier">cls</span> = <span class="ruby-node">&quot;#{self.class.to_s.gsub(&quot;CAS::&quot;, &quot;&quot;)}_#{self.object_id}&quot;</span>
   <span class="ruby-node">&quot;#{cls} -&gt; #{@x.dot_graph node}\n  #{cls} -&gt; #{@y.dot_graph node}&quot;</span>
@@ -466,15 +471,17 @@
 
         <div class="method-description">
           
-          
+          <p>Inspector for the class. It is class specific</p>
+
+<p>-&gt; `String`</p>
           
           
 
           
           <div class="method-source-code" id="inspect-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 102</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 53</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">inspect</span>
-  <span class="ruby-node">&quot;#{@x.inspect} #{@type} #{@y.inspect}&quot;</span>
+  <span class="ruby-node">&quot;#{self.class}(#{@x.inspect}, #{@y.inspect})&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -499,13 +506,15 @@
 
         <div class="method-description">
           
-          
+          <p>Simplify left and right term of the operator</p>
+
+<p>-&gt; `CAS::Condition`</p>
           
           
 
           
           <div class="method-source-code" id="simplify-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 140</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 129</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">simplify</span>
   <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">simplify</span>
   <span class="ruby-ivar">@y</span>.<span class="ruby-identifier">simplify</span>
@@ -534,13 +543,15 @@
 
         <div class="method-description">
           
-          
+          <p>Substitute in the two elements using a dictionary</p>
+
+<p>-&gt; `Hash` of substitutions</p>
           
           
 
           
           <div class="method-source-code" id="subs-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 146</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 138</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">subs</span>(<span class="ruby-identifier">fd</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">fd</span>, <span class="ruby-constant">Hash</span>)
   <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">subs</span>(<span class="ruby-identifier">fd</span>)
@@ -570,15 +581,53 @@
 
         <div class="method-description">
           
-          
+          <p>Return the code that performs a condition evaluation</p>
+
+<p>-&gt; `String`</p>
           
           
 
           
           <div class="method-source-code" id="to_code-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 110</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 75</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_code</span>
-  <span class="ruby-node">&quot;#{@x}.call(fd) #{@type} #{@y}.call(fd)&quot;</span>
+  <span class="ruby-node">&quot;(#{@x} #{@@type} #{@y})&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-to_latex" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">to_latex</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns a string that can be used for printing LaTeX version of the
+condition</p>
+
+<p>`String`</p>
+          
+          
+
+          
+          <div class="method-source-code" id="to_latex-source">
+            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 68</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_latex</span>
+  <span class="ruby-node">&quot;\\left(#{@x} #{@@latex} #{@y}\\right)&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -603,15 +652,17 @@
 
         <div class="method-description">
           
-          
+          <p>Returns a string that represents the object to be printed</p>
+
+<p>`String`</p>
           
           
 
           
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 106</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 60</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
-  <span class="ruby-node">&quot;#{@x} #{@type} #{@y}&quot;</span>
+  <span class="ruby-node">&quot;(#{@x} #{@@repr} #{@y})&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           

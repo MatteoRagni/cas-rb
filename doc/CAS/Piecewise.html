@@ -99,6 +99,25 @@
 
   <section class="description">
     
+<p><a href="Piecewise.html">Piecewise</a> function. The function returns when
+called a result that dependes upon the evaluation of a condition. In
+practice:</p>
+
+<p>“`</p>
+
+<pre> /
+|  f(x)   if condition(x) is True</pre>
+
+<p>&lt;</p>
+
+<pre>|  g(x)   otherwise
+ \</pre>
+
+<p>“`</p>
+
+<p>From this class other classes will inherit like `CAS::Max` and `CAS::Min`
+classes</p>
+
   </section>
 
   
@@ -154,7 +173,12 @@
 
         <div class="method-description">
           
-          
+          <p>Initialize a new piecewise function. It requires first the function that
+returns when condition is true, than the function when condition is false,
+and finally the condition that must be of class `CAS::Condition`</p>
+
+<p>&lt;- `CAS::Op` first function &lt;- `CAS::Op` second function &lt;-
+`CAS::Condition` evaluated condition -&gt; `CAS::Piecewise` new instance</p>
           
           
             <div class="method-calls-super">
@@ -165,7 +189,7 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 7</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-piecewise.rb, line 33</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>, <span class="ruby-identifier">condition</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">condition</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Condition</span>)
 
@@ -203,16 +227,18 @@
 
         <div class="method-description">
           
-          
+          <p>Checks if two `CAS::Piecewise` are equal. Checks equality on all functions+
+and conditions</p>
+
+<p>&lt;- `CAS::Op` to be checked against -&gt; `TrueClass` or `FalseClass`</p>
           
           
 
           
           <div class="method-source-code" id="3D-3D-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 26</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-piecewise.rb, line 76</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">op</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">op</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>)
-
   <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">class</span>
     <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
   <span class="ruby-keyword">else</span>
@@ -242,16 +268,18 @@
 
         <div class="method-description">
           
-          
+          <p>Executes the condition. If it is `true` it returns the first function, else
+it returns the value of the second function.</p>
+
+<p>&lt;- `Hash` with value tables -&gt; `Numeric` the result of the call</p>
           
           
 
           
           <div class="method-source-code" id="call-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 20</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-piecewise.rb, line 66</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">fd</span>, <span class="ruby-constant">Hash</span>)
-
   (<span class="ruby-ivar">@condition</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>) <span class="ruby-operator">?</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>) <span class="ruby-operator">:</span> <span class="ruby-ivar">@y</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>))
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -277,17 +305,38 @@
 
         <div class="method-description">
           
-          
+          <p>Derivative of a function is performed as derivative of the two internal
+functions while condition is unchanged</p>
+<table class="rdoc-list note-list"><tbody><tr><td class='label'>warning</td><td>
+<p><a href="Piecewise.html">Piecewise</a> functions are in general not
+differentiable. Thus differentiability</p>
+</td></tr></tbody></table>
+
+<p>is left to the user</p>
+
+<p>“`</p>
+
+<pre>    /                                     /
+d  |  f(x)   if condition(x) is True     | f&#39;(x)   if condition(x) is True</pre>
+
+<p>– &lt;                                   = &lt; dx  |  g(x)   otherwise    
+| g&#39;(x)   otherwise</p>
+
+<pre>\                                     \</pre>
+
+<p>“`</p>
+
+<p>&lt;- `CAS::Op` argument of derivative -&gt; `CAS::Piecewise` with
+derivated functions and unchanged condition</p>
           
           
 
           
           <div class="method-source-code" id="diff-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 14</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-piecewise.rb, line 56</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">v</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>)
-
-  <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Piecewise</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@x</span>.<span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>).<span class="ruby-identifier">simplify</span>, <span class="ruby-ivar">@y</span>.<span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>).<span class="ruby-identifier">simplify</span>, <span class="ruby-identifier">condition</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Piecewise</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@x</span>.<span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>).<span class="ruby-identifier">simplify</span>, <span class="ruby-ivar">@y</span>.<span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>).<span class="ruby-identifier">simplify</span>, <span class="ruby-ivar">@condition</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -303,7 +352,7 @@
         
         <div class="method-heading">
           <span class="method-name">dot_graph</span><span
-            class="method-args">(node)</span>
+            class="method-args">()</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -312,16 +361,18 @@
 
         <div class="method-description">
           
-          
+          <p>Convert piecewise function into a dot graphviz representation</p>
+
+<p>-&gt; `String`</p>
           
           
 
           
           <div class="method-source-code" id="dot_graph-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 44</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">dot_graph</span>(<span class="ruby-identifier">node</span>)
+            <pre><span class="ruby-comment"># File lib/functions/fnc-piecewise.rb, line 102</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">dot_graph</span>
   <span class="ruby-identifier">cls</span> = <span class="ruby-node">&quot;#{self.class.to_s.gsub(&quot;CAS::&quot;, &quot;&quot;)}_#{self.object_id}&quot;</span>
-  <span class="ruby-node">&quot;#{cls} -&gt; #{@x.dot_graph node}\n  #{cls} -&gt; #{@y.dot_graph node}\n  #{cls} -&gt; #{@condition.dot_graph node}&quot;</span>
+  <span class="ruby-node">&quot;#{cls} -&gt; #{@x.dot_graph}\n  #{cls} -&gt; #{@y.dot_graph}\n  #{cls} -&gt; #{@condition.dot_graph}&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -346,13 +397,15 @@
 
         <div class="method-description">
           
-          
+          <p>Convert the piecewise funtion to a String of Ruby code</p>
+
+<p>-&gt; `String` of code</p>
           
           
 
           
           <div class="method-source-code" id="to_code-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 36</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-piecewise.rb, line 88</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_code</span>
   <span class="ruby-node">&quot;(#{@condition.to_code} ? (#{@x.to_code}) : (#{@y.to_code}))&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -379,13 +432,15 @@
 
         <div class="method-description">
           
-          
+          <p>Convert piecewise function into LaTeX representation</p>
+
+<p>-&gt; `String` of LaTeX code</p>
           
           
 
           
           <div class="method-source-code" id="to_latex-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 49</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-piecewise.rb, line 110</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_latex</span>
   <span class="ruby-node">&quot;\\left\\{ \\begin{array}{lr} #{@x.to_latex} &amp; #{@condition.to_latex} \\\\ #{@y.to_latex} \\end{array} \\right.&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -412,13 +467,15 @@
 
         <div class="method-description">
           
-          
+          <p>Convert the piecewise function into a String</p>
+
+<p>-&gt; `String`</p>
           
           
 
           
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 40</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-piecewise.rb, line 95</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
   <span class="ruby-node">&quot;(#{@condition} ? #{@x} : #{@y})&quot;</span>
 <span class="ruby-keyword">end</span></pre>

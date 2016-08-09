@@ -184,7 +184,7 @@ exists, `FalseClass` if not</p>
 
           
           <div class="method-source-code" id="exist-3F-source">
-            <pre><span class="ruby-comment"># File lib/numbers.rb, line 141</span>
+            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 31</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">name</span>)
   <span class="ruby-identifier">@@vars</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">name</span>
 <span class="ruby-keyword">end</span></pre>
@@ -219,7 +219,7 @@ exists, `FalseClass` if not</p>
 
           
           <div class="method-source-code" id="list-source">
-            <pre><span class="ruby-comment"># File lib/numbers.rb, line 126</span>
+            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 16</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">list</span>
   <span class="ruby-identifier">@@vars</span>
 <span class="ruby-keyword">end</span></pre>
@@ -256,7 +256,7 @@ instance</p>
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/numbers.rb, line 151</span>
+            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 41</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">name</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">CASError</span>, <span class="ruby-node">&quot;Variable #{name} already exists&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Variable</span>.<span class="ruby-identifier">exist?</span> <span class="ruby-identifier">name</span>
   <span class="ruby-ivar">@name</span> = <span class="ruby-identifier">name</span>
@@ -293,7 +293,7 @@ instance</p>
 
           
           <div class="method-source-code" id="size-source">
-            <pre><span class="ruby-comment"># File lib/numbers.rb, line 133</span>
+            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 23</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">size</span>
   <span class="ruby-identifier">@@vars</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">size</span>
 <span class="ruby-keyword">end</span></pre>
@@ -334,7 +334,7 @@ instance</p>
 
           
           <div class="method-source-code" id="3D-3D-source">
-            <pre><span class="ruby-comment"># File lib/numbers.rb, line 177</span>
+            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 67</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">op</span>)
   <span class="ruby-comment"># CAS::Help.assert(op, CAS::Op)</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Variable</span>
@@ -372,7 +372,7 @@ instance</p>
 
           
           <div class="method-source-code" id="args-source">
-            <pre><span class="ruby-comment"># File lib/numbers.rb, line 205</span>
+            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 95</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">args</span>
   [<span class="ruby-keyword">self</span>]
 <span class="ruby-keyword">end</span></pre>
@@ -405,7 +405,7 @@ instance</p>
 
           
           <div class="method-source-code" id="call-source">
-            <pre><span class="ruby-comment"># File lib/numbers.rb, line 187</span>
+            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 77</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">f</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">f</span>, <span class="ruby-constant">Hash</span>)
 
@@ -441,7 +441,7 @@ instance</p>
 
           
           <div class="method-source-code" id="depend-3F-source">
-            <pre><span class="ruby-comment"># File lib/numbers.rb, line 172</span>
+            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 62</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">depend?</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-keyword">self</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">v</span>
 <span class="ruby-keyword">end</span></pre>
@@ -485,7 +485,7 @@ not depended, 1 if dependent</p>
 
           
           <div class="method-source-code" id="diff-source">
-            <pre><span class="ruby-comment"># File lib/numbers.rb, line 167</span>
+            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 57</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)
   (<span class="ruby-keyword">self</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">v</span> <span class="ruby-operator">?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">One</span> <span class="ruby-operator">:</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -503,7 +503,7 @@ not depended, 1 if dependent</p>
         
         <div class="method-heading">
           <span class="method-name">dot_graph</span><span
-            class="method-args">(node)</span>
+            class="method-args">()</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -518,8 +518,8 @@ not depended, 1 if dependent</p>
 
           
           <div class="method-source-code" id="dot_graph-source">
-            <pre><span class="ruby-comment"># File lib/numbers.rb, line 234</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">dot_graph</span>(<span class="ruby-identifier">node</span>)
+            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 124</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">dot_graph</span>
   <span class="ruby-node">&quot;#{@name};&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -551,7 +551,7 @@ not depended, 1 if dependent</p>
 
           
           <div class="method-source-code" id="inspect-source">
-            <pre><span class="ruby-comment"># File lib/numbers.rb, line 224</span>
+            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 114</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">inspect</span>
   <span class="ruby-node">&quot;Var(#{@name})&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -584,7 +584,7 @@ not depended, 1 if dependent</p>
 
           
           <div class="method-source-code" id="simplify-source">
-            <pre><span class="ruby-comment"># File lib/numbers.rb, line 229</span>
+            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 119</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">simplify</span>
   <span class="ruby-keyword">self</span>
 <span class="ruby-keyword">end</span></pre>
@@ -617,7 +617,7 @@ not depended, 1 if dependent</p>
 
           
           <div class="method-source-code" id="subs-source">
-            <pre><span class="ruby-comment"># File lib/numbers.rb, line 210</span>
+            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 100</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">subs</span>(<span class="ruby-identifier">dt</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">dt</span>, <span class="ruby-constant">Hash</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">dt</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">include?</span> <span class="ruby-keyword">self</span>
@@ -659,7 +659,7 @@ not depended, 1 if dependent</p>
 
           
           <div class="method-source-code" id="to_code-source">
-            <pre><span class="ruby-comment"># File lib/numbers.rb, line 200</span>
+            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 90</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_code</span>
   <span class="ruby-node">&quot;#{@name}&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -692,7 +692,7 @@ not depended, 1 if dependent</p>
 
           
           <div class="method-source-code" id="to_latex-source">
-            <pre><span class="ruby-comment"># File lib/numbers.rb, line 239</span>
+            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 129</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_latex</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">to_s</span>
 <span class="ruby-keyword">end</span></pre>
@@ -725,7 +725,7 @@ not depended, 1 if dependent</p>
 
           
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/numbers.rb, line 195</span>
+            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 85</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
   <span class="ruby-node">&quot;#{@name}&quot;</span>
 <span class="ruby-keyword">end</span></pre>

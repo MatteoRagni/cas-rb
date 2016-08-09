@@ -70,9 +70,7 @@
 
   <ul class="link-list" role="directory">
     
-    <li class="calls-super" ><a href="#method-c-new">::new</a>
-    
-    <li ><a href="#method-i-to_latex">#to_latex</a>
+    <li ><a href="#method-i-call">#call</a>
     
   </ul>
 </div>
@@ -87,6 +85,9 @@
 
   <section class="description">
     
+<p>This class is a <a href="Condition.html">Condition</a> for right smaller
+function</p>
+
   </section>
 
   
@@ -102,63 +103,17 @@
     
 
     
-     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
-       <header>
-         <h3>Public Class Methods</h3>
-       </header>
-
-    
-      <div id="method-c-new" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">new</span><span
-            class="method-args">(x, y)</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-            <div class="method-calls-super">
-              Calls superclass method
-              <a href="Condition.html#method-c-new">CAS::Condition.new</a>
-            </div>
-          
-
-          
-          <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 170</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>)
-  <span class="ruby-keyword">super</span>(<span class="ruby-value">:gt</span>, <span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>)
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-    </section>
-  
      <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
        <header>
          <h3>Public Instance Methods</h3>
        </header>
 
     
-      <div id="method-i-to_latex" class="method-detail ">
+      <div id="method-i-call" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">to_latex</span><span
-            class="method-args">()</span>
+          <span class="method-name">call</span><span
+            class="method-args">(fd)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -167,15 +122,19 @@
 
         <div class="method-description">
           
-          
+          <p>Function call will evaluate left and right functions to solve the relation</p>
+
+<p>&lt;- `Hash` with feed dictionary -&gt; `Trueclass` or `Falseclass`</p>
           
           
 
           
-          <div class="method-source-code" id="to_latex-source">
-            <pre><span class="ruby-comment"># File lib/fnc-branch.rb, line 174</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_latex</span>
-  <span class="ruby-node">&quot;#{@x.to_latex} &gt; #{@y.to_latex}&quot;</span>
+          <div class="method-source-code" id="call-source">
+            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 224</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>)
+  <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span> <span class="ruby-identifier">fd</span>, <span class="ruby-constant">Hash</span>
+
+  <span class="ruby-keyword">return</span> (<span class="ruby-ivar">@x</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>) <span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@y</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>))
 <span class="ruby-keyword">end</span></pre>
           </div>
           
