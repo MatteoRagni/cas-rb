@@ -9,5 +9,5 @@ engines:
     config:
     - ruby:
         mass_threshold: 25
-  rubocop:
-    enabled: true
+rubocop:
+  enabled: true
