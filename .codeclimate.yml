@@ -13,4 +13,4 @@ engines:
     enabled: true
     config:
       ruby:
-        mass_threshold: 20
+        mass_threshold: 25
