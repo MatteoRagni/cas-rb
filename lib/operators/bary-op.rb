@@ -6,6 +6,9 @@ module CAS
   # | _ \ | ' \/ _` | '_| || | (_) | '_ \
   # |___/_|_||_\__,_|_|  \_, |\___/| .__/
   #                      |__/      |_|
+
+  ##
+  # Binary operator
   class BinaryOp < CAS::Op
     attr_reader :x, :y
 
@@ -32,7 +35,11 @@ module CAS
       @y = y
     end
 
-    # Same as `CAS::Op#depend?`
+    # Return the dependencies of the operation. Requires a `CAS::Variable`
+    # and it is one of the recursve method (implicit tree resolution)
+    #
+    # <- `CAS::Variable` instance
+    # -> `TrueClass` if depends, `FalseClass` if not
     def depend?(v)
       CAS::Help.assert(v, CAS::Op)
 

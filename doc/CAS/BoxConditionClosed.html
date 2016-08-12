@@ -58,7 +58,7 @@
   <h3>Parent</h3>
 
   
-  <p class="link"><a href="Condition.html">CAS::Condition</a>
+  <p class="link"><a href="BoxCondition.html">CAS::BoxCondition</a>
   
 </div>
 
@@ -71,6 +71,8 @@
   <ul class="link-list" role="directory">
     
     <li ><a href="#method-i-call">#call</a>
+    
+    <li ><a href="#method-i-representative">#representative</a>
     
   </ul>
 </div>
@@ -123,16 +125,54 @@
 
         <div class="method-description">
           
-          
+          <p>Function call will evaluate box condition to evaluate relation</p>
+
+<p>&lt;- `Hash` with feed dictionary -&gt; `Trueclass` or `Falseclass`</p>
           
           
 
           
           <div class="method-source-code" id="call-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 245</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 284</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>)
   <span class="ruby-identifier">x_call</span> = <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>)
   <span class="ruby-keyword">return</span> ((<span class="ruby-ivar">@lower</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>) <span class="ruby-operator">&lt;=</span> <span class="ruby-identifier">x_call</span>) <span class="ruby-keyword">and</span> (<span class="ruby-identifier">x_call</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-ivar">@upper</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-representative" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">representative</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Saves some required elements</p>
+          
+          
+
+          
+          <div class="method-source-code" id="representative-source">
+            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 272</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">representative</span>
+  <span class="ruby-ivar">@lower_cond</span>  = <span class="ruby-ivar">@upper_cond</span>  = <span class="ruby-string">&quot;&lt;=&quot;</span>
+  <span class="ruby-ivar">@lower_latex</span> = <span class="ruby-ivar">@upper_latex</span> = <span class="ruby-string">&quot;\\leq&quot;</span>
+  <span class="ruby-ivar">@lower_str</span>   = <span class="ruby-ivar">@upper_str</span>   = <span class="ruby-string">&quot;≤&quot;</span>
+  <span class="ruby-keyword">self</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           

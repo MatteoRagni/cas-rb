@@ -95,13 +95,7 @@
 
   <section class="description">
     
-<pre class="ruby"><span class="ruby-identifier">_____</span>
-</pre>
-
-<p>|_   _|_ _ _ _</p>
-
-<pre>| |/ _` | &#39; \
-|_|\__,_|_||_|</pre>
+<p>Representation for the `tan(x)` function. It is implemented as a `CAS::Op`.</p>
 
   </section>
 
@@ -137,13 +131,17 @@
 
         <div class="method-description">
           
-          <p>Same as `CAS::Op`</p>
+          <p>Call resolves the operation tree in a `Numeric` (if `Fixnum`) or `Float`
+(depends upon promotions). As input, it requires an hash with
+`CAS::Variable` or `CAS::Variable#name` as keys, and a `Numeric` as a value</p>
+
+<p>&lt;- `Hash` with feed dictionary -&gt; `Numeric`</p>
           
           
 
           
           <div class="method-source-code" id="call-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-trig.rb, line 218</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-trig.rb, line 367</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">f</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">f</span>, <span class="ruby-constant">Hash</span>)
   <span class="ruby-constant">Math</span><span class="ruby-operator">::</span><span class="ruby-identifier">tan</span>(<span class="ruby-ivar">@x</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">f</span>))
@@ -171,13 +169,24 @@
 
         <div class="method-description">
           
-          
+          <p>Return the derivative of the `tan(x)` function using the chain rule. The
+input is a `CAS::Op` because it can handle derivatives with respect to
+functions. E.g.:</p>
+
+<p>“`</p>
+
+<pre>d              f&#39;(x)</pre>
+
+<p>– sin(f(x)) = ——- dx             cos²(x) “`</p>
+
+<p>&lt;- `CAS::Op` object of the derivative -&gt; `CAS::Op` a derivated
+object, or `CAS::Zero` for constants</p>
           
           
 
           
           <div class="method-source-code" id="diff-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-trig.rb, line 209</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-trig.rb, line 352</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">depend?</span> <span class="ruby-identifier">v</span>
     <span class="ruby-keyword">return</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>) <span class="ruby-operator">*</span> <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">pow</span>(<span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">One</span><span class="ruby-operator">/</span><span class="ruby-constant">CAS</span>.<span class="ruby-identifier">cos</span>(<span class="ruby-ivar">@x</span>), <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Two</span>)
@@ -208,7 +217,11 @@
 
         <div class="method-description">
           
-          <p>Same as `CAS::Op`</p>
+          <p>Simplification callback. It simplify the subgraph of each node until all
+possible simplification are performed (thus the execution time is not
+deterministic).</p>
+
+<p>-&gt; `CAS::Op` simplified version</p>
           
           
             <div class="method-calls-super">
@@ -219,7 +232,7 @@
 
           
           <div class="method-source-code" id="simplify-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-trig.rb, line 229</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-trig.rb, line 384</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">simplify</span>
   <span class="ruby-keyword">super</span>
   <span class="ruby-keyword">return</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">x</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Atan</span>
@@ -248,13 +261,15 @@
 
         <div class="method-description">
           
-          <p>Same as `CAS::Op`</p>
+          <p>Convert expression to code (internal, for `CAS::Op#to_proc` method)</p>
+
+<p>-&gt; `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`</p>
           
           
 
           
           <div class="method-source-code" id="to_code-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-trig.rb, line 240</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-trig.rb, line 397</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_code</span>
   <span class="ruby-node">&quot;Math::tan(#{@x.to_code})&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -287,7 +302,7 @@
 
           
           <div class="method-source-code" id="to_latex-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-trig.rb, line 245</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-trig.rb, line 402</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_latex</span>
   <span class="ruby-node">&quot;\\tan\\left( #{@x.to_latex} \\right)&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -314,13 +329,15 @@
 
         <div class="method-description">
           
-          <p>Same as `CAS::Op`</p>
+          <p>Convert expression to string</p>
+
+<p>-&gt; `String` to print on screen</p>
           
           
 
           
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-trig.rb, line 224</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-trig.rb, line 375</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
   <span class="ruby-node">&quot;tan(#{@x})&quot;</span>
 <span class="ruby-keyword">end</span></pre>

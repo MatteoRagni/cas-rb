@@ -1,137 +1,92 @@
 #!/usr/bin/env ruby
 
-# Spawns a web server for my smbolic computations. Each class is expanded
-# with a new to_latex method
-
-WEBPAGE = <<-EOS
-<html>
-  <head>
-    <style>
-      * {
-        font-family: monospace;
-      }
-
-      body {
-        height: 100%;
-        margin:0;
-        padding-left: 50px;
-        padding-right: 50px;
-        padding-top: 20px;
-        padding-bottom: 20px;
-      }
-
-      h1 {
-        border-bottom: 1px solid #555;
-        width: 100%;
-        padding-bottom: 15px;
-      }
-
-      .container {
-        padding: 30px;
-        width: 100%;
-        margin-left: 50px;
-        margin-right: 50px;
-        margin-top: 30px;
-        margin-bottom: 50px;
-      }
-
-      .code-input {
-        width: 100%;
-        background-color: #eee;
-        border: 1px solid #555;
-        margin-top: 15px;
-        margin-bottom: 15px;
-        padding: 15px;
-      }
-
-      .latex-response,
-      .code-response {
-        padding-top: 20px;
-        padding-bottom: 20px;
-        padding-left: 15px;
-        padding-right: 15px;
-        margin-top: 10px;
-        margin-bottom: 10px;
-        border: 1px solid #333;
-      }
-    </style>
-  </head>
-  <body>
-    <div classs="container">
-      <h1>ragni-cas web console</h1>
-      <div id="space">
-        <textarea rows="1" class="code-input"> </textarea>
-      </div>
-      <hr>
-      <p>Copyright 2016 - <a href="mailto:info@ragni.me">Matteo Ragni</a> - <a href="http://www.unitn.it">University of Trento</a> - <a href="https://github.com/MatteoRagni/cas-rb">ragni-cas homepage</a></p>
-    </div>
-
-    <script
-      type="text/javascript" async
-      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
-    </script>
-    <script>
-      document.body.addEventListener('keypress', function(e) {
-        if (e.key == "Enter" && e.ctrlKey) {
-          var els = document.getElementsByTagName("textarea");
-          els = els[els.length - 1];
-          var cmd = els.value.replace(/\\+/g, '%2B');
-
-          // console.log(cmd);
-          els.disabled = true;
-          var xhttp =  new XMLHttpRequest();
-
-          xhttp.onreadystatechange = function() {
-            if (xhttp.readyState == 4 && xhttp.status == 200) {
-              document.getElementById("space").insertAdjacentHTML("beforeend", xhttp.responseText);
-              MathJax.Hub.Typeset();
-              var els = document.getElementsByTagName("textarea");
-              els[els.length - 1].focus();
-            }
-          };
-
-          xhttp.open("post", document.URL+"/input", true);
-          xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-          xhttp.send("command="+encodeURI(cmd));
-        }
-      });
-    </script>
-  </body>
-</html>
-EOS
-
-NEWLINE = <<-EOS
-<p class="%%TYPE%%">%%VALUE%%</p>
-<textarea rows="1" class="code-input"></textarea>
-EOS
-
-require 'ragni-cas'
-require 'sinatra'
-
-module SandBox;
-  include CAS
-
-  def self.run
-    $bind = binding()
-  end
-end
-SandBox.run
-
-
-get '/' do
-  WEBPAGE
-end
-
-post '/input' do
+%w|pry colorize ragni-cas|.each do |g|
   begin
-    cmd = params[:command].gsub("%2B", "+")
-    r = $bind.eval(cmd)
-    if r.respond_to? :to_latex
-      NEWLINE.gsub("%%TYPE%%", "latex-response").gsub("%%VALUE%%", "$$#{r.to_latex}$$")
-    else
-      NEWLINE.gsub("%%TYPE%%", "code-response").gsub("%%VALUE%%", "#{r.inspect}")
-    end
-  rescue Exception => e
-    NEWLINE.gsub("%%TYPE%%", "code-response").gsub("%%VALUE%%", "ERROR: #{e}")
-  end
+    puts "Please install #{g} gem"
+    exit 1
+  end unless require g
 end
+
+require_relative 'graph2ascii.rb'
+
+$0 = "ragni-cas"
+
+# Pry configuration
+Pry.config.should_load_rc = false
+Pry.config.prompt = [
+  proc { |obj, nest_level, _| " > ".yellow },
+  proc { |obj, nest_level, _| " + ".yellow }
+]
+
+include CAS
+$x, $y, $z = CAS::vars :x, :y, :z
+
+Pry.hooks.add_hook(:before_session, "print_banner") do |output, _, pry|
+  BANNER = <<-BANNER
+
+    #{"RAGNI-CAS = A very simple Computer Algebra System".green}
+
+    Version: #{CAS::VERSION.join(".")} - Author: Matteo Ragni © 2016
+    Licensed under MIT license  [https://github.com/MatteoRagni/cas-rb]
+
+    Welcome to CAS cli. This is a Pry based console born to simplify
+    debugging and testing, thus it contains all the feature of Pry
+    like:
+
+     * #{ "`_`".yellow } returns last evaluated command
+     * #{ "`hist`".yellow } prints the command history
+     * #{ "`show-doc CAS::Op#diff`".yellow } shows the documentation for a method
+     * #{ "`stat CAS::Op#diff`".yellow } shows some statistics about methods
+
+    There are three variables already defined for simplicity
+
+     * #{ "`$x`, `$y`, `$z`".yellow } three `CAS::Variable`
+
+  BANNER
+  output.puts BANNER
+
+  pry.config.print = proc { |out, value|
+    if value.class.include? CAS
+      if value.respond_to? :puts_ascii
+        out.puts ("\n" + (value.puts_ascii(3)).green + "\n\n")
+      else
+        out.puts "#{value}".green
+      end
+    else
+      out.puts "#{value.inspect}".cyan
+    end
+  }
+  #pry.config.exception_handler = proc { |out, exception, _|
+  #  if UserError === exception and SyntaxError === exception
+  #    out.puts "SyntaxError: #{exception.message.sub(/.*syntax error, */m, '')}".orange
+  #  else
+  #    out.puts "#{exception.class}: #{exception.message}".red
+  #    out.puts "from #{exception.backtrace.first}".red
+  #  end
+  #}
+  pry.config.prompt_name = "CAS"
+  pry.config.collision_warning = true
+  
+end
+
+# CAS Exposed Methods
+def abs(op); CAS::abs(op); end
+def sqrt(op); CAS::sqrt(op); end
+def sin(op); CAS::sin(op); end
+def cos(op); CAS::cos(op); end
+def tan(op); CAS::tan(op); end
+def asin(op); CAS::asin(op); end
+def acos(op); CAS::acos(op); end
+def atan(op); CAS::atan(op); end
+def exp(op); CAS::exp(op); end
+def log(op); CAS::log(op); end
+alias :arctan :atan
+alias :arccos :acos
+alias :arcsin :asin
+alias :ln :log
+
+# Starting Console
+binding.pry
+
+puts "Thank you for using ragni-cas\nBye".cyan
+exit(0)

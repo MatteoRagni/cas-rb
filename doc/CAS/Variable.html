@@ -115,10 +115,8 @@
 
   <section class="description">
     
-<p>__   __        _      _    _ \ \ / /_ _ _ _(_)__ _| |__| |<em>_</em></p>
-
-<pre>\ V / _` | &#39;_| / _` | &#39;_ \ / -_)
- \_/\__,_|_| |_\__,_|_.__/_\___|</pre>
+<p>Container for a variable. It can be resolved in a numerical value. It can
+also be used for derivatives.</p>
 
   </section>
 
@@ -184,7 +182,7 @@ exists, `FalseClass` if not</p>
 
           
           <div class="method-source-code" id="exist-3F-source">
-            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 31</span>
+            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 35</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">name</span>)
   <span class="ruby-identifier">@@vars</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">name</span>
 <span class="ruby-keyword">end</span></pre>
@@ -219,7 +217,7 @@ exists, `FalseClass` if not</p>
 
           
           <div class="method-source-code" id="list-source">
-            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 16</span>
+            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 20</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">list</span>
   <span class="ruby-identifier">@@vars</span>
 <span class="ruby-keyword">end</span></pre>
@@ -256,7 +254,7 @@ instance</p>
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 41</span>
+            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 45</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">name</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">CASError</span>, <span class="ruby-node">&quot;Variable #{name} already exists&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Variable</span>.<span class="ruby-identifier">exist?</span> <span class="ruby-identifier">name</span>
   <span class="ruby-ivar">@name</span> = <span class="ruby-identifier">name</span>
@@ -293,7 +291,7 @@ instance</p>
 
           
           <div class="method-source-code" id="size-source">
-            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 23</span>
+            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 27</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">size</span>
   <span class="ruby-identifier">@@vars</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">size</span>
 <span class="ruby-keyword">end</span></pre>
@@ -328,13 +326,17 @@ instance</p>
 
         <div class="method-description">
           
-          <p>Same as `CAS::Op`</p>
+          <p>Equality operator, the standard operator is overloaded :warning: this
+operates on the graph, not on the math See `CAS::equal`, etc.</p>
+
+<p>&lt;- `CAS::Op` to be tested against -&gt; `TrueClass` if equal,
+`FalseClass` if differs</p>
           
           
 
           
           <div class="method-source-code" id="3D-3D-source">
-            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 67</span>
+            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 80</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">op</span>)
   <span class="ruby-comment"># CAS::Help.assert(op, CAS::Op)</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Variable</span>
@@ -366,13 +368,15 @@ instance</p>
 
         <div class="method-description">
           
-          <p>Same as `CAS::Op`</p>
+          <p>Returns an array containing `self`</p>
+
+<p>-&gt; `Array` containing `self`</p>
           
           
 
           
           <div class="method-source-code" id="args-source">
-            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 95</span>
+            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 127</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">args</span>
   [<span class="ruby-keyword">self</span>]
 <span class="ruby-keyword">end</span></pre>
@@ -399,13 +403,20 @@ instance</p>
 
         <div class="method-description">
           
-          <p>Same as `CAS::Op`</p>
+          <p>Call resolves the operation tree in a `Numeric` (if `Fixnum`) or `Float`
+(depends upon promotions). As input, it requires an hash with
+`CAS::Variable` or `CAS::Variable#name` as keys, and a `Numeric` as a value</p>
+
+<p>“` ruby x, y = <a href="../CAS.html#method-c-vars">CAS.vars</a> :x, :y f =
+(x ** 2) + (y ** 2) f.call({x =&gt; 1, y =&gt; 2}) # =&gt; 2 “`</p>
+
+<p>&lt;- `Hash` with feed dictionary -&gt; `Numeric`</p>
           
           
 
           
           <div class="method-source-code" id="call-source">
-            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 77</span>
+            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 103</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">f</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">f</span>, <span class="ruby-constant">Hash</span>)
 
@@ -435,13 +446,15 @@ instance</p>
 
         <div class="method-description">
           
-          <p>Same as `CAS::Op`</p>
+          <p>Returns `TrueClass` if argument of the function is equal to `self`</p>
+
+<p>&lt;- `CAS::Op` -&gt; `TrueClass` or `FalseClass`</p>
           
           
 
           
           <div class="method-source-code" id="depend-3F-source">
-            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 62</span>
+            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 70</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">depend?</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-keyword">self</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">v</span>
 <span class="ruby-keyword">end</span></pre>
@@ -485,7 +498,7 @@ not depended, 1 if dependent</p>
 
           
           <div class="method-source-code" id="diff-source">
-            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 57</span>
+            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 61</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)
   (<span class="ruby-keyword">self</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">v</span> <span class="ruby-operator">?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">One</span> <span class="ruby-operator">:</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -512,13 +525,15 @@ not depended, 1 if dependent</p>
 
         <div class="method-description">
           
-          <p>Same as `CAS::Op`</p>
+          <p>Return the local Graphviz node of the tree</p>
+
+<p>-&gt; `String` of local Graphiz node</p>
           
           
 
           
           <div class="method-source-code" id="dot_graph-source">
-            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 124</span>
+            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 168</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">dot_graph</span>
   <span class="ruby-node">&quot;#{@name};&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -545,13 +560,15 @@ not depended, 1 if dependent</p>
 
         <div class="method-description">
           
-          <p>Same as `CAS::Op`</p>
+          <p>Inspector for the current object</p>
+
+<p>-&gt; `String`</p>
           
           
 
           
           <div class="method-source-code" id="inspect-source">
-            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 114</span>
+            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 153</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">inspect</span>
   <span class="ruby-node">&quot;Var(#{@name})&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -578,13 +595,16 @@ not depended, 1 if dependent</p>
 
         <div class="method-description">
           
-          <p>Same as `CAS::Op`</p>
+          <p>Simplification callback. The only possible simplification is returning
+`self`</p>
+
+<p>-&gt; `CAS::Variable` as `self`</p>
           
           
 
           
           <div class="method-source-code" id="simplify-source">
-            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 119</span>
+            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 161</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">simplify</span>
   <span class="ruby-keyword">self</span>
 <span class="ruby-keyword">end</span></pre>
@@ -611,13 +631,16 @@ not depended, 1 if dependent</p>
 
         <div class="method-description">
           
-          <p>Terminal substitutions for variables</p>
+          <p>Terminal substitutions for variables. If input datatable contains the
+variable will perform the substitution with the value.</p>
+
+<p>&lt;- `Hash` of substitutions -&gt; `CAS::Op` of substitutions</p>
           
           
 
           
           <div class="method-source-code" id="subs-source">
-            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 100</span>
+            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 137</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">subs</span>(<span class="ruby-identifier">dt</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">dt</span>, <span class="ruby-constant">Hash</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">dt</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">include?</span> <span class="ruby-keyword">self</span>
@@ -653,13 +676,15 @@ not depended, 1 if dependent</p>
 
         <div class="method-description">
           
-          <p>Same as `CAS::Op`</p>
+          <p>Convert expression to code (internal, for `CAS::Op#to_proc` method)</p>
+
+<p>-&gt; `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`</p>
           
           
 
           
           <div class="method-source-code" id="to_code-source">
-            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 90</span>
+            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 120</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_code</span>
   <span class="ruby-node">&quot;#{@name}&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -686,13 +711,15 @@ not depended, 1 if dependent</p>
 
         <div class="method-description">
           
-          <p>Return latex representation of current <a href="Op.html">Op</a></p>
+          <p>Returns the latex representation of the current <a href="Op.html">Op</a>.</p>
+
+<p>-&gt; `String`</p>
           
           
 
           
           <div class="method-source-code" id="to_latex-source">
-            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 129</span>
+            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 175</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_latex</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">to_s</span>
 <span class="ruby-keyword">end</span></pre>
@@ -719,13 +746,15 @@ not depended, 1 if dependent</p>
 
         <div class="method-description">
           
-          <p>Same as `CAS::Op`</p>
+          <p>Convert expression to string</p>
+
+<p>-&gt; `String` to print on screen</p>
           
           
 
           
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 85</span>
+            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 113</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
   <span class="ruby-node">&quot;#{@name}&quot;</span>
 <span class="ruby-keyword">end</span></pre>

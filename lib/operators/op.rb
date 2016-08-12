@@ -72,7 +72,7 @@ module CAS
     end
 
     # Call resolves the operation tree in a `Numeric` (if `Fixnum`)
-    # or `Float` depends upon promotions).
+    # or `Float` (depends upon promotions).
     # As input, it requires an hash with `CAS::Variable` or `CAS::Variable#name`
     # as keys, and a `Numeric` as a value
     #
@@ -82,6 +82,7 @@ module CAS
     # f.call({x => 1, y => 2})
     # # => 2
     # ```
+    #
     # <- `Hash` with feed dictionary
     # -> `Numeric`
     def call(f)
@@ -183,6 +184,8 @@ module CAS
     # Simplification callback. It simplify the subgraph of each node
     # until all possible simplification are performed (thus the execution
     # time is not deterministic).
+    #
+    # -> `CAS::Op` simplified version
     def simplify
       hash = @x.to_s
       @x = @x.simplify
@@ -194,6 +197,8 @@ module CAS
 
     # Simplify dictionary performs a dictionary simplification
     # that is the class variable `@@simplify_dict`
+    #
+    # -> `CAS::Op` self
     def simplify_dictionary
       if @@simplify_dict[@x]
         return @@simplify_dict[@x]

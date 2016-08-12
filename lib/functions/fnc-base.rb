@@ -224,7 +224,7 @@ module CAS
 
     # Same as `CAS::Op`
     def to_s
-      "#{@x}^#{@y}"
+      "(#{@x})^(#{@y})"
     end
 
     # Same as `CAS::Op`

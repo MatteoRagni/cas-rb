@@ -122,19 +122,18 @@ module CAS
   # Class MinMax is an intermediate class for Min and Max functions. It contains shared code
   # and methods
   class MinMax < CAS::Piecewise
-    @@type = "minmax"
     # Convert MinMax function into LaTeX representation
     #
     # -> `String` of LaTeX code
     def to_latex
-      "\\mathrm{#{@@type}}\\left( \\begin{array}{c} #{@x.to_latex} \\\\ #{@y.to_latex} \\end{array} \\right)"
+      "\\mathrm{#{@type}}\\left( \\begin{array}{c} #{@x.to_latex} \\\\ #{@y.to_latex} \\end{array} \\right)"
     end
 
     # Returns a string representation for the current operation
     #
     # -> `String`
     def to_s
-      "#{@@type}(#{@x}, #{@y})"
+      "#{@type}(#{@x}, #{@y})"
     end
 
     alias :dot_graph :binary_dot_graph
@@ -148,8 +147,6 @@ module CAS
   # Max class represent a piecewise in which the condition is `f(x) ≥ g(x)`. Derivate a `CAS::Max`
   # will return a `CAS::Piecewise` (since condition will not depend anymore on object functions)
   class Max < CAS::Piecewise
-    @@type = "max"
-
     # To initialize `CAS::Max` only the two functions are necessary. The condition is automatically
     # generated
     #
@@ -157,6 +154,7 @@ module CAS
     # <- `CAS::Op` second function
     def initialize(x, y)
       super(x, y, CAS::greater_equal(x, y))
+      @type = "max"
     end
   end # Max
 
@@ -168,8 +166,6 @@ module CAS
   # Min class represent a piecewise in which the condition is `f(x) ≤ g(x)`. Derivate a `CAS::Min`
   # will return a `CAS::Piecewise` (since condition will not depend anymore on object functions)
   class Min < CAS::Piecewise
-    @@type = "min"
-
     # To initialize `CAS::Min` only the two functions are necessary. The condition is automatically
     # generated
     #
@@ -177,6 +173,7 @@ module CAS
     # <- `CAS::Op` second function
     def initialize(x, y)
       super(x, y, CAS::smaller_equal(x, y))
+      @type = "min"
     end
   end # Min
 

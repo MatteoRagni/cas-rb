@@ -107,12 +107,9 @@
 
   <section class="description">
     
-<pre> ___             _            _
-/ __|___ _ _  __| |_ __ _ _ _| |_</pre>
-
-<p>| (__/ _ \ &#39; (_-&lt;  _/ _` | &#39; \  _|</p>
-
-<pre>\___\___/_||_/__/\__\__,_|_||_\__|</pre>
+<p><a href="Constant.html">Constant</a> is a `CAS::Op` container for a
+`Numeric` value, that is not a `CAS::Variable`, thus its derivative it is
+always zero</p>
 
   </section>
 
@@ -154,7 +151,7 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 9</span>
+            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 13</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">x</span>)
   <span class="ruby-ivar">@x</span> = <span class="ruby-identifier">x</span>
 <span class="ruby-keyword">end</span></pre>
@@ -189,16 +186,16 @@
 
         <div class="method-description">
           
-          <p>Same as `CAS::Op`</p>
+          <p>Check if a constant is equal to another `CAS::Op` object</p>
+
+<p>&lt;- `CAs::Op` -&gt; `TrueClass` or `FalseClass`</p>
           
           
 
           
           <div class="method-source-code" id="3D-3D-source">
-            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 62</span>
+            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 90</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">op</span>)
-  <span class="ruby-comment"># CAS::Help.assert(op, CAS::Op)</span>
-
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Constant</span>
     <span class="ruby-keyword">return</span> <span class="ruby-ivar">@x</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">x</span>
   <span class="ruby-keyword">else</span>
@@ -228,13 +225,15 @@
 
         <div class="method-description">
           
-          <p>Same as `CAS::Op`</p>
+          <p>Args of a constant is an empty `Array`</p>
+
+<p>-&gt; `Array` empty</p>
           
           
 
           
           <div class="method-source-code" id="args-source">
-            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 57</span>
+            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 82</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">args</span>
   []
 <span class="ruby-keyword">end</span></pre>
@@ -261,13 +260,15 @@
 
         <div class="method-description">
           
-          <p>Same as `CAS::Op`</p>
+          <p>Calling a constant will return the value of the constant itself.</p>
+
+<p>&lt;- Unused argument -&gt; `Numeric` value of the constant</p>
           
           
 
           
           <div class="method-source-code" id="call-source">
-            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 19</span>
+            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 34</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">_f</span>)
   <span class="ruby-ivar">@x</span>
 <span class="ruby-keyword">end</span></pre>
@@ -294,13 +295,16 @@
 
         <div class="method-description">
           
-          <p>Same as `CAS::Op`</p>
+          <p>There is no dependency in a constant, thus this method will always return
+false</p>
+
+<p>&lt;- Unused argument -&gt; `FalseClass`</p>
           
           
 
           
           <div class="method-source-code" id="depend-3F-source">
-            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 24</span>
+            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 43</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">depend?</span>(<span class="ruby-identifier">_v</span>)
   <span class="ruby-keyword">false</span>
 <span class="ruby-keyword">end</span></pre>
@@ -327,13 +331,21 @@
 
         <div class="method-description">
           
-          <p>The derivative of a constant is always zero</p>
+          <p>Evaluates the derivative of a constant. The derivative is always a
+`CAS::Zero`</p>
+
+<p>“`</p>
+
+<pre class="ruby"><span class="ruby-identifier">d</span>
+</pre>
+
+<p>– c = 0 dx “`</p>
           
           
 
           
           <div class="method-source-code" id="diff-source">
-            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 14</span>
+            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 25</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">diff</span>(<span class="ruby-identifier">_v</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>
 <span class="ruby-keyword">end</span></pre>
@@ -360,13 +372,15 @@
 
         <div class="method-description">
           
-          <p>Same as `CAS::Op`</p>
+          <p>Return the local Graphviz node of the tree</p>
+
+<p>-&gt; `String` of local Graphiz node</p>
           
           
 
           
           <div class="method-source-code" id="dot_graph-source">
-            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 78</span>
+            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 108</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">dot_graph</span>
   <span class="ruby-identifier">n</span> = <span class="ruby-node">&quot;#{self.class.to_s.gsub(&quot;CAS::&quot;, &quot;&quot;)}_#{self.object_id}&quot;</span>
   <span class="ruby-node">&quot;#{n};\n  #{n} [label=\&quot;#{@x}\&quot;];&quot;</span>
@@ -394,15 +408,17 @@
 
         <div class="method-description">
           
-          <p>Same as `CAS::Op`</p>
+          <p>Inspection for `CAS::Constant` class</p>
+
+<p>-&gt; `String`</p>
           
           
 
           
           <div class="method-source-code" id="inspect-source">
-            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 73</span>
+            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 101</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">inspect</span>
-  <span class="ruby-node">&quot;Const(#{self.to_s})&quot;</span>
+  <span class="ruby-node">&quot;Const(#{self})&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -427,28 +443,19 @@
 
         <div class="method-description">
           
-          <p>Same as `CAS::Op`</p>
+          <p>Simplification callback. It simplify the subgraph of each node until all
+possible simplification are performed (thus the execution time is not
+deterministic).</p>
+
+<p>-&gt; `CAS::Op` simplified version</p>
           
           
 
           
           <div class="method-source-code" id="simplify-source">
-            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 39</span>
+            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 68</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">simplify</span>
-  <span class="ruby-keyword">case</span> <span class="ruby-ivar">@x</span>
-  <span class="ruby-keyword">when</span> <span class="ruby-value">0</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>
-  <span class="ruby-keyword">when</span> <span class="ruby-value">1</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">One</span>
-  <span class="ruby-keyword">when</span> <span class="ruby-constant">Math</span><span class="ruby-operator">::</span><span class="ruby-constant">PI</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Pi</span>
-  <span class="ruby-keyword">when</span> <span class="ruby-constant">Math</span><span class="ruby-operator">::</span><span class="ruby-constant">E</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">E</span>
-  <span class="ruby-keyword">when</span> <span class="ruby-value">1.0</span><span class="ruby-operator">/</span><span class="ruby-value">0.0</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Infinity</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>
-  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">simplify_dictionary</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -464,7 +471,7 @@
         
         <div class="method-heading">
           <span class="method-name">subs</span><span
-            class="method-args">(dt)</span>
+            class="method-args">(_dt)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -473,14 +480,16 @@
 
         <div class="method-description">
           
-          <p>Subs for a constant is a dummy method</p>
+          <p>Subs for a constant is a dummy method that returns always `self`</p>
+
+<p>&lt;- Unused argument -&gt; `CAS::Constant` that represent `self`</p>
           
           
 
           
           <div class="method-source-code" id="subs-source">
-            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 34</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">subs</span>(<span class="ruby-identifier">dt</span>)
+            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 59</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">subs</span>(<span class="ruby-identifier">_dt</span>)
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -506,13 +515,15 @@
 
         <div class="method-description">
           
-          <p>Return latex representation of current <a href="Op.html">Op</a></p>
+          <p>Return latex representation of current `CAS::Op`</p>
+
+<p>-&gt; `String`</p>
           
           
 
           
           <div class="method-source-code" id="to_latex-source">
-            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 84</span>
+            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 116</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_latex</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">to_s</span>
 <span class="ruby-keyword">end</span></pre>
@@ -539,13 +550,15 @@
 
         <div class="method-description">
           
-          <p>Same as `CAS::Op`</p>
+          <p>The string representation of a constant is the value of the constant</p>
+
+<p>-&gt; `String`</p>
           
           
 
           
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 29</span>
+            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 51</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
   <span class="ruby-node">&quot;#{@x}&quot;</span>
 <span class="ruby-keyword">end</span></pre>

@@ -72,6 +72,8 @@
     
     <li ><a href="#method-i-call">#call</a>
     
+    <li ><a href="#method-i-representative">#representative</a>
+    
   </ul>
 </div>
 
@@ -129,11 +131,47 @@
 
           
           <div class="method-source-code" id="call-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 274</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 300</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span> <span class="ruby-identifier">fd</span>, <span class="ruby-constant">Hash</span>
 
   <span class="ruby-keyword">return</span> (<span class="ruby-ivar">@x</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>) <span class="ruby-operator">&gt;=</span> <span class="ruby-ivar">@y</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-representative" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">representative</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Saves some required elements</p>
+          
+          
+
+          
+          <div class="method-source-code" id="representative-source">
+            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 288</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">representative</span>
+  <span class="ruby-ivar">@cond_type</span> = <span class="ruby-string">&quot;&gt;=&quot;</span>
+  <span class="ruby-ivar">@cond_repr</span> = <span class="ruby-string">&quot;≥&quot;</span>
+  <span class="ruby-ivar">@cond_latex</span> = <span class="ruby-string">&quot;\\geq&quot;</span>
+  <span class="ruby-keyword">self</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           

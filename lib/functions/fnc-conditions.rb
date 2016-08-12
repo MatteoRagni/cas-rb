@@ -22,9 +22,6 @@ module CAS
   #  * right function (y)
   #  * type of condition
   class Condition
-    @@type  = "??"
-    @@repr  = "??"
-    @@latex = "??"
     attr_reader :x, :y
 
     # Initializer for a new condition. The condition is implicit in the class, thus a
@@ -36,6 +33,15 @@ module CAS
     def initialize(x, y)
       @x = x
       @y = y
+      self.representative
+    end
+
+    # Saves some required elements
+    def representative
+      @cond_type  = "??"
+      @cond_repr  = "??"
+      @cond_latex = "??"
+      self
     end
 
     # Function call will evaluate left and right functions to solve the
@@ -58,7 +64,7 @@ module CAS
     #
     # `String`
     def to_s
-      "(#{@x} #{@@repr} #{@y})"
+      "(#{@x} #{@cond_repr} #{@y})"
     end
 
     # Returns a string that can be used for printing LaTeX version of the
@@ -66,14 +72,14 @@ module CAS
     #
     # `String`
     def to_latex
-      "\\left(#{@x} #{@@latex} #{@y}\\right)"
+      "\\left(#{@x} #{@cond_latex} #{@y}\\right)"
     end
 
     # Return the code that performs a condition evaluation
     #
     # -> `String`
     def to_code
-      "(#{@x} #{@@type} #{@y})"
+      "(#{@x} #{@cond_type} #{@y})"
     end
 
     # Returns an array of variables of the two functions in the condition
@@ -160,7 +166,11 @@ module CAS
   ##
   # This class is a Condition for two equal function
   class Equal < CAS::Condition
-    @@type, @@repr, @@latex = "==", "≡", "="
+    # Saves some required elements
+    def representative
+      @cond_type, @cond_repr, @cond_latex = "==", "≡", "="
+      self
+    end
 
     # Function call will evaluate left and right functions to solve the
     # relation
@@ -192,7 +202,11 @@ module CAS
   ##
   # This class is a Condition for left smaller function
   class Smaller < CAS::Condition
-    @@type = @@repr = @@latex = "<"
+    # Saves some required elements
+    def representative
+      @cond_type = @cond_repr = @cond_latex = "<"
+      self
+    end
 
     # Function call will evaluate left and right functions to solve the
     # relation
@@ -214,7 +228,11 @@ module CAS
   ##
   # This class is a Condition for right smaller function
   class Greater < CAS::Condition
-    @@type = @@repr = @@latex = ">"
+    # Saves some required elements
+    def representative
+      @cond_type = @cond_repr = @cond_latex = ">"
+      self
+    end
 
     # Function call will evaluate left and right functions to solve the
     # relation
@@ -237,9 +255,13 @@ module CAS
   ##
   # This class is a Condition for left smaller or equal function
   class SmallerEqual < CAS::Condition
-    @@type = "<="
-    @@repr = "≤"
-    @@latex = "\\leq"
+    # Saves some required elements
+    def representative
+      @cond_type = "<="
+      @cond_repr = "≤"
+      @cond_latex = "\\leq"
+      self
+    end
 
     # Function call will evaluate left and right functions to solve the
     # relation
@@ -262,9 +284,13 @@ module CAS
   ##
   # This class is a condition for right smaller or equal function
   class GreaterEqual < CAS::Condition
-    @@type = ">="
-    @@repr = "≥"
-    @@latex = "\\geq"
+    # Saves some required elements
+    def representative
+      @cond_type = ">="
+      @cond_repr = "≥"
+      @cond_latex = "\\geq"
+      self
+    end
 
     # Function call will evaluate left and right functions to solve the
     # relation

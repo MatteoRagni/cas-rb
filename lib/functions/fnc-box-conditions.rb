@@ -20,10 +20,6 @@ module CAS
   #  * upper closed: `a < f(x) ≤ b`
   #  * closed: `a ≤ f(x) ≤ b`
   class BoxCondition < CAS::Condition
-    @@lower_cond  = @@upper_cond = "<"
-    @@upper_latex = @lower_latex = "<"
-    @@lower_str   = @@upper_str  = "<"
-
     attr_reader :x, :lower, :upper
 
     # Initializes a new box condition. A function is required as central term,
@@ -45,13 +41,20 @@ module CAS
       CAS::Help.assert(upper, CAS::Constant)
 
       CAS::Help.assert(x, CAS::Op)
-      CAS::Help.assert(type, Symbol)
 
       lower, upper = upper, lower if lower.x > upper.x
 
       @lower = lower
       @upper = upper
       @x = x
+    end
+
+    # Saves some required elements
+    def representative
+      @lower_cond  = @upper_cond = "<"
+      @upper_latex = @lower_latex = "<"
+      @lower_str   = @upper_str  = "<"
+      self
     end
 
     # Returns true if one the central function depends upon the expression included
@@ -132,7 +135,7 @@ module CAS
     #
     # -> `String`
     def inspect
-      "(#{@lower.inspect} #{@@lower_cond} #{@x.inspect} #{@@upper_cond} #{@upper.inspect})"
+      "(#{@lower.inspect} #{@lower_cond} #{@x.inspect} #{@upper_cond} #{@upper.inspect})"
     end
 
     # Returns a string that can be used for printing LaTeX version of the
@@ -140,21 +143,21 @@ module CAS
     #
     # `String`
     def to_latex
-      "#{@lower.to_latex} #{@@lower_latex} #{@x.to_latex} #{@@upper_latex} #{@upper.to_latex}"
+      "#{@lower.to_latex} #{@lower_latex} #{@x.to_latex} #{@upper_latex} #{@upper.to_latex}"
     end
 
     # Returns a string that represents the object to be printed
     #
     # `String`
     def to_s
-      "#{@lower} #{@@lower_str} #{@x} #{@@upper_str} #{@upper}"
+      "#{@lower} #{@lower_str} #{@x} #{@upper_str} #{@upper}"
     end
 
     # Return the code that performs a condition evaluation
     #
     # -> `String`
     def to_code
-      "((#{@lower.to_code} #{@@lower_cond} (#{@x.to_code})) and ((#{@x.to_code}) #{@@upper_cond} #{@upper.to_code}))"
+      "((#{@lower.to_code} #{@lower_cond} (#{@x.to_code})) and ((#{@x.to_code}) #{@upper_cond} #{@upper.to_code}))"
     end
   end # BoxCondition
 
@@ -170,9 +173,18 @@ module CAS
   # ```
   # a < f(x) < b
   # ```
-  class BoxConditionOpen < CAS::Condition
-    @@lower_cond = @@upper_cond = @@upper_latex = @lower_latex = @@lower_str = @@upper_str = "<"
+  class BoxConditionOpen < CAS::BoxCondition
+    # Saves some required elements
+    def representative
+      @lower_cond = @upper_cond = @upper_latex = @lower_latex = @lower_str = @upper_str = "<"
+      self
+    end
 
+    # Function call will evaluate box condition to evaluate
+    # relation
+    #
+    # <- `Hash` with feed dictionary
+    # -> `Trueclass` or `Falseclass`
     def call(fd)
       x_call = @x.call(fd)
       return ((@lower.call(fd) < x_call) and (x_call < @upper))
@@ -190,12 +202,21 @@ module CAS
   # ```
   # a ≤ f(x) < b
   # ```
-  class BoxConditionLowerClosed < CAS::Condition
-    @@lower_cond  = "<="
-    @@lower_latex = "\\leq"
-    @@lower_str   = "≤"
-    @@upper_cond  = @@upper_latex = @@upper_str = "<"
+  class BoxConditionLowerClosed < CAS::BoxCondition
+    # Saves some required elements
+    def representative
+      @lower_cond  = "<="
+      @lower_latex = "\\leq"
+      @lower_str   = "≤"
+      @upper_cond  = @upper_latex = @upper_str = "<"
+      self
+    end
 
+    # Function call will evaluate box condition to evaluate
+    # relation
+    #
+    # <- `Hash` with feed dictionary
+    # -> `Trueclass` or `Falseclass`
     def call(fd)
       x_call = @x.call(fd)
       return ((@lower.call(fd) <= x_call) and (x_call < @upper))
@@ -214,12 +235,21 @@ module CAS
   # ```
   # a < f(x) ≤ b
   # ```
-  class BoxConditionUpperClosed < CAS::Condition
-    @@lower_cond  = @@lower_latex = @@lower_str = "<"
-    @@upper_cond  = "<="
-    @@upper_latex = "\\leq"
-    @@upper_str   = "≤"
+  class BoxConditionUpperClosed < CAS::BoxCondition
+    # Saves some required elements
+    def representative
+      @lower_cond  = @lower_latex = @lower_str = "<"
+      @upper_cond  = "<="
+      @upper_latex = "\\leq"
+      @upper_str   = "≤"
+      self
+    end
 
+    # Function call will evaluate box condition to evaluate
+    # relation
+    #
+    # <- `Hash` with feed dictionary
+    # -> `Trueclass` or `Falseclass`
     def call(fd)
       x_call = @x.call(fd)
       return ((@lower.call(fd) < x_call) and (x_call <= @upper))
@@ -237,11 +267,20 @@ module CAS
   # ```
   # a ≤ f(x) ≤ b
   # ```
-  class BoxConditionClosed < CAS::Condition
-    @@lower_cond  = @@upper_cond  = "<="
-    @@lower_latex = @@upper_latex = "\\leq"
-    @@lower_str   = @@upper_str   = "≤"
+  class BoxConditionClosed < CAS::BoxCondition
+    # Saves some required elements
+    def representative
+      @lower_cond  = @upper_cond  = "<="
+      @lower_latex = @upper_latex = "\\leq"
+      @lower_str   = @upper_str   = "≤"
+      self
+    end
 
+    # Function call will evaluate box condition to evaluate
+    # relation
+    #
+    # <- `Hash` with feed dictionary
+    # -> `Trueclass` or `Falseclass`
     def call(fd)
       x_call = @x.call(fd)
       return ((@lower.call(fd) <= x_call) and (x_call <= @upper))

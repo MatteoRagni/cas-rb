@@ -6,7 +6,23 @@ module CAS
   # | _|\ \ / '_ \/ _ \ ' \/ -_) ' \  _|
   # |___/_\_\ .__/\___/_||_\___|_||_\__|
   #         |_|
+
+  ##
+  # Representation for the `e^x` function. It is implemented
+  # as a `CAS::Op`
   class Exp < CAS::Op
+    # Return the derivative of the `sin(x)` function using the chain
+    # rule. The input is a `CAS::Op` because it can handle derivatives
+    # with respect to functions.
+    #
+    # ```
+    #  d
+    # -- exp(f(x)) = f'(x) exp(f(x))
+    # dx
+    # ```
+    #
+    # <- `CAS::Op` object of the derivative
+    # -> `CAS::Op` a derivated object, or `CAS::Zero` for constants
     def diff(v)
       if @x.depend? v
         return @x.diff(v) * CAS.exp(@x)
@@ -15,18 +31,30 @@ module CAS
       end
     end
 
-    # Same as `CAS::Op`
+    # Call resolves the operation tree in a `Numeric` (if `Fixnum`)
+    # or `Float` (depends upon promotions).
+    # As input, it requires an hash with `CAS::Variable` or `CAS::Variable#name`
+    # as keys, and a `Numeric` as a value
+    #
+    # <- `Hash` with feed dictionary
+    # -> `Numeric`
     def call(f)
       CAS::Help.assert(f, Hash)
       Math::exp(@x.call(f))
     end
 
-    # Same as `CAS::Op`
+    # Convert expression to string
+    #
+    # -> `String` to print on screen
     def to_s
       "exp(#{@x})"
     end
 
-    # Same as `CAS::Op`
+    # Simplification callback. It simplify the subgraph of each node
+    # until all possible simplification are performed (thus the execution
+    # time is not deterministic).
+    #
+    # -> `CAS::Op` simplified version
     def simplify
       super
       return @x.x if @x.is_a? CAS::Ln
@@ -38,17 +66,25 @@ module CAS
       CAS::Infinity => CAS::Infinity
     }
 
-    # Same as `CAS::Op`
+    # Convert expression to code (internal, for `CAS::Op#to_proc` method)
+    #
+    # -> `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
     def to_code
       "Math::exp(#{@x.to_code})"
     end
 
-    # Return latex representation of current Op
+    # Returns the latex representation of the current Op.
+    #
+    # -> `String`
     def to_latex
       "e^{#{@x.to_latex}}"
     end
   end # Exp
 
+  # Shortcut for `CAS::Exp#new`
+  #
+  # <- `CAS::Op` argument of the function
+  # -> `CAS::Exp` operation
   def self.exp(x)
     CAS::Exp.new x
   end
@@ -58,7 +94,23 @@ module CAS
   # | |__/ _ \/ _` / _` | '_| |  _| ' \| '  \
   # |____\___/\__, \__,_|_| |_|\__|_||_|_|_|_|
   #           |___/
+
+  ##
+  # Representation for the `log(x)` function. It is implemented
+  # as a `CAS::Op`
   class Ln < CAS::Op
+    # Return the derivative of the `log(x)` function using the chain
+    # rule. The input is a `CAS::Op` because it can handle derivatives
+    # with respect to functions.
+    #
+    # ```
+    #  d              f'(x)
+    # -- log(f(x)) = -------
+    # dx               f(x)
+    # ```
+    #
+    # <- `CAS::Op` object of the derivative
+    # -> `CAS::Op` a derivated object, or `CAS::Zero` for constants
     def diff(v)
       if @x.depend? v
         return CAS::One / @x
@@ -67,7 +119,13 @@ module CAS
       end
     end
 
-    # Same as `CAS::Op`
+    # Call resolves the operation tree in a `Numeric` (if `Fixnum`)
+    # or `Float` (depends upon promotions).
+    # As input, it requires an hash with `CAS::Variable` or `CAS::Variable#name`
+    # as keys, and a `Numeric` as a value
+    #
+    # <- `Hash` with feed dictionary
+    # -> `Numeric`
     def call(f)
       # I'm leaving to Math the honor
       # of handling negative values...
@@ -75,12 +133,18 @@ module CAS
       Math::log(@x.call(f))
     end
 
-    # Same as `CAS::Op`
+    # Convert expression to string
+    #
+    # -> `String` to print on screen
     def to_s
       "log(#{@x})"
     end
 
-    # Same as `CAS::Op`
+    # Simplification callback. It simplify the subgraph of each node
+    # until all possible simplification are performed (thus the execution
+    # time is not deterministic).
+    #
+    # -> `CAS::Op` simplified version
     def simplify
       super
       return @x.x if @x.is_a? CAS::Exp
@@ -92,20 +156,33 @@ module CAS
       CAS::E => CAS::One
     }
 
-    # Same as `CAS::Op`
+    # Convert expression to code (internal, for `CAS::Op#to_proc` method)
+    #
+    # -> `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
     def to_code
       "Math::log(#{@x.to_code})"
     end
 
-    # Return latex representation of current Op
+    # Returns the latex representation of the current Op.
+    #
+    # -> `String`
     def to_latex
       "\\log\\left( #{@x.to_latex} \\right)"
     end
   end # Ln
 
+  # Shortcut for `CAS::Ln#new`
+  #
+  # <- `CAS::Op` argument of the function
+  # -> `CAS::Ln` operation
   def self.ln(x)
     CAS::Ln.new x
   end
+
+  # Shortcut for `CAS::Ln#new`
+  #
+  # <- `CAS::Op` argument of the function
+  # -> `CAS::Ln` operation
   def self.log(x)
     CAS::Ln.new x
   end

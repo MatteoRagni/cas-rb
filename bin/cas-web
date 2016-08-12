@@ -1,0 +1,137 @@
+#!/usr/bin/env ruby
+
+# Spawns a web server for my smbolic computations. Each class is expanded
+# with a new to_latex method
+
+WEBPAGE = <<-EOS
+<html>
+  <head>
+    <style>
+      * {
+        font-family: monospace;
+      }
+
+      body {
+        height: 100%;
+        margin:0;
+        padding-left: 50px;
+        padding-right: 50px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+      }
+
+      h1 {
+        border-bottom: 1px solid #555;
+        width: 100%;
+        padding-bottom: 15px;
+      }
+
+      .container {
+        padding: 30px;
+        width: 100%;
+        margin-left: 50px;
+        margin-right: 50px;
+        margin-top: 30px;
+        margin-bottom: 50px;
+      }
+
+      .code-input {
+        width: 100%;
+        background-color: #eee;
+        border: 1px solid #555;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        padding: 15px;
+      }
+
+      .latex-response,
+      .code-response {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-left: 15px;
+        padding-right: 15px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #333;
+      }
+    </style>
+  </head>
+  <body>
+    <div classs="container">
+      <h1>ragni-cas web console</h1>
+      <div id="space">
+        <textarea rows="1" class="code-input"> </textarea>
+      </div>
+      <hr>
+      <p>Copyright 2016 - <a href="mailto:info@ragni.me">Matteo Ragni</a> - <a href="http://www.unitn.it">University of Trento</a> - <a href="https://github.com/MatteoRagni/cas-rb">ragni-cas homepage</a></p>
+    </div>
+
+    <script
+      type="text/javascript" async
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script>
+      document.body.addEventListener('keypress', function(e) {
+        if (e.key == "Enter" && e.ctrlKey) {
+          var els = document.getElementsByTagName("textarea");
+          els = els[els.length - 1];
+          var cmd = els.value.replace(/\\+/g, '%2B');
+
+          // console.log(cmd);
+          els.disabled = true;
+          var xhttp =  new XMLHttpRequest();
+
+          xhttp.onreadystatechange = function() {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+              document.getElementById("space").insertAdjacentHTML("beforeend", xhttp.responseText);
+              MathJax.Hub.Typeset();
+              var els = document.getElementsByTagName("textarea");
+              els[els.length - 1].focus();
+            }
+          };
+
+          xhttp.open("post", document.URL+"/input", true);
+          xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+          xhttp.send("command="+encodeURI(cmd));
+        }
+      });
+    </script>
+  </body>
+</html>
+EOS
+
+NEWLINE = <<-EOS
+<p class="%%TYPE%%">%%VALUE%%</p>
+<textarea rows="1" class="code-input"></textarea>
+EOS
+
+require 'ragni-cas'
+require 'sinatra'
+
+module SandBox;
+  include CAS
+
+  def self.run
+    $bind = binding()
+  end
+end
+SandBox.run
+
+
+get '/' do
+  WEBPAGE
+end
+
+post '/input' do
+  begin
+    cmd = params[:command].gsub("%2B", "+")
+    r = $bind.eval(cmd)
+    if r.respond_to? :to_latex
+      NEWLINE.gsub("%%TYPE%%", "latex-response").gsub("%%VALUE%%", "$$#{r.to_latex}$$")
+    else
+      NEWLINE.gsub("%%TYPE%%", "code-response").gsub("%%VALUE%%", "#{r.inspect}")
+    end
+  rescue Exception => e
+    NEWLINE.gsub("%%TYPE%%", "code-response").gsub("%%VALUE%%", "ERROR: #{e}")
+  end
+end

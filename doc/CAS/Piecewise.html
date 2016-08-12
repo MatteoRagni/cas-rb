@@ -74,6 +74,8 @@
     
     <li ><a href="#method-i-3D-3D">#==</a>
     
+    <li ><a href="#method-i-binary_dot_graph">#binary_dot_graph</a>
+    
     <li ><a href="#method-i-call">#call</a>
     
     <li ><a href="#method-i-diff">#diff</a>
@@ -255,6 +257,34 @@ and conditions</p>
       </div>
 
     
+      <div id="method-i-binary_dot_graph" class="method-detail method-alias">
+        
+        <div class="method-heading">
+          <span class="method-name">binary_dot_graph</span><span
+            class="method-args">()</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+        </div>
+
+        
+
+        
+        <div class="aliases">
+          Alias for: <a href="Piecewise.html#method-i-dot_graph">dot_graph</a>
+        </div>
+        
+      </div>
+
+    
       <div id="method-i-call" class="method-detail ">
         
         <div class="method-heading">
@@ -369,7 +399,7 @@ derivated functions and unchanged condition</p>
 
           
           <div class="method-source-code" id="dot_graph-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-piecewise.rb, line 102</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-piecewise.rb, line 103</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">dot_graph</span>
   <span class="ruby-identifier">cls</span> = <span class="ruby-node">&quot;#{self.class.to_s.gsub(&quot;CAS::&quot;, &quot;&quot;)}_#{self.object_id}&quot;</span>
   <span class="ruby-node">&quot;#{cls} -&gt; #{@x.dot_graph}\n  #{cls} -&gt; #{@y.dot_graph}\n  #{cls} -&gt; #{@condition.dot_graph}&quot;</span>
@@ -378,6 +408,10 @@ derivated functions and unchanged condition</p>
           
         </div>
 
+        
+        <div class="aliases">
+          Also aliased as: <a href="Piecewise.html#method-i-binary_dot_graph">binary_dot_graph</a>
+        </div>
         
 
         
@@ -440,7 +474,7 @@ derivated functions and unchanged condition</p>
 
           
           <div class="method-source-code" id="to_latex-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-piecewise.rb, line 110</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-piecewise.rb, line 111</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_latex</span>
   <span class="ruby-node">&quot;\\left\\{ \\begin{array}{lr} #{@x.to_latex} &amp; #{@condition.to_latex} \\\\ #{@y.to_latex} \\end{array} \\right.&quot;</span>
 <span class="ruby-keyword">end</span></pre>

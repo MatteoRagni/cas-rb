@@ -138,9 +138,10 @@ condition is automatically generated</p>
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-piecewise.rb, line 164</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-piecewise.rb, line 155</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>)
   <span class="ruby-keyword">super</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">greater_equal</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>))
+  <span class="ruby-ivar">@type</span> = <span class="ruby-string">&quot;max&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           

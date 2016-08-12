@@ -89,14 +89,7 @@
 
   <section class="description">
     
-<pre class="ruby"><span class="ruby-identifier">_</span>  <span class="ruby-identifier">_</span>          <span class="ruby-identifier">___</span>       <span class="ruby-identifier">__</span> <span class="ruby-identifier">_</span>      <span class="ruby-identifier">_</span> <span class="ruby-identifier">_</span>
-</pre>
-
-<p>| | |<em>_</em> __ _|_ _|_ _  / _(_)_ _ (_) |_ _  _ | .` / -_) _` || ||
-&#39; |  _| | &#39; | |  _| || | |_|_<em>__</em>_, |<em>_</em>|_||_|_|
-|_|_||_|_|__|_, |</p>
-
-<pre>|___/                           |__/</pre>
+<p>Class that represents the constant Negative Infinity (-∞)</p>
 
   </section>
 
@@ -132,13 +125,15 @@
 
         <div class="method-description">
           
-          
+          <p>Initializer for the negative infinity constant</p>
+
+<p>-&gt; `CAS::NEG_INFINITY_CONSTANT` new instance</p>
           
           
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 215</span>
+            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 318</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>
   <span class="ruby-ivar">@x</span> = <span class="ruby-operator">-</span>(<span class="ruby-value">1.0</span><span class="ruby-operator">/</span><span class="ruby-value">0.0</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -173,13 +168,15 @@
 
         <div class="method-description">
           
-          
+          <p>Latex representation for the constant</p>
+
+<p>-&gt; `String`</p>
           
           
 
           
           <div class="method-source-code" id="to_latex-source">
-            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 223</span>
+            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 332</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_latex</span>
   <span class="ruby-string">&quot;-\\infty&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -206,13 +203,15 @@
 
         <div class="method-description">
           
-          
+          <p>String representation for the constant</p>
+
+<p>-&gt; `String`</p>
           
           
 
           
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 219</span>
+            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 325</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
   <span class="ruby-string">&quot;-∞&quot;</span>
 <span class="ruby-keyword">end</span></pre>

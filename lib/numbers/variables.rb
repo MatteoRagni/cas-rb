@@ -5,6 +5,10 @@ module CAS
   # \ \ / /_ _ _ _(_)__ _| |__| |___
   #  \ V / _` | '_| / _` | '_ \ / -_)
   #   \_/\__,_|_| |_\__,_|_.__/_\___|
+
+  ##
+  # Container for a variable. It can be resolved in a numerical value.
+  # It can also be used for derivatives.
   class Variable < CAS::Op
     # Contains all define variable, in an hash. Variables are
     # accessible through variable name.
@@ -58,12 +62,21 @@ module CAS
       (self == v ? CAS::One : CAS::Zero)
     end
 
-    # Same as `CAS::Op`
+    # Returns `TrueClass` if argument of the function is equal
+    # to `self`
+    #
+    # <- `CAS::Op`
+    # -> `TrueClass` or `FalseClass`
     def depend?(v)
       self == v
     end
 
-    # Same as `CAS::Op`
+    # Equality operator, the standard operator is overloaded
+    # :warning: this operates on the graph, not on the math
+    # See `CAS::equal`, etc.
+    #
+    # <- `CAS::Op` to be tested against
+    # -> `TrueClass` if equal, `FalseClass` if differs
     def ==(op)
       # CAS::Help.assert(op, CAS::Op)
       if op.is_a? CAS::Variable
@@ -73,7 +86,20 @@ module CAS
       end
     end
 
-    # Same as `CAS::Op`
+    # Call resolves the operation tree in a `Numeric` (if `Fixnum`)
+    # or `Float` (depends upon promotions).
+    # As input, it requires an hash with `CAS::Variable` or `CAS::Variable#name`
+    # as keys, and a `Numeric` as a value
+    #
+    # ``` ruby
+    # x, y = CAS::vars :x, :y
+    # f = (x ** 2) + (y ** 2)
+    # f.call({x => 1, y => 2})
+    # # => 2
+    # ```
+    #
+    # <- `Hash` with feed dictionary
+    # -> `Numeric`
     def call(f)
       CAS::Help.assert(f, Hash)
 
@@ -81,22 +107,33 @@ module CAS
       return f[@name] if f[@name]
     end
 
-    # Same as `CAS::Op`
+    # Convert expression to string
+    #
+    # -> `String` to print on screen
     def to_s
       "#{@name}"
     end
 
-    # Same as `CAS::Op`
+    # Convert expression to code (internal, for `CAS::Op#to_proc` method)
+    #
+    # -> `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
     def to_code
       "#{@name}"
     end
 
-    # Same as `CAS::Op`
+    # Returns an array containing `self`
+    #
+    # -> `Array` containing `self`
     def args
       [self]
     end
 
-    # Terminal substitutions for variables
+    # Terminal substitutions for variables. If input datatable
+    # contains the variable will perform the substitution with
+    # the value.
+    #
+    # <- `Hash` of substitutions
+    # -> `CAS::Op` of substitutions
     def subs(dt)
       CAS::Help.assert(dt, Hash)
       if dt.keys.include? self
@@ -110,27 +147,44 @@ module CAS
       end
     end
 
-    # Same as `CAS::Op`
+    # Inspector for the current object
+    #
+    # -> `String`
     def inspect
       "Var(#{@name})"
     end
 
-    # Same as `CAS::Op`
+    # Simplification callback. The only possible simplification
+    # is returning `self`
+    #
+    # -> `CAS::Variable` as `self`
     def simplify
       self
     end
 
-    # Same as `CAS::Op`
+    # Return the local Graphviz node of the tree
+    #
+    # -> `String` of local Graphiz node
     def dot_graph
       "#{@name};"
     end
 
-    # Return latex representation of current Op
+    # Returns the latex representation of the current Op.
+    #
+    # -> `String`
     def to_latex
       self.to_s
     end
   end # Number
 
+  # Allows to define a series of new variables.
+  #
+  # ``` ruby
+  # x, y = CAS::vars :x, :y
+  # ```
+  #
+  # <- `Array` of Numeric
+  # -> `Array` of `CAS::Variable`
   def self.vars(*name)
     (return CAS::Variable.new(name[0])) if name.size == 1
     ret = []
