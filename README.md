@@ -16,6 +16,7 @@ Given the function of Rosenbrock, find the optimum of such a function.
 ### Installation
 
 First of all is necessary to install and load the `ragni-cas` gem.
+
 ``` bash
 gem install ragni-cas
 ```
@@ -31,12 +32,10 @@ two constants (`a` and `b`, with the default value on 1 and 100 in this case). T
 variable `f` will contain our function:
 
 ``` ruby
-
 x, y = CAS::vars :x, :y
 a, b = CAS::const 1.0, 100.0
 
 f = ((a - x) ** 2) + b * ((y - (x ** 2)) ** 2)
-
 ```
 
 We can print this function as follows:
@@ -158,6 +157,7 @@ x_opt = newton(dfx)
 ```
 
 We can use the solution of `x`, to get the value of `y`:
+
 ``` ruby
 puts "Optimum in #{x} = #{x_opt} and #{y} = #{g.call({x => x_opt})}"
 # => Optimum in x = 1.0 and y = 1.0

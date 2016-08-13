@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 
+##
 # ragni-cas
 # A very simple CAS engine with encapsuled graph
 # representation. This will make impossible to
@@ -21,7 +22,6 @@
 # Author:: Matteo Ragni (mailto:info@ragni.me)
 # Copyright:: Copyright (c) 2016 Matteo Ragni
 # License:: Distributed under MIT license terms
-
 module CAS
 
   # Return a string representation of the graph that is
@@ -83,8 +83,13 @@ module CAS
   module Help
     # Check input `obj.class` against a `type` class
     # raises an ArgumentError if check fails
+    #
+    #  * **argument**: object to be cecked
+    #  * **argument**: type to be checked against
+    #  * **returns**: `TrueClass`, or raises an `ArgumentError`
     def self.assert(obj, type)
       raise ArgumentError, "required #{type}, received #{obj.class}" unless obj.is_a? type
+      return true
     end
   end
 end

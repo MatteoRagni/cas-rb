@@ -1,7 +1,7 @@
-Sat, 13 Aug 2016 13:31:19 +0200
+Sat, 13 Aug 2016 14:35:34 +0200
 README.md	Tue, 09 Aug 2016 16:02:48 +0200
-lib/ragni-cas.rb	Sat, 13 Aug 2016 13:23:58 +0200
-lib/version.rb	Sat, 13 Aug 2016 13:24:22 +0200
+lib/ragni-cas.rb	Sat, 13 Aug 2016 14:35:25 +0200
+lib/version.rb	Sat, 13 Aug 2016 13:31:23 +0200
 lib/functions/fnc-base.rb	Sat, 13 Aug 2016 13:23:28 +0200
 lib/functions/fnc-box-conditions.rb	Sat, 13 Aug 2016 13:25:36 +0200
 lib/functions/fnc-conditions.rb	Sat, 13 Aug 2016 13:26:16 +0200

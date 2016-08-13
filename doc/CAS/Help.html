@@ -116,14 +116,23 @@
           
           <p>Check input <code>obj.class</code> against a <code>type</code> class raises
 an ArgumentError if check fails</p>
+<ul><li>
+<p><strong>argument</strong>: object to be cecked</p>
+</li><li>
+<p><strong>argument</strong>: type to be checked against</p>
+</li><li>
+<p><strong>returns</strong>: <code>TrueClass</code>, or raises an
+<code>ArgumentError</code></p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="assert-source">
-            <pre><span class="ruby-comment"># File lib/ragni-cas.rb, line 86</span>
+            <pre><span class="ruby-comment"># File lib/ragni-cas.rb, line 90</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">obj</span>, <span class="ruby-identifier">type</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;required #{type}, received #{obj.class}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-identifier">type</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
