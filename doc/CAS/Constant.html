@@ -107,9 +107,9 @@
 
   <section class="description">
     
-<p><a href="Constant.html">Constant</a> is a `CAS::Op` container for a
-`Numeric` value, that is not a `CAS::Variable`, thus its derivative it is
-always zero</p>
+<p><a href="Constant.html">Constant</a> is a <code>CAS::Op</code> container
+for a <code>Numeric</code> value, that is not a <code>CAS::Variable</code>,
+thus its derivative it is always zero</p>
 
   </section>
 
@@ -186,9 +186,12 @@ always zero</p>
 
         <div class="method-description">
           
-          <p>Check if a constant is equal to another `CAS::Op` object</p>
-
-<p>&lt;- `CAs::Op` -&gt; `TrueClass` or `FalseClass`</p>
+          <p>Check if a constant is equal to another <code>CAS::Op</code> object</p>
+<ul><li>
+<p><strong>argument</strong>: <code>CAs::Op</code></p>
+</li><li>
+<p><strong>returns</strong>: <code>TrueClass</code> or <code>FalseClass</code></p>
+</li></ul>
           
           
 
@@ -225,9 +228,10 @@ always zero</p>
 
         <div class="method-description">
           
-          <p>Args of a constant is an empty `Array`</p>
-
-<p>-&gt; `Array` empty</p>
+          <p>Args of a constant is an empty <code>Array</code></p>
+<ul><li>
+<p><strong>returns</strong>: <code>Array</code> empty</p>
+</li></ul>
           
           
 
@@ -261,8 +265,11 @@ always zero</p>
         <div class="method-description">
           
           <p>Calling a constant will return the value of the constant itself.</p>
-
-<p>&lt;- Unused argument -&gt; `Numeric` value of the constant</p>
+<ul><li>
+<p><strong>argument</strong>: Unused argument</p>
+</li><li>
+<p><strong>returns</strong>: <code>Numeric</code> value of the constant</p>
+</li></ul>
           
           
 
@@ -297,8 +304,11 @@ always zero</p>
           
           <p>There is no dependency in a constant, thus this method will always return
 false</p>
-
-<p>&lt;- Unused argument -&gt; `FalseClass`</p>
+<ul><li>
+<p><strong>argument</strong>: Unused argument</p>
+</li><li>
+<p><strong>returns</strong>: <code>FalseClass</code></p>
+</li></ul>
           
           
 
@@ -332,14 +342,12 @@ false</p>
         <div class="method-description">
           
           <p>Evaluates the derivative of a constant. The derivative is always a
-`CAS::Zero`</p>
-
-<p>“`</p>
+<code>CAS::Zero</code></p>
 
 <pre class="ruby"><span class="ruby-identifier">d</span>
+<span class="ruby-operator">-</span><span class="ruby-operator">-</span> <span class="ruby-identifier">c</span> = <span class="ruby-value">0</span>
+<span class="ruby-identifier">dx</span>
 </pre>
-
-<p>– c = 0 dx “`</p>
           
           
 
@@ -373,8 +381,9 @@ false</p>
         <div class="method-description">
           
           <p>Return the local Graphviz node of the tree</p>
-
-<p>-&gt; `String` of local Graphiz node</p>
+<ul><li>
+<p><strong>returns</strong>: <code>String</code> of local Graphiz node</p>
+</li></ul>
           
           
 
@@ -408,9 +417,10 @@ false</p>
 
         <div class="method-description">
           
-          <p>Inspection for `CAS::Constant` class</p>
-
-<p>-&gt; `String`</p>
+          <p>Inspection for <code>CAS::Constant</code> class</p>
+<ul><li>
+<p><strong>returns</strong>: <code>String</code></p>
+</li></ul>
           
           
 
@@ -446,8 +456,9 @@ false</p>
           <p>Simplification callback. It simplify the subgraph of each node until all
 possible simplification are performed (thus the execution time is not
 deterministic).</p>
-
-<p>-&gt; `CAS::Op` simplified version</p>
+<ul><li>
+<p><strong>returns</strong>: <code>CAS::Op</code> simplified version</p>
+</li></ul>
           
           
 
@@ -480,9 +491,13 @@ deterministic).</p>
 
         <div class="method-description">
           
-          <p>Subs for a constant is a dummy method that returns always `self`</p>
-
-<p>&lt;- Unused argument -&gt; `CAS::Constant` that represent `self`</p>
+          <p>Subs for a constant is a dummy method that returns always <code>self</code></p>
+<ul><li>
+<p><strong>argument</strong>: Unused argument</p>
+</li><li>
+<p><strong>returns</strong>: <code>CAS::Constant</code> that represent
+<code>self</code></p>
+</li></ul>
           
           
 
@@ -515,9 +530,10 @@ deterministic).</p>
 
         <div class="method-description">
           
-          <p>Return latex representation of current `CAS::Op`</p>
-
-<p>-&gt; `String`</p>
+          <p>Return latex representation of current <code>CAS::Op</code></p>
+<ul><li>
+<p><strong>returns</strong>: <code>String</code></p>
+</li></ul>
           
           
 
@@ -551,8 +567,9 @@ deterministic).</p>
         <div class="method-description">
           
           <p>The string representation of a constant is the value of the constant</p>
-
-<p>-&gt; `String`</p>
+<ul><li>
+<p><strong>returns</strong>: <code>String</code></p>
+</li></ul>
           
           
 

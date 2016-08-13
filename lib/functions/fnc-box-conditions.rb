@@ -20,16 +20,21 @@ module CAS
   #  * upper closed: `a < f(x) ≤ b`
   #  * closed: `a ≤ f(x) ≤ b`
   class BoxCondition < CAS::Condition
-    attr_reader :x, :lower, :upper
+    # Contained operation
+    attr_reader :x
+    # Upper bound as `CAS::Constant`
+    attr_reader :lower
+    # Lower bound as `CAs::Constant`
+    attr_reader :upper
 
     # Initializes a new box condition. A function is required as central term,
     # while the second and the third elements are lower and upper bounds
     # as `CAS::Constant`
     #
-    # <- `CAS::Op` central term of the box condition
-    # <- `CAS::Constant` lower bound
-    # <- `CAS::Constant` upper bound
-    # -> `CAS::BoxCondition` new instance
+    #  * **argument**: `CAS::Op` central term of the box condition
+    #  * **argument**: `CAS::Constant` lower bound
+    #  * **argument**: `CAS::Constant` upper bound
+    #  * **returns**: `CAS::BoxCondition` new instance
     def initialize(x, lower, upper)
       if lower.is_a? Numeric
         lower = CAS::const lower
@@ -59,15 +64,15 @@ module CAS
 
     # Returns true if one the central function depends upon the expression included
     #
-    # <- `CAS::Op` operator to check against for dependencies
-    # -> `TrueClass` or `FalseClass`
+    #  * **argument**: `CAS::Op` operator to check against for dependencies
+    #  * **returns**: `TrueClass` or `FalseClass`
     def depend?(v)
       @x.depend? v
     end
 
     # Simplify left and right term of the operator
     #
-    # -> `CAS::BoxCondition`
+    #  * **returns**: `CAS::BoxCondition`
     def simplify
       @x.simplify
       return self
@@ -75,7 +80,7 @@ module CAS
 
     # Substitute in the central element using a dictionary
     #
-    # -> `Hash` of substitutions
+    #  * **returns**: `Hash` of substitutions
     def subs(fd)
       @x = @x.subs(fd)
       return self
@@ -93,14 +98,14 @@ module CAS
     #
     # since between the two there is a difference relation.
     #
-    # <- `CAS::Op` to perform the derivative
+    #  * **argument**: `CAS::Op` to perform the derivative
     def diff(v)
       CAS::equal(@x.diff(v).simplify, CAS::Zero)
     end
 
     # Returns the dot graphviz representation of the code
     #
-    # -> `String`
+    #  * **returns**: `String`
     def dot_graph
       cls = "#{self.class.to_s.gsub("CAS::", "")}_#{self.object_id}"
       " #{cls} -> #{@lower.dot_graph}\n #{cls} -> #{@x.dot_graph}\n #{cls} -> #{@upper.dot_graph}\n"
@@ -108,15 +113,15 @@ module CAS
 
     # Returns an array of variables of the central function
     #
-    # -> `Array` of `CAS::Variable`
+    #  * **returns**: `Array` of `CAS::Variable`
     def args
       @x.args
     end
 
     # Return true if two BoxConditions are equal, false if different
     #
-    # <- `CAS::Op` operator to check against for equality
-    # -> `TrueClass` or `FalseClass`
+    #  * **argument**: `CAS::Op` operator to check against for equality
+    #  * **returns**: `TrueClass` or `FalseClass`
     def ==(cond)
       return false if not self.class != cond.class
       return (@x == cond.x and @lower == cond.lower and @upper == cond.upper)
@@ -125,15 +130,15 @@ module CAS
     # Function call will evaluate left and right functions to solve the
     # relation
     #
-    # <- `Hash` with feed dictionary
-    # -> `Trueclass` or `Falseclass`
+    #  * **argument**: `Hash` with feed dictionary
+    #  * **returns**: `Trueclass` or `Falseclass`
     def call(_fd)
       raise CAS::CASError, "This is a virtual method"
     end
 
     # Inspector for the class. It is class specific
     #
-    # -> `String`
+    #  * **returns**: `String`
     def inspect
       "(#{@lower.inspect} #{@lower_cond} #{@x.inspect} #{@upper_cond} #{@upper.inspect})"
     end
@@ -155,7 +160,7 @@ module CAS
 
     # Return the code that performs a condition evaluation
     #
-    # -> `String`
+    #  * **returns**: `String`
     def to_code
       "((#{@lower.to_code} #{@lower_cond} (#{@x.to_code})) and ((#{@x.to_code}) #{@upper_cond} #{@upper.to_code}))"
     end
@@ -183,8 +188,8 @@ module CAS
     # Function call will evaluate box condition to evaluate
     # relation
     #
-    # <- `Hash` with feed dictionary
-    # -> `Trueclass` or `Falseclass`
+    #  * **argument**: `Hash` with feed dictionary
+    #  * **returns**: `Trueclass` or `Falseclass`
     def call(fd)
       x_call = @x.call(fd)
       return ((@lower.call(fd) < x_call) and (x_call < @upper))
@@ -215,8 +220,8 @@ module CAS
     # Function call will evaluate box condition to evaluate
     # relation
     #
-    # <- `Hash` with feed dictionary
-    # -> `Trueclass` or `Falseclass`
+    #  * **argument**: `Hash` with feed dictionary
+    #  * **returns**: `Trueclass` or `Falseclass`
     def call(fd)
       x_call = @x.call(fd)
       return ((@lower.call(fd) <= x_call) and (x_call < @upper))
@@ -248,8 +253,8 @@ module CAS
     # Function call will evaluate box condition to evaluate
     # relation
     #
-    # <- `Hash` with feed dictionary
-    # -> `Trueclass` or `Falseclass`
+    #  * **argument**: `Hash` with feed dictionary
+    #  * **returns**: `Trueclass` or `Falseclass`
     def call(fd)
       x_call = @x.call(fd)
       return ((@lower.call(fd) < x_call) and (x_call <= @upper))
@@ -279,8 +284,8 @@ module CAS
     # Function call will evaluate box condition to evaluate
     # relation
     #
-    # <- `Hash` with feed dictionary
-    # -> `Trueclass` or `Falseclass`
+    #  * **argument**: `Hash` with feed dictionary
+    #  * **returns**: `Trueclass` or `Falseclass`
     def call(fd)
       x_call = @x.call(fd)
       return ((@lower.call(fd) <= x_call) and (x_call <= @upper))
@@ -289,15 +294,15 @@ module CAS
 
   # Shortcut for creating a new box condition. It requires four arguments:
   #
-  # <- `CAS::Op` function for condition
-  # <- `CAS::Constant` lower limit
-  # <- `CAs::Constant` upper limit
-  # <- `Symbol` of condition type it can be:
+  #  * **argument**: `CAS::Op` function for condition
+  #  * **argument**: `CAS::Constant` lower limit
+  #  * **argument**: `CAs::Constant` upper limit
+  #  * **argument**: `Symbol` of condition type it can be:
   #     - `:closed` for `CAs::BoxConditionClosed`
   #     - `:open` for `CAs::BoxConditionOpen`
   #     - `:upper_closed` for `CAs::BoxConditionUpperClosed`
   #     - `:lower_closed` for `CAs::BoxConditionLowerClosed`
-  # -> `CAS::BoxCondition` new instance
+  #  * **returns**: `CAS::BoxCondition` new instance
   def self.box(x, a, b, type=:closed)
     case type
     when :closed
@@ -316,14 +321,14 @@ module CAS
   class Op
     # Shortcut for creating a new box condition. It requires limits and type:
     #
-    # <- `CAS::Constant` lower limit
-    # <- `CAs::Constant` upper limit
-    # <- `Symbol` of condition type it can be:
+    #  * **argument**: `CAS::Constant` lower limit
+    #  * **argument**: `CAs::Constant` upper limit
+    #  * **argument**: `Symbol` of condition type it can be:
     #     - `:closed` for `CAs::BoxConditionClosed`
     #     - `:open` for `CAs::BoxConditionOpen`
     #     - `:upper_closed` for `CAs::BoxConditionUpperClosed`
     #     - `:lower_closed` for `CAs::BoxConditionLowerClosed`
-    # -> `CAS::BoxCondition` new instance
+    #  * **returns**: `CAS::BoxCondition` new instance
     def limit(a, b, type=:closed)
       return CAS::box(self, a, b, type)
     end

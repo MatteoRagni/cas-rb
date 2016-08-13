@@ -7,13 +7,14 @@ module CAS
   #
   # This is an incredibly experimental feature.
   class NaryOp < CAS::Op
+    # List of arguments of the operation
     attr_reader :x
 
     # Initialize a new empty N-elements operation container. This is
     # a virtual class, and other must inherit from this basical container
     #
-    # <- `Numeric` to be converted in `CAS::Constant` or `CAS::Op` child operations
-    # -> `CAS::NaryOp` instance
+    #  * **argument**: `Numeric` to be converted in `CAS::Constant` or `CAS::Op` child operations
+    #  * **returns**: `CAS::NaryOp` instance
     def initialize(*xs)
       @x = []
       xs.each do |x|
@@ -28,8 +29,8 @@ module CAS
     # Returns the dependencies of the operation. Require a `CAS::Variable`
     # and it is one of the recursive method (implicit tree resolution)
     #
-    # <- `CAS::Variable` instance
-    # -> `TrueClass` or `FalseClass`
+    #  * **argument**: `CAS::Variable` instance
+    #  * **returns**: `TrueClass` or `FalseClass`
     def depend?(v)
       CAS::Help.assert(v, CAS::Op)
       dep = false
@@ -51,8 +52,8 @@ module CAS
     #  ------ = 1
     #  d g(x)
     # ```
-    # <- `CAS::Op` object of the derivative
-    # -> `CAS::NaryOp` of derivative
+    #  * **argument**: `CAS::Op` object of the derivative
+    #  * **returns**: `CAS::NaryOp` of derivative
     def diff(v)
       CAS::Help.assert(v, CAS::Op)
       if self.depend?(v)
@@ -72,8 +73,8 @@ module CAS
     # f.call({x => 1, y => 2})
     # # => 2
     # ```
-    # <- `Hash` with feed dictionary
-    # -> `Array` of `Numeric`
+    #  * **argument**: `Hash` with feed dictionary
+    #  * **returns**: `Array` of `Numeric`
     def call(fd)
       CAS::Help.assert(fd, Hash)
       return @x.map { |x| x.call(fd) }
@@ -90,8 +91,8 @@ module CAS
     # # => (ln(y)^2) + (y^2)
     # ```
     #
-    # <- `Hash` with substitution table
-    # -> `CAS::NaryOp` (`self`) with substitution performed
+    #  * **argument**: `Hash` with substitution table
+    #  * **returns**: `CAS::NaryOp` (`self`) with substitution performed
     def subs(dt)
       CAS::Help.assert(dt, Hash)
       @x.each_with_index do |x, k|
@@ -110,14 +111,14 @@ module CAS
 
     # Convert expression to string
     #
-    # -> `String` to print on screen
+    #  * **returns**: `String` to print on screen
     def to_s
       return "(#{@x.map(&:to_s).join(", ")})"
     end
 
     # Convert expression to code (internal, for `CAS::Op#to_proc` method)
     #
-    # -> `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
+    #  * **returns**: `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
     def to_code
       return "(#{@x.map(&:to_code).join(", ")})"
     end
@@ -125,6 +126,8 @@ module CAS
     # Simplification callback. It simplify the subgraph of each node
     # until all possible simplification are performed (thus the execution
     # time is not deterministic).
+    #
+    #  * **returns**: `CAS::Op` simplified
     def simplify
       hash = self.to_s
       @x = @x.map { |x| x.simplify }
@@ -136,7 +139,7 @@ module CAS
 
     # Inspector for the current object
     #
-    # -> `String`
+    #  * **returns**: `String`
     def inspect
       "#{self.class}(#{@x.map(&:inspect).join(", ")})"
     end
@@ -145,8 +148,8 @@ module CAS
     # :warning: this operates on the graph, not on the math
     # See `CAS::equal`, etc.
     #
-    # <- `CAS::Op` to be tested against
-    # -> `TrueClass` if equal, `FalseClass` if differs
+    #  * **argument**: `CAS::Op` to be tested against
+    #  * **returns**: `TrueClass` if equal, `FalseClass` if differs
     def ==(op)
       # CAS::Help.assert(op, CAS::Op)
       if op.is_a? CAS::NaryOp
@@ -161,7 +164,7 @@ module CAS
 
     # Returns a list of all `CAS::Variable`s of the current tree
     #
-    # -> `Array` of `CAS::Variable`s
+    #  * **returns**: `Array` of `CAS::Variable`s
     def args
       r = []
       @x.each { |x| r += x.args }
@@ -170,8 +173,8 @@ module CAS
 
     # Return the local Graphviz node of the tree
     #
-    # <- `?` unused variable (TODO: to be removed)
-    # -> `String` of local Graphiz node
+    #  * **argument**: `?` unused variable (TODO: to be removed)
+    #  * **returns**: `String` of local Graphiz node
     def dot_graph
       cls = "#{self.class.to_s.gsub("CAS::", "")}_#{self.object_id}"
       ret = ""
@@ -184,7 +187,7 @@ module CAS
 
     # Returns the latex representation of the current Op.
     #
-    # -> `String`
+    #  * **returns**: `String`
     def to_latex
       "#{self.class.gsub("CAS::", "")}\\left(#{@x.map(&:to_latex).join(",\\,")}\\right)"
     end

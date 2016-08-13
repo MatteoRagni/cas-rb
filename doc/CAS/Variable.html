@@ -173,10 +173,13 @@ also be used for derivatives.</p>
 
         <div class="method-description">
           
-          <p>Returns `true` if a variable already exists</p>
-
-<p>&lt;- `Object` that represent the variable -&gt; `TrueClass` if variable
-exists, `FalseClass` if not</p>
+          <p>Returns <code>true</code> if a variable already exists</p>
+<ul><li>
+<p><strong>argument</strong>: <code>Object</code> that represent the variable</p>
+</li><li>
+<p><strong>returns</strong>: <code>TrueClass</code> if variable exists,
+<code>FalseClass</code> if not</p>
+</li></ul>
           
           
 
@@ -209,9 +212,10 @@ exists, `FalseClass` if not</p>
 
         <div class="method-description">
           
-          <p>Returns the `Hash` that contains all the variable</p>
-
-<p>-&gt; `Hash`</p>
+          <p>Returns the <code>Hash</code> that contains all the variable</p>
+<ul><li>
+<p><strong>returns</strong>: <code>Hash</code></p>
+</li></ul>
           
           
 
@@ -245,10 +249,13 @@ exists, `FalseClass` if not</p>
         <div class="method-description">
           
           <p><a href="Variable.html">Variable</a> is a container for an atomic simbol
-that becomes a number when `CAS::Op#call` method is used.</p>
-
-<p>&lt;- `Object` that is a identifier for the variable -&gt; `CAS::Variable`
-instance</p>
+that becomes a number when <code>CAS::Op#call</code> method is used.</p>
+<ul><li>
+<p><strong>argument</strong>: <code>Object</code> that is a identifier for the
+variable</p>
+</li><li>
+<p><strong>returns</strong>: <code>CAS::Variable</code> instance</p>
+</li></ul>
           
           
 
@@ -284,8 +291,9 @@ instance</p>
         <div class="method-description">
           
           <p>Return the number of variable defined</p>
-
-<p>-&gt; `Fixnum`</p>
+<ul><li>
+<p><strong>returns</strong>: <code>Fixnum</code></p>
+</li></ul>
           
           
 
@@ -327,10 +335,13 @@ instance</p>
         <div class="method-description">
           
           <p>Equality operator, the standard operator is overloaded :warning: this
-operates on the graph, not on the math See `CAS::equal`, etc.</p>
-
-<p>&lt;- `CAS::Op` to be tested against -&gt; `TrueClass` if equal,
-`FalseClass` if differs</p>
+operates on the graph, not on the math See <code>CAS::equal</code>, etc.</p>
+<ul><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> to be tested against</p>
+</li><li>
+<p><strong>returns</strong>: <code>TrueClass</code> if equal,
+<code>FalseClass</code> if differs</p>
+</li></ul>
           
           
 
@@ -368,9 +379,10 @@ operates on the graph, not on the math See `CAS::equal`, etc.</p>
 
         <div class="method-description">
           
-          <p>Returns an array containing `self`</p>
-
-<p>-&gt; `Array` containing `self`</p>
+          <p>Returns an array containing <code>self</code></p>
+<ul><li>
+<p><strong>returns</strong>: <code>Array</code> containing <code>self</code></p>
+</li></ul>
           
           
 
@@ -403,14 +415,22 @@ operates on the graph, not on the math See `CAS::equal`, etc.</p>
 
         <div class="method-description">
           
-          <p>Call resolves the operation tree in a `Numeric` (if `Fixnum`) or `Float`
-(depends upon promotions). As input, it requires an hash with
-`CAS::Variable` or `CAS::Variable#name` as keys, and a `Numeric` as a value</p>
+          <p>Call resolves the operation tree in a <code>Numeric</code> (if
+<code>Fixnum</code>) or <code>Float</code> (depends upon promotions). As
+input, it requires an hash with <code>CAS::Variable</code> or
+<code>CAS::Variable#name</code> as keys, and a <code>Numeric</code> as a
+value</p>
 
-<p>“` ruby x, y = <a href="../CAS.html#method-c-vars">CAS.vars</a> :x, :y f =
-(x ** 2) + (y ** 2) f.call({x =&gt; 1, y =&gt; 2}) # =&gt; 2 “`</p>
-
-<p>&lt;- `Hash` with feed dictionary -&gt; `Numeric`</p>
+<pre class="ruby"><span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span> = <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">vars</span> :<span class="ruby-identifier">x</span>, :<span class="ruby-identifier">y</span>
+<span class="ruby-identifier">f</span> = (<span class="ruby-identifier">x</span> <span class="ruby-operator">**</span> <span class="ruby-value">2</span>) <span class="ruby-operator">+</span> (<span class="ruby-identifier">y</span> <span class="ruby-operator">**</span> <span class="ruby-value">2</span>)
+<span class="ruby-identifier">f</span>.<span class="ruby-identifier">call</span>({<span class="ruby-identifier">x</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>, <span class="ruby-identifier">y</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">2</span>})
+<span class="ruby-comment"># =&gt; 2</span>
+</pre>
+<ul><li>
+<p><strong>argument</strong>: <code>Hash</code> with feed dictionary</p>
+</li><li>
+<p><strong>returns</strong>: <code>Numeric</code></p>
+</li></ul>
           
           
 
@@ -446,9 +466,13 @@ operates on the graph, not on the math See `CAS::equal`, etc.</p>
 
         <div class="method-description">
           
-          <p>Returns `TrueClass` if argument of the function is equal to `self`</p>
-
-<p>&lt;- `CAS::Op` -&gt; `TrueClass` or `FalseClass`</p>
+          <p>Returns <code>TrueClass</code> if argument of the function is equal to
+<code>self</code></p>
+<ul><li>
+<p><strong>argument</strong>: <code>CAS::Op</code></p>
+</li><li>
+<p><strong>returns</strong>: <code>TrueClass</code> or <code>FalseClass</code></p>
+</li></ul>
           
           
 
@@ -483,16 +507,16 @@ operates on the graph, not on the math See `CAS::equal`, etc.</p>
           
           <p>Returns the derivative of a variable</p>
 
-<p>“`</p>
-
 <pre>dx      dx
--- = 1; -- = 0
-dx      dy</pre>
-
-<p>“`</p>
-
-<p>&lt;- `CAS::Op` for the derivative denominator -&gt; `CAS::Constant`, 0 if
-not depended, 1 if dependent</p>
+ -- = 1; -- = 0
+ dx      dy</pre>
+<ul><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> for the derivative
+denominator</p>
+</li><li>
+<p><strong>returns</strong>: <code>CAS::Constant</code>, 0 if not depended, 1
+if dependent</p>
+</li></ul>
           
           
 
@@ -526,8 +550,9 @@ not depended, 1 if dependent</p>
         <div class="method-description">
           
           <p>Return the local Graphviz node of the tree</p>
-
-<p>-&gt; `String` of local Graphiz node</p>
+<ul><li>
+<p><strong>returns</strong>: <code>String</code> of local Graphiz node</p>
+</li></ul>
           
           
 
@@ -561,8 +586,9 @@ not depended, 1 if dependent</p>
         <div class="method-description">
           
           <p>Inspector for the current object</p>
-
-<p>-&gt; `String`</p>
+<ul><li>
+<p><strong>returns</strong>: <code>String</code></p>
+</li></ul>
           
           
 
@@ -596,9 +622,10 @@ not depended, 1 if dependent</p>
         <div class="method-description">
           
           <p>Simplification callback. The only possible simplification is returning
-`self`</p>
-
-<p>-&gt; `CAS::Variable` as `self`</p>
+<code>self</code></p>
+<ul><li>
+<p><strong>returns</strong>: <code>CAS::Variable</code> as <code>self</code></p>
+</li></ul>
           
           
 
@@ -633,8 +660,11 @@ not depended, 1 if dependent</p>
           
           <p>Terminal substitutions for variables. If input datatable contains the
 variable will perform the substitution with the value.</p>
-
-<p>&lt;- `Hash` of substitutions -&gt; `CAS::Op` of substitutions</p>
+<ul><li>
+<p><strong>argument</strong>: <code>Hash</code> of substitutions</p>
+</li><li>
+<p><strong>returns</strong>: <code>CAS::Op</code> of substitutions</p>
+</li></ul>
           
           
 
@@ -676,9 +706,12 @@ variable will perform the substitution with the value.</p>
 
         <div class="method-description">
           
-          <p>Convert expression to code (internal, for `CAS::Op#to_proc` method)</p>
-
-<p>-&gt; `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`</p>
+          <p>Convert expression to code (internal, for <code>CAS::Op#to_proc</code>
+method)</p>
+<ul><li>
+<p><strong>returns</strong>: <code>String</code> that represent Ruby code to
+be parsed in <code>CAS::Op#to_proc</code></p>
+</li></ul>
           
           
 
@@ -712,8 +745,9 @@ variable will perform the substitution with the value.</p>
         <div class="method-description">
           
           <p>Returns the latex representation of the current <a href="Op.html">Op</a>.</p>
-
-<p>-&gt; `String`</p>
+<ul><li>
+<p><strong>returns</strong>: <code>String</code></p>
+</li></ul>
           
           
 
@@ -747,8 +781,9 @@ variable will perform the substitution with the value.</p>
         <div class="method-description">
           
           <p>Convert expression to string</p>
-
-<p>-&gt; `String` to print on screen</p>
+<ul><li>
+<p><strong>returns</strong>: <code>String</code> to print on screen</p>
+</li></ul>
           
           
 

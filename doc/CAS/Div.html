@@ -95,12 +95,8 @@
 
   <section class="description">
     
-<p>“`</p>
-
-<pre class="ruby"><span class="ruby-identifier">___</span>  <span class="ruby-identifier">_</span>
-</pre>
-
-<p>|   (_)_ __ | |) | \ V / |<em>_</em>/|_|_/ “`</p>
+<p>Division between two functions. A function divided by zero it is considered
+as an Infinity.</p>
 
   </section>
 
@@ -136,13 +132,23 @@
 
         <div class="method-description">
           
-          <p>Same as `CAS::Op`</p>
+          <p>Call resolves the operation tree in a <code>Numeric</code> (if
+<code>Fixnum</code>) or <code>Float</code> (depends upon promotions). As
+input, it requires an hash with <code>CAS::Variable</code> or
+<code>CAS::Variable#name</code> as keys, and a <code>Numeric</code> as a
+value. In this case it will call the <code>Fixnum#overloaded_plus</code>,
+that is the old plus function.</p>
+<ul><li>
+<p><strong>argument</strong>: <code>Hash</code> with feed dictionary</p>
+</li><li>
+<p><strong>returns</strong>: <code>Numeric</code></p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="call-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 282</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 387</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">f</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">f</span>, <span class="ruby-constant">Hash</span>)
 
@@ -171,19 +177,16 @@
 
         <div class="method-description">
           
-          <p>Performs the division between two `CAS::Op`</p>
+          <p>Performs the division between two <code>CAS::Op</code></p>
 
-<p>“`</p>
-
-<pre class="ruby"><span class="ruby-identifier">d</span>
-</pre>
-
-<p>—- (f(x) / g(x)) = (f&#39;(x) * g(x) - f(x) * g&#39;(x))/(g(x)^2)</p>
-
-<pre class="ruby"><span class="ruby-identifier">dx</span>
-</pre>
-
-<p>“`</p>
+<pre>d
+---- (f(x) / g(x)) = (f&#39;(x) * g(x) - f(x) * g&#39;(x))/(g(x)^2)
+ dx</pre>
+<ul><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> argument of derivative</p>
+</li><li>
+<p><strong>returns</strong>: <code>CAS::Op</code> derivative</p>
+</li></ul>
           
           
             <div class="method-calls-super">
@@ -194,7 +197,7 @@
 
           
           <div class="method-source-code" id="diff-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 270</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 368</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-identifier">diff_x</span>, <span class="ruby-identifier">diff_y</span> = <span class="ruby-keyword">super</span> <span class="ruby-identifier">v</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">diff_y</span> <span class="ruby-operator">==</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>
@@ -228,7 +231,22 @@
 
         <div class="method-description">
           
-          <p>Same as `CAS::Op`</p>
+          <p>Same as <code>CAS::Op</code></p>
+
+<p>Simplifcation engine supports:</p>
+<ul><li>
+<p>0 / y = 0</p>
+</li><li>
+<p>x / 0 = Inf</p>
+</li><li>
+<p>x / 1 = x</p>
+</li><li>
+<p>x / Inf = 0</p>
+</li><li>
+<p>a / b = c (constants reduction)</p>
+</li><li>
+<p><strong>returns</strong>: <code>CAS::Op</code> simplified version</p>
+</li></ul>
           
           
             <div class="method-calls-super">
@@ -239,7 +257,7 @@
 
           
           <div class="method-source-code" id="simplify-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 294</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 411</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">simplify</span>
   <span class="ruby-keyword">super</span>
   <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span> <span class="ruby-operator">==</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>
@@ -272,13 +290,18 @@
 
         <div class="method-description">
           
-          <p>Same as `CAS::Op`</p>
+          <p>Convert expression to code (internal, for <code>CAS::Op#to_proc</code>
+method)</p>
+<ul><li>
+<p><strong>returns</strong>: <code>String</code> that represent Ruby code to
+be parsed in <code>CAS::Op#to_proc</code></p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="to_code-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 305</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 424</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_code</span>
   <span class="ruby-node">&quot;(#{@x.to_code} / #{@y.to_code})&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -305,13 +328,16 @@
 
         <div class="method-description">
           
-          <p>Returns the latex reppresentation of the current <a href="Op.html">Op</a></p>
+          <p>Returns the latex representation of the current <a href="Op.html">Op</a>.</p>
+<ul><li>
+<p><strong>returns</strong>: <code>String</code></p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="to_latex-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 310</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 431</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_latex</span>
   <span class="ruby-node">&quot;\\dfrac{#{@x.to_latex}}{#{@y.to_latex}}&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -338,13 +364,16 @@
 
         <div class="method-description">
           
-          <p>Same as `CAS::Op`</p>
+          <p>Convert expression to string</p>
+<ul><li>
+<p><strong>returns</strong>: <code>String</code> to print on screen</p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 289</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 396</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
   <span class="ruby-node">&quot;(#{@x}) / (#{@y})&quot;</span>
 <span class="ruby-keyword">end</span></pre>

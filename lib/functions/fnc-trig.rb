@@ -20,8 +20,8 @@ module CAS
     # dx
     # ```
     #
-    # <- `CAS::Op` object of the derivative
-    # -> `CAS::Op` a derivated object, or `CAS::Zero` for constants
+    #  * **argument**: `CAS::Op` object of the derivative
+    #  * **returns**: `CAS::Op` a derivated object, or `CAS::Zero` for constants
     def diff(v)
       if @x.depend? v
         return @x.diff(v) * CAS.cos(@x)
@@ -35,8 +35,8 @@ module CAS
     # As input, it requires an hash with `CAS::Variable` or `CAS::Variable#name`
     # as keys, and a `Numeric` as a value
     #
-    # <- `Hash` with feed dictionary
-    # -> `Numeric`
+    #  * **argument**: `Hash` with feed dictionary
+    #  * **returns**: `Numeric`
     def call(f)
       CAS::Help.assert(f, Hash)
       Math::sin(@x.call(f))
@@ -44,7 +44,7 @@ module CAS
 
     # Convert expression to string
     #
-    # -> `String` to print on screen
+    #  * **returns**: `String` to print on screen
     def to_s
       "sin(#{@x})"
     end
@@ -53,7 +53,7 @@ module CAS
     # until all possible simplification are performed (thus the execution
     # time is not deterministic).
     #
-    # -> `CAS::Op` simplified version
+    #  * **returns**: `CAS::Op` simplified version
     def simplify
       super
       return @x.x if @x.is_a? CAS::Asin
@@ -66,14 +66,14 @@ module CAS
 
     # Convert expression to code (internal, for `CAS::Op#to_proc` method)
     #
-    # -> `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
+    #  * **returns**: `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
     def to_code
       "Math::sin(#{@x.to_code})"
     end
 
     # Returns the latex representation of the current Op.
     #
-    # -> `String`
+    #  * **returns**: `String`
     def to_latex
       "\\sin\\left( #{@x.to_latex} \\right)"
     end
@@ -81,8 +81,8 @@ module CAS
 
   # Shortcut for `CAS::Sin#new`
   #
-  # <- `CAS::Op` argument of the function
-  # -> `CAS::Sin` operation
+  #  * **argument**: `CAS::Op` argument of the function
+  #  * **returns**: `CAS::Sin` operation
   def self.sin(x)
     CAS::Sin.new x
   end
@@ -99,8 +99,8 @@ module CAS
     # Return the derivative of the `arcsin(x)` function using the chain
     # rule. The input is a `CAS::Op`
     #
-    # <- `CAS::Op` object of the derivative
-    # -> `CAS::Op` a derivated object, or `CAS::Zero` for constants
+    #  * **argument**: `CAS::Op` object of the derivative
+    #  * **returns**: `CAS::Op` a derivated object, or `CAS::Zero` for constants
     def diff(v)
       if @x.depend? v
         return @x.diff(v) / CAS.sqrt(CAS::One - CAS.pow(@x, CAS::Two))
@@ -114,8 +114,8 @@ module CAS
     # As input, it requires an hash with `CAS::Variable` or `CAS::Variable#name`
     # as keys, and a `Numeric` as a value
     #
-    # <- `Hash` with feed dictionary
-    # -> `Numeric`
+    #  * **argument**: `Hash` with feed dictionary
+    #  * **returns**: `Numeric`
     def call(f)
       CAS::Help.assert(f, Hash)
       Math::acos(@x.call(f))
@@ -123,7 +123,7 @@ module CAS
 
     # Convert expression to string
     #
-    # -> `String` to print on screen
+    #  * **returns**: `String` to print on screen
     def to_s
       "asin(#{@x})"
     end
@@ -132,7 +132,7 @@ module CAS
     # until all possible simplification are performed (thus the execution
     # time is not deterministic).
     #
-    # -> `CAS::Op` simplified version
+    #  * **returns**: `CAS::Op` simplified version
     def simplify
       super
       return @x.x if @x.is_a? CAS::Sin
@@ -145,14 +145,14 @@ module CAS
 
     # Convert expression to code (internal, for `CAS::Op#to_proc` method)
     #
-    # -> `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
+    #  * **returns**: `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
     def to_code
       "Math::asin(#{@x.to_code})"
     end
 
     # Returns the latex representation of the current Op.
     #
-    # -> `String`
+    #  * **returns**: `String`
     def to_latex
       "\\arcsin\\left( #{@x.to_latex} \\right)"
     end
@@ -160,8 +160,8 @@ module CAS
 
   # Shortcut for `CAS::Asin#new`
   #
-  # <- `CAS::Op` argument of the function
-  # -> `CAS::Asin` operation
+  #  * **argument**: `CAS::Op` argument of the function
+  #  * **returns**: `CAS::Asin` operation
   def self.asin(x)
     CAS::Asin.new x
   end
@@ -186,8 +186,8 @@ module CAS
     # dx
     # ```
     #
-    # <- `CAS::Op` object of the derivative
-    # -> `CAS::Op` a derivated object, or `CAS::Zero` for constants
+    #  * **argument**: `CAS::Op` object of the derivative
+    #  * **returns**: `CAS::Op` a derivated object, or `CAS::Zero` for constants
     def diff(v)
       if @x.depend? v
         return CAS.invert(@x.diff(v) * CAS.sin(@x))
@@ -201,8 +201,8 @@ module CAS
     # As input, it requires an hash with `CAS::Variable` or `CAS::Variable#name`
     # as keys, and a `Numeric` as a value
     #
-    # <- `Hash` with feed dictionary
-    # -> `Numeric`
+    #  * **argument**: `Hash` with feed dictionary
+    #  * **returns**: `Numeric`
     def call(f)
       CAS::Help.assert(f, Hash)
       Math::cos(@x.call(f))
@@ -210,7 +210,7 @@ module CAS
 
     # Convert expression to string
     #
-    # -> `String` to print on screen
+    #  * **returns**: `String` to print on screen
     def to_s
       "cos(#{@x})"
     end
@@ -219,7 +219,7 @@ module CAS
     # until all possible simplification are performed (thus the execution
     # time is not deterministic).
     #
-    # -> `CAS::Op` simplified version
+    #  * **returns**: `CAS::Op` simplified version
     def simplify
       super
       return @x.x if @x.is_a? CAS::Acos
@@ -232,14 +232,14 @@ module CAS
 
     # Convert expression to code (internal, for `CAS::Op#to_proc` method)
     #
-    # -> `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
+    #  * **returns**: `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
     def to_code
       "Math::cos(#{@x.to_code})"
     end
 
     # Returns the latex representation of the current Op.
     #
-    # -> `String`
+    #  * **returns**: `String`
     def to_latex
       "\\cos\\left( #{@x.to_latex} \\right)"
     end
@@ -247,8 +247,8 @@ module CAS
 
   # Shortcut for `CAS::Cos#new`
   #
-  # <- `CAS::Op` argument of the function
-  # -> `CAS::Cos` operation
+  #  * **argument**: `CAS::Op` argument of the function
+  #  * **returns**: `CAS::Cos` operation
   def self.cos(x)
     CAS::Cos.new x
   end
@@ -275,8 +275,8 @@ module CAS
     # As input, it requires an hash with `CAS::Variable` or `CAS::Variable#name`
     # as keys, and a `Numeric` as a value
     #
-    # <- `Hash` with feed dictionary
-    # -> `Numeric`
+    #  * **argument**: `Hash` with feed dictionary
+    #  * **returns**: `Numeric`
     def call(f)
       CAS::Help.assert(f, Hash)
       return Math::acos(@x.call(f))
@@ -284,7 +284,7 @@ module CAS
 
     # Convert expression to string
     #
-    # -> `String` to print on screen
+    #  * **returns**: `String` to print on screen
     def to_s
       "acos(#{@x})"
     end
@@ -293,7 +293,7 @@ module CAS
     # until all possible simplification are performed (thus the execution
     # time is not deterministic).
     #
-    # -> `CAS::Op` simplified version
+    #  * **returns**: `CAS::Op` simplified version
     def simplify
       super
       return @x.x if @x.is_a? CAS::Cos
@@ -306,14 +306,14 @@ module CAS
 
     # Convert expression to code (internal, for `CAS::Op#to_proc` method)
     #
-    # -> `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
+    #  * **returns**: `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
     def to_code
       "Math::acos(#{@x.to_code})"
     end
 
     # Returns the latex representation of the current Op.
     #
-    # -> `String`
+    #  * **returns**: `String`
     def to_latex
       "\\arccos\\left( #{@x.to_latex} \\right)"
     end
@@ -321,8 +321,8 @@ module CAS
 
   # Shortcut for `CAS::Acos#new`
   #
-  # <- `CAS::Op` argument of the function
-  # -> `CAS::Acos` operation
+  #  * **argument**: `CAS::Op` argument of the function
+  #  * **returns**: `CAS::Acos` operation
   def self.acos(x)
     CAS::Acos.new x
   end
@@ -347,8 +347,8 @@ module CAS
     # dx             cos²(x)
     # ```
     #
-    # <- `CAS::Op` object of the derivative
-    # -> `CAS::Op` a derivated object, or `CAS::Zero` for constants
+    #  * **argument**: `CAS::Op` object of the derivative
+    #  * **returns**: `CAS::Op` a derivated object, or `CAS::Zero` for constants
     def diff(v)
       if @x.depend? v
         return @x.diff(v) * CAS.pow(CAS::One/CAS.cos(@x), CAS::Two)
@@ -362,8 +362,8 @@ module CAS
     # As input, it requires an hash with `CAS::Variable` or `CAS::Variable#name`
     # as keys, and a `Numeric` as a value
     #
-    # <- `Hash` with feed dictionary
-    # -> `Numeric`
+    #  * **argument**: `Hash` with feed dictionary
+    #  * **returns**: `Numeric`
     def call(f)
       CAS::Help.assert(f, Hash)
       Math::tan(@x.call(f))
@@ -371,7 +371,7 @@ module CAS
 
     # Convert expression to string
     #
-    # -> `String` to print on screen
+    #  * **returns**: `String` to print on screen
     def to_s
       "tan(#{@x})"
     end
@@ -380,7 +380,7 @@ module CAS
     # until all possible simplification are performed (thus the execution
     # time is not deterministic).
     #
-    # -> `CAS::Op` simplified version
+    #  * **returns**: `CAS::Op` simplified version
     def simplify
       super
       return @x.x if @x.is_a? CAS::Atan
@@ -393,7 +393,7 @@ module CAS
 
     # Convert expression to code (internal, for `CAS::Op#to_proc` method)
     #
-    # -> `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
+    #  * **returns**: `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
     def to_code
       "Math::tan(#{@x.to_code})"
     end
@@ -406,8 +406,8 @@ module CAS
 
   # Shortcut for `CAS::Tan#new`
   #
-  # <- `CAS::Op` argument of the function
-  # -> `CAS::Tan` operation
+  #  * **argument**: `CAS::Op` argument of the function
+  #  * **returns**: `CAS::Tan` operation
   def self.tan(x)
     CAS::Tan.new x
   end
@@ -425,8 +425,8 @@ module CAS
     # rule. The input is a `CAS::Op` because it can handle derivatives
     # with respect to functions.
     #
-    # <- `CAS::Op` object of the derivative
-    # -> `CAS::Op` a derivated object, or `CAS::Zero` for constants
+    #  * **argument**: `CAS::Op` object of the derivative
+    #  * **returns**: `CAS::Op` a derivated object, or `CAS::Zero` for constants
     def diff(v)
       if @x.depend? v
         return @x.diff(v) / (CAS.pow(@x, CAS::Two) + CAS::One)
@@ -440,8 +440,8 @@ module CAS
     # As input, it requires an hash with `CAS::Variable` or `CAS::Variable#name`
     # as keys, and a `Numeric` as a value
     #
-    # <- `Hash` with feed dictionary
-    # -> `Numeric`
+    #  * **argument**: `Hash` with feed dictionary
+    #  * **returns**: `Numeric`
     def call(f)
       CAS::Help.assert(f, Hash)
       Math::atan(@x.call(f))
@@ -449,7 +449,7 @@ module CAS
 
     # Convert expression to string
     #
-    # -> `String` to print on screen
+    #  * **returns**: `String` to print on screen
     def to_s
       "atan(#{@x})"
     end
@@ -458,7 +458,7 @@ module CAS
     # until all possible simplification are performed (thus the execution
     # time is not deterministic).
     #
-    # -> `CAS::Op` simplified version
+    #  * **returns**: `CAS::Op` simplified version
     def simplify
       super
       return @x.x if @x.is_a? CAS::Tan
@@ -472,14 +472,14 @@ module CAS
 
     # Convert expression to code (internal, for `CAS::Op#to_proc` method)
     #
-    # -> `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
+    #  * **returns**: `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
     def to_code
       "Math::atan(#{@x.to_code})"
     end
 
     # Returns the latex representation of the current Op.
     #
-    # -> `String`
+    #  * **returns**: `String`
     def to_latex
       "\\arctan\\left( #{@x.to_latex} \\right)"
     end
@@ -487,8 +487,8 @@ module CAS
 
   # Shortcut for `CAS::Atan#new`
   #
-  # <- `CAS::Op` argument of the function
-  # -> `CAS::Atan` operation
+  #  * **argument**: `CAS::Op` argument of the function
+  #  * **returns**: `CAS::Atan` operation
   def self.atan(x)
     CAS::Atan.new x
   end

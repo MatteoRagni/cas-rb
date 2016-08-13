@@ -125,14 +125,17 @@ equal function</p>
         <div class="method-description">
           
           <p>Function call will evaluate left and right functions to solve the relation</p>
-
-<p>&lt;- `Hash` with feed dictionary -&gt; `Trueclass` or `Falseclass`</p>
+<ul><li>
+<p><strong>argument</strong>: <code>Hash</code> with feed dictionary</p>
+</li><li>
+<p><strong>returns</strong>: <code>Trueclass</code> or <code>Falseclass</code></p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="call-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 271</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 274</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span> <span class="ruby-identifier">fd</span>, <span class="ruby-constant">Hash</span>
 
@@ -167,7 +170,7 @@ equal function</p>
 
           
           <div class="method-source-code" id="representative-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 259</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 262</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">representative</span>
   <span class="ruby-ivar">@cond_type</span> = <span class="ruby-string">&quot;&lt;=&quot;</span>
   <span class="ruby-ivar">@cond_repr</span> = <span class="ruby-string">&quot;≤&quot;</span>

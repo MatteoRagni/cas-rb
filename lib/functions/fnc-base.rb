@@ -5,7 +5,6 @@ module CAS
   # / __|_  _ _ __
   # \__ \ || | '  \
   # |___/\_,_|_|_|_|
-  #
 
   ##
   # **Sum basic operation**. As for now it is implemented as a simple
@@ -18,6 +17,9 @@ module CAS
     # ---- (f(x) + g(x)) = f'(x) + g'(x)
     #  dx
     # ```
+    #
+    #  * **argument**: `CAS::Op` argument of derivative
+    #  * **returns**: `CAS::Op` derivative
     def diff(v)
       left, right = super v
 
@@ -26,13 +28,22 @@ module CAS
       left + right
     end
 
-    # Same as `CAS::Op`
+    # Call resolves the operation tree in a `Numeric` (if `Fixnum`)
+    # or `Float` (depends upon promotions).
+    # As input, it requires an hash with `CAS::Variable` or `CAS::Variable#name`
+    # as keys, and a `Numeric` as a value. In this case it will call
+    # the `Fixnum#overloaded_plus`, that is the old plus function.
+    #
+    #  * **argument**: `Hash` with feed dictionary
+    #  * **returns**: `Numeric`
     def call(f)
       CAS::Help.assert(f, Hash)
       return @x.call(f).overloaded_plus(@y.call(f))
     end
 
-    # Same as `CAS::Op`
+    # Convert expression to string
+    #
+    #  * **returns**: `String` to print on screen
     def to_s
       "(#{@x} + #{@y})"
     end
@@ -41,12 +52,14 @@ module CAS
     #
     # Simplifcation engine supports:
     #
-    # * x + 0 = x
-    # * 0 + y = y
-    # * x + x = 2 x
-    # * x + (-x) = 0
-    # * x + (-y) = x - y
-    # * 1 + 2 = 3 (constants reduction)
+    #  * x + 0 = x
+    #  * 0 + y = y
+    #  * x + x = 2 x
+    #  * x + (-x) = 0
+    #  * x + (-y) = x - y
+    #  * 1 + 2 = 3 (constants reduction)
+    #
+    #  * **returns**: `CAS::Op` simplified version
     def simplify
       super
       return @y if @x == CAS::Zero
@@ -58,12 +71,16 @@ module CAS
       return self
     end
 
-    # Same as `CAS::Op`
+    # Convert expression to code (internal, for `CAS::Op#to_proc` method)
+    #
+    #  * **returns**: `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
     def to_code
       "(#{@x.to_code} + #{@y.to_code})"
     end
 
-    # Returns a latex represenntation of the current Op
+    # Returns the latex representation of the current Op.
+    #
+    #  * **returns**: `String`
     def to_latex
       "\\left(#{@x.to_latex} + #{@y.to_latex}\\right)"
     end
@@ -75,7 +92,8 @@ module CAS
   # |___/|_|_| |_|
 
   ##
-  # Diff basic operation. It's a binary operation
+  # **Difference basic operation**. It's a binary operation. This cannot
+  # be implemented as a n-ary op, thus will not be changed
   class Diff < CAS::BinaryOp
     # Performs the difference between two `CAS::Op`s
     #
@@ -84,6 +102,9 @@ module CAS
     # ---- (f(x) - g(x)) = f'(x) - g'(x)
     #  dx
     # ```
+    #
+    #  * **argument**: `CAS::Op` argument of derivative
+    #  * **returns**: `CAS::Op` derivative
     def diff(v)
       left, right = super v
       return left if right == CAS::Zero
@@ -104,6 +125,16 @@ module CAS
     end
 
     # Same as `CAS::Op`
+    #
+    # Simplifcation engine supports:
+    #
+    #  * 0 - y = -y
+    #  * x - 0 = x
+    #  * a - b = c (constants reduction)
+    #  * x - x = 0
+    #  * x - (-y) = x + y
+    #
+    #  * **returns**: `CAS::Op` simplified version
     def simplify
       super
       return CAS.invert(@y) if @x == CAS::Zero
@@ -115,12 +146,16 @@ module CAS
       return self
     end
 
-    # Same as `CAS::Op`
+    # Convert expression to code (internal, for `CAS::Op#to_proc` method)
+    #
+    #  * **returns**: `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
     def to_code
       "(#{@x.to_code} - #{@y.to_code})"
     end
 
-    # Returns a latex representation of the current Op
+    # Returns the latex representation of the current Op.
+    #
+    #  * **returns**: `String`
     def to_latex
       "\\left(#{@x.to_latex} - #{@y.to_latex}\\right)"
     end
@@ -142,6 +177,9 @@ module CAS
     # ---- (f(x) * g(x)) = f'(x) * g(x) + f(x) * g'(x)
     #  dx
     # ```
+    #
+    #  * **argument**: `CAS::Op` argument of derivative
+    #  * **returns**: `CAS::Op` derivative
     def diff(v)
       left, right = super v
       return left * @y if right == CAS::Zero
@@ -149,22 +187,41 @@ module CAS
       (left * @y) + (right * @x)
     end
 
-    # Same as `CAS::Op`
+    # Call resolves the operation tree in a `Numeric` (if `Fixnum`)
+    # or `Float` (depends upon promotions).
+    # As input, it requires an hash with `CAS::Variable` or `CAS::Variable#name`
+    # as keys, and a `Numeric` as a value. In this case it will call
+    # the `Fixnum#overloaded_plus`, that is the old plus function.
+    #
+    #  * **argument**: `Hash` with feed dictionary
+    #  * **returns**: `Numeric`
     def call(f)
       CAS::Help.assert(f, Hash)
 
       return @x.call(f).overloaded_mul(@y.call(f))
     end
 
-    # Same as `CAS::Op`
+    # Convert expression to string
+    #
+    #  * **returns**: `String` to print on screen
     def to_s
       "(#{@x} * #{@y})"
     end
 
     # Same as `CAS::Op`
+    #
+    # Simplifcation engine supports:
+    #
+    #  * x * 0 = x * y = 0
+    #  * 1 * y = y
+    #  * x * 1 = x
+    #  * x * x = x²
+    #  * a * b = c (constants reduction)
+    #
+    #  * **returns**: `CAS::Op` simplified version
     def simplify
       super
-      return CAS::Zero if @x == CAS::Zero or @y == CAS::Zero
+      return CAS::Zero if (@x == CAS::Zero or @y == CAS::Zero)
       return @y if @x == CAS::One
       return @x if @y == CAS::One
       return @x ** 2.0 if @x == @y
@@ -172,23 +229,28 @@ module CAS
       return self
     end
 
-    # Same as `CAS::Op`
+    # Convert expression to code (internal, for `CAS::Op#to_proc` method)
+    #
+    #  * **returns**: `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
     def to_code
       "(#{@x.to_code} * #{@y.to_code})"
     end
 
-    # Returns a latex represstation of the Op
+    # Returns the latex representation of the current Op.
+    #
+    #  * **returns**: `String`
     def to_latex
       "#{@x.to_latex}\\,#{@y.to_latex}"
     end
   end # Prod
 
-  # ```
   #  ___
   # | _ \_____ __ __
   # |  _/ _ \ V  V /
   # |_| \___/\_/\_/
-  # ```
+
+  ##
+  # Power function.
   class Pow < CAS::BinaryOp
     # Performs the power between two `CAS::Op`
     #
@@ -205,6 +267,9 @@ module CAS
     # ---- (f(x)^g(x)) = (f(x)^g(x)) * (g'(x) * ln f(x) + g(x) * f'(x) / f(x))
     #  dx
     # ```
+    #
+    #  * **argument**: `CAS::Op` argument of derivative
+    #  * **returns**: `CAS::Op` derivative
     def diff(v)
       diff_x, diff_y = super v
       if diff_y == CAS::Zero
@@ -216,18 +281,37 @@ module CAS
       end
     end
 
-    # Same as `CAS::Op`
+    # Call resolves the operation tree in a `Numeric` (if `Fixnum`)
+    # or `Float` (depends upon promotions).
+    # As input, it requires an hash with `CAS::Variable` or `CAS::Variable#name`
+    # as keys, and a `Numeric` as a value. In this case it will call
+    # the `Fixnum#overloaded_plus`, that is the old plus function.
+    #
+    #  * **argument**: `Hash` with feed dictionary
+    #  * **returns**: `Numeric`
     def call(f)
       CAS::Help.assert(f, Hash)
       @x.call(f).overloaded_pow(@y.call(f))
     end
 
-    # Same as `CAS::Op`
+    # Convert expression to string
+    #
+    #  * **returns**: `String` to print on screen
     def to_s
       "(#{@x})^(#{@y})"
     end
 
     # Same as `CAS::Op`
+    #
+    # Simplifcation engine supports:
+    #
+    #  * 0 ^ y = 0
+    #  * x ^ 0 = 1
+    #  * a ^ b = c (constants reduction)
+    #  * x ^ 1 = x
+    #  * 1 ^ y = 1
+    #
+    #  * **returns**: `CAS::Op` simplified version
     def simplify
       super
       return CAS::Zero if @x == CAS::Zero
@@ -238,27 +322,38 @@ module CAS
       return self
     end
 
-    # Same as `CAS::Op`
+    # Convert expression to code (internal, for `CAS::Op#to_proc` method)
+    #
+    #  * **returns**: `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
     def to_code
       "(#{@x.to_code} ** #{@y.to_code})"
     end
 
-    # Returns the latex representation of the op
+    # Returns the latex representation of the current Op.
+    #
+    #  * **returns**: `String`
     def to_latex
       "{#{@x.to_latex}}^{#{@y.to_latex}}"
     end
   end
 
+  # Shortcut for `CAS::Pow` initializer
+  #
+  #  * **argument**: `CAS::Op` base
+  #  * **argument**: `CAS::Op` exponent
+  #  * **returns**: `CAS::Pow` new instance
   def self.pow(x, y)
     CAS::Pow.new x, y
   end
 
-  # ```
   #  ___  _
   # |   \(_)_ __
   # | |) | \ V /
   # |___/|_|\_/
-  # ```
+
+  ##
+  # Division between two functions. A function divided by zero it is considered
+  # as an Infinity.
   class Div < CAS::BinaryOp
     # Performs the division between two `CAS::Op`
     #
@@ -267,6 +362,9 @@ module CAS
     # ---- (f(x) / g(x)) = (f'(x) * g(x) - f(x) * g'(x))/(g(x)^2)
     #  dx
     # ```
+    #
+    #  * **argument**: `CAS::Op` argument of derivative
+    #  * **returns**: `CAS::Op` derivative
     def diff(v)
       diff_x, diff_y = super v
       if diff_y == CAS::Zero
@@ -278,19 +376,38 @@ module CAS
       end
     end
 
-    # Same as `CAS::Op`
+    # Call resolves the operation tree in a `Numeric` (if `Fixnum`)
+    # or `Float` (depends upon promotions).
+    # As input, it requires an hash with `CAS::Variable` or `CAS::Variable#name`
+    # as keys, and a `Numeric` as a value. In this case it will call
+    # the `Fixnum#overloaded_plus`, that is the old plus function.
+    #
+    #  * **argument**: `Hash` with feed dictionary
+    #  * **returns**: `Numeric`
     def call(f)
       CAS::Help.assert(f, Hash)
 
       @x.call(f).overloaded_div(@y.call(f))
     end
 
-    # Same as `CAS::Op`
+    # Convert expression to string
+    #
+    #  * **returns**: `String` to print on screen
     def to_s
       "(#{@x}) / (#{@y})"
     end
 
     # Same as `CAS::Op`
+    #
+    # Simplifcation engine supports:
+    #
+    #  * 0 / y = 0
+    #  * x / 0 = Inf
+    #  * x / 1 = x
+    #  * x / Inf = 0
+    #  * a / b = c (constants reduction)
+    #
+    #  * **returns**: `CAS::Op` simplified version
     def simplify
       super
       return CAS::Zero if @x == CAS::Zero
@@ -301,12 +418,16 @@ module CAS
       return self
     end
 
-    # Same as `CAS::Op`
+    # Convert expression to code (internal, for `CAS::Op#to_proc` method)
+    #
+    #  * **returns**: `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
     def to_code
       "(#{@x.to_code} / #{@y.to_code})"
     end
 
-    # Returns the latex reppresentation of the current Op
+    # Returns the latex representation of the current Op.
+    #
+    #  * **returns**: `String`
     def to_latex
       "\\dfrac{#{@x.to_latex}}{#{@y.to_latex}}"
     end
@@ -317,6 +438,10 @@ module CAS
   # \__ \/ _` | '_|  _|
   # |___/\__, |_|  \__|
   #         |_|
+
+  ##
+  # Square Root of a function. Even if it can be implemented as a power function,
+  # it is a separated class.
   class Sqrt < CAS::Op
     # Performs the square root between two `CAS::Op`
     #
@@ -325,6 +450,9 @@ module CAS
     # ---- √f(x) = 1/2 * f'(x) * √f(x)
     #  dx
     # ```
+    #
+    #  * **argument**: `CAS::Op` argument of derivative
+    #  * **returns**: `CAS::Op` derivative
     def diff(v)
       if @x.depend? v
         return (@x.diff(v) / (CAS.const(2.0) * CAS.sqrt(@x)))
@@ -333,19 +461,37 @@ module CAS
       end
     end
 
-    # Same as `CAS::Op`
+    # Call resolves the operation tree in a `Numeric` (if `Fixnum`)
+    # or `Float` (depends upon promotions).
+    # As input, it requires an hash with `CAS::Variable` or `CAS::Variable#name`
+    # as keys, and a `Numeric` as a value. In this case it will call
+    # the `Fixnum#overloaded_plus`, that is the old plus function.
+    #
+    #  * **argument**: `Hash` with feed dictionary
+    #  * **returns**: `Numeric`
     def call(f)
       CAS::Help.assert(f, Hash)
 
       Math::sqrt @x.call(f)
     end
 
-    # Same as `CAS::Op`
+    # Convert expression to string
+    #
+    #  * **returns**: `String` to print on screen
     def to_s
       "√(#{@x})"
     end
 
     # Same as `CAS::Op`
+    #
+    # Simplifcation engine supports:
+    #
+    #  * √(x^z) = x^(z - 1/2)
+    #  * √x = 0
+    #  * √x = 1
+    #  * √a = b (constants reduction)
+    #
+    #  * **returns**: `CAS::Op` simplified version
     def simplify
       super
       return CAS.pow(@x.x, @y - 0.5) if @x.is_a? CAS::Pow
@@ -355,17 +501,25 @@ module CAS
       return self
     end
 
-    # Same as `CAS::Op`
+    # Convert expression to code (internal, for `CAS::Op#to_proc` method)
+    #
+    #  * **returns**: `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
     def to_code
       "Math::sqrt(#{@x.to_code})"
     end
 
-    # Returns the latex representation of the current Op
+    # Returns the latex representation of the current Op.
+    #
+    #  * **returns**: `String`
     def to_latex
       "\\sqrt{#{@x.to_latex}}"
     end
   end # Sqrt
 
+  # Shortcut for `CAS::Sqrt` initializer
+  #
+  #  * **argument**: `CAS::Op` argument of square root
+  #  * **returns**: `CAS::Sqrt` new instance
   def self.sqrt(x)
     CAS::Sqrt.new x
   end
@@ -374,6 +528,10 @@ module CAS
   # |_ _|_ ___ _____ _ _| |_
   #  | || ' \ V / -_) '_|  _|
   # |___|_||_\_/\___|_|  \__|
+
+  ##
+  # Invert is the same as multiply by `-1` a function.
+  # `Invert(x)` is equal to `-x`
   class Invert < CAS::Op
     # Performs the inversion of a `CAS::Op`
     #
@@ -382,6 +540,9 @@ module CAS
     # ---- (-f(x)) = -f'(x)
     #  dx
     # ```
+    #
+    #  * **argument**: `CAS::Op` argument of derivative
+    #  * **returns**: `CAS::Op` derivative
     def diff(v)
       if @x.depend? v
         CAS::const(-1.0) * @x.diff(v)
@@ -390,19 +551,35 @@ module CAS
       end
     end
 
-    # Same as `CAS::Op`
+    # Call resolves the operation tree in a `Numeric` (if `Fixnum`)
+    # or `Float` (depends upon promotions).
+    # As input, it requires an hash with `CAS::Variable` or `CAS::Variable#name`
+    # as keys, and a `Numeric` as a value. In this case it will call
+    # the `Fixnum#overloaded_plus`, that is the old plus function.
+    #
+    #  * **argument**: `Hash` with feed dictionary
+    #  * **returns**: `Numeric`
     def call(f)
       CAS::Help.assert(f, Hash)
 
       -1.0 * @x.call(f)
     end
 
-    # Same as `CAS::Op`
+    # Convert expression to string
+    #
+    #  * **returns**: `String` to print on screen
     def to_s
       "-#{@x}"
     end
 
     # Same as `CAS::Op`
+    #
+    # Simplifcation engine supports:
+    #
+    #  * -(-x) = x
+    #  * -0 = 0
+    #
+    #  * **returns**: `CAS::Op` simplified version
     def simplify
       super
       return @x.x if @x.is_a? CAS::Invert
@@ -412,17 +589,25 @@ module CAS
       CAS::Zero => CAS::Zero
     }
 
-    # Same as `CAS::Op`
+    # Convert expression to code (internal, for `CAS::Op#to_proc` method)
+    #
+    #  * **returns**: `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
     def to_code
       "(-#{@x.to_code})"
     end
 
-    # Returns the latex representation of the current op
+    # Returns the latex representation of the current Op.
+    #
+    #  * **returns**: `String`
     def to_latex
       "-{#{@x.to_latex}}"
     end
   end
 
+  # Shortcut for `CAs::Invert` initializer
+  #
+  #  * **argument**: `CAs::Op` argument of the inversion
+  #  * **returns**: `CAS::Invert` new instance
   def self.invert(x)
     CAS::Invert.new x
   end
@@ -431,6 +616,9 @@ module CAS
   #   /_\ | |__ ___
   #  / _ \| '_ (_-<
   # /_/ \_\_.__/__/
+
+  ##
+  # Absolute value of a function. It can be also implemented as a Piecewise function.
   class Abs < CAS::Op
     # Performs the absolute value of a `CAS::Op`
     #
@@ -439,6 +627,9 @@ module CAS
     # ---- |f(x)| = f'(x) * (f(x) / |f(x)|)
     #  dx
     # ```
+    #
+    #  * **argument**: `CAS::Op` argument of derivative
+    #  * **returns**: `CAS::Op` derivative
     def diff(v)
       if @x.depend? v
         return @x.diff(x) * (@x/CAS.abs(@x))
@@ -447,7 +638,14 @@ module CAS
       end
     end
 
-    # Same as `CAS::Op`
+    # Call resolves the operation tree in a `Numeric` (if `Fixnum`)
+    # or `Float` (depends upon promotions).
+    # As input, it requires an hash with `CAS::Variable` or `CAS::Variable#name`
+    # as keys, and a `Numeric` as a value. In this case it will call
+    # the `Fixnum#overloaded_plus`, that is the old plus function.
+    #
+    #  * **argument**: `Hash` with feed dictionary
+    #  * **returns**: `Numeric`
     def call(f)
       CAS::Help.assert(f, Hash)
 
@@ -455,12 +653,21 @@ module CAS
       return s * @x.call(f)
     end
 
-    # Same as `CAS::Op`
+    # Convert expression to string
+    #
+    #  * **returns**: `String` to print on screen
     def to_s
       "|#{@x}|"
     end
 
     # Same as `CAS::Op`
+    #
+    # Simplifcation engine supports:
+    #
+    #  * |-x| = x
+    #  * |0| = 0
+    #
+    #  * **returns**: `CAS::Op` simplified version
     def simplify
       super
       return CAS.abs(@x.x) if @x.is_a? CAS::Invert
@@ -470,17 +677,25 @@ module CAS
       CAS::Zero => CAS::Zero
     }
 
-    # Same as `CAS::Op`
+    # Convert expression to code (internal, for `CAS::Op#to_proc` method)
+    #
+    #  * **returns**: `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
     def to_code
       "(#{@x.to_code}).abs"
     end
 
-    # Returns the latex representation of the current Op
+    # Returns the latex representation of the current Op.
+    #
+    #  * **returns**: `String`
     def to_latex
       "\\left|#{@x.to_latex}\\right|"
     end
   end
 
+  # Shortcut for `CAs::Abs` initializer
+  #
+  #  * **argument**: `CAs::Op` argument of absolute value
+  #  * **returns**: `CAS::Abs` new instance
   def self.abs(x)
     CAS::Abs.new x
   end

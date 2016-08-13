@@ -95,7 +95,8 @@
 
   <section class="description">
     
-<p>Representation for the `sin(x)` function. It is implemented as a `CAS::Op`</p>
+<p>Representation for the <code>sin(x)</code> function. It is implemented as a
+<code>CAS::Op</code></p>
 
   </section>
 
@@ -131,11 +132,16 @@
 
         <div class="method-description">
           
-          <p>Call resolves the operation tree in a `Numeric` (if `Fixnum`) or `Float`
-(depends upon promotions). As input, it requires an hash with
-`CAS::Variable` or `CAS::Variable#name` as keys, and a `Numeric` as a value</p>
-
-<p>&lt;- `Hash` with feed dictionary -&gt; `Numeric`</p>
+          <p>Call resolves the operation tree in a <code>Numeric</code> (if
+<code>Fixnum</code>) or <code>Float</code> (depends upon promotions). As
+input, it requires an hash with <code>CAS::Variable</code> or
+<code>CAS::Variable#name</code> as keys, and a <code>Numeric</code> as a
+value</p>
+<ul><li>
+<p><strong>argument</strong>: <code>Hash</code> with feed dictionary</p>
+</li><li>
+<p><strong>returns</strong>: <code>Numeric</code></p>
+</li></ul>
           
           
 
@@ -169,19 +175,19 @@
 
         <div class="method-description">
           
-          <p>Return the derivative of the `sin(x)` function using the chain rule. The
-input is a `CAS::Op` because it can handle derivatives with respect to
-functions.</p>
+          <p>Return the derivative of the <code>sin(x)</code> function using the chain
+rule. The input is a <code>CAS::Op</code> because it can handle derivatives
+with respect to functions.</p>
 
-<p>“`</p>
-
-<pre class="ruby"><span class="ruby-identifier">d</span>
-</pre>
-
-<p>– sin(f(x)) = f&#39;(x) cos(fx) dx “`</p>
-
-<p>&lt;- `CAS::Op` object of the derivative -&gt; `CAS::Op` a derivated
-object, or `CAS::Zero` for constants</p>
+<pre>d
+-- sin(f(x)) = f&#39;(x) cos(fx)
+dx</pre>
+<ul><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> object of the derivative</p>
+</li><li>
+<p><strong>returns</strong>: <code>CAS::Op</code> a derivated object, or
+<code>CAS::Zero</code> for constants</p>
+</li></ul>
           
           
 
@@ -221,8 +227,9 @@ object, or `CAS::Zero` for constants</p>
           <p>Simplification callback. It simplify the subgraph of each node until all
 possible simplification are performed (thus the execution time is not
 deterministic).</p>
-
-<p>-&gt; `CAS::Op` simplified version</p>
+<ul><li>
+<p><strong>returns</strong>: <code>CAS::Op</code> simplified version</p>
+</li></ul>
           
           
             <div class="method-calls-super">
@@ -262,9 +269,12 @@ deterministic).</p>
 
         <div class="method-description">
           
-          <p>Convert expression to code (internal, for `CAS::Op#to_proc` method)</p>
-
-<p>-&gt; `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`</p>
+          <p>Convert expression to code (internal, for <code>CAS::Op#to_proc</code>
+method)</p>
+<ul><li>
+<p><strong>returns</strong>: <code>String</code> that represent Ruby code to
+be parsed in <code>CAS::Op#to_proc</code></p>
+</li></ul>
           
           
 
@@ -298,8 +308,9 @@ deterministic).</p>
         <div class="method-description">
           
           <p>Returns the latex representation of the current <a href="Op.html">Op</a>.</p>
-
-<p>-&gt; `String`</p>
+<ul><li>
+<p><strong>returns</strong>: <code>String</code></p>
+</li></ul>
           
           
 
@@ -333,8 +344,9 @@ deterministic).</p>
         <div class="method-description">
           
           <p>Convert expression to string</p>
-
-<p>-&gt; `String` to print on screen</p>
+<ul><li>
+<p><strong>returns</strong>: <code>String</code> to print on screen</p>
+</li></ul>
           
           
 

@@ -10,7 +10,7 @@
 # * `overloaded_div` for `/`
 # * `overloaded_pow` for `**`
 class Float
-  # Setting aliasese
+  # Setting aliases
   alias :overloaded_plus  :+
   alias :overloaded_minus :-
   alias :overloaded_mul   :*

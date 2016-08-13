@@ -142,7 +142,7 @@ sort of better simplifications engine</p>
 
         <div class="method-description">
         
-        
+        <p>List of arguments of the operation</p>
         
         </div>
       </div>
@@ -172,15 +172,18 @@ sort of better simplifications engine</p>
           
           <p>Initialize a new empty N-elements operation container. This is a virtual
 class, and other must inherit from this basical container</p>
-
-<p>&lt;- `Numeric` to be converted in `CAS::Constant` or `CAS::Op` child
-operations -&gt; `CAS::NaryOp` instance</p>
+<ul><li>
+<p><strong>argument</strong>: <code>Numeric</code> to be converted in
+<code>CAS::Constant</code> or <code>CAS::Op</code> child operations</p>
+</li><li>
+<p><strong>returns</strong>: <code>CAS::NaryOp</code> instance</p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 17</span>
+            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 18</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">xs</span>)
   <span class="ruby-ivar">@x</span> = []
   <span class="ruby-identifier">xs</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
@@ -223,16 +226,19 @@ operations -&gt; `CAS::NaryOp` instance</p>
         <div class="method-description">
           
           <p>Equality operator, the standard operator is overloaded :warning: this
-operates on the graph, not on the math See `CAS::equal`, etc.</p>
-
-<p>&lt;- `CAS::Op` to be tested against -&gt; `TrueClass` if equal,
-`FalseClass` if differs</p>
+operates on the graph, not on the math See <code>CAS::equal</code>, etc.</p>
+<ul><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> to be tested against</p>
+</li><li>
+<p><strong>returns</strong>: <code>TrueClass</code> if equal,
+<code>FalseClass</code> if differs</p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="3D-3D-source">
-            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 150</span>
+            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 153</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">op</span>)
   <span class="ruby-comment"># CAS::Help.assert(op, CAS::Op)</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">NaryOp</span>
@@ -267,15 +273,16 @@ operates on the graph, not on the math See `CAS::equal`, etc.</p>
 
         <div class="method-description">
           
-          <p>Returns a list of all `CAS::Variable`s of the current tree</p>
-
-<p>-&gt; `Array` of `CAS::Variable`s</p>
+          <p>Returns a list of all <code>CAS::Variable</code>s of the current tree</p>
+<ul><li>
+<p><strong>returns</strong>: <code>Array</code> of <code>CAS::Variable</code>s</p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="args-source">
-            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 165</span>
+            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 168</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">args</span>
   <span class="ruby-identifier">r</span> = []
   <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">r</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">args</span> }
@@ -304,19 +311,28 @@ operates on the graph, not on the math See `CAS::equal`, etc.</p>
 
         <div class="method-description">
           
-          <p>Call resolves the operation tree in a `Numeric` (if `Fixnum`) or `Float`
-depends upon promotions). As input, it requires an hash with
-`CAS::Variable` or `CAS::Variable#name` as keys, and a `Numeric` as a value</p>
+          <p>Call resolves the operation tree in a <code>Numeric</code> (if
+<code>Fixnum</code>) or <code>Float</code> depends upon promotions). As
+input, it requires an hash with <code>CAS::Variable</code> or
+<code>CAS::Variable#name</code> as keys, and a <code>Numeric</code> as a
+value</p>
 
-<p>“` ruby x, y = <a href="../CAS.html#method-c-vars">CAS.vars</a> :x, :y f =
-(x ** 2) + (y ** 2) f.call({x =&gt; 1, y =&gt; 2}) # =&gt; 2 “` &lt;-
-`Hash` with feed dictionary -&gt; `Array` of `Numeric`</p>
+<pre class="ruby"><span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span> = <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">vars</span> :<span class="ruby-identifier">x</span>, :<span class="ruby-identifier">y</span>
+<span class="ruby-identifier">f</span> = (<span class="ruby-identifier">x</span> <span class="ruby-operator">**</span> <span class="ruby-value">2</span>) <span class="ruby-operator">+</span> (<span class="ruby-identifier">y</span> <span class="ruby-operator">**</span> <span class="ruby-value">2</span>)
+<span class="ruby-identifier">f</span>.<span class="ruby-identifier">call</span>({<span class="ruby-identifier">x</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>, <span class="ruby-identifier">y</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">2</span>})
+<span class="ruby-comment"># =&gt; 2</span>
+</pre>
+<ul><li>
+<p><strong>argument</strong>: <code>Hash</code> with feed dictionary</p>
+</li><li>
+<p><strong>returns</strong>: <code>Array</code> of <code>Numeric</code></p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="call-source">
-            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 77</span>
+            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 78</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">fd</span>, <span class="ruby-constant">Hash</span>)
   <span class="ruby-keyword">return</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>) }
@@ -344,16 +360,20 @@ depends upon promotions). As input, it requires an hash with
 
         <div class="method-description">
           
-          <p>Returns the dependencies of the operation. Require a `CAS::Variable` and it
-is one of the recursive method (implicit tree resolution)</p>
-
-<p>&lt;- `CAS::Variable` instance -&gt; `TrueClass` or `FalseClass`</p>
+          <p>Returns the dependencies of the operation. Require a
+<code>CAS::Variable</code> and it is one of the recursive method (implicit
+tree resolution)</p>
+<ul><li>
+<p><strong>argument</strong>: <code>CAS::Variable</code> instance</p>
+</li><li>
+<p><strong>returns</strong>: <code>TrueClass</code> or <code>FalseClass</code></p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="depend-3F-source">
-            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 33</span>
+            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 34</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">depend?</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">v</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>)
   <span class="ruby-identifier">dep</span> = <span class="ruby-keyword">false</span>
@@ -385,26 +405,26 @@ is one of the recursive method (implicit tree resolution)</p>
           
           <p>Return a list of derivative using the chain rule. The input is a operation:</p>
 
-<p>“`</p>
-
 <pre>f(x) = g(x) + h(x) + l(x) + m(x)
 
-d f(x)
------- = g&#39;(x) + h&#39;(x) + l&#39;(x) + m&#39;(x)
-  dx
+ d f(x)
+ ------ = g&#39;(x) + h&#39;(x) + l&#39;(x) + m&#39;(x)
+   dx
 
-d f(x)
------- = 1
-d g(x)</pre>
-
-<p>“` &lt;- `CAS::Op` object of the derivative -&gt; `CAS::NaryOp` of
-derivative</p>
+ d f(x)
+ ------ = 1
+ d g(x)</pre>
+<ul><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> object of the derivative</p>
+</li><li>
+<p><strong>returns</strong>: <code>CAS::NaryOp</code> of derivative</p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="diff-source">
-            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 56</span>
+            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 57</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">v</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">depend?</span>(<span class="ruby-identifier">v</span>)
@@ -436,15 +456,18 @@ derivative</p>
         <div class="method-description">
           
           <p>Return the local Graphviz node of the tree</p>
-
-<p>&lt;- `?` unused variable (TODO: to be removed) -&gt; `String` of local
-Graphiz node</p>
+<ul><li>
+<p><strong>argument</strong>: <code>?</code> unused variable (TODO: to be
+removed)</p>
+</li><li>
+<p><strong>returns</strong>: <code>String</code> of local Graphiz node</p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="dot_graph-source">
-            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 175</span>
+            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 178</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">dot_graph</span>
   <span class="ruby-identifier">cls</span> = <span class="ruby-node">&quot;#{self.class.to_s.gsub(&quot;CAS::&quot;, &quot;&quot;)}_#{self.object_id}&quot;</span>
   <span class="ruby-identifier">ret</span> = <span class="ruby-string">&quot;&quot;</span>
@@ -477,14 +500,15 @@ Graphiz node</p>
         <div class="method-description">
           
           <p>Inspector for the current object</p>
-
-<p>-&gt; `String`</p>
+<ul><li>
+<p><strong>returns</strong>: <code>String</code></p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="inspect-source">
-            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 140</span>
+            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 143</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">inspect</span>
   <span class="ruby-node">&quot;#{self.class}(#{@x.map(&amp;:inspect).join(&quot;, &quot;)})&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -514,12 +538,15 @@ Graphiz node</p>
           <p>Simplification callback. It simplify the subgraph of each node until all
 possible simplification are performed (thus the execution time is not
 deterministic).</p>
+<ul><li>
+<p><strong>returns</strong>: <code>CAS::Op</code> simplified</p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="simplify-source">
-            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 128</span>
+            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 131</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">simplify</span>
   <span class="ruby-identifier">hash</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">to_s</span>
   <span class="ruby-ivar">@x</span> = <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">simplify</span> }
@@ -553,18 +580,25 @@ deterministic).</p>
           
           <p>Perform substitution of a part of the graph using a data table:</p>
 
-<p>“` ruby x, y = <a href="../CAS.html#method-c-vars">CAS.vars</a> :x, :y f =
-(x ** 2) + (y ** 2) puts f # =&gt; (x^2) + (y^2) puts f.subs({x =&gt; <a
-href="../CAS.html#method-c-ln">CAS.ln</a>}) # =&gt; (ln(y)^2) + (y^2) “`</p>
-
-<p>&lt;- `Hash` with substitution table -&gt; `CAS::NaryOp` (`self`) with
+<pre class="ruby"><span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span> = <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">vars</span> :<span class="ruby-identifier">x</span>, :<span class="ruby-identifier">y</span>
+<span class="ruby-identifier">f</span> = (<span class="ruby-identifier">x</span> <span class="ruby-operator">**</span> <span class="ruby-value">2</span>) <span class="ruby-operator">+</span> (<span class="ruby-identifier">y</span> <span class="ruby-operator">**</span> <span class="ruby-value">2</span>)
+<span class="ruby-identifier">puts</span> <span class="ruby-identifier">f</span>
+<span class="ruby-comment"># =&gt; (x^2) + (y^2)</span>
+<span class="ruby-identifier">puts</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">subs</span>({<span class="ruby-identifier">x</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">ln</span>(<span class="ruby-identifier">y</span>)})
+<span class="ruby-comment"># =&gt; (ln(y)^2) + (y^2)</span>
+</pre>
+<ul><li>
+<p><strong>argument</strong>: <code>Hash</code> with substitution table</p>
+</li><li>
+<p><strong>returns</strong>: <code>CAS::NaryOp</code> (<code>self</code>) with
 substitution performed</p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="subs-source">
-            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 95</span>
+            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 96</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">subs</span>(<span class="ruby-identifier">dt</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">dt</span>, <span class="ruby-constant">Hash</span>)
   <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span>, <span class="ruby-identifier">k</span><span class="ruby-operator">|</span>
@@ -603,15 +637,18 @@ substitution performed</p>
 
         <div class="method-description">
           
-          <p>Convert expression to code (internal, for `CAS::Op#to_proc` method)</p>
-
-<p>-&gt; `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`</p>
+          <p>Convert expression to code (internal, for <code>CAS::Op#to_proc</code>
+method)</p>
+<ul><li>
+<p><strong>returns</strong>: <code>String</code> that represent Ruby code to
+be parsed in <code>CAS::Op#to_proc</code></p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="to_code-source">
-            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 121</span>
+            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 122</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_code</span>
   <span class="ruby-keyword">return</span> <span class="ruby-node">&quot;(#{@x.map(&amp;:to_code).join(&quot;, &quot;)})&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -639,14 +676,15 @@ substitution performed</p>
         <div class="method-description">
           
           <p>Returns the latex representation of the current <a href="Op.html">Op</a>.</p>
-
-<p>-&gt; `String`</p>
+<ul><li>
+<p><strong>returns</strong>: <code>String</code></p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="to_latex-source">
-            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 188</span>
+            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 191</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_latex</span>
   <span class="ruby-node">&quot;#{self.class.gsub(&quot;CAS::&quot;, &quot;&quot;)}\\left(#{@x.map(&amp;:to_latex).join(&quot;,\\,&quot;)}\\right)&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -674,14 +712,15 @@ substitution performed</p>
         <div class="method-description">
           
           <p>Convert expression to string</p>
-
-<p>-&gt; `String` to print on screen</p>
+<ul><li>
+<p><strong>returns</strong>: <code>String</code> to print on screen</p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 114</span>
+            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 115</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
   <span class="ruby-keyword">return</span> <span class="ruby-node">&quot;(#{@x.map(&amp;:to_s).join(&quot;, &quot;)})&quot;</span>
 <span class="ruby-keyword">end</span></pre>

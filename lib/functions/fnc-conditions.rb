@@ -22,14 +22,17 @@ module CAS
   #  * right function (y)
   #  * type of condition
   class Condition
-    attr_reader :x, :y
+    # Left hand side
+    attr_reader :x
+    # Right hand side
+    attr_reader :y
 
     # Initializer for a new condition. The condition is implicit in the class, thus a
     # pure `CAS::Condition` cannot be used.
     #
-    # <- `CAS::Op` left argument
-    # <- `CAS::Op` right argument
-    # -> `CAS::Condition` new instance
+    #  * **argument**: `CAS::Op` left argument
+    #  * **argument**: `CAS::Op` right argument
+    #  * **returns**: `CAS::Condition` new instance
     def initialize(x, y)
       @x = x
       @y = y
@@ -47,15 +50,15 @@ module CAS
     # Function call will evaluate left and right functions to solve the
     # relation
     #
-    # <- `Hash` with feed dictionary
-    # -> `Trueclass` or `Falseclass`
+    #  * **argument**: `Hash` with feed dictionary
+    #  * **returns**: `Trueclass` or `Falseclass`
     def call(_fd)
       raise CAS::CASError, "This is a virtual method"
     end
 
     # Inspector for the class. It is class specific
     #
-    # -> `String`
+    #  * **returns**: `String`
     def inspect
       "#{self.class}(#{@x.inspect}, #{@y.inspect})"
     end
@@ -77,14 +80,14 @@ module CAS
 
     # Return the code that performs a condition evaluation
     #
-    # -> `String`
+    #  * **returns**: `String`
     def to_code
       "(#{@x} #{@cond_type} #{@y})"
     end
 
     # Returns an array of variables of the two functions in the condition
     #
-    # -> `Array` of `CAS::Variable`
+    #  * **returns**: `Array` of `CAS::Variable`
     def args
       (@x.args + @y.args).uniq
     end
@@ -99,7 +102,7 @@ module CAS
     #
     # since between the two there is a difference relation.
     #
-    # <- `CAS::Op` to perform the derivative
+    #  * **argument**: `CAS::Op` to perform the derivative
     def diff(v)
       CAS::Help.assert v, CAS::Op
 
@@ -110,8 +113,8 @@ module CAS
 
     # Returns true if one of the two functions depends upon the expression included
     #
-    # <- `CAS::Op` operator to check against for dependencies
-    # -> `TrueClass` or `FalseClass`
+    #  * **argument**: `CAS::Op` operator to check against for dependencies
+    #  * **returns**: `TrueClass` or `FalseClass`
     def depend?(v)
       CAS::Help.assert v, CAS::Op
 
@@ -120,8 +123,8 @@ module CAS
 
     # Return true if two functions are equal, false if different
     #
-    # <- `CAS::Op` operator to check against for equality
-    # -> `TrueClass` or `FalseClass`
+    #  * **argument**: `CAS::Op` operator to check against for equality
+    #  * **returns**: `TrueClass` or `FalseClass`
     def ==(op)
       CAS::Help.assert(op, CAS::Op)
 
@@ -131,7 +134,7 @@ module CAS
 
     # Simplify left and right term of the operator
     #
-    # -> `CAS::Condition`
+    #  * **returns**: `CAS::Condition`
     def simplify
       @x.simplify
       @y.simplify
@@ -140,7 +143,7 @@ module CAS
 
     # Substitute in the two elements using a dictionary
     #
-    # -> `Hash` of substitutions
+    #  * **returns**: `Hash` of substitutions
     def subs(fd)
       CAS::Help.assert(fd, Hash)
       @x.subs(fd)
@@ -150,7 +153,7 @@ module CAS
 
     # Returns the dot graphviz representation of the code
     #
-    # -> `String`
+    #  * **returns**: `String`
     def dot_graph(node)
       cls = "#{self.class.to_s.gsub("CAS::", "")}_#{self.object_id}"
       "#{cls} -> #{@x.dot_graph node}\n  #{cls} -> #{@y.dot_graph node}"
@@ -175,8 +178,8 @@ module CAS
     # Function call will evaluate left and right functions to solve the
     # relation
     #
-    # <- `Hash` with feed dictionary
-    # -> `Trueclass` or `Falseclass`
+    #  * **argument**: `Hash` with feed dictionary
+    #  * **returns**: `Trueclass` or `Falseclass`
     def call(fd)
       CAS::Help.assert fd, Hash
 
@@ -185,8 +188,8 @@ module CAS
 
     # Return true if two functions are equal, false if different
     #
-    # <- `CAS::Op` operator to check against for equality
-    # -> `TrueClass` or `FalseClass`
+    #  * **argument**: `CAS::Op` operator to check against for equality
+    #  * **returns**: `TrueClass` or `FalseClass`
     def ==(op)
       CAS::Help.assert(op, CAS::Op)
       cond_f = ((@x == op.x) and (@y == op.y)) or ((@x == op.y) and (@y == op.x))
@@ -211,8 +214,8 @@ module CAS
     # Function call will evaluate left and right functions to solve the
     # relation
     #
-    # <- `Hash` with feed dictionary
-    # -> `Trueclass` or `Falseclass`
+    #  * **argument**: `Hash` with feed dictionary
+    #  * **returns**: `Trueclass` or `Falseclass`
     def call(fd)
       CAS::Help.assert fd, Hash
 
@@ -237,8 +240,8 @@ module CAS
     # Function call will evaluate left and right functions to solve the
     # relation
     #
-    # <- `Hash` with feed dictionary
-    # -> `Trueclass` or `Falseclass`
+    #  * **argument**: `Hash` with feed dictionary
+    #  * **returns**: `Trueclass` or `Falseclass`
     def call(fd)
       CAS::Help.assert fd, Hash
 
@@ -266,8 +269,8 @@ module CAS
     # Function call will evaluate left and right functions to solve the
     # relation
     #
-    # <- `Hash` with feed dictionary
-    # -> `Trueclass` or `Falseclass`
+    #  * **argument**: `Hash` with feed dictionary
+    #  * **returns**: `Trueclass` or `Falseclass`
     def call(fd)
       CAS::Help.assert fd, Hash
 
@@ -295,8 +298,8 @@ module CAS
     # Function call will evaluate left and right functions to solve the
     # relation
     #
-    # <- `Hash` with feed dictionary
-    # -> `Trueclass` or `Falseclass`
+    #  * **argument**: `Hash` with feed dictionary
+    #  * **returns**: `Trueclass` or `Falseclass`
     def call(fd)
       CAS::Help.assert fd, Hash
 
@@ -332,40 +335,40 @@ module CAS
   class Op
     # Shortcut for creating equality condition.
     #
-    # <- `CAS::Op` ther element of the condition
-    # -> `CAS::Equal` new instance
+    #  * **argument**: `CAS::Op` ther element of the condition
+    #  * **returns**: `CAS::Equal` new instance
     def equal(v)
       CAS.equal(self, v)
     end
 
     # Shortcut for creating greater kind condition.
     #
-    # <- `CAS::Op` ther element of the condition
-    # -> `CAS::Greater` new instance
+    #  * **argument**: `CAS::Op` ther element of the condition
+    #  * **returns**: `CAS::Greater` new instance
     def greater(v)
       CAS.greater(self, v)
     end
 
     # Shortcut for creating a smaller kind condition.
     #
-    # <- `CAS::Op` ther element of the condition
-    # -> `CAS::Smaller` new instance
+    #  * **argument**: `CAS::Op` ther element of the condition
+    #  * **returns**: `CAS::Smaller` new instance
     def smaller(v)
       CAS.smaller(self, v)
     end
 
     # Shortcut for creating a greater equal kind condition.
     #
-    # <- `CAS::Op` ther element of the condition
-    # -> `CAS::GreaterEqual` new instance
+    #  * **argument**: `CAS::Op` ther element of the condition
+    #  * **returns**: `CAS::GreaterEqual` new instance
     def greater_equal(v)
       CAS.greater_equal(self, v)
     end
 
     # Shortcut for creating a smaller equal kind condition.
     #
-    # <- `CAS::Op` ther element of the condition
-    # -> `CAS::SmallerEqual` new instance
+    #  * **argument**: `CAS::Op` ther element of the condition
+    #  * **returns**: `CAS::SmallerEqual` new instance
     def smaller_equal(v)
       CAS.smaller_equal(self, v)
     end

@@ -21,8 +21,8 @@ module CAS
     # dx
     # ```
     #
-    # <- `CAS::Op` object of the derivative
-    # -> `CAS::Op` a derivated object, or `CAS::Zero` for constants
+    #  * **argument**: `CAS::Op` object of the derivative
+    #  * **returns**: `CAS::Op` a derivated object, or `CAS::Zero` for constants
     def diff(v)
       if @x.depend? v
         return @x.diff(v) * CAS.exp(@x)
@@ -36,8 +36,8 @@ module CAS
     # As input, it requires an hash with `CAS::Variable` or `CAS::Variable#name`
     # as keys, and a `Numeric` as a value
     #
-    # <- `Hash` with feed dictionary
-    # -> `Numeric`
+    #  * **argument**: `Hash` with feed dictionary
+    #  * **returns**: `Numeric`
     def call(f)
       CAS::Help.assert(f, Hash)
       Math::exp(@x.call(f))
@@ -45,7 +45,7 @@ module CAS
 
     # Convert expression to string
     #
-    # -> `String` to print on screen
+    #  * **returns**: `String` to print on screen
     def to_s
       "exp(#{@x})"
     end
@@ -54,7 +54,7 @@ module CAS
     # until all possible simplification are performed (thus the execution
     # time is not deterministic).
     #
-    # -> `CAS::Op` simplified version
+    #  * **returns**: `CAS::Op` simplified version
     def simplify
       super
       return @x.x if @x.is_a? CAS::Ln
@@ -68,14 +68,14 @@ module CAS
 
     # Convert expression to code (internal, for `CAS::Op#to_proc` method)
     #
-    # -> `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
+    #  * **returns**: `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
     def to_code
       "Math::exp(#{@x.to_code})"
     end
 
     # Returns the latex representation of the current Op.
     #
-    # -> `String`
+    #  * **returns**: `String`
     def to_latex
       "e^{#{@x.to_latex}}"
     end
@@ -83,8 +83,8 @@ module CAS
 
   # Shortcut for `CAS::Exp#new`
   #
-  # <- `CAS::Op` argument of the function
-  # -> `CAS::Exp` operation
+  #  * **argument**: `CAS::Op` argument of the function
+  #  * **returns**: `CAS::Exp` operation
   def self.exp(x)
     CAS::Exp.new x
   end
@@ -109,8 +109,8 @@ module CAS
     # dx               f(x)
     # ```
     #
-    # <- `CAS::Op` object of the derivative
-    # -> `CAS::Op` a derivated object, or `CAS::Zero` for constants
+    #  * **argument**: `CAS::Op` object of the derivative
+    #  * **returns**: `CAS::Op` a derivated object, or `CAS::Zero` for constants
     def diff(v)
       if @x.depend? v
         return CAS::One / @x
@@ -124,8 +124,8 @@ module CAS
     # As input, it requires an hash with `CAS::Variable` or `CAS::Variable#name`
     # as keys, and a `Numeric` as a value
     #
-    # <- `Hash` with feed dictionary
-    # -> `Numeric`
+    #  * **argument**: `Hash` with feed dictionary
+    #  * **returns**: `Numeric`
     def call(f)
       # I'm leaving to Math the honor
       # of handling negative values...
@@ -135,7 +135,7 @@ module CAS
 
     # Convert expression to string
     #
-    # -> `String` to print on screen
+    #  * **returns**: `String` to print on screen
     def to_s
       "log(#{@x})"
     end
@@ -144,7 +144,7 @@ module CAS
     # until all possible simplification are performed (thus the execution
     # time is not deterministic).
     #
-    # -> `CAS::Op` simplified version
+    #  * **returns**: `CAS::Op` simplified version
     def simplify
       super
       return @x.x if @x.is_a? CAS::Exp
@@ -158,14 +158,14 @@ module CAS
 
     # Convert expression to code (internal, for `CAS::Op#to_proc` method)
     #
-    # -> `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
+    #  * **returns**: `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
     def to_code
       "Math::log(#{@x.to_code})"
     end
 
     # Returns the latex representation of the current Op.
     #
-    # -> `String`
+    #  * **returns**: `String`
     def to_latex
       "\\log\\left( #{@x.to_latex} \\right)"
     end
@@ -173,16 +173,16 @@ module CAS
 
   # Shortcut for `CAS::Ln#new`
   #
-  # <- `CAS::Op` argument of the function
-  # -> `CAS::Ln` operation
+  #  * **argument**: `CAS::Op` argument of the function
+  #  * **returns**: `CAS::Ln` operation
   def self.ln(x)
     CAS::Ln.new x
   end
 
   # Shortcut for `CAS::Ln#new`
   #
-  # <- `CAS::Op` argument of the function
-  # -> `CAS::Ln` operation
+  #  * **argument**: `CAS::Op` argument of the function
+  #  * **returns**: `CAS::Ln` operation
   def self.log(x)
     CAS::Ln.new x
   end

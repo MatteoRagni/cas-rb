@@ -28,8 +28,9 @@ module CAS
   # a Graphviz tree. Requires a `CAS::Op` as argument.
   # In the next releases probably it will be moved inside
   # `CAS::Op`.
-  # <- `CAS::Op` instance
-  # -> `String`
+  #
+  #  * **argument**: `CAS::Op` instance
+  #  * **returns**: `String`
   def self.to_dot(op)
     CAS::Help.assert(op, CAS::Op)
     string = op.dot_graph
@@ -47,9 +48,10 @@ module CAS
   end
 
   # Export the input `CAS::Op` graphviz representation to a file.
-  # <- `String` with filename
-  # <- `CAS::Op` with the tree
-  # -> `CAS::Op` in input
+  #
+  #  * **argument**: `String` with filename
+  #  * **argument**: `CAS::Op` with the tree
+  #  * **returns**: `CAS::Op` in input
   def self.export_dot(fl, op)
     CAS::Help.assert(fl, String)
     CAS::Help.assert(op, CAS::Op)

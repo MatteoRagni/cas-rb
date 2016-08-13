@@ -142,7 +142,7 @@
 
         <div class="method-description">
         
-        
+        <p>First element of the operation</p>
         
         </div>
       </div>
@@ -155,7 +155,7 @@
 
         <div class="method-description">
         
-        
+        <p>Second element of the operation</p>
         
         </div>
       </div>
@@ -183,21 +183,26 @@
 
         <div class="method-description">
           
-          <p>The binary operator inherits from the `CAS::Op`, even if it is defined as a
-node with two possible branches. This is particular of the basic
-operations. The two basic nodes shares the *<strong>same</strong>*
+          <p>The binary operator inherits from the <code>CAS::Op</code>, even if it is
+defined as a node with two possible branches. This is particular of the
+basic operations. The two basic nodes shares the <strong>same</strong>
 interface, so all the operations do not need to know which kind of node
 they are handling.</p>
-
-<p>&lt;- `CAS::Op` left argument of the node or `Numeric` to be converted in
-`CAS::Constant` &lt;- `CAS::Op` right argument of the node or `Numeric` to
-be converted in `CAS::Constant` -&gt; `CAS::BinaryOp` instance</p>
+<ul><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> left argument of the node
+or <code>Numeric</code> to be converted in <code>CAS::Constant</code></p>
+</li><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> right argument of the node
+or <code>Numeric</code> to be converted in <code>CAS::Constant</code></p>
+</li><li>
+<p><strong>returns</strong>: <code>CAS::BinaryOp</code> instance</p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 24</span>
+            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 27</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Numeric</span>
     <span class="ruby-identifier">x</span> = <span class="ruby-constant">BinaryOp</span>.<span class="ruby-identifier">numeric_to_const</span> <span class="ruby-identifier">x</span>
@@ -242,17 +247,20 @@ be converted in `CAS::Constant` -&gt; `CAS::BinaryOp` instance</p>
 
         <div class="method-description">
           
-          <p>Comparison with other `CAS::Op`. This is *<strong>not</strong>* a math
-operation.</p>
-
-<p>&lt;- `CAS::Op` to be compared against -&gt; `TrueClass` if equal,
-`FalseClass` if different</p>
+          <p>Comparison with other <code>CAS::Op</code>. This is <strong>not</strong> a
+math operation.</p>
+<ul><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> to be compared against</p>
+</li><li>
+<p><strong>returns</strong>: <code>TrueClass</code> if equal,
+<code>FalseClass</code> if different</p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="3D-3D-source">
-            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 154</span>
+            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 157</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">op</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">op</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">BinaryOp</span>
@@ -285,14 +293,15 @@ operation.</p>
         <div class="method-description">
           
           <p>Returns an array of all the variables that are in the graph</p>
-
-<p>-&gt; `Array` of `CAS::Variable`s</p>
+<ul><li>
+<p><strong>returns</strong>: <code>Array</code> of <code>CAS::Variable</code>s</p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="args-source">
-            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 139</span>
+            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 142</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">args</span>
   (<span class="ruby-ivar">@x</span>.<span class="ruby-identifier">args</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@y</span>.<span class="ruby-identifier">args</span>).<span class="ruby-identifier">uniq</span>
 <span class="ruby-keyword">end</span></pre>
@@ -319,15 +328,18 @@ operation.</p>
 
         <div class="method-description">
           
-          <p>Same `CAS::Op#call`</p>
-
-<p>&lt;- `Hash` of values -&gt; `Numeric` for result</p>
+          <p>Same <code>CAS::Op#call</code></p>
+<ul><li>
+<p><strong>argument</strong>: <code>Hash</code> of values</p>
+</li><li>
+<p><strong>returns</strong>: <code>Numeric</code> for result</p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="call-source">
-            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 118</span>
+            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 121</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">_fd</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">CASError</span>, <span class="ruby-string">&quot;Not Implemented. This is a virtual method&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -354,17 +366,21 @@ operation.</p>
 
         <div class="method-description">
           
-          <p>Return the dependencies of the operation. Requires a `CAS::Variable` and it
-is one of the recursve method (implicit tree resolution)</p>
-
-<p>&lt;- `CAS::Variable` instance -&gt; `TrueClass` if depends, `FalseClass`
-if not</p>
+          <p>Return the dependencies of the operation. Requires a
+<code>CAS::Variable</code> and it is one of the recursve method (implicit
+tree resolution)</p>
+<ul><li>
+<p><strong>argument</strong>: <code>CAS::Variable</code> instance</p>
+</li><li>
+<p><strong>returns</strong>: <code>TrueClass</code> if depends,
+<code>FalseClass</code> if not</p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="depend-3F-source">
-            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 43</span>
+            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 46</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">depend?</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">v</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>)
 
@@ -396,15 +412,19 @@ if not</p>
           <p>This method returns an array with the derivatives of the two branches of
 the node. This method is usually called by child classes, and it is not
 intended to be used directly.</p>
-
-<p>&lt;- `CAS::Op` operation to differentiate against -&gt; `Array` of
-differentiated branches ([0] for left, [1] for right)</p>
+<ul><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> operation to differentiate
+against</p>
+</li><li>
+<p><strong>returns</strong>: <code>Array</code> of differentiated branches
+([0] for left, [1] for right)</p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="diff-source">
-            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 55</span>
+            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 58</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">v</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>)
   <span class="ruby-identifier">left</span>, <span class="ruby-identifier">right</span> = <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>
@@ -438,14 +458,17 @@ differentiated branches ([0] for left, [1] for right)</p>
         <div class="method-description">
           
           <p>Returns the graphviz representation of the current node</p>
-
-<p>&lt;- `?` unused removed -&gt; `String`</p>
+<ul><li>
+<p><strong>argument</strong>: <code>?</code> unused removed</p>
+</li><li>
+<p><strong>returns</strong>: <code>String</code></p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="dot_graph-source">
-            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 185</span>
+            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 188</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">dot_graph</span>
   <span class="ruby-identifier">cls</span> = <span class="ruby-node">&quot;#{self.class.to_s.gsub(&quot;CAS::&quot;, &quot;&quot;)}_#{self.object_id}&quot;</span>
   <span class="ruby-node">&quot;#{cls} -&gt; #{@x.dot_graph}\n  #{cls} -&gt; #{@y.dot_graph}&quot;</span>
@@ -474,14 +497,15 @@ differentiated branches ([0] for left, [1] for right)</p>
         <div class="method-description">
           
           <p>Inspector</p>
-
-<p>-&gt; `String`</p>
+<ul><li>
+<p><strong>returns</strong>: <code>String</code></p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="inspect-source">
-            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 146</span>
+            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 149</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">inspect</span>
   <span class="ruby-node">&quot;#{self.class}(#{@x.inspect}, #{@y.inspect})&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -509,14 +533,15 @@ differentiated branches ([0] for left, [1] for right)</p>
         <div class="method-description">
           
           <p>Executes simplifications of the two branches of the graph</p>
-
-<p>-&gt; `CAS::BinaryOp` as `self`</p>
+<ul><li>
+<p><strong>returns</strong>: <code>CAS::BinaryOp</code> as <code>self</code></p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="simplify-source">
-            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 166</span>
+            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 169</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">simplify</span>
   <span class="ruby-identifier">hash</span> = <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">to_s</span>
   <span class="ruby-ivar">@x</span> = <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">simplify</span>
@@ -554,15 +579,20 @@ differentiated branches ([0] for left, [1] for right)</p>
 
         <div class="method-description">
           
-          <p>Substituitions for both branches of the graph, same as `CAS::Op#subs`</p>
-
-<p>&lt;- `Hash` of substitutions -&gt; `CAS::BinaryOp`, in practice `self`</p>
+          <p>Substituitions for both branches of the graph, same as
+<code>CAS::Op#subs</code></p>
+<ul><li>
+<p><strong>argument</strong>: <code>Hash</code> of substitutions</p>
+</li><li>
+<p><strong>returns</strong>: <code>CAS::BinaryOp</code>, in practice
+<code>self</code></p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="subs-source">
-            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 69</span>
+            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 72</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">subs</span>(<span class="ruby-identifier">dt</span>)
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">subs_lhs</span>(<span class="ruby-identifier">dt</span>).<span class="ruby-identifier">subs_rhs</span>(<span class="ruby-identifier">dt</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -589,15 +619,20 @@ differentiated branches ([0] for left, [1] for right)</p>
 
         <div class="method-description">
           
-          <p>Substituitions for left branch of the graph, same as `CAS::Op#subs`</p>
-
-<p>&lt;- `Hash` of substitutions -&gt; `CAS::BinaryOp`, in practice `self`</p>
+          <p>Substituitions for left branch of the graph, same as
+<code>CAS::Op#subs</code></p>
+<ul><li>
+<p><strong>argument</strong>: <code>Hash</code> of substitutions</p>
+</li><li>
+<p><strong>returns</strong>: <code>CAS::BinaryOp</code>, in practice
+<code>self</code></p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="subs_lhs-source">
-            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 77</span>
+            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 80</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">subs_lhs</span>(<span class="ruby-identifier">dt</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">dt</span>, <span class="ruby-constant">Hash</span>)
 
@@ -637,15 +672,20 @@ differentiated branches ([0] for left, [1] for right)</p>
 
         <div class="method-description">
           
-          <p>Substituitions for left branch of the graph, same as `CAS::Op#subs`</p>
-
-<p>&lt;- `Hash` of substitutions -&gt; `CAS::BinaryOp`, in practice `self`</p>
+          <p>Substituitions for left branch of the graph, same as
+<code>CAS::Op#subs</code></p>
+<ul><li>
+<p><strong>argument</strong>: <code>Hash</code> of substitutions</p>
+</li><li>
+<p><strong>returns</strong>: <code>CAS::BinaryOp</code>, in practice
+<code>self</code></p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="subs_rhs-source">
-            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 98</span>
+            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 101</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">subs_rhs</span>(<span class="ruby-identifier">dt</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">dt</span>, <span class="ruby-constant">Hash</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">dt</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">include?</span> <span class="ruby-ivar">@y</span>
@@ -684,15 +724,16 @@ differentiated branches ([0] for left, [1] for right)</p>
 
         <div class="method-description">
           
-          <p>Code to be used in `CAS::BinaryOp#to_proc`</p>
-
-<p>-&gt; `String`</p>
+          <p>Code to be used in <code>CAS::BinaryOp#to_proc</code></p>
+<ul><li>
+<p><strong>returns</strong>: <code>String</code></p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="to_code-source">
-            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 132</span>
+            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 135</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_code</span>
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">CASError</span>, <span class="ruby-string">&quot;Not implemented. This is a virtual method&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -720,14 +761,15 @@ differentiated branches ([0] for left, [1] for right)</p>
         <div class="method-description">
           
           <p>Returns the latex representation of the current <a href="Op.html">Op</a>.</p>
-
-<p>-&gt; `String`</p>
+<ul><li>
+<p><strong>returns</strong>: <code>String</code></p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="to_latex-source">
-            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 193</span>
+            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 196</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_latex</span>
   <span class="ruby-node">&quot;#{self.class.gsub(&quot;CAS::&quot;, &quot;&quot;)}\\left(#{@x.to_latex},\\,#{@y.to_latex}\\right)&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -755,14 +797,15 @@ differentiated branches ([0] for left, [1] for right)</p>
         <div class="method-description">
           
           <p>String representation of the tree</p>
-
-<p>-&gt; `String`</p>
+<ul><li>
+<p><strong>returns</strong>: <code>String</code></p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 125</span>
+            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 128</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">CASError</span>, <span class="ruby-string">&quot;Not Implemented. This is a virtual method&quot;</span>
 <span class="ruby-keyword">end</span></pre>

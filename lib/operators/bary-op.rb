@@ -10,7 +10,10 @@ module CAS
   ##
   # Binary operator
   class BinaryOp < CAS::Op
-    attr_reader :x, :y
+    # First element of the operation
+    attr_reader :x
+    # Second element of the operation
+    attr_reader :y
 
     # The binary operator inherits from the `CAS::Op`, even
     # if it is defined as a node with two possible branches. This
@@ -18,9 +21,9 @@ module CAS
     # shares the **same** interface, so all the operations do not
     # need to know which kind of node they are handling.
     #
-    # <- `CAS::Op` left argument of the node or `Numeric` to be converted in `CAS::Constant`
-    # <- `CAS::Op` right argument of the node or `Numeric` to be converted in `CAS::Constant`
-    # -> `CAS::BinaryOp` instance
+    #  * **argument**: `CAS::Op` left argument of the node or `Numeric` to be converted in `CAS::Constant`
+    #  * **argument**: `CAS::Op` right argument of the node or `Numeric` to be converted in `CAS::Constant`
+    #  * **returns**: `CAS::BinaryOp` instance
     def initialize(x, y)
       if x.is_a? Numeric
         x = BinaryOp.numeric_to_const x
@@ -38,8 +41,8 @@ module CAS
     # Return the dependencies of the operation. Requires a `CAS::Variable`
     # and it is one of the recursve method (implicit tree resolution)
     #
-    # <- `CAS::Variable` instance
-    # -> `TrueClass` if depends, `FalseClass` if not
+    #  * **argument**: `CAS::Variable` instance
+    #  * **returns**: `TrueClass` if depends, `FalseClass` if not
     def depend?(v)
       CAS::Help.assert(v, CAS::Op)
 
@@ -50,8 +53,8 @@ module CAS
     # of the node. This method is usually called by child classes, and it is not
     # intended to be used directly.
     #
-    # <- `CAS::Op` operation to differentiate against
-    # -> `Array` of differentiated branches ([0] for left, [1] for right)
+    #  * **argument**: `CAS::Op` operation to differentiate against
+    #  * **returns**: `Array` of differentiated branches ([0] for left, [1] for right)
     def diff(v)
       CAS::Help.assert(v, CAS::Op)
       left, right = CAS::Zero, CAS::Zero
@@ -64,16 +67,16 @@ module CAS
 
     # Substituitions for both branches of the graph, same as `CAS::Op#subs`
     #
-    # <- `Hash` of substitutions
-    # -> `CAS::BinaryOp`, in practice `self`
+    #  * **argument**: `Hash` of substitutions
+    #  * **returns**: `CAS::BinaryOp`, in practice `self`
     def subs(dt)
       return self.subs_lhs(dt).subs_rhs(dt)
     end
 
     # Substituitions for left branch of the graph, same as `CAS::Op#subs`
     #
-    # <- `Hash` of substitutions
-    # -> `CAS::BinaryOp`, in practice `self`
+    #  * **argument**: `Hash` of substitutions
+    #  * **returns**: `CAS::BinaryOp`, in practice `self`
     def subs_lhs(dt)
       CAS::Help.assert(dt, Hash)
 
@@ -93,8 +96,8 @@ module CAS
 
     # Substituitions for left branch of the graph, same as `CAS::Op#subs`
     #
-    # <- `Hash` of substitutions
-    # -> `CAS::BinaryOp`, in practice `self`
+    #  * **argument**: `Hash` of substitutions
+    #  * **returns**: `CAS::BinaryOp`, in practice `self`
     def subs_rhs(dt)
       CAS::Help.assert(dt, Hash)
       if dt.keys.include? @y
@@ -113,44 +116,44 @@ module CAS
 
     # Same `CAS::Op#call`
     #
-    # <- `Hash` of values
-    # -> `Numeric` for result
+    #  * **argument**: `Hash` of values
+    #  * **returns**: `Numeric` for result
     def call(_fd)
       raise CAS::CASError, "Not Implemented. This is a virtual method"
     end
 
     # String representation of the tree
     #
-    # -> `String`
+    #  * **returns**: `String`
     def to_s
       raise CAS::CASError, "Not Implemented. This is a virtual method"
     end
 
     # Code to be used in `CAS::BinaryOp#to_proc`
     #
-    # -> `String`
+    #  * **returns**: `String`
     def to_code
       raise CAS::CASError, "Not implemented. This is a virtual method"
     end
 
     # Returns an array of all the variables that are in the graph
     #
-    # -> `Array` of `CAS::Variable`s
+    #  * **returns**: `Array` of `CAS::Variable`s
     def args
       (@x.args + @y.args).uniq
     end
 
     # Inspector
     #
-    # -> `String`
+    #  * **returns**: `String`
     def inspect
       "#{self.class}(#{@x.inspect}, #{@y.inspect})"
     end
 
     # Comparison with other `CAS::Op`. This is **not** a math operation.
     #
-    # <- `CAS::Op` to be compared against
-    # -> `TrueClass` if equal, `FalseClass` if different
+    #  * **argument**: `CAS::Op` to be compared against
+    #  * **returns**: `TrueClass` if equal, `FalseClass` if different
     def ==(op)
       CAS::Help.assert(op, CAS::Op)
       if op.is_a? CAS::BinaryOp
@@ -162,7 +165,7 @@ module CAS
 
     # Executes simplifications of the two branches of the graph
     #
-    # -> `CAS::BinaryOp` as `self`
+    #  * **returns**: `CAS::BinaryOp` as `self`
     def simplify
       hash = @x.to_s
       @x = @x.simplify
@@ -180,8 +183,8 @@ module CAS
 
     # Returns the graphviz representation of the current node
     #
-    # <- `?` unused removed
-    # -> `String`
+    #  * **argument**: `?` unused removed
+    #  * **returns**: `String`
     def dot_graph
       cls = "#{self.class.to_s.gsub("CAS::", "")}_#{self.object_id}"
       "#{cls} -> #{@x.dot_graph}\n  #{cls} -> #{@y.dot_graph}"
@@ -189,7 +192,7 @@ module CAS
 
     # Returns the latex representation of the current Op.
     #
-    # -> `String`
+    #  * **returns**: `String`
     def to_latex
       "#{self.class.gsub("CAS::", "")}\\left(#{@x.to_latex},\\,#{@y.to_latex}\\right)"
     end

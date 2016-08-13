@@ -145,48 +145,55 @@
       
         <dt id="E">E
         
-        <dd>
+        <dd><p><a href="CAS.html#E">E</a> (2.57…) constant representation</p>
         
       
         <dt id="Infinity">Infinity
         
-        <dd>
+        <dd><p><a href="CAS.html#Infinity">Infinity</a> constant representation</p>
         
       
         <dt id="MinusOne">MinusOne
         
-        <dd>
+        <dd><p>Minus <a href="CAS.html#One">One</a> (-1) constant representation</p>
         
       
         <dt id="NegInfinity">NegInfinity
         
-        <dd>
+        <dd><p>Negative <a href="CAS.html#Infinity">Infinity</a> constant representation</p>
         
       
         <dt id="NumericToConst">NumericToConst
         
-        <dd><p>Series of useful numeric constant, Based upon `Numeric` keys, with
-`CAs::Constant` value</p>
+        <dd><p>Series of useful numeric constant, Based upon <code>Numeric</code> keys,
+with <code>CAs::Constant</code> value</p>
         
       
         <dt id="One">One
         
-        <dd>
+        <dd><p><a href="CAS.html#One">One</a> (1) constant representation</p>
         
       
         <dt id="Pi">Pi
         
-        <dd>
+        <dd><p><a href="CAS.html#Pi">Pi</a> (3.14…) constant representation</p>
         
       
         <dt id="Two">Two
         
-        <dd>
+        <dd><p><a href="CAS.html#Two">Two</a> (2) constant representation</p>
         
       
         <dt id="VERSION">VERSION
         
-        <dd>
+        <dd><p>Version of the library Array of three <code>Fixnum</code> values:</p>
+<ul><li>
+<p>Major version</p>
+</li><li>
+<p>Minor version</p>
+</li><li>
+<p>Patchlevel</p>
+</li></ul>
         
       
         <dt id="Zero">Zero
@@ -220,13 +227,18 @@
 
         <div class="method-description">
           
-          
+          <p>Shortcut for <code>CAs::Abs</code> initializer</p>
+<ul><li>
+<p><strong>argument</strong>: <code>CAs::Op</code> argument of absolute value</p>
+</li><li>
+<p><strong>returns</strong>: <code>CAS::Abs</code> new instance</p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="abs-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 484</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 699</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">abs</span>(<span class="ruby-identifier">x</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Abs</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">x</span>
 <span class="ruby-keyword">end</span></pre>
@@ -253,9 +265,12 @@
 
         <div class="method-description">
           
-          <p>Shortcut for `CAS::Acos#new`</p>
-
-<p>&lt;- `CAS::Op` argument of the function -&gt; `CAS::Acos` operation</p>
+          <p>Shortcut for <code>CAS::Acos#new</code></p>
+<ul><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> argument of the function</p>
+</li><li>
+<p><strong>returns</strong>: <code>CAS::Acos</code> operation</p>
+</li></ul>
           
           
 
@@ -288,9 +303,12 @@
 
         <div class="method-description">
           
-          <p>Shortcut for `CAS::Asin#new`</p>
-
-<p>&lt;- `CAS::Op` argument of the function -&gt; `CAS::Asin` operation</p>
+          <p>Shortcut for <code>CAS::Asin#new</code></p>
+<ul><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> argument of the function</p>
+</li><li>
+<p><strong>returns</strong>: <code>CAS::Asin</code> operation</p>
+</li></ul>
           
           
 
@@ -323,9 +341,12 @@
 
         <div class="method-description">
           
-          <p>Shortcut for `CAS::Atan#new`</p>
-
-<p>&lt;- `CAS::Op` argument of the function -&gt; `CAS::Atan` operation</p>
+          <p>Shortcut for <code>CAS::Atan#new</code></p>
+<ul><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> argument of the function</p>
+</li><li>
+<p><strong>returns</strong>: <code>CAS::Atan</code> operation</p>
+</li></ul>
           
           
 
@@ -359,23 +380,32 @@
         <div class="method-description">
           
           <p>Shortcut for creating a new box condition. It requires four arguments:</p>
-
-<p>&lt;- `CAS::Op` function for condition &lt;- `CAS::Constant` lower limit
-&lt;- `CAs::Constant` upper limit &lt;- `Symbol` of condition type it can
-be:</p>
-
-<pre>- `:closed` for `CAs::BoxConditionClosed`
-- `:open` for `CAs::BoxConditionOpen`
-- `:upper_closed` for `CAs::BoxConditionUpperClosed`
-- `:lower_closed` for `CAs::BoxConditionLowerClosed`</pre>
-
-<p>-&gt; `CAS::BoxCondition` new instance</p>
+<ul><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> function for condition</p>
+</li><li>
+<p><strong>argument</strong>: <code>CAS::Constant</code> lower limit</p>
+</li><li>
+<p><strong>argument</strong>: <code>CAs::Constant</code> upper limit</p>
+</li><li>
+<p><strong>argument</strong>: <code>Symbol</code> of condition type it can be:</p>
+<ul><li>
+<p><code>:closed</code> for <code>CAs::BoxConditionClosed</code></p>
+</li><li>
+<p><code>:open</code> for <code>CAs::BoxConditionOpen</code></p>
+</li><li>
+<p><code>:upper_closed</code> for <code>CAs::BoxConditionUpperClosed</code></p>
+</li><li>
+<p><code>:lower_closed</code> for <code>CAs::BoxConditionLowerClosed</code></p>
+</li></ul>
+</li><li>
+<p><strong>returns</strong>: <code>CAS::BoxCondition</code> new instance</p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="box-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 301</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 306</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">box</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">a</span>, <span class="ruby-identifier">b</span>, <span class="ruby-identifier">type</span>=<span class="ruby-value">:closed</span>)
   <span class="ruby-keyword">case</span> <span class="ruby-identifier">type</span>
   <span class="ruby-keyword">when</span> <span class="ruby-value">:closed</span>
@@ -415,9 +445,13 @@ be:</p>
           
           <p>Allows to define a series of new constants.</p>
 
-<p>“` ruby a, b = <a href="CAS.html#method-c-const">::const</a> 1.0, 100 “`</p>
-
-<p>&lt;- `Array` of Numeric -&gt; `Array` of `CAS::Contant`</p>
+<pre class="ruby"><span class="ruby-identifier">a</span>, <span class="ruby-identifier">b</span> = <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">const</span> <span class="ruby-value">1.0</span>, <span class="ruby-value">100</span>
+</pre>
+<ul><li>
+<p><strong>argument</strong>: <code>Array</code> of Numeric</p>
+</li><li>
+<p><strong>returns</strong>: <code>Array</code> of <code>CAS::Contant</code></p>
+</li></ul>
           
           
 
@@ -455,9 +489,12 @@ be:</p>
 
         <div class="method-description">
           
-          <p>Shortcut for `CAS::Cos#new`</p>
-
-<p>&lt;- `CAS::Op` argument of the function -&gt; `CAS::Cos` operation</p>
+          <p>Shortcut for <code>CAS::Cos#new</code></p>
+<ul><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> argument of the function</p>
+</li><li>
+<p><strong>returns</strong>: <code>CAS::Cos</code> operation</p>
+</li></ul>
           
           
 
@@ -490,13 +527,13 @@ be:</p>
 
         <div class="method-description">
           
-          <p>Shortcut creates a `CAS::Equal` object</p>
+          <p>Shortcut creates a <code>CAS::Equal</code> object</p>
           
           
 
           
           <div class="method-source-code" id="equal-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 308</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 311</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">equal</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Equal</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -523,9 +560,12 @@ be:</p>
 
         <div class="method-description">
           
-          <p>Shortcut for `CAS::Exp#new`</p>
-
-<p>&lt;- `CAS::Op` argument of the function -&gt; `CAS::Exp` operation</p>
+          <p>Shortcut for <code>CAS::Exp#new</code></p>
+<ul><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> argument of the function</p>
+</li><li>
+<p><strong>returns</strong>: <code>CAS::Exp</code> operation</p>
+</li></ul>
           
           
 
@@ -558,15 +598,20 @@ be:</p>
 
         <div class="method-description">
           
-          <p>Export the input `CAS::Op` graphviz representation to a file. &lt;-
-`String` with filename &lt;- `CAS::Op` with the tree -&gt; `CAS::Op` in
-input</p>
+          <p>Export the input <code>CAS::Op</code> graphviz representation to a file.</p>
+<ul><li>
+<p><strong>argument</strong>: <code>String</code> with filename</p>
+</li><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> with the tree</p>
+</li><li>
+<p><strong>returns</strong>: <code>CAS::Op</code> in input</p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="export_dot-source">
-            <pre><span class="ruby-comment"># File lib/ragni-cas.rb, line 53</span>
+            <pre><span class="ruby-comment"># File lib/ragni-cas.rb, line 55</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">export_dot</span>(<span class="ruby-identifier">fl</span>, <span class="ruby-identifier">op</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">fl</span>, <span class="ruby-constant">String</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">op</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>)
@@ -597,13 +642,13 @@ input</p>
 
         <div class="method-description">
           
-          <p>Shortcut creates a `CAS::Greater` object</p>
+          <p>Shortcut creates a <code>CAS::Greater</code> object</p>
           
           
 
           
           <div class="method-source-code" id="greater-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 313</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 316</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">greater</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Greater</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -630,13 +675,13 @@ input</p>
 
         <div class="method-description">
           
-          <p>Shortcut creates a `CAS::GreaterEqual` object</p>
+          <p>Shortcut creates a <code>CAS::GreaterEqual</code> object</p>
           
           
 
           
           <div class="method-source-code" id="greater_equal-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 318</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 321</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">greater_equal</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">GreaterEqual</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -663,13 +708,18 @@ input</p>
 
         <div class="method-description">
           
-          
+          <p>Shortcut for <code>CAs::Invert</code> initializer</p>
+<ul><li>
+<p><strong>argument</strong>: <code>CAs::Op</code> argument of the inversion</p>
+</li><li>
+<p><strong>returns</strong>: <code>CAS::Invert</code> new instance</p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="invert-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 426</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 611</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">invert</span>(<span class="ruby-identifier">x</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Invert</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">x</span>
 <span class="ruby-keyword">end</span></pre>
@@ -696,9 +746,12 @@ input</p>
 
         <div class="method-description">
           
-          <p>Shortcut for `CAS::Ln#new`</p>
-
-<p>&lt;- `CAS::Op` argument of the function -&gt; `CAS::Ln` operation</p>
+          <p>Shortcut for <code>CAS::Ln#new</code></p>
+<ul><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> argument of the function</p>
+</li><li>
+<p><strong>returns</strong>: <code>CAS::Ln</code> operation</p>
+</li></ul>
           
           
 
@@ -731,9 +784,12 @@ input</p>
 
         <div class="method-description">
           
-          <p>Shortcut for `CAS::Ln#new`</p>
-
-<p>&lt;- `CAS::Op` argument of the function -&gt; `CAS::Ln` operation</p>
+          <p>Shortcut for <code>CAS::Ln#new</code></p>
+<ul><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> argument of the function</p>
+</li><li>
+<p><strong>returns</strong>: <code>CAS::Ln</code> operation</p>
+</li></ul>
           
           
 
@@ -766,13 +822,20 @@ input</p>
 
         <div class="method-description">
           
-          
+          <p>Shortcut for <code>CAS::Max</code> initializer</p>
+<ul><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> left function</p>
+</li><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> right function</p>
+</li><li>
+<p><strong>returns</strong>: <code>CAS::Max</code> new instance</p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="max-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-piecewise.rb, line 180</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-piecewise.rb, line 185</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">max</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Max</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -799,13 +862,20 @@ input</p>
 
         <div class="method-description">
           
-          
+          <p>Shortcut for <code>CAS::Min</code> initializer</p>
+<ul><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> left function</p>
+</li><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> right function</p>
+</li><li>
+<p><strong>returns</strong>: <code>CAS::Min</code> new instance</p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="min-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-piecewise.rb, line 184</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-piecewise.rb, line 194</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">min</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Min</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">smaller_equal</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>))
 <span class="ruby-keyword">end</span></pre>
@@ -832,13 +902,20 @@ input</p>
 
         <div class="method-description">
           
-          
+          <p>Shortcut for <code>CAS::Pow</code> initializer</p>
+<ul><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> base</p>
+</li><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> exponent</p>
+</li><li>
+<p><strong>returns</strong>: <code>CAS::Pow</code> new instance</p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="pow-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 252</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 345</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">pow</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Pow</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>
 <span class="ruby-keyword">end</span></pre>
@@ -865,9 +942,12 @@ input</p>
 
         <div class="method-description">
           
-          <p>Shortcut for `CAS::Sin#new`</p>
-
-<p>&lt;- `CAS::Op` argument of the function -&gt; `CAS::Sin` operation</p>
+          <p>Shortcut for <code>CAS::Sin#new</code></p>
+<ul><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> argument of the function</p>
+</li><li>
+<p><strong>returns</strong>: <code>CAS::Sin</code> operation</p>
+</li></ul>
           
           
 
@@ -900,13 +980,13 @@ input</p>
 
         <div class="method-description">
           
-          <p>Shortcut creates `CAS::Smaller` object</p>
+          <p>Shortcut creates <code>CAS::Smaller</code> object</p>
           
           
 
           
           <div class="method-source-code" id="smaller-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 323</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 326</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">smaller</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Smaller</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -933,13 +1013,13 @@ input</p>
 
         <div class="method-description">
           
-          <p>Shortcut creates a `CAs::SmallerEqual` object</p>
+          <p>Shortcut creates a <code>CAs::SmallerEqual</code> object</p>
           
           
 
           
           <div class="method-source-code" id="smaller_equal-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 328</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 331</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">smaller_equal</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">SmallerEqual</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -966,13 +1046,18 @@ input</p>
 
         <div class="method-description">
           
-          
+          <p>Shortcut for <code>CAS::Sqrt</code> initializer</p>
+<ul><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> argument of square root</p>
+</li><li>
+<p><strong>returns</strong>: <code>CAS::Sqrt</code> new instance</p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="sqrt-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 369</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 523</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">sqrt</span>(<span class="ruby-identifier">x</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Sqrt</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">x</span>
 <span class="ruby-keyword">end</span></pre>
@@ -999,9 +1084,12 @@ input</p>
 
         <div class="method-description">
           
-          <p>Shortcut for `CAS::Tan#new`</p>
-
-<p>&lt;- `CAS::Op` argument of the function -&gt; `CAS::Tan` operation</p>
+          <p>Shortcut for <code>CAS::Tan#new</code></p>
+<ul><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> argument of the function</p>
+</li><li>
+<p><strong>returns</strong>: <code>CAS::Tan</code> operation</p>
+</li></ul>
           
           
 
@@ -1035,14 +1123,19 @@ input</p>
         <div class="method-description">
           
           <p>Return a string representation of the graph that is a Graphviz tree.
-Requires a `CAS::Op` as argument. In the next releases probably it will be
-moved inside `CAS::Op`. &lt;- `CAS::Op` instance -&gt; `String`</p>
+Requires a <code>CAS::Op</code> as argument. In the next releases probably
+it will be moved inside <code>CAS::Op</code>.</p>
+<ul><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> instance</p>
+</li><li>
+<p><strong>returns</strong>: <code>String</code></p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="to_dot-source">
-            <pre><span class="ruby-comment"># File lib/ragni-cas.rb, line 33</span>
+            <pre><span class="ruby-comment"># File lib/ragni-cas.rb, line 34</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">to_dot</span>(<span class="ruby-identifier">op</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">op</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>)
   <span class="ruby-identifier">string</span> = <span class="ruby-identifier">op</span>.<span class="ruby-identifier">dot_graph</span>
@@ -1083,9 +1176,13 @@ moved inside `CAS::Op`. &lt;- `CAS::Op` instance -&gt; `String`</p>
           
           <p>Allows to define a series of new variables.</p>
 
-<p>“` ruby x, y = <a href="CAS.html#method-c-vars">::vars</a> :x, :y “`</p>
-
-<p>&lt;- `Array` of Numeric -&gt; `Array` of `CAS::Variable`</p>
+<pre class="ruby"><span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span> = <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">vars</span> :<span class="ruby-identifier">x</span>, :<span class="ruby-identifier">y</span>
+</pre>
+<ul><li>
+<p><strong>argument</strong>: <code>Array</code> of Numeric</p>
+</li><li>
+<p><strong>returns</strong>: <code>Array</code> of <code>CAS::Variable</code></p>
+</li></ul>
           
           
 

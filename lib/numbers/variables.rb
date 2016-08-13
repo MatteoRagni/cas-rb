@@ -16,22 +16,22 @@ module CAS
 
     # Returns the `Hash` that contains all the variable
     #
-    # -> `Hash`
+    #  * **returns**: `Hash`
     def self.list
       @@vars
     end
 
     # Return the number of variable defined
     #
-    # -> `Fixnum`
+    #  * **returns**: `Fixnum`
     def self.size
       @@vars.keys.size
     end
 
     # Returns `true` if a variable already exists
     #
-    # <- `Object` that represent the variable
-    # -> `TrueClass` if variable exists, `FalseClass` if not
+    #  * **argument**: `Object` that represent the variable
+    #  * **returns**: `TrueClass` if variable exists, `FalseClass` if not
     def self.exist?(name)
       @@vars.keys.include? name
     end
@@ -40,8 +40,8 @@ module CAS
     # Variable is a container for an atomic simbol that becomes a number
     # when `CAS::Op#call` method is used.
     #
-    # <- `Object` that is a identifier for the variable
-    # -> `CAS::Variable` instance
+    #  * **argument**: `Object` that is a identifier for the variable
+    #  * **returns**: `CAS::Variable` instance
     def initialize(name)
       raise CASError, "Variable #{name} already exists" if CAS::Variable.exist? name
       @name = name
@@ -56,8 +56,8 @@ module CAS
     #  dx      dy
     # ```
     #
-    # <- `CAS::Op` for the derivative denominator
-    # -> `CAS::Constant`, 0 if not depended, 1 if dependent
+    #  * **argument**: `CAS::Op` for the derivative denominator
+    #  * **returns**: `CAS::Constant`, 0 if not depended, 1 if dependent
     def diff(v)
       (self == v ? CAS::One : CAS::Zero)
     end
@@ -65,8 +65,8 @@ module CAS
     # Returns `TrueClass` if argument of the function is equal
     # to `self`
     #
-    # <- `CAS::Op`
-    # -> `TrueClass` or `FalseClass`
+    #  * **argument**: `CAS::Op`
+    #  * **returns**: `TrueClass` or `FalseClass`
     def depend?(v)
       self == v
     end
@@ -75,8 +75,8 @@ module CAS
     # :warning: this operates on the graph, not on the math
     # See `CAS::equal`, etc.
     #
-    # <- `CAS::Op` to be tested against
-    # -> `TrueClass` if equal, `FalseClass` if differs
+    #  * **argument**: `CAS::Op` to be tested against
+    #  * **returns**: `TrueClass` if equal, `FalseClass` if differs
     def ==(op)
       # CAS::Help.assert(op, CAS::Op)
       if op.is_a? CAS::Variable
@@ -98,8 +98,8 @@ module CAS
     # # => 2
     # ```
     #
-    # <- `Hash` with feed dictionary
-    # -> `Numeric`
+    #  * **argument**: `Hash` with feed dictionary
+    #  * **returns**: `Numeric`
     def call(f)
       CAS::Help.assert(f, Hash)
 
@@ -109,21 +109,21 @@ module CAS
 
     # Convert expression to string
     #
-    # -> `String` to print on screen
+    #  * **returns**: `String` to print on screen
     def to_s
       "#{@name}"
     end
 
     # Convert expression to code (internal, for `CAS::Op#to_proc` method)
     #
-    # -> `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
+    #  * **returns**: `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
     def to_code
       "#{@name}"
     end
 
     # Returns an array containing `self`
     #
-    # -> `Array` containing `self`
+    #  * **returns**: `Array` containing `self`
     def args
       [self]
     end
@@ -132,8 +132,8 @@ module CAS
     # contains the variable will perform the substitution with
     # the value.
     #
-    # <- `Hash` of substitutions
-    # -> `CAS::Op` of substitutions
+    #  * **argument**: `Hash` of substitutions
+    #  * **returns**: `CAS::Op` of substitutions
     def subs(dt)
       CAS::Help.assert(dt, Hash)
       if dt.keys.include? self
@@ -149,7 +149,7 @@ module CAS
 
     # Inspector for the current object
     #
-    # -> `String`
+    #  * **returns**: `String`
     def inspect
       "Var(#{@name})"
     end
@@ -157,21 +157,21 @@ module CAS
     # Simplification callback. The only possible simplification
     # is returning `self`
     #
-    # -> `CAS::Variable` as `self`
+    #  * **returns**: `CAS::Variable` as `self`
     def simplify
       self
     end
 
     # Return the local Graphviz node of the tree
     #
-    # -> `String` of local Graphiz node
+    #  * **returns**: `String` of local Graphiz node
     def dot_graph
       "#{@name};"
     end
 
     # Returns the latex representation of the current Op.
     #
-    # -> `String`
+    #  * **returns**: `String`
     def to_latex
       self.to_s
     end
@@ -183,8 +183,8 @@ module CAS
   # x, y = CAS::vars :x, :y
   # ```
   #
-  # <- `Array` of Numeric
-  # -> `Array` of `CAS::Variable`
+  #  * **argument**: `Array` of Numeric
+  #  * **returns**: `Array` of `CAS::Variable`
   def self.vars(*name)
     (return CAS::Variable.new(name[0])) if name.size == 1
     ret = []

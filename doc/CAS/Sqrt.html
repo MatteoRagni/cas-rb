@@ -95,12 +95,8 @@
 
   <section class="description">
     
-<pre class="ruby"><span class="ruby-identifier">___</span>           <span class="ruby-identifier">_</span>
-</pre>
-
-<p>/ __| __ _ _ _| |_ __ / _` | &#39;_|  _| |<em>_</em>/__, |_|  __|</p>
-
-<pre>|_|</pre>
+<p>Square Root of a function. Even if it can be implemented as a power
+function, it is a separated class.</p>
 
   </section>
 
@@ -136,13 +132,23 @@
 
         <div class="method-description">
           
-          <p>Same as `CAS::Op`</p>
+          <p>Call resolves the operation tree in a <code>Numeric</code> (if
+<code>Fixnum</code>) or <code>Float</code> (depends upon promotions). As
+input, it requires an hash with <code>CAS::Variable</code> or
+<code>CAS::Variable#name</code> as keys, and a <code>Numeric</code> as a
+value. In this case it will call the <code>Fixnum#overloaded_plus</code>,
+that is the old plus function.</p>
+<ul><li>
+<p><strong>argument</strong>: <code>Hash</code> with feed dictionary</p>
+</li><li>
+<p><strong>returns</strong>: <code>Numeric</code></p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="call-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 337</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 472</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">f</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">f</span>, <span class="ruby-constant">Hash</span>)
 
@@ -171,25 +177,22 @@
 
         <div class="method-description">
           
-          <p>Performs the square root between two `CAS::Op`</p>
+          <p>Performs the square root between two <code>CAS::Op</code></p>
 
-<p>“`</p>
-
-<pre class="ruby"><span class="ruby-identifier">d</span>
-</pre>
-
-<p>—- √f(x) = 1/2 * f&#39;(x) * √f(x)</p>
-
-<pre class="ruby"><span class="ruby-identifier">dx</span>
-</pre>
-
-<p>“`</p>
+<pre>d
+---- √f(x) = 1/2 * f&#39;(x) * √f(x)
+ dx</pre>
+<ul><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> argument of derivative</p>
+</li><li>
+<p><strong>returns</strong>: <code>CAS::Op</code> derivative</p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="diff-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 328</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 456</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">depend?</span> <span class="ruby-identifier">v</span>
     <span class="ruby-keyword">return</span> (<span class="ruby-ivar">@x</span>.<span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>) <span class="ruby-operator">/</span> (<span class="ruby-constant">CAS</span>.<span class="ruby-identifier">const</span>(<span class="ruby-value">2.0</span>) <span class="ruby-operator">*</span> <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">sqrt</span>(<span class="ruby-ivar">@x</span>)))
@@ -220,7 +223,20 @@
 
         <div class="method-description">
           
-          <p>Same as `CAS::Op`</p>
+          <p>Same as <code>CAS::Op</code></p>
+
+<p>Simplifcation engine supports:</p>
+<ul><li>
+<p>√(x^z) = x^(z - 1/2)</p>
+</li><li>
+<p>√x = 0</p>
+</li><li>
+<p>√x = 1</p>
+</li><li>
+<p>√a = b (constants reduction)</p>
+</li><li>
+<p><strong>returns</strong>: <code>CAS::Op</code> simplified version</p>
+</li></ul>
           
           
             <div class="method-calls-super">
@@ -231,7 +247,7 @@
 
           
           <div class="method-source-code" id="simplify-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 349</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 495</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">simplify</span>
   <span class="ruby-keyword">super</span>
   <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">pow</span>(<span class="ruby-ivar">@x</span>.<span class="ruby-identifier">x</span>, <span class="ruby-ivar">@y</span> <span class="ruby-operator">-</span> <span class="ruby-value">0.5</span>) <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Pow</span>
@@ -263,13 +279,18 @@
 
         <div class="method-description">
           
-          <p>Same as `CAS::Op`</p>
+          <p>Convert expression to code (internal, for <code>CAS::Op#to_proc</code>
+method)</p>
+<ul><li>
+<p><strong>returns</strong>: <code>String</code> that represent Ruby code to
+be parsed in <code>CAS::Op#to_proc</code></p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="to_code-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 359</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 507</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_code</span>
   <span class="ruby-node">&quot;Math::sqrt(#{@x.to_code})&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -296,13 +317,16 @@
 
         <div class="method-description">
           
-          <p>Returns the latex representation of the current <a href="Op.html">Op</a></p>
+          <p>Returns the latex representation of the current <a href="Op.html">Op</a>.</p>
+<ul><li>
+<p><strong>returns</strong>: <code>String</code></p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="to_latex-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 364</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 514</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_latex</span>
   <span class="ruby-node">&quot;\\sqrt{#{@x.to_latex}}&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -329,13 +353,16 @@
 
         <div class="method-description">
           
-          <p>Same as `CAS::Op`</p>
+          <p>Convert expression to string</p>
+<ul><li>
+<p><strong>returns</strong>: <code>String</code> to print on screen</p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 344</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 481</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
   <span class="ruby-node">&quot;√(#{@x})&quot;</span>
 <span class="ruby-keyword">end</span></pre>

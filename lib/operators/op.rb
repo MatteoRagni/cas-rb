@@ -9,6 +9,7 @@ module CAS
   #  \___/| .__/
   #       |_|
   class Op
+    # Argument of the operation
     attr_reader :x
 
     # Initialize a new empty operation container. This is a virtual
@@ -17,8 +18,8 @@ module CAS
     # The input element is a Numric, to create a constant.
     # `CAS::Op` specifies operations with a single variable
     #
-    # <- `Numeric` to be converted in `CAS::Constant` or `CAS::Op` child operation
-    # -> `CAS::Op` instance
+    #  * **argument**: `Numeric` to be converted in `CAS::Constant` or `CAS::Op` child operation
+    #  * **returns**: `CAS::Op` instance
     def initialize(x)
       if x.is_a? Numeric
         x = Op.numeric_to_const x
@@ -39,8 +40,8 @@ module CAS
     # Return the dependencies of the operation. Requires a `CAS::Variable`
     # and it is one of the recursve method (implicit tree resolution)
     #
-    # <- `CAS::Variable` instance
-    # -> `TrueClass` if depends, `FalseClass` if not
+    #  * **argument**: `CAS::Variable` instance
+    #  * **returns**: `TrueClass` if depends, `FalseClass` if not
     def depend?(v)
       CAS::Help.assert(v, CAS::Op)
 
@@ -60,8 +61,8 @@ module CAS
     #  d g(x)
     # ```
     #
-    # <- `CAS::Op` object of the derivative
-    # -> `CAS::Op` a derivated object, or `CAS::Zero` for constants
+    #  * **argument**: `CAS::Op` object of the derivative
+    #  * **returns**: `CAS::Op` a derivated object, or `CAS::Zero` for constants
     def diff(v)
       CAS::Help.assert(v, CAS::Op)
 
@@ -83,8 +84,8 @@ module CAS
     # # => 2
     # ```
     #
-    # <- `Hash` with feed dictionary
-    # -> `Numeric`
+    #  * **argument**: `Hash` with feed dictionary
+    #  * **returns**: `Numeric`
     def call(f)
       CAS::Help.assert(f, Hash)
 
@@ -102,8 +103,8 @@ module CAS
     # # => (ln(y)^2) + (y^2)
     # ```
     #
-    # <- `Hash` with substitution table
-    # -> `CAS::Op` (`self`) with substitution performed
+    #  * **argument**: `Hash` with substitution table
+    #  * **returns**: `CAS::Op` (`self`) with substitution performed
     def subs(dt)
       CAS::Help.assert(dt, Hash)
       if dt.keys.include? @x
@@ -122,61 +123,61 @@ module CAS
 
     # Convert expression to string
     #
-    # -> `String` to print on screen
+    #  * **returns**: `String` to print on screen
     def to_s
       "#{@x}"
     end
 
     # Convert expression to code (internal, for `CAS::Op#to_proc` method)
     #
-    # -> `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
+    #  * **returns**: `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
     def to_code
       "#{@x}"
     end
 
     # Returns a sum of two `CAS::Op`s
     #
-    # <- `CAS::Op` tree
-    # -> `CAS::Op` new object
+    #  * **argument**: `CAS::Op` tree
+    #  * **returns**: `CAS::Op` new object
     def +(op)
       CAS::Sum.new self, op
     end
 
     # Returns a difference of two `CAS::Op`s
     #
-    # <- `CAS::Op` tree
-    # -> `CAS::Op` new object
+    #  * **argument**: `CAS::Op` tree
+    #  * **returns**: `CAS::Op` new object
     def -(op)
       CAS::Diff.new self, op
     end
 
     # Returns a product of two `CAS::Op`s
     #
-    # <- `CAS::Op` tree
-    # -> `CAS::Op` new object
+    #  * **argument**: `CAS::Op` tree
+    #  * **returns**: `CAS::Op` new object
     def *(op)
       CAS::Prod.new self, op
     end
 
     # Returns a division of two `CAS::Op`s
     #
-    # <- `CAS::Op` tree
-    # -> `CAS::Op` new object
+    #  * **argument**: `CAS::Op` tree
+    #  * **returns**: `CAS::Op` new object
     def /(op)
       CAS::Div.new self, op
     end
 
     # Returns the power of two `CAS::Op`s
     #
-    # <- `CAS::Op` tree
-    # -> `CAS::Op` new object
+    #  * **argument**: `CAS::Op` tree
+    #  * **returns**: `CAS::Op` new object
     def **(op)
       CAS.pow(self, op)
     end
 
     # Unary operator for inversion of a `CAS::Op`
     #
-    # -> `CAS::Op` new object
+    #  * **returns**: `CAS::Op` new object
     def -@
       CAS.invert(self)
     end
@@ -185,7 +186,7 @@ module CAS
     # until all possible simplification are performed (thus the execution
     # time is not deterministic).
     #
-    # -> `CAS::Op` simplified version
+    #  * **returns**: `CAS::Op` simplified version
     def simplify
       hash = @x.to_s
       @x = @x.simplify
@@ -198,7 +199,7 @@ module CAS
     # Simplify dictionary performs a dictionary simplification
     # that is the class variable `@@simplify_dict`
     #
-    # -> `CAS::Op` self
+    #  * **returns**: `CAS::Op` self
     def simplify_dictionary
       if @@simplify_dict[@x]
         return @@simplify_dict[@x]
@@ -210,7 +211,7 @@ module CAS
 
     # Inspector for the current object
     #
-    # -> `String`
+    #  * **returns**: `String`
     def inspect
       "#{self.class}(#{@x.inspect})"
     end
@@ -219,8 +220,8 @@ module CAS
     # :warning: this operates on the graph, not on the math
     # See `CAS::equal`, etc.
     #
-    # <- `CAS::Op` to be tested against
-    # -> `TrueClass` if equal, `FalseClass` if differs
+    #  * **argument**: `CAS::Op` to be tested against
+    #  * **returns**: `TrueClass` if equal, `FalseClass` if differs
     def ==(op)
       # CAS::Help.assert(op, CAS::Op)
       if op.is_a? CAS::Op
@@ -234,8 +235,8 @@ module CAS
     # :warning: this operates on the graph, not on the math
     # See `CAS::equal`, etc.
     #
-    # <- `CAS::Op` to be tested against
-    # -> `FalseClass` if equal, `TrueClass` if differs
+    #  * **argument**: `CAS::Op` to be tested against
+    #  * **returns**: `FalseClass` if equal, `TrueClass` if differs
     def !=(op)
       not self.==(op)
     end
@@ -249,8 +250,8 @@ module CAS
     # The proc is evaluated in the context devined by the input `Binding` object
     # If `nil` is passed, the `eval` will run in this local context
     #
-    # <- `Binding` or `NilClass` that is the context of the Ruby VM
-    # -> `Proc` object with a single argument as an `Hash`
+    #  * **argument**: `Binding` or `NilClass` that is the context of the Ruby VM
+    #  * **returns**: `Proc` object with a single argument as an `Hash`
     def as_proc(bind=nil)
       args_ext = self.args.map { |e| "#{e} = fd[\"#{e}\"];" }
       code = "Proc.new do |fd|; #{args_ext.join " "} #{self.to_code}; end"
@@ -264,14 +265,14 @@ module CAS
 
     # Returns a list of all `CAS::Variable`s of the current tree
     #
-    # -> `Array` of `CAS::Variable`s
+    #  * **returns**: `Array` of `CAS::Variable`s
     def args
       @x.args.uniq
     end
 
     # Return the local Graphviz node of the tree
     #
-    # -> `String` of local Graphiz node
+    #  * **returns**: `String` of local Graphiz node
     def dot_graph
       cls = "#{self.class.to_s.gsub("CAS::", "")}_#{self.object_id}"
       "#{cls} -> #{@x.dot_graph}\n"
@@ -279,7 +280,7 @@ module CAS
 
     # Returns the latex representation of the current Op.
     #
-    # -> `String`
+    #  * **returns**: `String`
     def to_latex
       "#{self.class.gsub("CAS::", "")}\\left(#{@x.to_latex}\\right)"
     end

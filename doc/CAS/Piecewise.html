@@ -105,20 +105,14 @@
 called a result that dependes upon the evaluation of a condition. In
 practice:</p>
 
-<p>“`</p>
+<pre>/
+ |  f(x)   if condition(x) is True
+&lt;
+ |  g(x)   otherwise
+  \</pre>
 
-<pre> /
-|  f(x)   if condition(x) is True</pre>
-
-<p>&lt;</p>
-
-<pre>|  g(x)   otherwise
- \</pre>
-
-<p>“`</p>
-
-<p>From this class other classes will inherit like `CAS::Max` and `CAS::Min`
-classes</p>
+<p>From this class other classes will inherit like <code>CAS::Max</code> and
+<code>CAS::Min</code> classes</p>
 
   </section>
 
@@ -177,10 +171,16 @@ classes</p>
           
           <p>Initialize a new piecewise function. It requires first the function that
 returns when condition is true, than the function when condition is false,
-and finally the condition that must be of class `CAS::Condition`</p>
-
-<p>&lt;- `CAS::Op` first function &lt;- `CAS::Op` second function &lt;-
-`CAS::Condition` evaluated condition -&gt; `CAS::Piecewise` new instance</p>
+and finally the condition that must be of class <code>CAS::Condition</code></p>
+<ul><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> first function</p>
+</li><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> second function</p>
+</li><li>
+<p><strong>argument</strong>: <code>CAS::Condition</code> evaluated condition</p>
+</li><li>
+<p><strong>returns</strong>: <code>CAS::Piecewise</code> new instance</p>
+</li></ul>
           
           
             <div class="method-calls-super">
@@ -229,10 +229,13 @@ and finally the condition that must be of class `CAS::Condition`</p>
 
         <div class="method-description">
           
-          <p>Checks if two `CAS::Piecewise` are equal. Checks equality on all functions+
-and conditions</p>
-
-<p>&lt;- `CAS::Op` to be checked against -&gt; `TrueClass` or `FalseClass`</p>
+          <p>Checks if two <code>CAS::Piecewise</code> are equal. Checks equality on all
+functions+ and conditions</p>
+<ul><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> to be checked against</p>
+</li><li>
+<p><strong>returns</strong>: <code>TrueClass</code> or <code>FalseClass</code></p>
+</li></ul>
           
           
 
@@ -298,10 +301,13 @@ and conditions</p>
 
         <div class="method-description">
           
-          <p>Executes the condition. If it is `true` it returns the first function, else
-it returns the value of the second function.</p>
-
-<p>&lt;- `Hash` with value tables -&gt; `Numeric` the result of the call</p>
+          <p>Executes the condition. If it is <code>true</code> it returns the first
+function, else it returns the value of the second function.</p>
+<ul><li>
+<p><strong>argument</strong>: <code>Hash</code> with value tables</p>
+</li><li>
+<p><strong>returns</strong>: <code>Numeric</code> the result of the call</p>
+</li></ul>
           
           
 
@@ -337,27 +343,21 @@ it returns the value of the second function.</p>
           
           <p>Derivative of a function is performed as derivative of the two internal
 functions while condition is unchanged</p>
-<table class="rdoc-list note-list"><tbody><tr><td class='label'>warning</td><td>
-<p><a href="Piecewise.html">Piecewise</a> functions are in general not
-differentiable. Thus differentiability</p>
-</td></tr></tbody></table>
 
-<p>is left to the user</p>
+<p>warning:: <a href="Piecewise.html">Piecewise</a> functions are in general
+not differentiable. Thus differentiability is left to the user</p>
 
-<p>“`</p>
-
-<pre>    /                                     /
-d  |  f(x)   if condition(x) is True     | f&#39;(x)   if condition(x) is True</pre>
-
-<p>– &lt;                                   = &lt; dx  |  g(x)   otherwise    
-| g&#39;(x)   otherwise</p>
-
-<pre>\                                     \</pre>
-
-<p>“`</p>
-
-<p>&lt;- `CAS::Op` argument of derivative -&gt; `CAS::Piecewise` with
-derivated functions and unchanged condition</p>
+<pre>/                                     /
+ d  |  f(x)   if condition(x) is True     | f&#39;(x)   if condition(x) is True
+-- &lt;                                   = &lt;
+dx  |  g(x)   otherwise                   | g&#39;(x)   otherwise
+     \                                     \</pre>
+<ul><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> argument of derivative</p>
+</li><li>
+<p><strong>returns</strong>: <code>CAS::Piecewise</code> with derivated
+functions and unchanged condition</p>
+</li></ul>
           
           
 
@@ -392,8 +392,9 @@ derivated functions and unchanged condition</p>
         <div class="method-description">
           
           <p>Convert piecewise function into a dot graphviz representation</p>
-
-<p>-&gt; `String`</p>
+<ul><li>
+<p><strong>returns</strong>: <code>String</code></p>
+</li></ul>
           
           
 
@@ -432,8 +433,9 @@ derivated functions and unchanged condition</p>
         <div class="method-description">
           
           <p>Convert the piecewise funtion to a String of Ruby code</p>
-
-<p>-&gt; `String` of code</p>
+<ul><li>
+<p><strong>returns</strong>: <code>String</code> of code</p>
+</li></ul>
           
           
 
@@ -467,8 +469,9 @@ derivated functions and unchanged condition</p>
         <div class="method-description">
           
           <p>Convert piecewise function into LaTeX representation</p>
-
-<p>-&gt; `String` of LaTeX code</p>
+<ul><li>
+<p><strong>returns</strong>: <code>String</code> of LaTeX code</p>
+</li></ul>
           
           
 
@@ -502,8 +505,9 @@ derivated functions and unchanged condition</p>
         <div class="method-description">
           
           <p>Convert the piecewise function into a String</p>
-
-<p>-&gt; `String`</p>
+<ul><li>
+<p><strong>returns</strong>: <code>String</code></p>
+</li></ul>
           
           
 

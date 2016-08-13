@@ -26,10 +26,10 @@ module CAS
     # that returns when condition is true, than the function when condition is
     # false, and finally the condition that must be of class `CAS::Condition`
     #
-    # <- `CAS::Op` first function
-    # <- `CAS::Op` second function
-    # <- `CAS::Condition` evaluated condition
-    # -> `CAS::Piecewise` new instance
+    #  * **argument**: `CAS::Op` first function
+    #  * **argument**: `CAS::Op` second function
+    #  * **argument**: `CAS::Condition` evaluated condition
+    #  * **returns**: `CAS::Piecewise` new instance
     def initialize(x, y, condition)
       CAS::Help.assert(condition, CAS::Condition)
 
@@ -51,8 +51,8 @@ module CAS
     #      \                                     \
     # ```
     #
-    # <- `CAS::Op` argument of derivative
-    # -> `CAS::Piecewise` with derivated functions and unchanged condition
+    #  * **argument**: `CAS::Op` argument of derivative
+    #  * **returns**: `CAS::Piecewise` with derivated functions and unchanged condition
     def diff(v)
       CAS::Help.assert(v, CAS::Op)
       return CAS::Piecewise.new(@x.diff(v).simplify, @y.diff(v).simplify, @condition)
@@ -61,8 +61,8 @@ module CAS
     # Executes the condition. If it is `true` it returns the first function,
     # else it returns the value of the second function.
     #
-    # <- `Hash` with value tables
-    # -> `Numeric` the result of the call
+    #  * **argument**: `Hash` with value tables
+    #  * **returns**: `Numeric` the result of the call
     def call(fd)
       CAS::Help.assert(fd, Hash)
       (@condition.call(fd) ? @x.call(fd) : @y.call(fd))
@@ -71,8 +71,8 @@ module CAS
     # Checks if two `CAS::Piecewise` are equal. Checks equality on all functions+
     # and conditions
     #
-    # <- `CAS::Op` to be checked against
-    # -> `TrueClass` or `FalseClass`
+    #  * **argument**: `CAS::Op` to be checked against
+    #  * **returns**: `TrueClass` or `FalseClass`
     def ==(op)
       CAS::Help.assert(op, CAS::Op)
       if self.class != op.class
@@ -84,14 +84,14 @@ module CAS
 
     # Convert the piecewise funtion to a String of Ruby code
     #
-    # -> `String` of code
+    #  * **returns**: `String` of code
     def to_code
       "(#{@condition.to_code} ? (#{@x.to_code}) : (#{@y.to_code}))"
     end
 
     # Convert the piecewise function into a String
     #
-    # -> `String`
+    #  * **returns**: `String`
     def to_s
       "(#{@condition} ? #{@x} : #{@y})"
     end
@@ -99,7 +99,7 @@ module CAS
     alias :binary_dot_graph :dot_graph
     # Convert piecewise function into a dot graphviz representation
     #
-    # -> `String`
+    #  * **returns**: `String`
     def dot_graph
       cls = "#{self.class.to_s.gsub("CAS::", "")}_#{self.object_id}"
       "#{cls} -> #{@x.dot_graph}\n  #{cls} -> #{@y.dot_graph}\n  #{cls} -> #{@condition.dot_graph}"
@@ -107,7 +107,7 @@ module CAS
 
     # Convert piecewise function into LaTeX representation
     #
-    # -> `String` of LaTeX code
+    #  * **returns**: `String` of LaTeX code
     def to_latex
       "\\left\\{ \\begin{array}{lr} #{@x.to_latex} & #{@condition.to_latex} \\\\ #{@y.to_latex} \\end{array} \\right."
     end
@@ -124,14 +124,14 @@ module CAS
   class MinMax < CAS::Piecewise
     # Convert MinMax function into LaTeX representation
     #
-    # -> `String` of LaTeX code
+    #  * **returns**: `String` of LaTeX code
     def to_latex
       "\\mathrm{#{@type}}\\left( \\begin{array}{c} #{@x.to_latex} \\\\ #{@y.to_latex} \\end{array} \\right)"
     end
 
     # Returns a string representation for the current operation
     #
-    # -> `String`
+    #  * **returns**: `String`
     def to_s
       "#{@type}(#{@x}, #{@y})"
     end
@@ -150,8 +150,8 @@ module CAS
     # To initialize `CAS::Max` only the two functions are necessary. The condition is automatically
     # generated
     #
-    # <- `CAS::Op` first function
-    # <- `CAS::Op` second function
+    #  * **argument**: `CAS::Op` first function
+    #  * **argument**: `CAS::Op` second function
     def initialize(x, y)
       super(x, y, CAS::greater_equal(x, y))
       @type = "max"
@@ -169,18 +169,28 @@ module CAS
     # To initialize `CAS::Min` only the two functions are necessary. The condition is automatically
     # generated
     #
-    # <- `CAS::Op` first function
-    # <- `CAS::Op` second function
+    #  * **argument**: `CAS::Op` first function
+    #  * **argument**: `CAS::Op` second function
     def initialize(x, y)
       super(x, y, CAS::smaller_equal(x, y))
       @type = "min"
     end
   end # Min
 
+  # Shortcut for `CAS::Max` initializer
+  #
+  #  * **argument**: `CAS::Op` left function
+  #  * **argument**: `CAS::Op` right function
+  #  * **returns**: `CAS::Max` new instance
   def self.max(x, y)
     CAS::Max.new(x, y)
   end
 
+  # Shortcut for `CAS::Min` initializer
+  #
+  #  * **argument**: `CAS::Op` left function
+  #  * **argument**: `CAS::Op` right function
+  #  * **returns**: `CAS::Min` new instance
   def self.min(x, y)
     CAS::Min.new(x, y, CAS::smaller_equal(x, y))
   end

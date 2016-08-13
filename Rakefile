@@ -28,7 +28,7 @@ RDoc::Task.new do |rdoc|
   rdoc.rdoc_dir ="./doc"
   rdoc.rdoc_files.include(
     "README.md", "lib/*.rb", "lib/*/*.rb")
-  # rdoc.options << "-f" << "horo"
+  rdoc.options << "--markup" << "markdown"
   rdoc.options << "--all"
 end
 

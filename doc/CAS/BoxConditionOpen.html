@@ -89,7 +89,8 @@
     
 <p>Implements the box condition with both bounds are open</p>
 
-<p>“` a &lt; f(x) &lt; b “`</p>
+<pre class="ruby"><span class="ruby-identifier">a</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">f</span>(<span class="ruby-identifier">x</span>) <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">b</span>
+</pre>
 
   </section>
 
@@ -126,14 +127,17 @@
         <div class="method-description">
           
           <p>Function call will evaluate box condition to evaluate relation</p>
-
-<p>&lt;- `Hash` with feed dictionary -&gt; `Trueclass` or `Falseclass`</p>
+<ul><li>
+<p><strong>argument</strong>: <code>Hash</code> with feed dictionary</p>
+</li><li>
+<p><strong>returns</strong>: <code>Trueclass</code> or <code>Falseclass</code></p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="call-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 188</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 193</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>)
   <span class="ruby-identifier">x_call</span> = <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>)
   <span class="ruby-keyword">return</span> ((<span class="ruby-ivar">@lower</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>) <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">x_call</span>) <span class="ruby-keyword">and</span> (<span class="ruby-identifier">x_call</span> <span class="ruby-operator">&lt;</span> <span class="ruby-ivar">@upper</span>))
@@ -167,7 +171,7 @@
 
           
           <div class="method-source-code" id="representative-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 178</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 183</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">representative</span>
   <span class="ruby-ivar">@lower_cond</span> = <span class="ruby-ivar">@upper_cond</span> = <span class="ruby-ivar">@upper_latex</span> = <span class="ruby-ivar">@lower_latex</span> = <span class="ruby-ivar">@lower_str</span> = <span class="ruby-ivar">@upper_str</span> = <span class="ruby-string">&quot;&lt;&quot;</span>
   <span class="ruby-keyword">self</span>

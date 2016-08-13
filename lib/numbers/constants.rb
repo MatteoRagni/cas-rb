@@ -29,8 +29,8 @@ module CAS
     # Calling a constant will return the value of the constant
     # itself.
     #
-    # <- Unused argument
-    # -> `Numeric` value of the constant
+    #  * **argument**: Unused argument
+    #  * **returns**: `Numeric` value of the constant
     def call(_f)
       @x
     end
@@ -38,8 +38,8 @@ module CAS
     # There is no dependency in a constant, thus this method will
     # always return false
     #
-    # <- Unused argument
-    # -> `FalseClass`
+    #  * **argument**: Unused argument
+    #  * **returns**: `FalseClass`
     def depend?(_v)
       false
     end
@@ -47,15 +47,15 @@ module CAS
     # The string representation of a constant is the value
     # of the constant
     #
-    # -> `String`
+    #  * **returns**: `String`
     def to_s
       "#{@x}"
     end
 
     # Subs for a constant is a dummy method that returns always `self`
     #
-    # <- Unused argument
-    # -> `CAS::Constant` that represent `self`
+    #  * **argument**: Unused argument
+    #  * **returns**: `CAS::Constant` that represent `self`
     def subs(_dt)
       return self
     end
@@ -64,7 +64,7 @@ module CAS
     # until all possible simplification are performed (thus the execution
     # time is not deterministic).
     #
-    # -> `CAS::Op` simplified version
+    #  * **returns**: `CAS::Op` simplified version
     def simplify
       return self.simplify_dictionary
     end
@@ -78,15 +78,15 @@ module CAS
 
     # Args of a constant is an empty `Array`
     #
-    # -> `Array` empty
+    #  * **returns**: `Array` empty
     def args
       []
     end
 
     # Check if a constant is equal to another `CAS::Op` object
     #
-    # <- `CAs::Op`
-    # -> `TrueClass` or `FalseClass`
+    #  * **argument**: `CAs::Op`
+    #  * **returns**: `TrueClass` or `FalseClass`
     def ==(op)
       if op.is_a? CAS::Constant
         return @x == op.x
@@ -97,14 +97,14 @@ module CAS
 
     # Inspection for `CAS::Constant` class
     #
-    # -> `String`
+    #  * **returns**: `String`
     def inspect
       "Const(#{self})"
     end
 
     # Return the local Graphviz node of the tree
     #
-    # -> `String` of local Graphiz node
+    #  * **returns**: `String` of local Graphiz node
     def dot_graph
       n = "#{self.class.to_s.gsub("CAS::", "")}_#{self.object_id}"
       "#{n};\n  #{n} [label=\"#{@x}\"];"
@@ -112,7 +112,7 @@ module CAS
 
     # Return latex representation of current `CAS::Op`
     #
-    # -> `String`
+    #  * **returns**: `String`
     def to_latex
       self.to_s
     end
@@ -124,8 +124,8 @@ module CAS
   # a, b = CAS::const 1.0, 100
   # ```
   #
-  # <- `Array` of Numeric
-  # -> `Array` of `CAS::Contant`
+  #  * **argument**: `Array` of Numeric
+  #  * **returns**: `Array` of `CAS::Contant`
   def self.const(*val)
     (return CAS::Constant.new(val[0])) if val.size == 1
     ret = []
@@ -145,14 +145,14 @@ module CAS
   class ZERO_CONSTANT < CAS::Constant
     # Initializer for the zero constant
     #
-    # -> `CAS::ZERO_CONSTANT` new instance
+    #  * **returns**: `CAS::ZERO_CONSTANT` new instance
     def initialize
       @x = 0.0
     end
 
     # String representation for the constant
     #
-    # -> `String`
+    #  * **returns**: `String`
     def to_s
       "0"
     end
@@ -171,18 +171,20 @@ module CAS
   class ONE_CONSTANT < CAS::Constant
     # Initializer for the one constant
     #
-    # -> `CAS::ONE_CONSTANT` new instance
+    #  * **returns**: `CAS::ONE_CONSTANT` new instance
     def initialize
       @x = 1.0
     end
 
     # String representation for the constant
     #
-    # -> `String`
+    #  * **returns**: `String`
     def to_s
       "1"
     end
   end # Zero
+
+  # One (1) constant representation
   One = CAS::ONE_CONSTANT.new
 
   #  _____
@@ -195,18 +197,20 @@ module CAS
   class TWO_CONSTANT < CAS::Constant
     # Initializer for the two constant
     #
-    # -> `CAS::TWO_CONSTANT` new instance
+    #  * **returns**: `CAS::TWO_CONSTANT` new instance
     def initialize
       @x = 2.0
     end
 
     # String representation for the constant
     #
-    # -> `String`
+    #  * **returns**: `String`
     def to_s
       "2"
     end
   end # Zero
+
+  # Two (2) constant representation
   Two = CAS::TWO_CONSTANT.new
 
   #  ___ ___
@@ -219,25 +223,27 @@ module CAS
   class PI_CONSTANT < CAS::Constant
     # Initializer for the pi constant
     #
-    # -> `CAS::PI_CONSTANT` new instance
+    #  * **returns**: `CAS::PI_CONSTANT` new instance
     def initialize
       @x = Math::PI
     end
 
     # String representation for the constant
     #
-    # -> `String`
+    #  * **returns**: `String`
     def to_s
       "π"
     end
 
     # Latex representation for the constant
     #
-    # -> `String`
+    #  * **returns**: `String`
     def to_latex
       "\\pi"
     end
   end
+
+  # Pi (3.14...) constant representation
   Pi = CAS::PI_CONSTANT.new
 
   #  ___
@@ -250,25 +256,27 @@ module CAS
   class E_CONSTANT < CAS::Constant
     # Initializer for the E constant
     #
-    # -> `CAS::E_CONSTANT` new instance
+    #  * **returns**: `CAS::E_CONSTANT` new instance
     def initialize
       @x = Math::E
     end
 
     # String representation for the constant
     #
-    # -> `String`
+    #  * **returns**: `String`
     def to_s
       "e"
     end
 
     # Latex representation for the constant
     #
-    # -> `String`
+    #  * **returns**: `String`
     def to_latex
       "e"
     end
   end
+
+  # E (2.57...) constant representation
   E = CAS::E_CONSTANT.new
 
   #  ___       __ _      _ _
@@ -282,25 +290,27 @@ module CAS
   class INFINITY_CONSTANT < CAS::Constant
     # Initializer for the infinity constant
     #
-    # -> `CAS::INFINITY_CONSTANT` new instance
+    #  * **returns**: `CAS::INFINITY_CONSTANT` new instance
     def initialize
       @x = (1.0/0.0)
     end
 
     # String representation for the constant
     #
-    # -> `String`
+    #  * **returns**: `String`
     def to_s
       "∞"
     end
 
     # Latex representation for the constant
     #
-    # -> `String`
+    #  * **returns**: `String`
     def to_latex
       "\\infty"
     end
   end
+
+  # Infinity constant representation
   Infinity = CAS::INFINITY_CONSTANT.new
 
   #  _  _          ___       __ _      _ _
@@ -314,25 +324,27 @@ module CAS
   class NEG_INFINITY_CONSTANT < CAS::Constant
     # Initializer for the negative infinity constant
     #
-    # -> `CAS::NEG_INFINITY_CONSTANT` new instance
+    #  * **returns**: `CAS::NEG_INFINITY_CONSTANT` new instance
     def initialize
       @x = -(1.0/0.0)
     end
 
     # String representation for the constant
     #
-    # -> `String`
+    #  * **returns**: `String`
     def to_s
       "-∞"
     end
 
     # Latex representation for the constant
     #
-    # -> `String`
+    #  * **returns**: `String`
     def to_latex
       "-\\infty"
     end
   end
+
+  # Negative Infinity constant representation
   NegInfinity = CAS::NEG_INFINITY_CONSTANT.new
 
   #      _
@@ -345,18 +357,20 @@ module CAS
   class MINUS_ONE_CONSTANT < CAS::Constant
     # Initializer for the minus one constant
     #
-    # -> `CAS::MINUS_ONE_CONSTANT` new instance
+    #  * **returns**: `CAS::MINUS_ONE_CONSTANT` new instance
     def initialize
       @x = -1.0
     end
 
     # String representation for the constant
     #
-    # -> `String`
+    #  * **returns**: `String`
     def to_s
       "-1"
     end
   end
+
+  # Minus One (-1) constant representation
   MinusOne = CAS::MINUS_ONE_CONSTANT.new
 
   # Series of useful numeric constant, Based upon

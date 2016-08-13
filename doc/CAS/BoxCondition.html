@@ -114,14 +114,19 @@
 <p><a href="BoxCondition.html">BoxCondition</a> class constructs a condition
 of the type:</p>
 
-<p>“` L &lt; f(x) &lt; U “`</p>
+<pre class="ruby"><span class="ruby-constant">L</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">f</span>(<span class="ruby-identifier">x</span>) <span class="ruby-operator">&lt;</span> <span class="ruby-constant">U</span>
+</pre>
 
 <p>and this is a metaclass for different type of box conditions:</p>
-
-<pre>* open: `a &lt; f(x) &lt; b`
-* lower closed: `a ≤ f(x) &lt; b`
-* upper closed: `a &lt; f(x) ≤ b`
-* closed: `a ≤ f(x) ≤ b`</pre>
+<ul><li>
+<p>open: <code>a &lt; f(x) &lt; b</code></p>
+</li><li>
+<p>lower closed: <code>a ≤ f(x) &lt; b</code></p>
+</li><li>
+<p>upper closed: <code>a &lt; f(x) ≤ b</code></p>
+</li><li>
+<p>closed: <code>a ≤ f(x) ≤ b</code></p>
+</li></ul>
 
   </section>
 
@@ -150,7 +155,7 @@ of the type:</p>
 
         <div class="method-description">
         
-        
+        <p>Upper bound as <code>CAS::Constant</code></p>
         
         </div>
       </div>
@@ -163,7 +168,7 @@ of the type:</p>
 
         <div class="method-description">
         
-        
+        <p>Lower bound as <code>CAs::Constant</code></p>
         
         </div>
       </div>
@@ -176,7 +181,7 @@ of the type:</p>
 
         <div class="method-description">
         
-        
+        <p>Contained operation</p>
         
         </div>
       </div>
@@ -206,17 +211,23 @@ of the type:</p>
           
           <p>Initializes a new box condition. A function is required as central term,
 while the second and the third elements are lower and upper bounds as
-`CAS::Constant`</p>
-
-<p>&lt;- `CAS::Op` central term of the box condition &lt;- `CAS::Constant`
-lower bound &lt;- `CAS::Constant` upper bound -&gt; `CAS::BoxCondition` new
-instance</p>
+<code>CAS::Constant</code></p>
+<ul><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> central term of the box
+condition</p>
+</li><li>
+<p><strong>argument</strong>: <code>CAS::Constant</code> lower bound</p>
+</li><li>
+<p><strong>argument</strong>: <code>CAS::Constant</code> upper bound</p>
+</li><li>
+<p><strong>returns</strong>: <code>CAS::BoxCondition</code> new instance</p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 33</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 38</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">lower</span>, <span class="ruby-identifier">upper</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">lower</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Numeric</span>
     <span class="ruby-identifier">lower</span> = <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">const</span> <span class="ruby-identifier">lower</span>
@@ -267,15 +278,18 @@ instance</p>
         <div class="method-description">
           
           <p>Return true if two BoxConditions are equal, false if different</p>
-
-<p>&lt;- `CAS::Op` operator to check against for equality -&gt; `TrueClass` or
-`FalseClass`</p>
+<ul><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> operator to check against
+for equality</p>
+</li><li>
+<p><strong>returns</strong>: <code>TrueClass</code> or <code>FalseClass</code></p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="3D-3D-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 120</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 125</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">cond</span>)
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">cond</span>.<span class="ruby-identifier">class</span>
   <span class="ruby-keyword">return</span> (<span class="ruby-ivar">@x</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">cond</span>.<span class="ruby-identifier">x</span> <span class="ruby-keyword">and</span> <span class="ruby-ivar">@lower</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">cond</span>.<span class="ruby-identifier">lower</span> <span class="ruby-keyword">and</span> <span class="ruby-ivar">@upper</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">cond</span>.<span class="ruby-identifier">upper</span>)
@@ -304,14 +318,15 @@ instance</p>
         <div class="method-description">
           
           <p>Returns an array of variables of the central function</p>
-
-<p>-&gt; `Array` of `CAS::Variable`</p>
+<ul><li>
+<p><strong>returns</strong>: <code>Array</code> of <code>CAS::Variable</code></p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="args-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 112</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 117</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">args</span>
   <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">args</span>
 <span class="ruby-keyword">end</span></pre>
@@ -339,14 +354,17 @@ instance</p>
         <div class="method-description">
           
           <p>Function call will evaluate left and right functions to solve the relation</p>
-
-<p>&lt;- `Hash` with feed dictionary -&gt; `Trueclass` or `Falseclass`</p>
+<ul><li>
+<p><strong>argument</strong>: <code>Hash</code> with feed dictionary</p>
+</li><li>
+<p><strong>returns</strong>: <code>Trueclass</code> or <code>Falseclass</code></p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="call-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 130</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 135</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">_fd</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">CASError</span>, <span class="ruby-string">&quot;This is a virtual method&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -375,15 +393,18 @@ instance</p>
           
           <p>Returns true if one the central function depends upon the expression
 included</p>
-
-<p>&lt;- `CAS::Op` operator to check against for dependencies -&gt;
-`TrueClass` or `FalseClass`</p>
+<ul><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> operator to check against
+for dependencies</p>
+</li><li>
+<p><strong>returns</strong>: <code>TrueClass</code> or <code>FalseClass</code></p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="depend-3F-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 64</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 69</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">depend?</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">depend?</span> <span class="ruby-identifier">v</span>
 <span class="ruby-keyword">end</span></pre>
@@ -411,25 +432,23 @@ included</p>
         <div class="method-description">
           
           <p>Performs the derivative of the box condition. The derivative of a box
-condition is a `CAS::Equal` object (the derivative of a constant is zero):</p>
+condition is a <code>CAS::Equal</code> object (the derivative of a constant
+is zero):</p>
 
-<p>“`</p>
-
-<pre> d
--- [a &lt; f(x) &lt; b] = f&#39;(x) == 0
-dx</pre>
-
-<p>“`</p>
+<pre>d
+ -- [a &lt; f(x) &lt; b] = f&#39;(x) == 0
+ dx</pre>
 
 <p>since between the two there is a difference relation.</p>
-
-<p>&lt;- `CAS::Op` to perform the derivative</p>
+<ul><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> to perform the derivative</p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="diff-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 97</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 102</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">equal</span>(<span class="ruby-ivar">@x</span>.<span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>).<span class="ruby-identifier">simplify</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -457,14 +476,15 @@ dx</pre>
         <div class="method-description">
           
           <p>Returns the dot graphviz representation of the code</p>
-
-<p>-&gt; `String`</p>
+<ul><li>
+<p><strong>returns</strong>: <code>String</code></p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="dot_graph-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 104</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 109</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">dot_graph</span>
   <span class="ruby-identifier">cls</span> = <span class="ruby-node">&quot;#{self.class.to_s.gsub(&quot;CAS::&quot;, &quot;&quot;)}_#{self.object_id}&quot;</span>
   <span class="ruby-node">&quot; #{cls} -&gt; #{@lower.dot_graph}\n #{cls} -&gt; #{@x.dot_graph}\n #{cls} -&gt; #{@upper.dot_graph}\n&quot;</span>
@@ -493,14 +513,15 @@ dx</pre>
         <div class="method-description">
           
           <p>Inspector for the class. It is class specific</p>
-
-<p>-&gt; `String`</p>
+<ul><li>
+<p><strong>returns</strong>: <code>String</code></p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="inspect-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 137</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 142</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">inspect</span>
   <span class="ruby-node">&quot;(#{@lower.inspect} #{@lower_cond} #{@x.inspect} #{@upper_cond} #{@upper.inspect})&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -533,7 +554,7 @@ dx</pre>
 
           
           <div class="method-source-code" id="representative-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 53</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 58</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">representative</span>
   <span class="ruby-ivar">@lower_cond</span>  = <span class="ruby-ivar">@upper_cond</span> = <span class="ruby-string">&quot;&lt;&quot;</span>
   <span class="ruby-ivar">@upper_latex</span> = <span class="ruby-ivar">@lower_latex</span> = <span class="ruby-string">&quot;&lt;&quot;</span>
@@ -564,14 +585,15 @@ dx</pre>
         <div class="method-description">
           
           <p>Simplify left and right term of the operator</p>
-
-<p>-&gt; `CAS::BoxCondition`</p>
+<ul><li>
+<p><strong>returns</strong>: <code>CAS::BoxCondition</code></p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="simplify-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 71</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 76</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">simplify</span>
   <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">simplify</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>
@@ -600,14 +622,15 @@ dx</pre>
         <div class="method-description">
           
           <p>Substitute in the central element using a dictionary</p>
-
-<p>-&gt; `Hash` of substitutions</p>
+<ul><li>
+<p><strong>returns</strong>: <code>Hash</code> of substitutions</p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="subs-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 79</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 84</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">subs</span>(<span class="ruby-identifier">fd</span>)
   <span class="ruby-ivar">@x</span> = <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">subs</span>(<span class="ruby-identifier">fd</span>)
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>
@@ -636,14 +659,15 @@ dx</pre>
         <div class="method-description">
           
           <p>Return the code that performs a condition evaluation</p>
-
-<p>-&gt; `String`</p>
+<ul><li>
+<p><strong>returns</strong>: <code>String</code></p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="to_code-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 159</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 164</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_code</span>
   <span class="ruby-node">&quot;((#{@lower.to_code} #{@lower_cond} (#{@x.to_code})) and ((#{@x.to_code}) #{@upper_cond} #{@upper.to_code}))&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -673,13 +697,13 @@ dx</pre>
           <p>Returns a string that can be used for printing LaTeX version of the box
 condition</p>
 
-<p>`String`</p>
+<p><code>String</code></p>
           
           
 
           
           <div class="method-source-code" id="to_latex-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 145</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 150</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_latex</span>
   <span class="ruby-node">&quot;#{@lower.to_latex} #{@lower_latex} #{@x.to_latex} #{@upper_latex} #{@upper.to_latex}&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -708,13 +732,13 @@ condition</p>
           
           <p>Returns a string that represents the object to be printed</p>
 
-<p>`String`</p>
+<p><code>String</code></p>
           
           
 
           
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 152</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 157</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
   <span class="ruby-node">&quot;#{@lower} #{@lower_str} #{@x} #{@upper_str} #{@upper}&quot;</span>
 <span class="ruby-keyword">end</span></pre>

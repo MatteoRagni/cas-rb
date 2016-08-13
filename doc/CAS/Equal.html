@@ -127,15 +127,18 @@ function</p>
         <div class="method-description">
           
           <p>Return true if two functions are equal, false if different</p>
-
-<p>&lt;- `CAS::Op` operator to check against for equality -&gt; `TrueClass` or
-`FalseClass`</p>
+<ul><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> operator to check against
+for equality</p>
+</li><li>
+<p><strong>returns</strong>: <code>TrueClass</code> or <code>FalseClass</code></p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="3D-3D-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 190</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 193</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">op</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">op</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>)
   <span class="ruby-identifier">cond_f</span> = ((<span class="ruby-ivar">@x</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">x</span>) <span class="ruby-keyword">and</span> (<span class="ruby-ivar">@y</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">y</span>)) <span class="ruby-keyword">or</span> ((<span class="ruby-ivar">@x</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">y</span>) <span class="ruby-keyword">and</span> (<span class="ruby-ivar">@y</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">x</span>))
@@ -165,14 +168,17 @@ function</p>
         <div class="method-description">
           
           <p>Function call will evaluate left and right functions to solve the relation</p>
-
-<p>&lt;- `Hash` with feed dictionary -&gt; `Trueclass` or `Falseclass`</p>
+<ul><li>
+<p><strong>argument</strong>: <code>Hash</code> with feed dictionary</p>
+</li><li>
+<p><strong>returns</strong>: <code>Trueclass</code> or <code>Falseclass</code></p>
+</li></ul>
           
           
 
           
           <div class="method-source-code" id="call-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 180</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 183</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span> <span class="ruby-identifier">fd</span>, <span class="ruby-constant">Hash</span>
 
@@ -207,7 +213,7 @@ function</p>
 
           
           <div class="method-source-code" id="representative-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 170</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 173</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">representative</span>
   <span class="ruby-ivar">@cond_type</span>, <span class="ruby-ivar">@cond_repr</span>, <span class="ruby-ivar">@cond_latex</span> = <span class="ruby-string">&quot;==&quot;</span>, <span class="ruby-string">&quot;≡&quot;</span>, <span class="ruby-string">&quot;=&quot;</span>
   <span class="ruby-keyword">self</span>
