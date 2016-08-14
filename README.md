@@ -1,4 +1,4 @@
-# CAS-RB
+# RAGNI-CAS
 
 [![Gem Version](https://badge.fury.io/rb/ragni-cas.svg)](https://badge.fury.io/rb/ragni-cas)
 [![Code Climate](https://codeclimate.com/github/MatteoRagni/cas-rb/badges/gpa.svg)](https://codeclimate.com/github/MatteoRagni/cas-rb)

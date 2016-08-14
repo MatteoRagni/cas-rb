@@ -457,7 +457,7 @@ with <code>CAs::Constant</code> value</p>
 
           
           <div class="method-source-code" id="const-source">
-            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 129</span>
+            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 123</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">const</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">val</span>)
   (<span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Constant</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">val</span>[<span class="ruby-value">0</span>])) <span class="ruby-keyword">if</span> <span class="ruby-identifier">val</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
   <span class="ruby-identifier">ret</span> = []
@@ -1188,7 +1188,7 @@ it will be moved inside <code>CAS::Op</code>.</p>
 
           
           <div class="method-source-code" id="vars-source">
-            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 188</span>
+            <pre><span class="ruby-comment"># File lib/numbers/variables.rb, line 200</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">vars</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">name</span>)
   (<span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Variable</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">name</span>[<span class="ruby-value">0</span>])) <span class="ruby-keyword">if</span> <span class="ruby-identifier">name</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
   <span class="ruby-identifier">ret</span> = []

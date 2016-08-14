@@ -1,15 +1,15 @@
-Sat, 13 Aug 2016 14:35:34 +0200
-README.md	Tue, 09 Aug 2016 16:02:48 +0200
-lib/ragni-cas.rb	Sat, 13 Aug 2016 14:35:25 +0200
-lib/version.rb	Sat, 13 Aug 2016 13:31:23 +0200
+Sat, 13 Aug 2016 21:37:54 +0200
+README.md	Sat, 13 Aug 2016 14:39:08 +0200
+lib/ragni-cas.rb	Sat, 13 Aug 2016 21:37:48 +0200
+lib/version.rb	Sat, 13 Aug 2016 21:30:19 +0200
 lib/functions/fnc-base.rb	Sat, 13 Aug 2016 13:23:28 +0200
 lib/functions/fnc-box-conditions.rb	Sat, 13 Aug 2016 13:25:36 +0200
 lib/functions/fnc-conditions.rb	Sat, 13 Aug 2016 13:26:16 +0200
 lib/functions/fnc-piecewise.rb	Sat, 13 Aug 2016 13:24:06 +0200
 lib/functions/fnc-trig.rb	Sat, 13 Aug 2016 13:24:05 +0200
 lib/functions/fnc-trsc.rb	Sat, 13 Aug 2016 13:24:04 +0200
-lib/numbers/constants.rb	Sat, 13 Aug 2016 13:24:03 +0200
-lib/numbers/variables.rb	Sat, 13 Aug 2016 13:24:02 +0200
+lib/numbers/constants.rb	Sat, 13 Aug 2016 14:51:37 +0200
+lib/numbers/variables.rb	Sat, 13 Aug 2016 21:27:08 +0200
 lib/operators/bary-op.rb	Sat, 13 Aug 2016 13:30:05 +0200
 lib/operators/nary-op.rb	Sat, 13 Aug 2016 13:30:49 +0200
 lib/operators/op.rb	Sat, 13 Aug 2016 13:31:14 +0200

@@ -68,13 +68,7 @@ module CAS
     def simplify
       return self.simplify_dictionary
     end
-    @@simplidy_dict = {
-      0 => CAS::Zero,
-      1 => CAS::One,
-      Math::PI => CAS::Pi,
-      Math::E => CAS::E,
-      (1.0/0.0) => CAS::Infinity
-    }
+    @@simplify_dict = { }
 
     # Args of a constant is an empty `Array`
     #
@@ -386,4 +380,14 @@ module CAS
     Math::E => CAS::E,
     (1.0/0.0) => CAS::Infinity,
   }
+
+  class Constant
+    @@simplify_dict = {
+      0 => CAS::Zero,
+      1 => CAS::One,
+      Math::PI => CAS::Pi,
+      Math::E => CAS::E,
+      (1.0/0.0) => CAS::Infinity
+    }
+  end
 end

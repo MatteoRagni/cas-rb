@@ -9,7 +9,6 @@ $a, $b, $c = CAS::const 1, 2, 3
 
 class TestVariable < Test::Unit::TestCase
 
-
   def test_init
     assert_equal(CAS::Variable, $x.class)
     assert_raise(CAS::CASError) { CAS::Variable.new :x }
@@ -51,44 +50,6 @@ class TestVariable < Test::Unit::TestCase
     a.each do |e|
       assert_equal e.class, CAS::Variable
     end
-  end
-end
-
-class TestConstant < Test::Unit::TestCase
-
-  def test_init
-    assert_equal($a.class, $b.class)
-    assert_equal(false, $x == $a)
-  end
-
-  def test_initialize
-    assert_equal(CAS::Constant, $a.class)
-  end
-
-  def test_diff
-    assert_equal(CAS::Zero, $a.diff($x))
-    assert_equal(CAS::Zero, $a.diff($a))
-  end
-
-  def test_inspect
-    assert_equal("Const(1)", $a.inspect)
-    assert_equal("Const(2)", $b.inspect)
-    assert_equal("Const(3)", $c.inspect)
-
-  end
-
-  def test_typicalconst
-    assert_equal($a, CAS::One)
-    assert_equal(CAS::const(0), CAS::Zero)
-    assert_equal(CAS::const(-1), CAS::MinusOne)
-    assert_equal(CAS::const(Math::PI), CAS::Pi)
-    assert_equal(CAS::const(Math::E), CAS::E)
-  end
-
-  def test_to_s
-    assert_equal("1", $a.to_s)
-    assert_equal("2", $b.to_s)
-    assert_equal("3", $c.to_s)
   end
 end
 

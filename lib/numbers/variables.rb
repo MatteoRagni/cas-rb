@@ -28,6 +28,18 @@ module CAS
       @@vars.keys.size
     end
 
+    # Returns a variable given its name
+    #
+    #  * **argument**: `Object` name of the variable
+    #  * **returns**: `CAS::Variable` instance if exists, creates a new variable if does not
+    def self.[](s)
+      if CAS::Variable.exist? s
+        return @@vars[s]
+      else
+        return CAS::vars(s)
+      end
+    end
+
     # Returns `true` if a variable already exists
     #
     #  * **argument**: `Object` that represent the variable

@@ -55,7 +55,7 @@
   <h3>Table of Contents</h3>
 
   <ul class="link-list" role="directory">
-    <li><a href="#label-CAS-RB">CAS-RB</a>
+    <li><a href="#label-RAGNI-CAS">RAGNI-CAS</a>
     <li><a href="#label-Introduction">Introduction</a>
     <li><a href="#label-Example">Example</a>
     <li><a href="#label-Execution">Execution</a>
@@ -86,7 +86,7 @@
 
 <main role="main" aria-label="Page README.md">
 
-<h1 id="label-CAS-RB">CAS-RB<span><a href="#label-CAS-RB">&para;</a> <a href="#top">&uarr;</a></span></h1>
+<h1 id="label-RAGNI-CAS">RAGNI-CAS<span><a href="#label-RAGNI-CAS">&para;</a> <a href="#top">&uarr;</a></span></h1>
 
 <p><a href="https://badge.fury.io/rb/ragni-cas"><img
 src="https://badge.fury.io/rb/ragni-cas.svg"></a> <a
@@ -107,7 +107,10 @@ simplification with one step ahead in the graph.</p>
 <h3 id="label-Installation">Installation<span><a href="#label-Installation">&para;</a> <a href="#top">&uarr;</a></span></h3>
 
 <p>First of all is necessary to install and load the <code>ragni-cas</code>
-gem. <code>bash gem install ragni-cas </code></p>
+gem.</p>
+
+<pre class="ruby"><span class="ruby-identifier">gem</span> <span class="ruby-identifier">install</span> <span class="ruby-identifier">ragni</span><span class="ruby-operator">-</span><span class="ruby-identifier">cas</span>
+</pre>
 
 <pre class="ruby"><span class="ruby-identifier">require</span> <span class="ruby-string">&#39;ragni-cas&#39;</span>
 </pre>
@@ -119,8 +122,7 @@ gem. <code>bash gem install ragni-cas </code></p>
 <code>b</code>, with the default value on 1 and 100 in this case). The
 variable <code>f</code> will contain our function:</p>
 
-<pre class="ruby">
-<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span> = <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">vars</span> :<span class="ruby-identifier">x</span>, :<span class="ruby-identifier">y</span>
+<pre class="ruby"><span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span> = <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">vars</span> :<span class="ruby-identifier">x</span>, :<span class="ruby-identifier">y</span>
 <span class="ruby-identifier">a</span>, <span class="ruby-identifier">b</span> = <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">const</span> <span class="ruby-value">1.0</span>, <span class="ruby-value">100.0</span>
 
 <span class="ruby-identifier">f</span> = ((<span class="ruby-identifier">a</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">x</span>) <span class="ruby-operator">**</span> <span class="ruby-value">2</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">b</span> <span class="ruby-operator">*</span> ((<span class="ruby-identifier">y</span> <span class="ruby-operator">-</span> (<span class="ruby-identifier">x</span> <span class="ruby-operator">**</span> <span class="ruby-value">2</span>)) <span class="ruby-operator">**</span> <span class="ruby-value">2</span>)
@@ -242,9 +244,11 @@ function that we want to optimize:</p>
 </pre>
 
 <p>We can use the solution of <code>x</code>, to get the value of
-<code>y</code>: <code>ruby puts &quot;Optimum in #{x} = #{x_opt} and #{y} =
-#{g.call({x =&gt; x_opt})}&quot; # =&gt; Optimum in x = 1.0 and y = 1.0
-</code></p>
+<code>y</code>:</p>
+
+<pre class="ruby"><span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Optimum in #{x} = #{x_opt} and #{y} = #{g.call({x =&gt; x_opt})}&quot;</span>
+<span class="ruby-comment"># =&gt; Optimum in x = 1.0 and y = 1.0</span>
+</pre>
 
 <h2 id="label-Disclaimer">Disclaimer<span><a href="#label-Disclaimer">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
