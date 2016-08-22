@@ -1,6 +1,6 @@
 require 'rdoc/task'
 require 'rake/clean'
-
+require 'rake/testtask'
 
 module Support
   def self.list_gems
@@ -64,3 +64,12 @@ desc "Locally deploy the gem (build and install)"
 task :deploy => [:rdoc, :build, :install] do
   puts "Deployed"
 end
+
+desc "Run Unit Tests"
+Rake::TestTask.new do |t|
+  t.test_files = FileList["tests/test-*.rb"]
+  t.verbose = true
+end
+
+desc "Runs only tests"
+task :default => [:test]
