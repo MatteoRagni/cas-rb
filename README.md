@@ -248,3 +248,22 @@ x_opt = newton(dfx)
 # Let's see the final result for both:
 puts "Optimum in #{x} = #{x_opt} and #{y} = #{g.call({x => x_opt})}"
 ```
+
+
+## To do
+
+#### Simple
+
+ * [ ] substitute `CAS::Invert` with `CAS::Neg`
+ * [ ] substitute `CAS::Condition` with `CAS::Expression`
+ * [ ] move code generation to external plugins that can be loaded on demand
+ * [ ] `CAS::Sum` and `CAS::Prod` inherits from `CAS::NaryOp` instead of `CAS::BinaryOp`
+
+#### Complex
+
+ * [ ] implement `CAS::VectorVariable` and `CAS::MatrixVariable`
+ * [ ] Replace `CAS::Op` and `CAS::BinaryOp` with a single `CAS::Op` equal to `CAS::NaryOp`
+
+##### Extremely complex
+
+ * [ ] Implement the Risch algorithm for symbolic integrations

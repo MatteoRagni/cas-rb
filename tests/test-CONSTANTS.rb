@@ -21,7 +21,7 @@ class TestConstant < Test::Unit::TestCase
     assert_equal @ia.class, @fa.class, "Constant Fixnum class different from Float Constant class"
 
     CAS::NumericToConst.each { |k, v|
-      assert_equal(CAS::Constant.new(k), v, "Initializer #{k} does not return #{v}")
+      assert_equal(CAS::const(k), v, "Initializer #{k} does not return #{v}")
     }
   end
 
@@ -64,11 +64,6 @@ class TestConstant < Test::Unit::TestCase
   def test_subs
     assert_equal @ia.subs({@x => CAS::Pi}), @ia, "Substitution on constant using variable"
     assert_equal @ia.subs({@ia => CAS::Pi}), @ia, "Substitution on constant using constant"
-  end
-
-  # Testing dot_graph method
-  def test_dot_graph
-    assert_match(/\s*Constant_\d+\s*Constant_\d+\s*\[label="56"\]\s*/, CAS::const(56).dot_graph, "Node does not match")
   end
 
   # Testing to_s method

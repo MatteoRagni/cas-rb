@@ -96,15 +96,6 @@ module CAS
       "(#{@condition} ? #{@x} : #{@y})"
     end
 
-    alias :binary_dot_graph :dot_graph
-    # Convert piecewise function into a dot graphviz representation
-    #
-    #  * **returns**: `String`
-    def dot_graph
-      cls = "#{self.class.to_s.gsub("CAS::", "")}_#{self.object_id}"
-      "#{cls} -> #{@x.dot_graph}\n  #{cls} -> #{@y.dot_graph}\n  #{cls} -> #{@condition.dot_graph}"
-    end
-
     # Convert piecewise function into LaTeX representation
     #
     #  * **returns**: `String` of LaTeX code
@@ -135,8 +126,6 @@ module CAS
     def to_s
       "#{@type}(#{@x}, #{@y})"
     end
-
-    alias :dot_graph :binary_dot_graph
   end # MinMax
 
   #  __  __

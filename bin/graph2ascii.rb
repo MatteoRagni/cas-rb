@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require 'ragni-cas'
+#require 'ragni-cas'
 
 module CAS
   module Ascii

@@ -66,7 +66,8 @@ module CAS
     #
     #  * **returns**: `CAS::Op` simplified version
     def simplify
-      return self.simplify_dictionary
+      binding.pry
+      return self
     end
     @@simplify_dict = { }
 
@@ -121,12 +122,12 @@ module CAS
   #  * **argument**: `Array` of Numeric
   #  * **returns**: `Array` of `CAS::Contant`
   def self.const(*val)
-    (return CAS::Constant.new(val[0])) if val.size == 1
+    #(val = [val]) if val.size == 1
     ret = []
     val.each do |n|
-      ret << CAS::Constant.new(n)
+      ret << (NumericToConst[n] ? NumericToConst[n] : CAS::Constant.new(n))
     end
-    return ret
+    return (ret.size == 1 ? ret[0] : ret)
   end
 
   #  _______ ___  ___

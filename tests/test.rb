@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'ragni-cas'
-require 'pry-byebug'
+#require 'pry-byebug'
 
 
 x = CAS::Variable.new(:x)
@@ -21,7 +21,7 @@ puts CAS::export_dot("/tmp/dot_file0.dot", f_diff)
 f_diff.simplify
 puts "#{f_diff} = #{f_diff.call({x => 1.0})}"
 
-binding.pry if ARGV[0] == "d"
+#binding.pry if ARGV[0] == "d"
 
 puts (f.args.map { |v| v.to_s }).join(" ")
 pr = f_diff.as_proc
@@ -54,5 +54,5 @@ rescue CAS::CASError => e
 end
 
 puts CAS::export_dot("/tmp/dot_file1.dot", f_diff)
-puts CAS::max(f, f_diff)
-puts CAS::min(f, f_diff)
+#puts CAS::max(f, f_diff)
+#puts CAS::min(f, f_diff)

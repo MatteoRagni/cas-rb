@@ -171,20 +171,6 @@ module CAS
       return r.uniq
     end
 
-    # Return the local Graphviz node of the tree
-    #
-    #  * **argument**: `?` unused variable (TODO: to be removed)
-    #  * **returns**: `String` of local Graphiz node
-    def dot_graph
-      cls = "#{self.class.to_s.gsub("CAS::", "")}_#{self.object_id}"
-      ret = ""
-      @x.each do |x|
-        ret += "#{cls} -> #{x.dot_graph}\n"
-      end
-      return ret
-    end
-
-
     # Returns the latex representation of the current Op.
     #
     #  * **returns**: `String`

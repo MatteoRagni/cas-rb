@@ -270,14 +270,6 @@ module CAS
       @x.args.uniq
     end
 
-    # Return the local Graphviz node of the tree
-    #
-    #  * **returns**: `String` of local Graphiz node
-    def dot_graph
-      cls = "#{self.class.to_s.gsub("CAS::", "")}_#{self.object_id}"
-      "#{cls} -> #{@x.dot_graph}\n"
-    end
-
     # Returns the latex representation of the current Op.
     #
     #  * **returns**: `String`

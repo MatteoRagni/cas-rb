@@ -181,15 +181,6 @@ module CAS
       end
     end
 
-    # Returns the graphviz representation of the current node
-    #
-    #  * **argument**: `?` unused removed
-    #  * **returns**: `String`
-    def dot_graph
-      cls = "#{self.class.to_s.gsub("CAS::", "")}_#{self.object_id}"
-      "#{cls} -> #{@x.dot_graph}\n  #{cls} -> #{@y.dot_graph}"
-    end
-
     # Returns the latex representation of the current Op.
     #
     #  * **returns**: `String`

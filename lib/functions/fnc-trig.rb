@@ -429,7 +429,7 @@ module CAS
     #  * **returns**: `CAS::Op` a derivated object, or `CAS::Zero` for constants
     def diff(v)
       if @x.depend? v
-        return @x.diff(v) / (CAS.pow(@x, CAS::Two) + CAS::One)
+        return (@x.diff(v) / (CAS.pow(@x, CAS::Two) + CAS::One))
       else
         return CAS::Zero
       end

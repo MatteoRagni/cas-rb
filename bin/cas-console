@@ -1,12 +1,12 @@
 #!/usr/bin/env ruby
 
-%w|pry colorize ragni-cas|.each do |g|
+%w|pry colorize|.each do |g|
   begin
     puts "Please install #{g} gem"
     exit 1
   end unless require g
 end
-
+require_relative '../lib/ragni-cas.rb'
 require_relative 'graph2ascii.rb'
 
 $0 = "ragni-cas"
@@ -42,6 +42,8 @@ Pry.hooks.add_hook(:before_session, "print_banner") do |output, _, pry|
 
      * #{ "`$x`, `$y`, `$z`".yellow } three `CAS::Variable`
 
+    THIS IS A DEVELOPER PREVIEW CONSOLE ONLY
+
   BANNER
   output.puts BANNER
 
@@ -66,7 +68,7 @@ Pry.hooks.add_hook(:before_session, "print_banner") do |output, _, pry|
   #}
   pry.config.prompt_name = "CAS"
   pry.config.collision_warning = true
-  
+
 end
 
 # CAS Exposed Methods
