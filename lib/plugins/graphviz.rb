@@ -35,7 +35,6 @@ module CAS
   class NaryOp
     # Return the local Graphviz node of the tree
     #
-    #  * **argument**: `?` unused variable (TODO: to be removed)
     #  * **returns**: `String` of local Graphiz node
     def dot_graph
       cls = "#{self.class.to_s.gsub("CAS::", "")}_#{self.object_id}"
@@ -44,6 +43,24 @@ module CAS
         ret += "#{cls} -> #{x.dot_graph}\n"
       end
       return ret
+    end
+  end
+
+  class Variable
+    # Return the local Graphviz node of the tree
+    #
+    #  * **returns**: `String` of local Graphiz node
+    def to_dot
+      "#{@name}"
+    end
+  end
+
+  class Constant
+    # Return the local Graphviz node of the tree
+    #
+    #  * **returns**: `String` of local Graphiz node
+    def to_dot
+      "Const(#{@x})"
     end
   end
 
@@ -69,10 +86,30 @@ module CAS
     string = op.dot_graph
     labels = ""
 
+    dot_subs_hash = {
+      "Sum"                => "+",
+      "Diff"               => "-",
+      "Prod"               => "×",
+      "Div"                => "÷",
+      "Sqrt"               => "√(∙)",
+      "Abs"                => "|∙|",
+      "Invert"             => "-(∙)",
+      "Exp"                => "exp(∙)",
+      "Log"                => "log(∙)",
+      "Pow"                => "(∙)^(∙)",
+      "ZERO_CONSTANT"      => "0",
+      "ONE_CONSTANT"       => "1",
+      "TWO_CONSTANT"       => "2",
+      "PI_CONSTANT"        => "π",
+      "INFINITY_CONSTANT"  => "∞",
+      "E_CONSTANT"         => "e",
+      "MINUS_ONE_CONSTANT" => "-1"
+    }
+
     lab = {}
     string.scan(/\w+\_\d+/) do |m|
       if m =~ /(\w+)\_\d+/
-        lab[m] = ($dot_subs_hash[$1] ? $dot_subs_hash[$1] : $1)
+        lab[m] = dot_subs_hash[$1] || $1
       end
     end
     lab.each { |k, v| labels += "  #{k} [label=\"#{v}\"]\n" }
@@ -92,23 +129,4 @@ module CAS
     File.open(fl, "w") do |f| f.puts CAS.to_dot(op) end
     return op
   end
-  $dot_subs_hash = {
-    "Sum"                => "+",
-    "Diff"               => "-",
-    "Prod"               => "×",
-    "Div"                => "÷",
-    "Sqrt"               => "√(∙)",
-    "Abs"                => "|∙|",
-    "Invert"             => "-(∙)",
-    "Exp"                => "exp(∙)",
-    "Log"                => "log(∙)",
-    "Pow"                => "(∙)^(∙)",
-    "ZERO_CONSTANT"      => "0",
-    "ONE_CONSTANT"       => "1",
-    "TWO_CONSTANT"       => "2",
-    "PI_CONSTANT"        => "π",
-    "INFINITY_CONSTANT"  => "∞",
-    "E_CONSTANT"         => "e",
-    "MINUS_ONE_CONSTANT" => "-1"
-  }
 end

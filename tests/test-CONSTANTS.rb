@@ -32,7 +32,7 @@ class TestConstant < Test::Unit::TestCase
 
   # Test args method
   def test_args
-    assert_equal @ic.args, [], "args does not return empty Array"
+    assert_equal(@ic.args, [], "args does not return empty Array")
   end
 
   # Test call method

@@ -33,11 +33,7 @@ module CAS
     #  * **argument**: `Object` name of the variable
     #  * **returns**: `CAS::Variable` instance if exists, creates a new variable if does not
     def self.[](s)
-      if CAS::Variable.exist? s
-        return @@vars[s]
-      else
-        return CAS::vars(s)
-      end
+      @@vars[s] || CAS::vars(s)
     end
 
     # Returns `true` if a variable already exists
@@ -60,6 +56,13 @@ module CAS
       @@vars[@name] = self
     end
 
+    # Overrides new method. This will return an existing variable if in variable container
+    #
+    # * **requires**: `Object` that is an identifier for the variable
+    # * **returns**: new variable instance o
+    def Variable.new(name)
+      @@vars[name] || super
+    end
     # Returns the derivative of a variable
     #
     # ```
