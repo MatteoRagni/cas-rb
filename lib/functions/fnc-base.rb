@@ -77,13 +77,6 @@ module CAS
     def to_code
       "(#{@x.to_code} + #{@y.to_code})"
     end
-
-    # Returns the latex representation of the current Op.
-    #
-    #  * **returns**: `String`
-    def to_latex
-      "\\left(#{@x.to_latex} + #{@y.to_latex}\\right)"
-    end
   end # Sum
 
   #  ___  _  __  __
@@ -151,13 +144,6 @@ module CAS
     #  * **returns**: `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
     def to_code
       "(#{@x.to_code} - #{@y.to_code})"
-    end
-
-    # Returns the latex representation of the current Op.
-    #
-    #  * **returns**: `String`
-    def to_latex
-      "\\left(#{@x.to_latex} - #{@y.to_latex}\\right)"
     end
   end # Difference
 
@@ -234,13 +220,6 @@ module CAS
     #  * **returns**: `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
     def to_code
       "(#{@x.to_code} * #{@y.to_code})"
-    end
-
-    # Returns the latex representation of the current Op.
-    #
-    #  * **returns**: `String`
-    def to_latex
-      "#{@x.to_latex}\\,#{@y.to_latex}"
     end
   end # Prod
 
@@ -327,13 +306,6 @@ module CAS
     #  * **returns**: `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
     def to_code
       "(#{@x.to_code} ** #{@y.to_code})"
-    end
-
-    # Returns the latex representation of the current Op.
-    #
-    #  * **returns**: `String`
-    def to_latex
-      "{#{@x.to_latex}}^{#{@y.to_latex}}"
     end
   end
 
@@ -424,13 +396,6 @@ module CAS
     def to_code
       "(#{@x.to_code} / #{@y.to_code})"
     end
-
-    # Returns the latex representation of the current Op.
-    #
-    #  * **returns**: `String`
-    def to_latex
-      "\\dfrac{#{@x.to_latex}}{#{@y.to_latex}}"
-    end
   end # Div
 
   #  ___           _
@@ -506,13 +471,6 @@ module CAS
     #  * **returns**: `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
     def to_code
       "Math::sqrt(#{@x.to_code})"
-    end
-
-    # Returns the latex representation of the current Op.
-    #
-    #  * **returns**: `String`
-    def to_latex
-      "\\sqrt{#{@x.to_latex}}"
     end
   end # Sqrt
 
@@ -595,13 +553,6 @@ module CAS
     def to_code
       "(-#{@x.to_code})"
     end
-
-    # Returns the latex representation of the current Op.
-    #
-    #  * **returns**: `String`
-    def to_latex
-      "-{#{@x.to_latex}}"
-    end
   end
 
   # Shortcut for `CAs::Invert` initializer
@@ -682,13 +633,6 @@ module CAS
     #  * **returns**: `String` that represent Ruby code to be parsed in `CAS::Op#to_proc`
     def to_code
       "(#{@x.to_code}).abs"
-    end
-
-    # Returns the latex representation of the current Op.
-    #
-    #  * **returns**: `String`
-    def to_latex
-      "\\left|#{@x.to_latex}\\right|"
     end
   end
 

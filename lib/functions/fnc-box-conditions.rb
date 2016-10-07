@@ -57,7 +57,6 @@ module CAS
     # Saves some required elements
     def representative
       @lower_cond  = @upper_cond = "<"
-      @upper_latex = @lower_latex = "<"
       @lower_str   = @upper_str  = "<"
       self
     end
@@ -143,14 +142,6 @@ module CAS
       "(#{@lower.inspect} #{@lower_cond} #{@x.inspect} #{@upper_cond} #{@upper.inspect})"
     end
 
-    # Returns a string that can be used for printing LaTeX version of the
-    # box condition
-    #
-    # `String`
-    def to_latex
-      "#{@lower.to_latex} #{@lower_latex} #{@x.to_latex} #{@upper_latex} #{@upper.to_latex}"
-    end
-
     # Returns a string that represents the object to be printed
     #
     # `String`
@@ -181,7 +172,7 @@ module CAS
   class BoxConditionOpen < CAS::BoxCondition
     # Saves some required elements
     def representative
-      @lower_cond = @upper_cond = @upper_latex = @lower_latex = @lower_str = @upper_str = "<"
+      @lower_cond = @upper_cond = @lower_str = @upper_str = "<"
       self
     end
 
@@ -211,9 +202,8 @@ module CAS
     # Saves some required elements
     def representative
       @lower_cond  = "<="
-      @lower_latex = "\\leq"
       @lower_str   = "≤"
-      @upper_cond  = @upper_latex = @upper_str = "<"
+      @upper_cond  =  @upper_str = "<"
       self
     end
 
@@ -243,10 +233,9 @@ module CAS
   class BoxConditionUpperClosed < CAS::BoxCondition
     # Saves some required elements
     def representative
-      @lower_cond  = @lower_latex = @lower_str = "<"
-      @upper_cond  = "<="
-      @upper_latex = "\\leq"
-      @upper_str   = "≤"
+      @lower_cond = @lower_str = "<"
+      @upper_cond = "<="
+      @upper_str  = "≤"
       self
     end
 
@@ -276,7 +265,6 @@ module CAS
     # Saves some required elements
     def representative
       @lower_cond  = @upper_cond  = "<="
-      @lower_latex = @upper_latex = "\\leq"
       @lower_str   = @upper_str   = "≤"
       self
     end

@@ -269,12 +269,5 @@ module CAS
     def args
       @x.args.uniq
     end
-
-    # Returns the latex representation of the current Op.
-    #
-    #  * **returns**: `String`
-    def to_latex
-      "#{self.class.gsub("CAS::", "")}\\left(#{@x.to_latex}\\right)"
-    end
   end # Op
 end

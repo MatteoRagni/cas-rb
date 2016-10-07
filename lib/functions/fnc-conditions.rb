@@ -43,7 +43,6 @@ module CAS
     def representative
       @cond_type  = "??"
       @cond_repr  = "??"
-      @cond_latex = "??"
       self
     end
 
@@ -68,14 +67,6 @@ module CAS
     # `String`
     def to_s
       "(#{@x} #{@cond_repr} #{@y})"
-    end
-
-    # Returns a string that can be used for printing LaTeX version of the
-    # condition
-    #
-    # `String`
-    def to_latex
-      "\\left(#{@x} #{@cond_latex} #{@y}\\right)"
     end
 
     # Return the code that performs a condition evaluation
@@ -171,7 +162,7 @@ module CAS
   class Equal < CAS::Condition
     # Saves some required elements
     def representative
-      @cond_type, @cond_repr, @cond_latex = "==", "≡", "="
+      @cond_type, @cond_repr = "==", "≡"
       self
     end
 
@@ -207,7 +198,7 @@ module CAS
   class Smaller < CAS::Condition
     # Saves some required elements
     def representative
-      @cond_type = @cond_repr = @cond_latex = "<"
+      @cond_type = @cond_repr = "<"
       self
     end
 
@@ -233,7 +224,7 @@ module CAS
   class Greater < CAS::Condition
     # Saves some required elements
     def representative
-      @cond_type = @cond_repr = @cond_latex = ">"
+      @cond_type = @cond_repr = ">"
       self
     end
 
@@ -262,7 +253,6 @@ module CAS
     def representative
       @cond_type = "<="
       @cond_repr = "≤"
-      @cond_latex = "\\leq"
       self
     end
 
@@ -291,7 +281,6 @@ module CAS
     def representative
       @cond_type = ">="
       @cond_repr = "≥"
-      @cond_latex = "\\geq"
       self
     end
 

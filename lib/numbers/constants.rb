@@ -104,13 +104,6 @@ module CAS
       n = "#{self.class.to_s.gsub("CAS::", "")}_#{self.object_id}"
       "#{n};\n  #{n} [label=\"#{@x}\"];"
     end
-
-    # Return latex representation of current `CAS::Op`
-    #
-    #  * **returns**: `String`
-    def to_latex
-      self.to_s
-    end
   end
 
   # Allows to define a series of new constants.
@@ -229,13 +222,6 @@ module CAS
     def to_s
       "π"
     end
-
-    # Latex representation for the constant
-    #
-    #  * **returns**: `String`
-    def to_latex
-      "\\pi"
-    end
   end
 
   # Pi (3.14...) constant representation
@@ -260,13 +246,6 @@ module CAS
     #
     #  * **returns**: `String`
     def to_s
-      "e"
-    end
-
-    # Latex representation for the constant
-    #
-    #  * **returns**: `String`
-    def to_latex
       "e"
     end
   end
@@ -296,13 +275,6 @@ module CAS
     def to_s
       "∞"
     end
-
-    # Latex representation for the constant
-    #
-    #  * **returns**: `String`
-    def to_latex
-      "\\infty"
-    end
   end
 
   # Infinity constant representation
@@ -329,13 +301,6 @@ module CAS
     #  * **returns**: `String`
     def to_s
       "-∞"
-    end
-
-    # Latex representation for the constant
-    #
-    #  * **returns**: `String`
-    def to_latex
-      "-\\infty"
     end
   end
 

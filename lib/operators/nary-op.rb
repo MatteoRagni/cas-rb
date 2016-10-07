@@ -170,12 +170,5 @@ module CAS
       @x.each { |x| r += x.args }
       return r.uniq
     end
-
-    # Returns the latex representation of the current Op.
-    #
-    #  * **returns**: `String`
-    def to_latex
-      "#{self.class.gsub("CAS::", "")}\\left(#{@x.map(&:to_latex).join(",\\,")}\\right)"
-    end
   end # NaryOp
 end

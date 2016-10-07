@@ -180,12 +180,5 @@ module CAS
         @y = @y.simplify
       end
     end
-
-    # Returns the latex representation of the current Op.
-    #
-    #  * **returns**: `String`
-    def to_latex
-      "#{self.class.gsub("CAS::", "")}\\left(#{@x.to_latex},\\,#{@y.to_latex}\\right)"
-    end
   end # BinaryOp
 end
