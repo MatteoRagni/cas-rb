@@ -171,4 +171,5 @@ module CAS
       return r.uniq
     end
   end # NaryOp
+  CAS::NaryOp.init_simplify_dict
 end

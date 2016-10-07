@@ -15,7 +15,7 @@ module CAS
     CAS::INFINITY_CONSTANT     => Proc.new { "\\infty" },
     CAS::NEG_INFINITY_CONSTANT => Proc.new { "-\\infty" },
     # Base functions
-    CAS::Sum    => Proc.new { "\\left( #{@x.latex} + #{@y.latex} \\right)" },
+    CAS::Sum    => Proc.new { "\\left( #{x.latex} + #{y.latex} \\right)" },
     CAS::Diff   => Proc.new { "\\left( #{x.latex} - #{y.latex} \\right)" },
     CAS::Prod   => Proc.new { "\\left( #{x.latex} \\, #{y.latex} \\right)"},
     CAS::Pow    => Proc.new { "{#{x.latex}}^{#{y.latex}}" },

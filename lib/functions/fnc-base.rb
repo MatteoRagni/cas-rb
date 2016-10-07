@@ -78,6 +78,7 @@ module CAS
       "(#{@x.to_code} + #{@y.to_code})"
     end
   end # Sum
+  CAS::Sum.init_simplify_dict
 
   #  ___  _  __  __
   # |   \(_)/ _|/ _|
@@ -146,6 +147,7 @@ module CAS
       "(#{@x.to_code} - #{@y.to_code})"
     end
   end # Difference
+  CAS::Diff.init_simplify_dict
 
   #  ___             _
   # | _ \_ _ ___  __| |
@@ -222,6 +224,7 @@ module CAS
       "(#{@x.to_code} * #{@y.to_code})"
     end
   end # Prod
+  CAS::Prod.init_simplify_dict
 
   #  ___
   # | _ \_____ __ __
@@ -307,7 +310,8 @@ module CAS
     def to_code
       "(#{@x.to_code} ** #{@y.to_code})"
     end
-  end
+  end # Pow
+  CAS::Pow.init_simplify_dict
 
   # Shortcut for `CAS::Pow` initializer
   #
@@ -397,6 +401,7 @@ module CAS
       "(#{@x.to_code} / #{@y.to_code})"
     end
   end # Div
+  CAS::Div.init_simplify_dict
 
   #  ___           _
   # / __| __ _ _ _| |_
@@ -473,6 +478,7 @@ module CAS
       "Math::sqrt(#{@x.to_code})"
     end
   end # Sqrt
+  CAS::Sqrt.init_simplify_dict
 
   # Shortcut for `CAS::Sqrt` initializer
   #
@@ -543,9 +549,12 @@ module CAS
       return @x.x if @x.is_a? CAS::Invert
       return self.simplify_dictionary
     end
-    @@simplify_dict = {
-      CAS::Zero => CAS::Zero
-    }
+
+    def self.init_simplify_dict
+      @simplify_dict = {
+        CAS::Zero => CAS::Zero
+      }
+    end
 
     # Convert expression to code (internal, for `CAS::Op#to_proc` method)
     #
@@ -553,7 +562,8 @@ module CAS
     def to_code
       "(-#{@x.to_code})"
     end
-  end
+  end # Invert
+  CAS::Invert.init_simplify_dict
 
   # Shortcut for `CAs::Invert` initializer
   #
@@ -624,9 +634,12 @@ module CAS
       return CAS.abs(@x.x) if @x.is_a? CAS::Invert
       return self.simplify_dictionary
     end
-    @@simplify_dict = {
-      CAS::Zero => CAS::Zero
-    }
+
+    def self.init_simplify_dict
+      @simplify_dict = {
+        CAS::Zero => CAS::Zero
+      }
+    end
 
     # Convert expression to code (internal, for `CAS::Op#to_proc` method)
     #
@@ -634,7 +647,8 @@ module CAS
     def to_code
       "(#{@x.to_code}).abs"
     end
-  end
+  end # Abs
+  CAS::Abs.init_simplify_dict
 
   # Shortcut for `CAs::Abs` initializer
   #

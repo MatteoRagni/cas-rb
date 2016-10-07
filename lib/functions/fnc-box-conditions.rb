@@ -102,14 +102,6 @@ module CAS
       CAS::equal(@x.diff(v).simplify, CAS::Zero)
     end
 
-    # Returns the dot graphviz representation of the code
-    #
-    #  * **returns**: `String`
-    def dot_graph
-      cls = "#{self.class.to_s.gsub("CAS::", "")}_#{self.object_id}"
-      " #{cls} -> #{@lower.dot_graph}\n #{cls} -> #{@x.dot_graph}\n #{cls} -> #{@upper.dot_graph}\n"
-    end
-
     # Returns an array of variables of the central function
     #
     #  * **returns**: `Array` of `CAS::Variable`

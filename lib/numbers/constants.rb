@@ -66,7 +66,6 @@ module CAS
     #
     #  * **returns**: `CAS::Op` simplified version
     def simplify
-      binding.pry
       return self
     end
     @@simplify_dict = { }

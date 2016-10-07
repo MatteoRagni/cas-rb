@@ -15,8 +15,8 @@ class TestConstant < Test::Unit::TestCase
 
   # Test initialization
   def test_new
-    assert_instance_of CAS::Constant, @ia, "Wrong initialization of a Fixnum constant"
-    assert_instance_of CAS::Constant, @fa, "Wrong initialization of a Float constant"
+    assert @ia.is_a?(CAS::Constant), "Wrong initialization of a Fixnum constant"
+    assert @fa.is_a?(CAS::Constant), "Wrong initialization of a Float constant"
 
     assert_equal @ia.class, @fa.class, "Constant Fixnum class different from Float Constant class"
 

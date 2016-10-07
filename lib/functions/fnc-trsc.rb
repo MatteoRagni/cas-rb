@@ -60,11 +60,14 @@ module CAS
       return @x.x if @x.is_a? CAS::Ln
       return self.simplify_dictionary
     end
-    @@simplify_dict = {
-      CAS::Zero => CAS::One,
-      CAS::One => CAS::E,
-      CAS::Infinity => CAS::Infinity
-    }
+
+    def self.init_simplify_dict
+      @simplify_dict = {
+        CAS::Zero => CAS::One,
+        CAS::One => CAS::E,
+        CAS::Infinity => CAS::Infinity
+      }
+    end
 
     # Convert expression to code (internal, for `CAS::Op#to_proc` method)
     #
@@ -150,11 +153,14 @@ module CAS
       return @x.x if @x.is_a? CAS::Exp
       return self.simplify_dictionary
     end
-    @@simplify_dict = {
-      CAS::Zero => CAS.invert(CAS::Infinity),
-      CAS::One => CAS::Zero,
-      CAS::E => CAS::One
-    }
+
+    def self.init_simplify_dict
+      @simplify_dict = {
+        CAS::Zero => CAS.invert(CAS::Infinity),
+        CAS::One => CAS::Zero,
+        CAS::E => CAS::One
+      }
+    end
 
     # Convert expression to code (internal, for `CAS::Op#to_proc` method)
     #
@@ -170,6 +176,7 @@ module CAS
       "\\log\\left( #{@x.to_latex} \\right)"
     end
   end # Ln
+  CAS::Ln.init_simplify_dict
 
   # Shortcut for `CAS::Ln#new`
   #

@@ -59,10 +59,13 @@ module CAS
       return @x.x if @x.is_a? CAS::Asin
       return self.simplify_dictionary
     end
-    @@simplify_dict = {
-      CAS::Zero => CAS::Zero,
-      CAS::Pi => CAS::Zero
-    }
+
+    def self.init_simplify_dict
+      @simplify_dict = {
+        CAS::Zero => CAS::Zero,
+        CAS::Pi => CAS::Zero
+      }
+    end
 
     # Convert expression to code (internal, for `CAS::Op#to_proc` method)
     #
@@ -70,14 +73,8 @@ module CAS
     def to_code
       "Math::sin(#{@x.to_code})"
     end
-
-    # Returns the latex representation of the current Op.
-    #
-    #  * **returns**: `String`
-    def to_latex
-      "\\sin\\left( #{@x.to_latex} \\right)"
-    end
   end # Sin
+  CAS::Sin.init_simplify_dict
 
   # Shortcut for `CAS::Sin#new`
   #
@@ -138,10 +135,13 @@ module CAS
       return @x.x if @x.is_a? CAS::Sin
       return self.simplify_dictionary
     end
-    @@simplify_dict = {
-      CAS::Zero => CAS::Zero,
-      CAS::One => (CAS::Pi / 2)
-    }
+
+    def self.init_simplify_dict
+      @simplify_dict = {
+        CAS::Zero => CAS::Zero,
+        CAS::One => (CAS::Pi / 2)
+      }
+    end
 
     # Convert expression to code (internal, for `CAS::Op#to_proc` method)
     #
@@ -149,14 +149,8 @@ module CAS
     def to_code
       "Math::asin(#{@x.to_code})"
     end
-
-    # Returns the latex representation of the current Op.
-    #
-    #  * **returns**: `String`
-    def to_latex
-      "\\arcsin\\left( #{@x.to_latex} \\right)"
-    end
   end
+  CAS::Asin.init_simplify_dict
 
   # Shortcut for `CAS::Asin#new`
   #
@@ -225,10 +219,13 @@ module CAS
       return @x.x if @x.is_a? CAS::Acos
       return self.simplify_dictionary
     end
-    @simplify_dict = {
-      CAS::Zero => CAS::One,
-      CAS::Pi => CAS::One
-    }
+
+    def self.init_simplify_dict
+      @simplify_dict = {
+        CAS::Zero => CAS::One,
+        CAS::Pi => CAS::One
+      }
+    end
 
     # Convert expression to code (internal, for `CAS::Op#to_proc` method)
     #
@@ -236,14 +233,8 @@ module CAS
     def to_code
       "Math::cos(#{@x.to_code})"
     end
-
-    # Returns the latex representation of the current Op.
-    #
-    #  * **returns**: `String`
-    def to_latex
-      "\\cos\\left( #{@x.to_latex} \\right)"
-    end
   end
+  CAS::Cos.init_simplify_dict
 
   # Shortcut for `CAS::Cos#new`
   #
@@ -299,10 +290,13 @@ module CAS
       return @x.x if @x.is_a? CAS::Cos
       return self.simplify_dictionary
     end
-    @@simplify_dict = {
-      CAS::Zero => (CAS::Pi / 2),
-      CAS::One => CAS::Zero
-    }
+
+    def self.init_simplify_dict
+      @simplify_dict = {
+        CAS::Zero => (CAS::Pi / 2),
+        CAS::One => CAS::Zero
+      }
+    end
 
     # Convert expression to code (internal, for `CAS::Op#to_proc` method)
     #
@@ -310,14 +304,8 @@ module CAS
     def to_code
       "Math::acos(#{@x.to_code})"
     end
-
-    # Returns the latex representation of the current Op.
-    #
-    #  * **returns**: `String`
-    def to_latex
-      "\\arccos\\left( #{@x.to_latex} \\right)"
-    end
   end
+  CAS::Acos.init_simplify_dict
 
   # Shortcut for `CAS::Acos#new`
   #
@@ -386,10 +374,13 @@ module CAS
       return @x.x if @x.is_a? CAS::Atan
       return self.simplify_dictionary
     end
-    @@simplify_dict = {
-      CAS::Zero => CAS::Zero,
-      CAS::Pi => CAS::Zero
-    }
+
+    def self.init_simplify_dict
+      @simplify_dict = {
+        CAS::Zero => CAS::Zero,
+        CAS::Pi => CAS::Zero
+      }
+    end
 
     # Convert expression to code (internal, for `CAS::Op#to_proc` method)
     #
@@ -397,12 +388,8 @@ module CAS
     def to_code
       "Math::tan(#{@x.to_code})"
     end
-
-    # Return latex representation of current Op
-    def to_latex
-      "\\tan\\left( #{@x.to_latex} \\right)"
-    end
   end
+  CAS::Tan.init_simplify_dict
 
   # Shortcut for `CAS::Tan#new`
   #
@@ -464,11 +451,14 @@ module CAS
       return @x.x if @x.is_a? CAS::Tan
       return self.simplify_dictionary
     end
-    @@simplify_dict = {
-      CAS::Zero => CAS::Zero,
-      CAS::One => (CAS::Pi/4),
-      CAS::Infinity => (CAS::Pi/2)
-    }
+
+    def self.init_simplify_dict
+      @simplify_dict = {
+        CAS::Zero => CAS::Zero,
+        CAS::One => (CAS::Pi/4),
+        CAS::Infinity => (CAS::Pi/2)
+      }
+    end
 
     # Convert expression to code (internal, for `CAS::Op#to_proc` method)
     #
@@ -484,6 +474,7 @@ module CAS
       "\\arctan\\left( #{@x.to_latex} \\right)"
     end
   end
+  CAS::Atan.init_simplify_dict
 
   # Shortcut for `CAS::Atan#new`
   #

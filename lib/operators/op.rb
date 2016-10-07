@@ -201,13 +201,24 @@ module CAS
     #
     #  * **returns**: `CAS::Op` self
     def simplify_dictionary
-      if @@simplify_dict[@x]
-        return @@simplify_dict[@x]
+      if self.class.simplify_dict(@x)
+        return self.class.simplify_dict(@x)
       else
         return self
       end
     end
-    @@simplify_dict = { }
+
+    # Initializes the simplification dictionary (one for each class)
+    #
+    # * **returns**: `Hash` with simplification dictionary
+    def self.init_simplify_dict
+      @simplify_dict = { }
+    end
+
+    # Returns an element of a
+    def self.simplify_dict(k)
+      @simplify_dict[k]
+    end
 
     # Inspector for the current object
     #
@@ -270,4 +281,5 @@ module CAS
       @x.args.uniq
     end
   end # Op
+  CAS::Op.init_simplify_dict
 end

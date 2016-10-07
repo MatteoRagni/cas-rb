@@ -181,4 +181,5 @@ module CAS
       end
     end
   end # BinaryOp
+  CAS::BinaryOp.init_simplify_dict
 end
