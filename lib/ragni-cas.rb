@@ -1,7 +1,5 @@
 #!/usr/bin/env ruby
 
-require 'pry-byebug'
-
 ##
 # ragni-cas
 # A very simple CAS engine with encapsuled graph
