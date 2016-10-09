@@ -83,6 +83,7 @@ module CAS
       "e^{#{@x.to_latex}}"
     end
   end # Exp
+  CAS::Exp.init_simplify_dict
 
   # Shortcut for `CAS::Exp#new`
   #
@@ -178,19 +179,14 @@ module CAS
   end # Ln
   CAS::Ln.init_simplify_dict
 
-  # Shortcut for `CAS::Ln#new`
-  #
-  #  * **argument**: `CAS::Op` argument of the function
-  #  * **returns**: `CAS::Ln` operation
-  def self.ln(x)
-    CAS::Ln.new x
-  end
-
-  # Shortcut for `CAS::Ln#new`
-  #
-  #  * **argument**: `CAS::Op` argument of the function
-  #  * **returns**: `CAS::Ln` operation
-  def self.log(x)
-    CAS::Ln.new x
+  class << self
+    # Shortcut for `CAS::Ln#new`
+    #
+    #  * **argument**: `CAS::Op` argument of the function
+    #  * **returns**: `CAS::Ln` operation
+    def ln(x)
+      CAS::Ln.new x
+    end
+    alias :log :ln
   end
 end

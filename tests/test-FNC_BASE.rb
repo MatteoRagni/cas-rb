@@ -4,11 +4,8 @@ require 'test/unit'
 
 require_relative '../lib/ragni-cas.rb'
 
-$x, $y, $z = CAS::vars :x, :y, :z
-$a, $b, $c = CAS::const 1, 2, 3
-
 # For each function:
-#  - init: Creates a instance of the function
+#  - new: Creates a instance of the function
 #  - subs: test substitution
 #  - to_code: test code creation
 #  - to_s: test creation of a string
@@ -48,8 +45,8 @@ class TestSum < Test::Unit::TestCase
   def test_diff
     assert_equal(@a, (@x + @y).diff(@x).simplify)
     assert_equal(@a, (@x + @y).diff(@y).simplify)
-    assert_equal(@a, ($x + @b).diff(@x).simplify)
-    assert_equal(@a, (@b + $y).diff(@y).simplify)
+    assert_equal(@a, (@x + @b).diff(@x).simplify)
+    assert_equal(@a, (@b + @y).diff(@y).simplify)
     assert_equal(CAS::Zero, (@x + @y).diff(@z).simplify)
   end
 end
@@ -60,14 +57,14 @@ class TestDiff < Test::Unit::TestCase
     @x, @y, @z = CAS::vars :x, :y, :z
   end
 
-  def test_init
+  def test_new
     assert_equal(CAS::Diff.new(@x, @b), (@x - @b))
   end
 
   def test_subs
     s = {@x => @a, @y => @b}
     assert_equal(@a - @b, (@x - @b).subs(s))
-    assert_equal(@a - @b, (@a - $y).subs(s))
+    assert_equal(@a - @b, (@a - @y).subs(s))
   end
 
   def test_to_code
@@ -78,7 +75,7 @@ class TestDiff < Test::Unit::TestCase
     assert_equal("(x - y)", "#{@x - @y}")
   end
 
-  def simplify
+  def test_simplify
     assert_equal(CAS::Zero, (CAS::Zero + CAS::Zero).simplify)
     assert_equal(@a, (@a + CAS::Zero).simplify)
     assert_equal(-@a, (CAS::Zero - @a).simplify)
@@ -99,7 +96,7 @@ class TestProd < Test::Unit::TestCase
     @x, @y, @z = CAS::vars :x, :y, :z
   end
 
-  def test_init
+  def test_new
     assert_equal(CAS::Prod.new(@b, @a), (@b * @a))
   end
 
@@ -148,7 +145,7 @@ class TestDiv < Test::Unit::TestCase
   end
 
   def test_subs
-    s = {$x => @a, $y => @b}
+    s = {@x => @a, @y => @b}
     assert_equal(@b / @z, (@y / @z).subs(s))
     assert_equal(@z / @a, (@z / @x).subs(s))
     assert_equal(@b / @a, (@y / @x).subs(s))
@@ -244,7 +241,7 @@ class SqrtTest < Test::Unit::TestCase
   end
 
   def test_subs
-    s = {$x => @a}
+    s = {@x => @a}
     assert_equal(CAS.sqrt(@a), CAS.sqrt(@x).subs(s))
   end
 
@@ -284,7 +281,7 @@ class InvertTest < Test::Unit::TestCase
   end
 
   def test_subs
-    s = {$x => @a}
+    s = {@x => @a}
     assert_equal(-@a, (-@x).subs(s))
   end
 
@@ -323,7 +320,7 @@ class AbsTest < Test::Unit::TestCase
   end
 
   def test_subs
-    s = {$x => @a}
+    s = {@x => @a}
     assert_equal(CAS.abs(@a), CAS.abs(@x).subs(s))
   end
 

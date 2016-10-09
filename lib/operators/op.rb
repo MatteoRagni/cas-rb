@@ -88,7 +88,7 @@ module CAS
     #  * **returns**: `Numeric`
     def call(f)
       CAS::Help.assert(f, Hash)
-      
+
       @x.call(f)
     end
 
@@ -201,11 +201,7 @@ module CAS
     #
     #  * **returns**: `CAS::Op` self
     def simplify_dictionary
-      if self.class.simplify_dict(@x)
-        return self.class.simplify_dict(@x)
-      else
-        return self
-      end
+      self.class.simplify_dict(@x) || self
     end
 
     # Initializes the simplification dictionary (one for each class)
@@ -217,7 +213,10 @@ module CAS
 
     # Returns an element of a
     def self.simplify_dict(k)
-      @simplify_dict[k]
+      @simplify_dict.keys.each do |op|
+        return @simplify_dict[op] if op.simplify == k.simplify
+      end
+      return nil
     end
 
     # Inspector for the current object

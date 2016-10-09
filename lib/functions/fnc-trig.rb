@@ -63,7 +63,8 @@ module CAS
     def self.init_simplify_dict
       @simplify_dict = {
         CAS::Zero => CAS::Zero,
-        CAS::Pi => CAS::Zero
+        CAS::Pi => CAS::Zero,
+        CAS::Pi/2 => CAS::One
       }
     end
 
@@ -152,14 +153,16 @@ module CAS
   end
   CAS::Asin.init_simplify_dict
 
-  # Shortcut for `CAS::Asin#new`
-  #
-  #  * **argument**: `CAS::Op` argument of the function
-  #  * **returns**: `CAS::Asin` operation
-  def self.asin(x)
-    CAS::Asin.new x
+  class << self
+    # Shortcuts for `CAS::Asin#new`
+    #
+    #  * **argument**: `CAS::Op` argument of the function
+    #  * **returns**: `CAS::Asin` operation
+    def asin(x)
+      CAS::Asin.new x
+    end
+    alias :arcsin :asin
   end
-  # alias :arcsin :asin
 
   #   ___
   #  / __|___ ___
@@ -223,7 +226,8 @@ module CAS
     def self.init_simplify_dict
       @simplify_dict = {
         CAS::Zero => CAS::One,
-        CAS::Pi => CAS::One
+        CAS::Pi => CAS::One,
+        CAS::Pi/2 => CAS::Zero
       }
     end
 
@@ -307,14 +311,16 @@ module CAS
   end
   CAS::Acos.init_simplify_dict
 
-  # Shortcut for `CAS::Acos#new`
-  #
-  #  * **argument**: `CAS::Op` argument of the function
-  #  * **returns**: `CAS::Acos` operation
-  def self.acos(x)
-    CAS::Acos.new x
+  class << self
+    # Shortcut for `CAS::Acos#new`
+    #
+    #  * **argument**: `CAS::Op` argument of the function
+    #  * **returns**: `CAS::Acos` operation
+    def acos(x)
+      CAS::Acos.new x
+    end
+    alias :arccos :acos
   end
-  # alias :arccos :acos
 
   #  _____
   # |_   _|_ _ _ _
@@ -378,7 +384,8 @@ module CAS
     def self.init_simplify_dict
       @simplify_dict = {
         CAS::Zero => CAS::Zero,
-        CAS::Pi => CAS::Zero
+        CAS::Pi => CAS::Zero,
+        CAS::Pi/2 => CAS::Infinity
       }
     end
 
@@ -466,22 +473,17 @@ module CAS
     def to_code
       "Math::atan(#{@x.to_code})"
     end
-
-    # Returns the latex representation of the current Op.
-    #
-    #  * **returns**: `String`
-    def to_latex
-      "\\arctan\\left( #{@x.to_latex} \\right)"
-    end
   end
   CAS::Atan.init_simplify_dict
 
-  # Shortcut for `CAS::Atan#new`
-  #
-  #  * **argument**: `CAS::Op` argument of the function
-  #  * **returns**: `CAS::Atan` operation
-  def self.atan(x)
-    CAS::Atan.new x
+  class << self
+    # Shortcut for `CAS::Atan#new`
+    #
+    #  * **argument**: `CAS::Op` argument of the function
+    #  * **returns**: `CAS::Atan` operation
+    def atan(x)
+      CAS::Atan.new x
+    end
+    alias :arctan :atan
   end
-  # alias :arctan :atan
 end
