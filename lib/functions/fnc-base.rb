@@ -296,6 +296,11 @@ module CAS
     #  * **returns**: `CAS::Op` simplified version
     def simplify
       super
+      return self if (@x == CAS::Zero and @y == CAS::Zero)
+      return self if (@x == CAS::Infinity and @y == CAS::Infinity)
+      return self if (@x == CAS::Infinity and @y == CAS::Zero)
+      return self if (@x == CAS::Zero and @y == CAS::Infinity)
+      
       return CAS::Zero if @x == CAS::Zero
       return CAS::One if @x == CAS::One
       return @x if @y == CAS::One
@@ -386,10 +391,16 @@ module CAS
     #  * **returns**: `CAS::Op` simplified version
     def simplify
       super
+      return self if (@x == CAS::Zero and @y == CAS::Zero)
+      return self if (@x == CAS::Infinity and @y == CAS::Infinity)
+      return self if (@x == CAS::Infinity and @y == CAS::Zero)
+      return self if (@x == CAS::Zero and @y == CAS::Infinity)
+
       return CAS::Zero if @x == CAS::Zero
       return CAS::Infinity if @y == CAS::Zero
       return @x if @y == CAS::One
       return CAS::Zero if @y == CAS::Infinity
+      return CAS::One if @x == @y
       return CAS.const(self.call({})) if (@x.is_a? CAS::Constant and @y.is_a? CAS::Constant)
       return self
     end
@@ -464,7 +475,7 @@ module CAS
     #  * **returns**: `CAS::Op` simplified version
     def simplify
       super
-      return CAS.pow(@x.x, @y - 0.5) if @x.is_a? CAS::Pow
+      return (CAS.pow(@x.x, @x.y - 0.5)).simplify if @x.is_a? CAS::Pow
       return CAS::Zero if @x == CAS::Zero
       return CAS::One if @x == CAS::One
       return CAS.const(self.call({})) if (@x.is_a? CAS::Constant and @y.is_a? CAS::Constant)
@@ -509,7 +520,7 @@ module CAS
     #  * **returns**: `CAS::Op` derivative
     def diff(v)
       if @x.depend? v
-        CAS::const(-1.0) * @x.diff(v)
+        -@x.diff(v)
       else
         CAS::Zero
       end
@@ -593,7 +604,7 @@ module CAS
     #  * **returns**: `CAS::Op` derivative
     def diff(v)
       if @x.depend? v
-        return @x.diff(x) * (@x/CAS.abs(@x))
+        return @x.diff(v) * (@x/CAS.abs(@x))
       else
         return CAS::Zero
       end

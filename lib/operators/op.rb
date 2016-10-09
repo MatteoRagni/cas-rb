@@ -88,7 +88,7 @@ module CAS
     #  * **returns**: `Numeric`
     def call(f)
       CAS::Help.assert(f, Hash)
-
+      
       @x.call(f)
     end
 
