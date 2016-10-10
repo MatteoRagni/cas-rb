@@ -27,13 +27,24 @@ module CAS
   # Support functions are in this separate Helper class
   module Help
     # Check input `obj.class` against a `type` class
-    # raises an ArgumentError if check fails
+    # raises an `ArgumentError` if check fails
     #
     #  * **argument**: object to be cecked
     #  * **argument**: type to be checked against
     #  * **returns**: `TrueClass`, or raises an `ArgumentError`
     def self.assert(obj, type)
       raise ArgumentError, "required #{type}, received #{obj.class}" unless obj.is_a? type
+      return true
+    end
+
+    # Check if input object is feasible to be a name of a `CAS::Variable` or a `CAS::Function`
+    # raise an `ArgumentError` if the check fails. To be feasible the object must be a `String`
+    # instance or `Symbol` instance
+    #
+    #  * **argument**: object to be checked
+    #  * **returns**: `TrueClass` or raises `ArgumentError`
+    def self.assert_name(obj)
+      raise ArgumentError, "Input name must be a String/Symbol" unless [Symbol, String].include? obj.class
       return true
     end
   end

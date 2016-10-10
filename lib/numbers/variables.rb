@@ -12,20 +12,20 @@ module CAS
   class Variable < CAS::Op
     # Contains all define variable, in an hash. Variables are
     # accessible through variable name.
-    @@vars = {}
+    @@container = {}
 
     # Returns the `Hash` that contains all the variable
     #
     #  * **returns**: `Hash`
     def self.list
-      @@vars
+      @@container
     end
 
     # Return the number of variable defined
     #
     #  * **returns**: `Fixnum`
     def self.size
-      @@vars.keys.size
+      @@container.keys.size
     end
 
     # Returns a variable given its name
@@ -33,7 +33,7 @@ module CAS
     #  * **argument**: `Object` name of the variable
     #  * **returns**: `CAS::Variable` instance if exists, creates a new variable if does not
     def self.[](s)
-      @@vars[s] || CAS::vars(s)
+      @@container[s] || CAS::vars(s)
     end
 
     # Returns `true` if a variable already exists
@@ -41,7 +41,7 @@ module CAS
     #  * **argument**: `Object` that represent the variable
     #  * **returns**: `TrueClass` if variable exists, `FalseClass` if not
     def self.exist?(name)
-      @@vars.keys.include? name
+      @@container.keys.include? name
     end
 
     attr_reader :name
@@ -51,9 +51,10 @@ module CAS
     #  * **argument**: `Object` that is a identifier for the variable
     #  * **returns**: `CAS::Variable` instance
     def initialize(name)
+      CAS::Help.assert_name name
       raise CASError, "Variable #{name} already exists" if CAS::Variable.exist? name
       @name = name
-      @@vars[@name] = self
+      @@container[@name] = self
     end
 
     # Overrides new method. This will return an existing variable if in variable container
@@ -61,8 +62,9 @@ module CAS
     # * **requires**: `Object` that is an identifier for the variable
     # * **returns**: new variable instance o
     def Variable.new(name)
-      @@vars[name] || super
+      @@container[name] || super
     end
+
     # Returns the derivative of a variable
     #
     # ```
@@ -175,20 +177,6 @@ module CAS
     #  * **returns**: `CAS::Variable` as `self`
     def simplify
       self
-    end
-
-    # Return the local Graphviz node of the tree
-    #
-    #  * **returns**: `String` of local Graphiz node
-    def dot_graph
-      "#{@name};"
-    end
-
-    # Returns the latex representation of the current Op.
-    #
-    #  * **returns**: `String`
-    def to_latex
-      self.to_s
     end
   end # Number
 

@@ -95,14 +95,6 @@ module CAS
     def inspect
       "Const(#{self})"
     end
-
-    # Return the local Graphviz node of the tree
-    #
-    #  * **returns**: `String` of local Graphiz node
-    def dot_graph
-      n = "#{self.class.to_s.gsub("CAS::", "")}_#{self.object_id}"
-      "#{n};\n  #{n} [label=\"#{@x}\"];"
-    end
   end
 
   # Allows to define a series of new constants.
