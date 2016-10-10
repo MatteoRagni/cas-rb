@@ -26,7 +26,30 @@ module CAS
       (@@container[name] ? true : false)
     end
 
+    # Return the number of functions defined
+    #
+    #  * **returns**: `Fixnum`
+    def self.size; @@container.keys.size; end
 
+    # Returns a function given its name
+    #
+    #  * **argument**: `Object` name of the function
+    #  * **returns**: `CAS::Function` instance if exists, raises a `CAS::CASError`
+    #    if not
+    def self.[](s)
+      return @@container[s] if self.exist? s
+      raise CASError, "Function #{s} not found"
+    end
+
+    # Returns `true` if a function exists in container
+    #
+    #  * **argument**: `String` or `Symbol` that represent the functions
+    #  * **returns**: `TrueClass` if variable exists, `FalseClass` if not
+    def self.exist?(name); @@container.keys.include?(name); end
+
+    # The attribute `name` identifies the current function. A function with the
+    # same name of an existing function connot be defined
+    attr_reader :name
 
     # Initializes a new function. It requires a name and a series of arguments
     # that will be the functions on which it depends.
@@ -42,7 +65,7 @@ module CAS
       end
       raise CASError, "Function #{name} already exists" if CAS::Function.exist? name
 
-      @xs = xs
+      @x = xs
       @name = name
       @@container[@name] = self
     end
@@ -64,9 +87,22 @@ module CAS
     #
     #  * **returns**: `Array` containing `CAs:;Variable`
     def args
-      @xs
+      @x
     end
 
+    def simplify; self; end
+
+    def to_code
+      raise CASError, "Ruby code for CAS::Function cannot be generated"
+    end
+
+    def subs(_v)
+      self
+    end
+
+    def diff(v)
+      if self.depend? v
+        CAS.declare :"d#{@name}[]"
 
   end # Function
 

@@ -44,7 +44,10 @@ module CAS
       @@container.keys.include? name
     end
 
+    # The attribute `name` identifies the current variable. A variable with the
+    # same name of an existing variable connot be defined
     attr_reader :name
+
     # Variable is a container for an atomic simbol that becomes a number
     # when `CAS::Op#call` method is used.
     #
