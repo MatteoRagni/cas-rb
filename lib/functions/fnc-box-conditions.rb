@@ -272,30 +272,33 @@ module CAS
     end
   end # BoxConditionUpperClosed
 
-  # Shortcut for creating a new box condition. It requires four arguments:
-  #
-  #  * **argument**: `CAS::Op` function for condition
-  #  * **argument**: `CAS::Constant` lower limit
-  #  * **argument**: `CAs::Constant` upper limit
-  #  * **argument**: `Symbol` of condition type it can be:
-  #     - `:closed` for `CAs::BoxConditionClosed`
-  #     - `:open` for `CAs::BoxConditionOpen`
-  #     - `:upper_closed` for `CAs::BoxConditionUpperClosed`
-  #     - `:lower_closed` for `CAs::BoxConditionLowerClosed`
-  #  * **returns**: `CAS::BoxCondition` new instance
-  def self.box(x, a, b, type=:closed)
-    case type
-    when :closed
-      return CAS::BoxConditionClosed.new(x, a, b)
-    when :open
-      return CAS::BoxConditionOpen.new(x, a, b)
-    when :upper_closed
-      return CAS::BoxConditionUpperClosed.new(x, a, b)
-    when :lower_closed
-      return CAS::BoxConditionLowerClosed.new(x, a, b)
-    else
-      raise CAS::CASError, "Unknown box condition type"
+  class << self
+    # Shortcut for creating a new box condition. It requires four arguments:
+    #
+    #  * **argument**: `CAS::Op` function for condition
+    #  * **argument**: `CAS::Constant` lower limit
+    #  * **argument**: `CAs::Constant` upper limit
+    #  * **argument**: `Symbol` of condition type it can be:
+    #     - `:closed` for `CAs::BoxConditionClosed`
+    #     - `:open` for `CAs::BoxConditionOpen`
+    #     - `:upper_closed` for `CAs::BoxConditionUpperClosed`
+    #     - `:lower_closed` for `CAs::BoxConditionLowerClosed`
+    #  * **returns**: `CAS::BoxCondition` new instance
+    def self.box(x, a, b, type=:closed)
+      case type
+      when :closed
+        return CAS::BoxConditionClosed.new(x, a, b)
+      when :open
+        return CAS::BoxConditionOpen.new(x, a, b)
+      when :upper_closed
+        return CAS::BoxConditionUpperClosed.new(x, a, b)
+      when :lower_closed
+        return CAS::BoxConditionLowerClosed.new(x, a, b)
+      else
+        raise CAS::CASError, "Unknown box condition type"
+      end
     end
+    alias :in :box
   end
 
   class Op
