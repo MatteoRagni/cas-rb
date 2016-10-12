@@ -53,7 +53,7 @@ class TestFunction < Test::Unit::TestCase
   end
 
   def test_equal
-    assert_true(@f == @f)
+    assert_equal(true, @f == @f)
   end
 
   def test_call
