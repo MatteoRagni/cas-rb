@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
 require 'test/unit'
-require 'pry-byebug'
 require_relative '../lib/ragni-cas.rb'
 
 # Testing lib/numbers/constants.rb
