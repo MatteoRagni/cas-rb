@@ -66,6 +66,10 @@
     <li><a href="#label-Meta-Programming+-28a+Newton+algorithm...-29">Meta-Programming (a Newton algorithm…)</a>
     <li><a href="#label-Disclaimer">Disclaimer</a>
     <li><a href="#label-Full+example+code">Full example code</a>
+    <li><a href="#label-To+do">To do</a>
+    <li><a href="#label-Simple">Simple</a>
+    <li><a href="#label-Complex">Complex</a>
+    <li><a href="#label-Extremely+complex">Extremely complex</a>
   </ul>
 </div>
 
@@ -91,7 +95,9 @@
 <p><a href="https://badge.fury.io/rb/ragni-cas"><img
 src="https://badge.fury.io/rb/ragni-cas.svg"></a> <a
 href="https://codeclimate.com/github/MatteoRagni/cas-rb"><img
-src="https://codeclimate.com/github/MatteoRagni/cas-rb/badges/gpa.svg"></a></p>
+src="https://codeclimate.com/github/MatteoRagni/cas-rb/badges/gpa.svg"></a>
+<a href="https://travis-ci.org/MatteoRagni/cas-rb"><img
+src="https://travis-ci.org/MatteoRagni/cas-rb.svg?branch=master"></a></p>
 
 <h2 id="label-Introduction">Introduction<span><a href="#label-Introduction">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
@@ -334,6 +340,35 @@ missing is a ~~graph~~ a way to perform better simplifications.</p>
 <span class="ruby-comment"># Let&#39;s see the final result for both:</span>
 <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Optimum in #{x} = #{x_opt} and #{y} = #{g.call({x =&gt; x_opt})}&quot;</span>
 </pre>
+
+<h2 id="label-To+do">To do<span><a href="#label-To+do">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<h4 id="label-Simple">Simple<span><a href="#label-Simple">&para;</a> <a href="#top">&uarr;</a></span></h4>
+<ul><li>
+<p>[ ] substitute <code>CAS::Invert</code> with <code>CAS::Neg</code></p>
+</li><li>
+<p>[ ] substitute <code>CAS::Condition</code> with
+<code>CAS::Expression</code></p>
+</li><li>
+<p>[ ] move code generation to external plugins that can be loaded on demand</p>
+</li><li>
+<p>[ ] <code>CAS::Sum</code> and <code>CAS::Prod</code> inherits from
+<code>CAS::NaryOp</code> instead of <code>CAS::BinaryOp</code></p>
+</li></ul>
+
+<h4 id="label-Complex">Complex<span><a href="#label-Complex">&para;</a> <a href="#top">&uarr;</a></span></h4>
+<ul><li>
+<p>[ ] implement <code>CAS::VectorVariable</code> and
+<code>CAS::MatrixVariable</code></p>
+</li><li>
+<p>[ ] Replace <code>CAS::Op</code> and <code>CAS::BinaryOp</code> with a
+single <code>CAS::Op</code> equal to <code>CAS::NaryOp</code></p>
+</li></ul>
+
+<h5 id="label-Extremely+complex">Extremely complex<span><a href="#label-Extremely+complex">&para;</a> <a href="#top">&uarr;</a></span></h5>
+<ul><li>
+<p>[ ] Implement the Risch algorithm for symbolic integrations</p>
+</li></ul>
 </main>
 
 

@@ -138,7 +138,7 @@ for equality</p>
 
           
           <div class="method-source-code" id="3D-3D-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 193</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 184</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">op</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">op</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>)
   <span class="ruby-identifier">cond_f</span> = ((<span class="ruby-ivar">@x</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">x</span>) <span class="ruby-keyword">and</span> (<span class="ruby-ivar">@y</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">y</span>)) <span class="ruby-keyword">or</span> ((<span class="ruby-ivar">@x</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">y</span>) <span class="ruby-keyword">and</span> (<span class="ruby-ivar">@y</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">x</span>))
@@ -167,7 +167,8 @@ for equality</p>
 
         <div class="method-description">
           
-          <p>Function call will evaluate left and right functions to solve the relation</p>
+          <p><a href="Function.html">Function</a> call will evaluate left and right
+functions to solve the relation</p>
 <ul><li>
 <p><strong>argument</strong>: <code>Hash</code> with feed dictionary</p>
 </li><li>
@@ -178,7 +179,7 @@ for equality</p>
 
           
           <div class="method-source-code" id="call-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 183</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 174</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span> <span class="ruby-identifier">fd</span>, <span class="ruby-constant">Hash</span>
 
@@ -213,9 +214,9 @@ for equality</p>
 
           
           <div class="method-source-code" id="representative-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 173</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 164</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">representative</span>
-  <span class="ruby-ivar">@cond_type</span>, <span class="ruby-ivar">@cond_repr</span>, <span class="ruby-ivar">@cond_latex</span> = <span class="ruby-string">&quot;==&quot;</span>, <span class="ruby-string">&quot;≡&quot;</span>, <span class="ruby-string">&quot;=&quot;</span>
+  <span class="ruby-ivar">@cond_type</span>, <span class="ruby-ivar">@cond_repr</span> = <span class="ruby-string">&quot;==&quot;</span>, <span class="ruby-string">&quot;≡&quot;</span>
   <span class="ruby-keyword">self</span>
 <span class="ruby-keyword">end</span></pre>
           </div>

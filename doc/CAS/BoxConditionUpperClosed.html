@@ -125,7 +125,8 @@
 
         <div class="method-description">
           
-          <p>Function call will evaluate box condition to evaluate relation</p>
+          <p><a href="Function.html">Function</a> call will evaluate box condition to
+evaluate relation</p>
 <ul><li>
 <p><strong>argument</strong>: <code>Hash</code> with feed dictionary</p>
 </li><li>
@@ -136,7 +137,7 @@
 
           
           <div class="method-source-code" id="call-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 258</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 239</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>)
   <span class="ruby-identifier">x_call</span> = <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>)
   <span class="ruby-keyword">return</span> ((<span class="ruby-ivar">@lower</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>) <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">x_call</span>) <span class="ruby-keyword">and</span> (<span class="ruby-identifier">x_call</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-ivar">@upper</span>))
@@ -170,12 +171,11 @@
 
           
           <div class="method-source-code" id="representative-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 245</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 227</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">representative</span>
-  <span class="ruby-ivar">@lower_cond</span>  = <span class="ruby-ivar">@lower_latex</span> = <span class="ruby-ivar">@lower_str</span> = <span class="ruby-string">&quot;&lt;&quot;</span>
-  <span class="ruby-ivar">@upper_cond</span>  = <span class="ruby-string">&quot;&lt;=&quot;</span>
-  <span class="ruby-ivar">@upper_latex</span> = <span class="ruby-string">&quot;\\leq&quot;</span>
-  <span class="ruby-ivar">@upper_str</span>   = <span class="ruby-string">&quot;≤&quot;</span>
+  <span class="ruby-ivar">@lower_cond</span> = <span class="ruby-ivar">@lower_str</span> = <span class="ruby-string">&quot;&lt;&quot;</span>
+  <span class="ruby-ivar">@upper_cond</span> = <span class="ruby-string">&quot;&lt;=&quot;</span>
+  <span class="ruby-ivar">@upper_str</span>  = <span class="ruby-string">&quot;≤&quot;</span>
   <span class="ruby-keyword">self</span>
 <span class="ruby-keyword">end</span></pre>
           </div>

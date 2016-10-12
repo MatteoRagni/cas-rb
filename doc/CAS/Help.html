@@ -65,6 +65,8 @@
     
     <li ><a href="#method-c-assert">::assert</a>
     
+    <li ><a href="#method-c-assert_name">::assert_name</a>
+    
   </ul>
 </div>
 
@@ -115,7 +117,7 @@
         <div class="method-description">
           
           <p>Check input <code>obj.class</code> against a <code>type</code> class raises
-an ArgumentError if check fails</p>
+an <code>ArgumentError</code> if check fails</p>
 <ul><li>
 <p><strong>argument</strong>: object to be cecked</p>
 </li><li>
@@ -129,9 +131,52 @@ an ArgumentError if check fails</p>
 
           
           <div class="method-source-code" id="assert-source">
-            <pre><span class="ruby-comment"># File lib/ragni-cas.rb, line 90</span>
+            <pre><span class="ruby-comment"># File lib/ragni-cas.rb, line 35</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">obj</span>, <span class="ruby-identifier">type</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;required #{type}, received #{obj.class}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-identifier">type</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-assert_name" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">assert_name</span><span
+            class="method-args">(obj)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Check if input object is feasible to be a name of a
+<code>CAS::Variable</code> or a <code>CAS::Function</code> raise an
+<code>ArgumentError</code> if the check fails. To be feasible the object
+must be a <code>String</code> instance or <code>Symbol</code> instance</p>
+<ul><li>
+<p><strong>argument</strong>: object to be checked</p>
+</li><li>
+<p><strong>returns</strong>: <code>TrueClass</code> or raises
+<code>ArgumentError</code></p>
+</li></ul>
+          
+          
+
+          
+          <div class="method-source-code" id="assert_name-source">
+            <pre><span class="ruby-comment"># File lib/ragni-cas.rb, line 46</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">assert_name</span>(<span class="ruby-identifier">obj</span>)
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&quot;Input name must be a String/Symbol&quot;</span> <span class="ruby-keyword">unless</span> [<span class="ruby-constant">Symbol</span>, <span class="ruby-constant">String</span>].<span class="ruby-identifier">include?</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">class</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
 <span class="ruby-keyword">end</span></pre>
           </div>

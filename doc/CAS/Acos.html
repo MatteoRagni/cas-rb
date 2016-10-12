@@ -70,6 +70,8 @@
 
   <ul class="link-list" role="directory">
     
+    <li ><a href="#method-c-init_simplify_dict">::init_simplify_dict</a>
+    
     <li ><a href="#method-i-call">#call</a>
     
     <li ><a href="#method-i-diff">#diff</a>
@@ -77,8 +79,6 @@
     <li class="calls-super" ><a href="#method-i-simplify">#simplify</a>
     
     <li ><a href="#method-i-to_code">#to_code</a>
-    
-    <li ><a href="#method-i-to_latex">#to_latex</a>
     
     <li ><a href="#method-i-to_s">#to_s</a>
     
@@ -114,6 +114,50 @@ function</p>
     
 
     
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-init_simplify_dict" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">init_simplify_dict</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="init_simplify_dict-source">
+            <pre><span class="ruby-comment"># File lib/functions/fnc-trig.rb, line 298</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">init_simplify_dict</span>
+  <span class="ruby-ivar">@simplify_dict</span> = {
+    <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span> =<span class="ruby-operator">&gt;</span> (<span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Pi</span> <span class="ruby-operator">/</span> <span class="ruby-value">2</span>),
+    <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">One</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>
+  }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
      <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
        <header>
          <h3>Public Instance Methods</h3>
@@ -148,7 +192,7 @@ value</p>
 
           
           <div class="method-source-code" id="call-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-trig.rb, line 280</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-trig.rb, line 275</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">f</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">f</span>, <span class="ruby-constant">Hash</span>)
   <span class="ruby-keyword">return</span> <span class="ruby-constant">Math</span><span class="ruby-operator">::</span><span class="ruby-identifier">acos</span>(<span class="ruby-ivar">@x</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">f</span>))
@@ -182,7 +226,7 @@ value</p>
 
           
           <div class="method-source-code" id="diff-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-trig.rb, line 265</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-trig.rb, line 260</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">depend?</span> <span class="ruby-identifier">v</span>
     <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">invert</span>(<span class="ruby-ivar">@x</span>.<span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)<span class="ruby-operator">/</span><span class="ruby-constant">CAS</span>.<span class="ruby-identifier">sqrt</span>(<span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">One</span> <span class="ruby-operator">-</span> <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">pow</span>(<span class="ruby-ivar">@x</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Two</span>)))
@@ -229,7 +273,7 @@ deterministic).</p>
 
           
           <div class="method-source-code" id="simplify-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-trig.rb, line 297</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-trig.rb, line 292</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">simplify</span>
   <span class="ruby-keyword">super</span>
   <span class="ruby-keyword">return</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">x</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Cos</span>
@@ -269,45 +313,9 @@ be parsed in <code>CAS::Op#to_proc</code></p>
 
           
           <div class="method-source-code" id="to_code-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-trig.rb, line 310</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-trig.rb, line 308</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_code</span>
   <span class="ruby-node">&quot;Math::acos(#{@x.to_code})&quot;</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-to_latex" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">to_latex</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Returns the latex representation of the current <a href="Op.html">Op</a>.</p>
-<ul><li>
-<p><strong>returns</strong>: <code>String</code></p>
-</li></ul>
-          
-          
-
-          
-          <div class="method-source-code" id="to_latex-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-trig.rb, line 317</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_latex</span>
-  <span class="ruby-node">&quot;\\arccos\\left( #{@x.to_latex} \\right)&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -341,7 +349,7 @@ be parsed in <code>CAS::Op#to_proc</code></p>
 
           
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-trig.rb, line 288</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-trig.rb, line 283</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
   <span class="ruby-node">&quot;acos(#{@x})&quot;</span>
 <span class="ruby-keyword">end</span></pre>

@@ -123,7 +123,8 @@
 
         <div class="method-description">
           
-          <p>Function call will evaluate left and right functions to solve the relation</p>
+          <p><a href="Function.html">Function</a> call will evaluate left and right
+functions to solve the relation</p>
 <ul><li>
 <p><strong>argument</strong>: <code>Hash</code> with feed dictionary</p>
 </li><li>
@@ -134,7 +135,7 @@
 
           
           <div class="method-source-code" id="call-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 303</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 292</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">fd</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span> <span class="ruby-identifier">fd</span>, <span class="ruby-constant">Hash</span>
 
@@ -169,11 +170,10 @@
 
           
           <div class="method-source-code" id="representative-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 291</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 281</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">representative</span>
   <span class="ruby-ivar">@cond_type</span> = <span class="ruby-string">&quot;&gt;=&quot;</span>
   <span class="ruby-ivar">@cond_repr</span> = <span class="ruby-string">&quot;≥&quot;</span>
-  <span class="ruby-ivar">@cond_latex</span> = <span class="ruby-string">&quot;\\geq&quot;</span>
   <span class="ruby-keyword">self</span>
 <span class="ruby-keyword">end</span></pre>
           </div>

@@ -70,9 +70,13 @@
 
   <ul class="link-list" role="directory">
     
+    <li ><a href="#method-c-init_simplify_dict">::init_simplify_dict</a>
+    
     <li ><a href="#method-c-new">::new</a>
     
     <li ><a href="#method-c-numeric_to_const">::numeric_to_const</a>
+    
+    <li ><a href="#method-c-simplify_dict">::simplify_dict</a>
     
     <li ><a href="#method-i-21-3D">#!=</a>
     
@@ -124,8 +128,6 @@
     
     <li ><a href="#method-i-to_code">#to_code</a>
     
-    <li ><a href="#method-i-to_latex">#to_latex</a>
-    
     <li ><a href="#method-i-to_s">#to_s</a>
     
   </ul>
@@ -143,6 +145,10 @@
     
 <p><strong>_  / _ \ _ <em>_ | (</em>) | &#39;_ \  _</strong>/| ._<em>/ 
 |</em>|</p>
+
+<p><em>_ _ _  / <strong>|</strong> _ | | __ ()</em> _ <strong>_ _ _ _ | (/ _ \
+&#39; \ <em>/ ` | | &#39; / -) &#39;</em>(<em>-&lt; 
+__/</em>||<em>_</em>_<em>,</em>|<em>|</em>||<em>_|</em>| /</strong>/</p>
 
   </section>
 
@@ -184,6 +190,42 @@
        <header>
          <h3>Public Class Methods</h3>
        </header>
+
+    
+      <div id="method-c-init_simplify_dict" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">init_simplify_dict</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Initializes the simplification dictionary (one for each class)</p>
+<ul><li>
+<p><strong>returns</strong>: <code>Hash</code> with simplification dictionary</p>
+</li></ul>
+          
+          
+
+          
+          <div class="method-source-code" id="init_simplify_dict-source">
+            <pre><span class="ruby-comment"># File lib/operators/op.rb, line 210</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">init_simplify_dict</span>
+  <span class="ruby-ivar">@simplify_dict</span> = { }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
 
     
       <div id="method-c-new" class="method-detail ">
@@ -271,6 +313,42 @@ variable</p>
       </div>
 
     
+      <div id="method-c-simplify_dict" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">simplify_dict</span><span
+            class="method-args">(k)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns an element of a</p>
+          
+          
+
+          
+          <div class="method-source-code" id="simplify_dict-source">
+            <pre><span class="ruby-comment"># File lib/operators/op.rb, line 215</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">simplify_dict</span>(<span class="ruby-identifier">k</span>)
+  <span class="ruby-ivar">@simplify_dict</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">op</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-ivar">@simplify_dict</span>[<span class="ruby-identifier">op</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">simplify</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">k</span>.<span class="ruby-identifier">simplify</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
     </section>
   
      <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
@@ -305,7 +383,7 @@ operates on the graph, not on the math See <code>CAS::equal</code>, etc.</p>
 
           
           <div class="method-source-code" id="21-3D-source">
-            <pre><span class="ruby-comment"># File lib/operators/op.rb, line 240</span>
+            <pre><span class="ruby-comment"># File lib/operators/op.rb, line 250</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">!=</span>(<span class="ruby-identifier">op</span>)
   <span class="ruby-keyword">not</span> <span class="ruby-keyword">self</span>.<span class="ruby-operator">==</span>(<span class="ruby-identifier">op</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -571,7 +649,7 @@ operates on the graph, not on the math See <code>CAS::equal</code>, etc.</p>
 
           
           <div class="method-source-code" id="3D-3D-source">
-            <pre><span class="ruby-comment"># File lib/operators/op.rb, line 225</span>
+            <pre><span class="ruby-comment"># File lib/operators/op.rb, line 235</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">op</span>)
   <span class="ruby-comment"># CAS::Help.assert(op, CAS::Op)</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>
@@ -612,7 +690,7 @@ operates on the graph, not on the math See <code>CAS::equal</code>, etc.</p>
 
           
           <div class="method-source-code" id="args-source">
-            <pre><span class="ruby-comment"># File lib/operators/op.rb, line 269</span>
+            <pre><span class="ruby-comment"># File lib/operators/op.rb, line 279</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">args</span>
   <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">args</span>.<span class="ruby-identifier">uniq</span>
 <span class="ruby-keyword">end</span></pre>
@@ -660,7 +738,7 @@ as an <code>Hash</code></p>
 
           
           <div class="method-source-code" id="as_proc-source">
-            <pre><span class="ruby-comment"># File lib/operators/op.rb, line 255</span>
+            <pre><span class="ruby-comment"># File lib/operators/op.rb, line 265</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">as_proc</span>(<span class="ruby-identifier">bind</span>=<span class="ruby-keyword">nil</span>)
   <span class="ruby-identifier">args_ext</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">args</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-node">&quot;#{e} = fd[\&quot;#{e}\&quot;];&quot;</span> }
   <span class="ruby-identifier">code</span> = <span class="ruby-node">&quot;Proc.new do |fd|; #{args_ext.join &quot; &quot;} #{self.to_code}; end&quot;</span>
@@ -849,7 +927,7 @@ functions. E.g.:</p>
 
           
           <div class="method-source-code" id="dot_graph-source">
-            <pre><span class="ruby-comment"># File lib/operators/op.rb, line 276</span>
+            <pre><span class="ruby-comment"># File lib/plugins/graphviz.rb, line 19</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">dot_graph</span>
   <span class="ruby-identifier">cls</span> = <span class="ruby-node">&quot;#{self.class.to_s.gsub(&quot;CAS::&quot;, &quot;&quot;)}_#{self.object_id}&quot;</span>
   <span class="ruby-node">&quot;#{cls} -&gt; #{@x.dot_graph}\n&quot;</span>
@@ -889,7 +967,7 @@ condition</p>
 
           
           <div class="method-source-code" id="equal-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 340</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 329</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">equal</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">equal</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">v</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -928,7 +1006,7 @@ condition</p>
 
           
           <div class="method-source-code" id="greater-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 348</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 337</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">greater</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">greater</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">v</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -967,7 +1045,7 @@ condition</p>
 
           
           <div class="method-source-code" id="greater_equal-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 364</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 353</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">greater_equal</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">greater_equal</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">v</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -1003,7 +1081,7 @@ condition</p>
 
           
           <div class="method-source-code" id="inspect-source">
-            <pre><span class="ruby-comment"># File lib/operators/op.rb, line 215</span>
+            <pre><span class="ruby-comment"># File lib/operators/op.rb, line 225</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">inspect</span>
   <span class="ruby-node">&quot;#{self.class}(#{@x.inspect})&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -1054,7 +1132,7 @@ condition</p>
 
           
           <div class="method-source-code" id="limit-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 332</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 315</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">limit</span>(<span class="ruby-identifier">a</span>, <span class="ruby-identifier">b</span>, <span class="ruby-identifier">type</span>=<span class="ruby-value">:closed</span>)
   <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">box</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">a</span>, <span class="ruby-identifier">b</span>, <span class="ruby-identifier">type</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -1136,11 +1214,7 @@ variable <code>@@simplify_dict</code></p>
           <div class="method-source-code" id="simplify_dictionary-source">
             <pre><span class="ruby-comment"># File lib/operators/op.rb, line 203</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">simplify_dictionary</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">@@simplify_dict</span>[<span class="ruby-ivar">@x</span>]
-    <span class="ruby-keyword">return</span> <span class="ruby-identifier">@@simplify_dict</span>[<span class="ruby-ivar">@x</span>]
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>
-  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">simplify_dict</span>(<span class="ruby-ivar">@x</span>) <span class="ruby-operator">||</span> <span class="ruby-keyword">self</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -1177,7 +1251,7 @@ condition</p>
 
           
           <div class="method-source-code" id="smaller-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 356</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 345</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">smaller</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">smaller</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">v</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -1216,7 +1290,7 @@ condition</p>
 
           
           <div class="method-source-code" id="smaller_equal-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 372</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-conditions.rb, line 361</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">smaller_equal</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">smaller_equal</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">v</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -1316,42 +1390,6 @@ be parsed in <code>CAS::Op#to_proc</code></p>
             <pre><span class="ruby-comment"># File lib/operators/op.rb, line 134</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_code</span>
   <span class="ruby-node">&quot;#{@x}&quot;</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-to_latex" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">to_latex</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Returns the latex representation of the current <a href="Op.html">Op</a>.</p>
-<ul><li>
-<p><strong>returns</strong>: <code>String</code></p>
-</li></ul>
-          
-          
-
-          
-          <div class="method-source-code" id="to_latex-source">
-            <pre><span class="ruby-comment"># File lib/operators/op.rb, line 284</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_latex</span>
-  <span class="ruby-node">&quot;#{self.class.gsub(&quot;CAS::&quot;, &quot;&quot;)}\\left(#{@x.to_latex}\\right)&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           

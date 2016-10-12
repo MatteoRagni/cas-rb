@@ -78,8 +78,6 @@
     
     <li ><a href="#method-i-to_code">#to_code</a>
     
-    <li ><a href="#method-i-to_latex">#to_latex</a>
-    
     <li ><a href="#method-i-to_s">#to_s</a>
     
   </ul>
@@ -138,7 +136,7 @@ This cannot be implemented as a n-ary op, thus will not be changed</p>
 
           
           <div class="method-source-code" id="call-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 116</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 110</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">f</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">f</span>, <span class="ruby-constant">Hash</span>)
 
@@ -187,7 +185,7 @@ This cannot be implemented as a n-ary op, thus will not be changed</p>
 
           
           <div class="method-source-code" id="diff-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 108</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 102</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-identifier">left</span>, <span class="ruby-identifier">right</span> = <span class="ruby-keyword">super</span> <span class="ruby-identifier">v</span>
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">left</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">right</span> <span class="ruby-operator">==</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>
@@ -243,7 +241,7 @@ This cannot be implemented as a n-ary op, thus will not be changed</p>
 
           
           <div class="method-source-code" id="simplify-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 138</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 132</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">simplify</span>
   <span class="ruby-keyword">super</span>
   <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">invert</span>(<span class="ruby-ivar">@y</span>) <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span> <span class="ruby-operator">==</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>
@@ -288,45 +286,9 @@ be parsed in <code>CAS::Op#to_proc</code></p>
 
           
           <div class="method-source-code" id="to_code-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 152</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 146</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_code</span>
   <span class="ruby-node">&quot;(#{@x.to_code} - #{@y.to_code})&quot;</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-to_latex" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">to_latex</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Returns the latex representation of the current <a href="Op.html">Op</a>.</p>
-<ul><li>
-<p><strong>returns</strong>: <code>String</code></p>
-</li></ul>
-          
-          
-
-          
-          <div class="method-source-code" id="to_latex-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 159</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_latex</span>
-  <span class="ruby-node">&quot;\\left(#{@x.to_latex} - #{@y.to_latex}\\right)&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -357,7 +319,7 @@ be parsed in <code>CAS::Op#to_proc</code></p>
 
           
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 123</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 117</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
   <span class="ruby-node">&quot;(#{@x} - #{@y})&quot;</span>
 <span class="ruby-keyword">end</span></pre>

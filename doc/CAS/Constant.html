@@ -82,15 +82,13 @@
     
     <li ><a href="#method-i-diff">#diff</a>
     
-    <li ><a href="#method-i-dot_graph">#dot_graph</a>
-    
     <li ><a href="#method-i-inspect">#inspect</a>
     
     <li ><a href="#method-i-simplify">#simplify</a>
     
     <li ><a href="#method-i-subs">#subs</a>
     
-    <li ><a href="#method-i-to_latex">#to_latex</a>
+    <li ><a href="#method-i-to_dot">#to_dot</a>
     
     <li ><a href="#method-i-to_s">#to_s</a>
     
@@ -363,43 +361,6 @@ false</p>
       </div>
 
     
-      <div id="method-i-dot_graph" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">dot_graph</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Return the local Graphviz node of the tree</p>
-<ul><li>
-<p><strong>returns</strong>: <code>String</code> of local Graphiz node</p>
-</li></ul>
-          
-          
-
-          
-          <div class="method-source-code" id="dot_graph-source">
-            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 102</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">dot_graph</span>
-  <span class="ruby-identifier">n</span> = <span class="ruby-node">&quot;#{self.class.to_s.gsub(&quot;CAS::&quot;, &quot;&quot;)}_#{self.object_id}&quot;</span>
-  <span class="ruby-node">&quot;#{n};\n  #{n} [label=\&quot;#{@x}\&quot;];&quot;</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
       <div id="method-i-inspect" class="method-detail ">
         
         <div class="method-heading">
@@ -462,7 +423,7 @@ deterministic).</p>
           <div class="method-source-code" id="simplify-source">
             <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 68</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">simplify</span>
-  <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">simplify_dictionary</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -513,10 +474,10 @@ deterministic).</p>
       </div>
 
     
-      <div id="method-i-to_latex" class="method-detail ">
+      <div id="method-i-to_dot" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">to_latex</span><span
+          <span class="method-name">to_dot</span><span
             class="method-args">()</span>
           
           <span class="method-click-advice">click to toggle source</span>
@@ -526,18 +487,18 @@ deterministic).</p>
 
         <div class="method-description">
           
-          <p>Return latex representation of current <code>CAS::Op</code></p>
+          <p>Return the local Graphviz node of the tree</p>
 <ul><li>
-<p><strong>returns</strong>: <code>String</code></p>
+<p><strong>returns</strong>: <code>String</code> of local Graphiz node</p>
 </li></ul>
           
           
 
           
-          <div class="method-source-code" id="to_latex-source">
-            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 110</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_latex</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">to_s</span>
+          <div class="method-source-code" id="to_dot-source">
+            <pre><span class="ruby-comment"># File lib/plugins/graphviz.rb, line 62</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_dot</span>
+  <span class="ruby-node">&quot;Const(#{@x})&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           

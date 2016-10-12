@@ -96,8 +96,6 @@
     
     <li ><a href="#method-i-to_code">#to_code</a>
     
-    <li ><a href="#method-i-to_latex">#to_latex</a>
-    
     <li ><a href="#method-i-to_s">#to_s</a>
     
   </ul>
@@ -457,18 +455,16 @@ against</p>
 
         <div class="method-description">
           
-          <p>Returns the graphviz representation of the current node</p>
+          <p>Return the local Graphviz node of the tree</p>
 <ul><li>
-<p><strong>argument</strong>: <code>?</code> unused removed</p>
-</li><li>
-<p><strong>returns</strong>: <code>String</code></p>
+<p><strong>returns</strong>: <code>String</code> of local Graphiz node</p>
 </li></ul>
           
           
 
           
           <div class="method-source-code" id="dot_graph-source">
-            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 188</span>
+            <pre><span class="ruby-comment"># File lib/plugins/graphviz.rb, line 29</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">dot_graph</span>
   <span class="ruby-identifier">cls</span> = <span class="ruby-node">&quot;#{self.class.to_s.gsub(&quot;CAS::&quot;, &quot;&quot;)}_#{self.object_id}&quot;</span>
   <span class="ruby-node">&quot;#{cls} -&gt; #{@x.dot_graph}\n  #{cls} -&gt; #{@y.dot_graph}&quot;</span>
@@ -736,42 +732,6 @@ against</p>
             <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 135</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_code</span>
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">CASError</span>, <span class="ruby-string">&quot;Not implemented. This is a virtual method&quot;</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-to_latex" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">to_latex</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Returns the latex representation of the current <a href="Op.html">Op</a>.</p>
-<ul><li>
-<p><strong>returns</strong>: <code>String</code></p>
-</li></ul>
-          
-          
-
-          
-          <div class="method-source-code" id="to_latex-source">
-            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 196</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_latex</span>
-  <span class="ruby-node">&quot;#{self.class.gsub(&quot;CAS::&quot;, &quot;&quot;)}\\left(#{@x.to_latex},\\,#{@y.to_latex}\\right)&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           

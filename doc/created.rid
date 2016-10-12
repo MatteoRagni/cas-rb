@@ -1,17 +1,20 @@
-Mon, 22 Aug 2016 12:28:39 +0200
-README.md	Sat, 13 Aug 2016 14:39:08 +0200
-lib/ragni-cas.rb	Sat, 13 Aug 2016 21:37:48 +0200
-lib/version.rb	Sat, 13 Aug 2016 21:37:58 +0200
-lib/functions/fnc-base.rb	Sat, 13 Aug 2016 13:23:28 +0200
-lib/functions/fnc-box-conditions.rb	Sat, 13 Aug 2016 13:25:36 +0200
-lib/functions/fnc-conditions.rb	Sat, 13 Aug 2016 13:26:16 +0200
-lib/functions/fnc-piecewise.rb	Sat, 13 Aug 2016 13:24:06 +0200
-lib/functions/fnc-trig.rb	Sat, 13 Aug 2016 13:24:05 +0200
-lib/functions/fnc-trsc.rb	Sat, 13 Aug 2016 13:24:04 +0200
-lib/numbers/constants.rb	Sat, 13 Aug 2016 21:39:33 +0200
-lib/numbers/variables.rb	Sat, 13 Aug 2016 21:27:08 +0200
-lib/operators/bary-op.rb	Sat, 13 Aug 2016 13:30:05 +0200
-lib/operators/nary-op.rb	Sat, 13 Aug 2016 13:30:49 +0200
-lib/operators/op.rb	Sat, 13 Aug 2016 13:31:14 +0200
+Wed, 12 Oct 2016 17:20:57 +0200
+README.md	Fri, 07 Oct 2016 22:46:35 +0200
+lib/ragni-cas.rb	Wed, 12 Oct 2016 15:57:31 +0200
+lib/version.rb	Fri, 07 Oct 2016 22:49:58 +0200
+lib/functions/fnc-base.rb	Mon, 10 Oct 2016 08:39:08 +0200
+lib/functions/fnc-box-conditions.rb	Wed, 12 Oct 2016 15:56:51 +0200
+lib/functions/fnc-conditions.rb	Fri, 07 Oct 2016 18:09:35 +0200
+lib/functions/fnc-piecewise.rb	Thu, 06 Oct 2016 10:18:06 +0200
+lib/functions/fnc-trig.rb	Mon, 10 Oct 2016 08:39:08 +0200
+lib/functions/fnc-trsc.rb	Mon, 10 Oct 2016 08:39:08 +0200
+lib/numbers/constants.rb	Mon, 10 Oct 2016 17:02:51 +0200
+lib/numbers/functions.rb	Wed, 12 Oct 2016 16:55:17 +0200
+lib/numbers/variables.rb	Wed, 12 Oct 2016 09:38:13 +0200
+lib/operators/bary-op.rb	Fri, 07 Oct 2016 21:16:49 +0200
+lib/operators/nary-op.rb	Wed, 12 Oct 2016 09:38:13 +0200
+lib/operators/op.rb	Mon, 10 Oct 2016 08:39:08 +0200
 lib/overloading/fixnum.rb	Sat, 13 Aug 2016 13:19:21 +0200
 lib/overloading/float.rb	Sat, 13 Aug 2016 13:21:08 +0200
+lib/plugins/graphviz.rb	Fri, 07 Oct 2016 22:03:37 +0200
+lib/plugins/latex.rb	Fri, 07 Oct 2016 21:16:49 +0200
