@@ -58,8 +58,8 @@ module CAS
     #  * **argument**: `Array` of `CAS::Variable` that are argument of the function
     #  * **returns**: `CAS::Function`
     def initialize(name, *xs)
+      xs.flatten!
       CAS::Help.assert_name name
-      raise ArgumentError
       xs.each do |x|
         CAS::Help.assert x, CAS::Variable
       end
@@ -76,8 +76,9 @@ module CAS
     #  * **requires**: `Array` of `CAS::Variable`
     #  * **returns**: a new `CAS::Function` or the old one
     def Function.new(name, *xs)
+      xs.flatten!
       if @@container[name]
-        return @@container[name] if (@@container[name].args == xs.uniq or xs.size == 0)
+        return @@container[name] if (@@container[name].args - xs.uniq == [] or xs.size == 0)
         raise CASError, "Function #{name} already defined with different arguments!"
       end
       super
@@ -90,12 +91,12 @@ module CAS
       @x
     end
 
-    # Simplifications cannot be performed on anonymous function, thus it will always return 
+    # Simplifications cannot be performed on anonymous function, thus it will always return
     # the `self` `CAS::Function` object
     #
     #  * **returns**: `CAS::Function` self instance
     def simplify; self; end
-    
+
     # Tries to convert an anonymous function into Ruby code will always raise a `CASError` because it
     # is not possible to generate code for such a fuction
     #
@@ -104,7 +105,7 @@ module CAS
       raise CASError, "Ruby code for #{self.class} cannot be generated"
     end
 
-    # Substitutions in which a function is involved directly generates a CAS::Error unless the substitution will 
+    # Substitutions in which a function is involved directly generates a CAS::Error unless the substitution will
     # involve another variable. Example:
     #
     # ``` ruby
@@ -115,10 +116,13 @@ module CAS
     #  * **requires**: a substitution `Hash`
     #  * **returns**: a `CAS::Function` with modified argument list
     #  * **raises**: `CASError` if something different with resppect to a `CAS::Variable` is a active substitution
-    def subs(v)
-      v.each do |k, v|
+    def subs(s)
+      s.each do |k, v|
         next unless self.depend? k
-        (x.collect! { |e| (e == k) ? v : e }).uniq! if v.is_a? CAS::Variable
+        if v.is_a? CAS::Variable
+          (@x.collect! { |e| (e == k) ? v : e }).uniq!
+          next
+        end
         raise CASError, "Cannot perform a substitution in #{self.class}"
       end
       self
@@ -128,40 +132,40 @@ module CAS
     # has a name with respect to a schema that for now is fixed (TODO: make it variable and user defined).
     #
     #  * **requires**: a `CAS::Variable` for derivative
-    #  * **returns**: the `CAS::Variable` derivated function 
+    #  * **returns**: the `CAS::Variable` derivated function
     def diff(v)
       if self.depend? v
-        return CAS.declare :"d#{@name}[#{v}]", @xs
+        return CAS.declare :"d#{@name}[#{v}]", @x
       else
         return CAS::Zero
       end
-    end 
-    
+    end
+
     # Trying to call a `CAS::Function` will always return a `CAS::Error`
     #
-    #  * **raises**: `CAS::CASError` 
+    #  * **raises**: `CAS::CASError`
     def call(_v)
       raise CASError, "Cannot call a #{self.class}"
     end
-    
+
     # Returns the inspect string of the function, that is similar to `CAS::Function#to_s`
     #
     #  * **returns**: inspection `String`
     def inspect; self.to_s; end
-    
+
     # Returns a description `String` for the `CAS::Function`
-    # 
+    #
     #  * **returns**: `String`
     def to_s
       "#{@name}(#{@x.map(&:to_s).join(", ")})"
     end
-    
+
     # Checks if two functions can be considered equal (same name, same args)
     #
     #  * **requires**: another op to be checked against
     #  * **returns**: `TrueClass` if functions are equal, `FalseClass` if not equal
     def ==(op)
-      return false if not self.class == op.class 
+      return false if not self.class == op.class
       return false if not (@name == op.name and @x == op.args)
       true
     end
@@ -174,7 +178,8 @@ module CAS
     #  * **requires**: `Array` of `CAS::Variable`
     #  * **returns**: a new `CAS::Function` or the old one
     def declare(name, *xs)
-      CAS::Function.new name, xs
+      xs.flatten!
+      CAS::Function.new(name, xs)
     end
   end
 end

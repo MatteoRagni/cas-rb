@@ -11,3 +11,4 @@ Version 0.2.0: First version with a web interface
 Version 0.2.1: Added box conditions
 Version 0.2.2: Solved an issue with diff, added nAryOp, to be used with Sum and Prod
 Version 0.2.3: 50% of the code rewritten, avoided meta-programming in library (less require time)
+Version 0.2.4: Added a new CAS::Function class that represent anonymous function

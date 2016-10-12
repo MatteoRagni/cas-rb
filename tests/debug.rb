@@ -6,15 +6,9 @@ unless require 'pry-byebug'
   exit 1
 end
 
-module CAS
-  class Sin
-    def simplify_debug
-      #binding.pry
-      self.simplify
-    end
-  end
-end
-
 if __FILE__ == $0
-  puts (CAS::sin(CAS::Pi/2)).simplify_debug
+  @x, @y, @z = CAS::vars :x, :y, :z
+  f = CAS.declare :f, @x, @y, @z
+  binding.pry
+  f = CAS.declare :f, @z, @y, @x
 end

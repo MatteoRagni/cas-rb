@@ -284,7 +284,7 @@ module CAS
     #     - `:upper_closed` for `CAs::BoxConditionUpperClosed`
     #     - `:lower_closed` for `CAs::BoxConditionLowerClosed`
     #  * **returns**: `CAS::BoxCondition` new instance
-    def self.box(x, a, b, type=:closed)
+    def box(x, a, b, type=:closed)
       case type
       when :closed
         return CAS::BoxConditionClosed.new(x, a, b)
