@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
 require 'test/unit'
-require 'pry-byebug'
 require_relative '../lib/ragni-cas.rb'
 
 # Testing lib/numbers/constants.rb
@@ -54,7 +53,7 @@ class TestFunction < Test::Unit::TestCase
   end
 
   def test_equal
-    assert_true(@f == @f)
+    assert_equal(true, @f == @f)
   end
 
   def test_call
