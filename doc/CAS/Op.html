@@ -104,8 +104,6 @@
     
     <li ><a href="#method-i-diff">#diff</a>
     
-    <li ><a href="#method-i-dot_graph">#dot_graph</a>
-    
     <li ><a href="#method-i-equal">#equal</a>
     
     <li ><a href="#method-i-greater">#greater</a>
@@ -145,10 +143,6 @@
     
 <p><strong>_  / _ \ _ <em>_ | (</em>) | &#39;_ \  _</strong>/| ._<em>/ 
 |</em>|</p>
-
-<p><em>_ _ _  / <strong>|</strong> _ | | __ ()</em> _ <strong>_ _ _ _ | (/ _ \
-&#39; \ <em>/ ` | | &#39; / -) &#39;</em>(<em>-&lt; 
-__/</em>||<em>_</em>_<em>,</em>|<em>|</em>||<em>_|</em>| /</strong>/</p>
 
   </section>
 
@@ -894,43 +888,6 @@ functions. E.g.:</p>
     <span class="ruby-keyword">return</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-keyword">end</span>
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-dot_graph" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">dot_graph</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Return the local Graphviz node of the tree</p>
-<ul><li>
-<p><strong>returns</strong>: <code>String</code> of local Graphiz node</p>
-</li></ul>
-          
-          
-
-          
-          <div class="method-source-code" id="dot_graph-source">
-            <pre><span class="ruby-comment"># File lib/plugins/graphviz.rb, line 19</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">dot_graph</span>
-  <span class="ruby-identifier">cls</span> = <span class="ruby-node">&quot;#{self.class.to_s.gsub(&quot;CAS::&quot;, &quot;&quot;)}_#{self.object_id}&quot;</span>
-  <span class="ruby-node">&quot;#{cls} -&gt; #{@x.dot_graph}\n&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           

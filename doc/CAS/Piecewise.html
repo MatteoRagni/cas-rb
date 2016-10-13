@@ -78,8 +78,6 @@
     
     <li ><a href="#method-i-diff">#diff</a>
     
-    <li ><a href="#method-i-dot_graph">#dot_graph</a>
-    
     <li ><a href="#method-i-to_code">#to_code</a>
     
     <li ><a href="#method-i-to_latex">#to_latex</a>
@@ -337,43 +335,6 @@ functions and unchanged condition</p>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">v</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>)
   <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Piecewise</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@x</span>.<span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>).<span class="ruby-identifier">simplify</span>, <span class="ruby-ivar">@y</span>.<span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>).<span class="ruby-identifier">simplify</span>, <span class="ruby-ivar">@condition</span>)
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-dot_graph" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">dot_graph</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Convert piecewise function into a dot graphviz representation</p>
-<ul><li>
-<p><strong>returns</strong>: <code>String</code></p>
-</li></ul>
-          
-          
-
-          
-          <div class="method-source-code" id="dot_graph-source">
-            <pre><span class="ruby-comment"># File lib/plugins/graphviz.rb, line 71</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">dot_graph</span>
-  <span class="ruby-identifier">cls</span> = <span class="ruby-node">&quot;#{self.class.to_s.gsub(&quot;CAS::&quot;, &quot;&quot;)}_#{self.object_id}&quot;</span>
-  <span class="ruby-node">&quot;#{cls} -&gt; #{@x.dot_graph}\n  #{cls} -&gt; #{@y.dot_graph}\n  #{cls} -&gt; #{@condition.dot_graph}&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           

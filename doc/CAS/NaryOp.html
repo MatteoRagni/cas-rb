@@ -82,8 +82,6 @@
     
     <li ><a href="#method-i-diff">#diff</a>
     
-    <li ><a href="#method-i-dot_graph">#dot_graph</a>
-    
     <li ><a href="#method-i-inspect">#inspect</a>
     
     <li ><a href="#method-i-simplify">#simplify</a>
@@ -427,47 +425,6 @@ tree resolution)</p>
     <span class="ruby-keyword">return</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>) }
   <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-dot_graph" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">dot_graph</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Return the local Graphviz node of the tree</p>
-<ul><li>
-<p><strong>returns</strong>: <code>String</code> of local Graphiz node</p>
-</li></ul>
-          
-          
-
-          
-          <div class="method-source-code" id="dot_graph-source">
-            <pre><span class="ruby-comment"># File lib/plugins/graphviz.rb, line 39</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">dot_graph</span>
-  <span class="ruby-identifier">cls</span> = <span class="ruby-node">&quot;#{self.class.to_s.gsub(&quot;CAS::&quot;, &quot;&quot;)}_#{self.object_id}&quot;</span>
-  <span class="ruby-identifier">ret</span> = <span class="ruby-string">&quot;&quot;</span>
-  <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">ret</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;#{cls} -&gt; #{x.dot_graph}\n&quot;</span>
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">return</span> <span class="ruby-identifier">ret</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           

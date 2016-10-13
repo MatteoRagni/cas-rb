@@ -41,28 +41,7 @@ Gem::Specification.new do |s|
   s.summary = 'An extremely simple CAS, for rapid prototyping and meta-programming'
   s.authors = ['Matteo Ragni']
   s.email = 'info@ragni.me'
-  s.files = [
-    'lib/ragni-cas.rb',
-    # Overloading
-    'lib/overloading/fixnum.rb',
-    'lib/overloading/float.rb',
-    # Operators
-    'lib/operators/op.rb',
-    'lib/operators/bary-op.rb',
-    'lib/operators/nary-op.rb',
-    # Numbers
-    'lib/numbers/constants.rb',
-    'lib/numbers/variables.rb',
-    # Functions
-    'lib/functions/fnc-base.rb',
-    'lib/functions/fnc-trig.rb',
-    'lib/functions/fnc-trsc.rb',
-    'lib/functions/fnc-conditions.rb',
-    'lib/functions/fnc-box-conditions.rb',
-    'lib/functions/fnc-piecewise.rb',
-    # Versioning
-    'lib/version.rb'
-  ]
+  s.files = Dir["lib/**/**"]
   s.homepage = 'https://github.com/MatteoRagni/cas-rb'
   s.license = 'MIT'
   s.required_ruby_version = '>= 2.0'
