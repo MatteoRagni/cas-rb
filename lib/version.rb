@@ -8,6 +8,6 @@ module CAS
   #  * Major version
   #  * Minor version
   #  * Patchlevel
-  VERSION = [0, 2, 4]
+  VERSION = [0, 2, 5]
 end
 
