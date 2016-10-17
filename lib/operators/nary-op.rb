@@ -94,13 +94,14 @@ module CAS
     def subs(dt)
       CAS::Help.assert(dt, Hash)
       @x.each_with_index do |x, k|
-        if dt.keys.include? x
-          if dt[x].is_a? CAS::Op
-            @x[k] = dt[x]
-          elsif dt[x].is_a? Numeric
-            @x[k] = CAS::const dt[x]
+        sub = dt.keys.select { |e| e == x }[0]
+        if sub
+          if dt[sub].is_a? CAS::Op
+            @x[k] = dt[sub]
+          elsif dt[sub].is_a? Numeric
+            @x[k] = CAS::const dt[sub]
           else
-            raise CAS::CASError, "Impossible subs. Received a #{dt[x].class} = #{dt[x]}"
+            raise CAS::CASError, "Impossible subs. Received a #{dt[sub].class} = #{dt[sub]}"
           end
         end
       end

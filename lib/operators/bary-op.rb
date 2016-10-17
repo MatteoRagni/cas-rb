@@ -79,14 +79,14 @@ module CAS
     #  * **returns**: `CAS::BinaryOp`, in practice `self`
     def subs_lhs(dt)
       CAS::Help.assert(dt, Hash)
-
-      if dt.keys.include? @x
-        if dt[@x].is_a? CAS::Op
-          @x = dt[@x]
-        elsif dt[@x].is_a? Numeric
-          @x = CAS::const dt[@x]
+      sub = dt.keys.select { |e| e == @x }[0]
+      if sub
+        if dt[sub].is_a? CAS::Op
+          @x = dt[sub]
+        elsif dt[sub].is_a? Numeric
+          @x = CAS::const dt[sub]
         else
-          raise CASError, "Impossible subs. Received a #{dt[@x].class} = #{dt[@x]}"
+          raise CASError, "Impossible subs. Received a #{dt[sub].class} = #{dt[sub]}"
         end
       else
         @x.subs(dt)
@@ -100,13 +100,14 @@ module CAS
     #  * **returns**: `CAS::BinaryOp`, in practice `self`
     def subs_rhs(dt)
       CAS::Help.assert(dt, Hash)
-      if dt.keys.include? @y
-        if dt[@y].is_a? CAS::Op
-          @y = dt[@y]
-        elsif dt[@y].is_a? Numeric
-          @y = CAS::const dt[@y]
+      sub = dt.keys.select { |e| e == @y }[0]
+      if sub
+        if dt[sub].is_a? CAS::Op
+          @y = dt[sub]
+        elsif dt[sub].is_a? Numeric
+          @y = CAS::const dt[sub]
         else
-          raise CASError, "Impossible subs. Received a #{dt[@y].class} = #{dt[@y]}"
+          raise CASError, "Impossible subs. Received a #{dt[sub].class} = #{dt[sub]}"
         end
       else
         @y.subs(dt)
