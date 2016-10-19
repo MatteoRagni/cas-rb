@@ -58,7 +58,7 @@ class TestFunction < Test::Unit::TestCase
 
   def test_call
     assert_raises CAS::CASError do
-      @f.call nil
+      @f.call {}
     end
   end
 

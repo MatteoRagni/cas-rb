@@ -61,7 +61,7 @@ module CAS
       xs.flatten!
       CAS::Help.assert_name name
       xs.each do |x|
-        CAS::Help.assert x, CAS::Variable
+        CAS::Help.assert x, CAS::Op
       end
       raise CASError, "Function #{name} already exists" if CAS::Function.exist? name
 
@@ -78,7 +78,7 @@ module CAS
     def Function.new(name, *xs)
       xs.flatten!
       if @@container[name]
-        return @@container[name] if (@@container[name].args - xs.uniq == [] or xs.size == 0)
+        return @@container[name] if (@@container[name].xs.uniq - xs.uniq == [] or xs.size == 0)
         raise CASError, "Function #{name} already defined with different arguments!"
       end
       super
@@ -90,6 +90,12 @@ module CAS
     def args
       @x
     end
+    
+    # Get an element in a particular position of the argument
+    #
+    #  * **requires**: an iterator
+    #  * **returns**: element of the argument `CAS::Op` or `NilClass`
+    def [](i); @x[i]; end
 
     # Simplifications cannot be performed on anonymous function, thus it will always return
     # the `self` `CAS::Function` object
@@ -118,7 +124,7 @@ module CAS
     #  * **raises**: `CASError` if something different with resppect to a `CAS::Variable` is a active substitution
     def subs(s)
       s.each do |k, v|
-        next unless self.depend? k
+        next unless self.depend? k # TODO
         if v.is_a? CAS::Variable
           (@x.collect! { |e| (e == k) ? v : e }).uniq!
           next
@@ -135,7 +141,14 @@ module CAS
     #  * **returns**: the `CAS::Variable` derivated function
     def diff(v)
       if self.depend? v
-        return CAS.declare :"d#{@name}[#{v}]", @x
+        # return CAS.declare :"d#{@name}[#{v}]", @x
+        ret = []
+        @x.each_with_index |x, k|
+          dx = (x.depend? v ? x.diff(v) : CAS::Zero)
+          dfx = CAS.declare :"d#{@name}[#{k}, #{v}]", @x
+          ret << dx * dfx
+        end
+        return ret.inject { |d, e| d += e }
       else
         return CAS::Zero
       end
@@ -166,7 +179,7 @@ module CAS
     #  * **returns**: `TrueClass` if functions are equal, `FalseClass` if not equal
     def ==(op)
       return false if not self.class == op.class
-      return false if not (@name == op.name and @x == op.args)
+      return false if not (@name == op.name and @x.uniq == op.x.uniq)
       true
     end
   end # Function
