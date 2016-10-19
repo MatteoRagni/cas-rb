@@ -149,7 +149,7 @@ module CAS
       ret = []
       @x.each_with_index do |x, k|
         dx = (x.depend?(v) ? x.diff(v) : CAS::Zero)
-        dfx = CAS.declare :"d#{@name}[#{k}, #{v}]", @x
+        dfx = CAS.declare :"D#{@name}[#{k}]", @x
         ret << dx * dfx
       end
       return CAS::Zero if ret == []
