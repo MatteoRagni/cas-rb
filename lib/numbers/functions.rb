@@ -78,17 +78,22 @@ module CAS
     def Function.new(name, *xs)
       xs.flatten!
       if @@container[name]
-        return @@container[name] if (@@container[name].xs.uniq - xs.uniq == [] or xs.size == 0)
+        return @@container[name] if (@@container[name].x.uniq - xs.uniq == [] or xs.size == 0)
         raise CASError, "Function #{name} already defined with different arguments!"
       end
       super
     end
 
     # Returns an array containing `CAS::Variable`s argument of the function
+    # Plese note that sub Op will return their args.
     #
-    #  * **returns**: `Array` containing `CAs:;Variable`
+    #  * **returns**: `Array` containing `CAs::Variable`
     def args
-      @x
+      ret = []
+      @x.each do |e|
+        ret << e.args
+      end
+      ret.flatten.uniq
     end
     
     # Get an element in a particular position of the argument
@@ -140,18 +145,15 @@ module CAS
     #  * **requires**: a `CAS::Variable` for derivative
     #  * **returns**: the `CAS::Variable` derivated function
     def diff(v)
-      if self.depend? v
-        # return CAS.declare :"d#{@name}[#{v}]", @x
-        ret = []
-        @x.each_with_index |x, k|
-          dx = (x.depend? v ? x.diff(v) : CAS::Zero)
-          dfx = CAS.declare :"d#{@name}[#{k}, #{v}]", @x
-          ret << dx * dfx
-        end
-        return ret.inject { |d, e| d += e }
-      else
-        return CAS::Zero
+      # return CAS.declare :"d#{@name}[#{v}]", @x
+      ret = []
+      @x.each_with_index do |x, k|
+        dx = (x.depend?(v) ? x.diff(v) : CAS::Zero)
+        dfx = CAS.declare :"d#{@name}[#{k}, #{v}]", @x
+        ret << dx * dfx
       end
+      return CAS::Zero if ret == []
+      return ret.inject { |d, e| d += e }
     end
 
     # Trying to call a `CAS::Function` will always return a `CAS::Error`
