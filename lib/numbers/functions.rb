@@ -63,7 +63,7 @@ module CAS
       xs.each do |x|
         CAS::Help.assert x, CAS::Op
       end
-      raise CASError, "Function #{name} already exists" if CAS::Function.exist? name
+      # raise CASError, "Function #{name} already exists" if CAS::Function.exist? name
 
       @x = xs.uniq
       @name = name
@@ -78,7 +78,8 @@ module CAS
     def Function.new(name, *xs)
       xs.flatten!
       if @@container[name]
-        return @@container[name] if (@@container[name].x.uniq - xs.uniq == [] or xs.size == 0)
+        # return @@container[name] if (@@container[name].x.uniq - xs.uniq == [] or xs.size == 0)
+        return @@container[name] if (@@container[name].x.uniq.map(&:to_s).sort == xs.uniq.map(&:to_s).sort or xs.size == 0)
         raise CASError, "Function #{name} already defined with different arguments!"
       end
       super
@@ -95,7 +96,7 @@ module CAS
       end
       ret.flatten.uniq
     end
-    
+
     # Get an element in a particular position of the argument
     #
     #  * **requires**: an iterator
@@ -128,14 +129,7 @@ module CAS
     #  * **returns**: a `CAS::Function` with modified argument list
     #  * **raises**: `CASError` if something different with resppect to a `CAS::Variable` is a active substitution
     def subs(s)
-      s.each do |k, v|
-        next unless self.depend? k # TODO
-        if v.is_a? CAS::Variable
-          (@x.collect! { |e| (e == k) ? v : e }).uniq!
-          next
-        end
-        raise CASError, "Cannot perform a substitution in #{self.class}"
-      end
+      @x.each { |e| e.subs(s) }
       self
     end
 

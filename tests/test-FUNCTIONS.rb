@@ -2,6 +2,7 @@
 
 require 'test/unit'
 require_relative '../lib/ragni-cas.rb'
+require 'pry'
 
 # Testing lib/numbers/constants.rb
 class TestFunction < Test::Unit::TestCase
@@ -9,6 +10,7 @@ class TestFunction < Test::Unit::TestCase
   def setup
     @x, @y, @z = CAS::vars :x, :y, :z
     @f = CAS::Function.new :f, @x, @y, @z
+    @l = CAS::Function.new(:l, CAS.sin(@x + @y), @x ** 2)
   end
 
   def test_new
@@ -24,9 +26,9 @@ class TestFunction < Test::Unit::TestCase
   end
 
   def test_class_method
-    assert_equal(CAS::Function.list, {:f => @f}, "Function.list failed")
+    assert_equal(CAS::Function.list, {:f => @f, :l => @l}, "Function.list failed")
     assert_equal(CAS::Function.exist?(:f), true, "Function.exist? failed")
-    assert_equal(CAS::Function.size, 1, "Function.size failed")
+    assert_equal(CAS::Function.size, 2, "Function.size failed")
     assert_equal(CAS::Function[:f], @f, "Function.[] failed")
   end
 
@@ -40,11 +42,14 @@ class TestFunction < Test::Unit::TestCase
 
   def test_diff
     df = @f.diff(@x)
-    assert_equal(:"df[#{@x}]", df.name)
     assert_equal([@x, @y, @z], df.args)
 
+    dl = @l.diff(@x).simplify
+    assert_equal(CAS.cos(@x + @y) * CAS::Function[:"Dl[0]"] +
+                (@x * 2) * CAS::Function[:"Dl[1]"] , dl)
+
     v = CAS::vars :v
-    assert_equal(CAS::Zero, @f.diff(v))
+    assert_equal(CAS::Zero, @f.diff(v).simplify)
   end
 
   def tes_to_s
@@ -69,9 +74,10 @@ class TestFunction < Test::Unit::TestCase
   end
 
   def test_subs
-    assert_raises CAS::CASError do
-      @f.subs(@x => @y ** 2)
-    end
-    assert_equal("f(y, z)", @f.subs({@x => @y}).inspect)
+    # assert_raises CAS::CASError do
+    #   @f.subs(@x => @y ** 2)
+    # end
+    g = CAS.declare :sub_test, CAS.sin(@x + @y), @x ** 2
+    assert_equal("sub_test(sin((y + y)), (y)^(2))", g.subs({@x => @y}).inspect)
   end
 end
