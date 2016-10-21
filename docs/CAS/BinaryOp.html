@@ -82,6 +82,8 @@
     
     <li ><a href="#method-i-diff">#diff</a>
     
+    <li ><a href="#method-i-dot_graph">#dot_graph</a>
+    
     <li ><a href="#method-i-inspect">#inspect</a>
     
     <li ><a href="#method-i-simplify">#simplify</a>
@@ -256,7 +258,7 @@ math operation.</p>
 
           
           <div class="method-source-code" id="3D-3D-source">
-            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 157</span>
+            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 158</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">op</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">op</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">BinaryOp</span>
@@ -297,7 +299,7 @@ math operation.</p>
 
           
           <div class="method-source-code" id="args-source">
-            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 142</span>
+            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 143</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">args</span>
   (<span class="ruby-ivar">@x</span>.<span class="ruby-identifier">args</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@y</span>.<span class="ruby-identifier">args</span>).<span class="ruby-identifier">uniq</span>
 <span class="ruby-keyword">end</span></pre>
@@ -335,7 +337,7 @@ math operation.</p>
 
           
           <div class="method-source-code" id="call-source">
-            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 121</span>
+            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 122</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">_fd</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">CASError</span>, <span class="ruby-string">&quot;Not Implemented. This is a virtual method&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -440,6 +442,43 @@ against</p>
       </div>
 
     
+      <div id="method-i-dot_graph" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">dot_graph</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Return the local Graphviz node of the tree</p>
+<ul><li>
+<p><strong>returns</strong>: <code>String</code> of local Graphiz node</p>
+</li></ul>
+          
+          
+
+          
+          <div class="method-source-code" id="dot_graph-source">
+            <pre><span class="ruby-comment"># File lib/ragni-cas/graphviz.rb, line 29</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">dot_graph</span>
+  <span class="ruby-identifier">cls</span> = <span class="ruby-node">&quot;#{self.class.to_s.gsub(&quot;CAS::&quot;, &quot;&quot;)}_#{self.object_id}&quot;</span>
+  <span class="ruby-node">&quot;#{cls} -&gt; #{@x.dot_graph}\n  #{cls} -&gt; #{@y.dot_graph}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
       <div id="method-i-inspect" class="method-detail ">
         
         <div class="method-heading">
@@ -462,7 +501,7 @@ against</p>
 
           
           <div class="method-source-code" id="inspect-source">
-            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 149</span>
+            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 150</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">inspect</span>
   <span class="ruby-node">&quot;#{self.class}(#{@x.inspect}, #{@y.inspect})&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -498,7 +537,7 @@ against</p>
 
           
           <div class="method-source-code" id="simplify-source">
-            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 169</span>
+            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 170</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">simplify</span>
   <span class="ruby-identifier">hash</span> = <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">to_s</span>
   <span class="ruby-ivar">@x</span> = <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">simplify</span>
@@ -592,14 +631,14 @@ against</p>
             <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 80</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">subs_lhs</span>(<span class="ruby-identifier">dt</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">dt</span>, <span class="ruby-constant">Hash</span>)
-
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">dt</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">include?</span> <span class="ruby-ivar">@x</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">dt</span>[<span class="ruby-ivar">@x</span>].<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>
-      <span class="ruby-ivar">@x</span> = <span class="ruby-identifier">dt</span>[<span class="ruby-ivar">@x</span>]
-    <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">dt</span>[<span class="ruby-ivar">@x</span>].<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Numeric</span>
-      <span class="ruby-ivar">@x</span> = <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">const</span> <span class="ruby-identifier">dt</span>[<span class="ruby-ivar">@x</span>]
+  <span class="ruby-identifier">sub</span> = <span class="ruby-identifier">dt</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">select</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span> <span class="ruby-operator">==</span> <span class="ruby-ivar">@x</span> }[<span class="ruby-value">0</span>]
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">sub</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">dt</span>[<span class="ruby-identifier">sub</span>].<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>
+      <span class="ruby-ivar">@x</span> = <span class="ruby-identifier">dt</span>[<span class="ruby-identifier">sub</span>]
+    <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">dt</span>[<span class="ruby-identifier">sub</span>].<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Numeric</span>
+      <span class="ruby-ivar">@x</span> = <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">const</span> <span class="ruby-identifier">dt</span>[<span class="ruby-identifier">sub</span>]
     <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">raise</span> <span class="ruby-constant">CASError</span>, <span class="ruby-node">&quot;Impossible subs. Received a #{dt[@x].class} = #{dt[@x]}&quot;</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">CASError</span>, <span class="ruby-node">&quot;Impossible subs. Received a #{dt[sub].class} = #{dt[sub]}&quot;</span>
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">else</span>
     <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">subs</span>(<span class="ruby-identifier">dt</span>)
@@ -645,13 +684,14 @@ against</p>
             <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 101</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">subs_rhs</span>(<span class="ruby-identifier">dt</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">dt</span>, <span class="ruby-constant">Hash</span>)
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">dt</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">include?</span> <span class="ruby-ivar">@y</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">dt</span>[<span class="ruby-ivar">@y</span>].<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>
-      <span class="ruby-ivar">@y</span> = <span class="ruby-identifier">dt</span>[<span class="ruby-ivar">@y</span>]
-    <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">dt</span>[<span class="ruby-ivar">@y</span>].<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Numeric</span>
-      <span class="ruby-ivar">@y</span> = <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">const</span> <span class="ruby-identifier">dt</span>[<span class="ruby-ivar">@y</span>]
+  <span class="ruby-identifier">sub</span> = <span class="ruby-identifier">dt</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">select</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span> <span class="ruby-operator">==</span> <span class="ruby-ivar">@y</span> }[<span class="ruby-value">0</span>]
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">sub</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">dt</span>[<span class="ruby-identifier">sub</span>].<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>
+      <span class="ruby-ivar">@y</span> = <span class="ruby-identifier">dt</span>[<span class="ruby-identifier">sub</span>]
+    <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">dt</span>[<span class="ruby-identifier">sub</span>].<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Numeric</span>
+      <span class="ruby-ivar">@y</span> = <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">const</span> <span class="ruby-identifier">dt</span>[<span class="ruby-identifier">sub</span>]
     <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">raise</span> <span class="ruby-constant">CASError</span>, <span class="ruby-node">&quot;Impossible subs. Received a #{dt[@y].class} = #{dt[@y]}&quot;</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">CASError</span>, <span class="ruby-node">&quot;Impossible subs. Received a #{dt[sub].class} = #{dt[sub]}&quot;</span>
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">else</span>
     <span class="ruby-ivar">@y</span>.<span class="ruby-identifier">subs</span>(<span class="ruby-identifier">dt</span>)
@@ -690,7 +730,7 @@ against</p>
 
           
           <div class="method-source-code" id="to_code-source">
-            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 135</span>
+            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 136</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_code</span>
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">CASError</span>, <span class="ruby-string">&quot;Not implemented. This is a virtual method&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -726,7 +766,7 @@ against</p>
 
           
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 128</span>
+            <pre><span class="ruby-comment"># File lib/operators/bary-op.rb, line 129</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">CASError</span>, <span class="ruby-string">&quot;Not Implemented. This is a virtual method&quot;</span>
 <span class="ruby-keyword">end</span></pre>

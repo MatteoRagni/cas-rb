@@ -88,6 +88,8 @@
     
     <li ><a href="#method-i-subs">#subs</a>
     
+    <li ><a href="#method-i-to_dot">#to_dot</a>
+    
     <li ><a href="#method-i-to_s">#to_s</a>
     
   </ul>
@@ -461,6 +463,42 @@ deterministic).</p>
             <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 59</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">subs</span>(<span class="ruby-identifier">_dt</span>)
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-to_dot" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">to_dot</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Return the local Graphviz node of the tree</p>
+<ul><li>
+<p><strong>returns</strong>: <code>String</code> of local Graphiz node</p>
+</li></ul>
+          
+          
+
+          
+          <div class="method-source-code" id="to_dot-source">
+            <pre><span class="ruby-comment"># File lib/ragni-cas/graphviz.rb, line 62</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_dot</span>
+  <span class="ruby-node">&quot;Const(#{@x})&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           

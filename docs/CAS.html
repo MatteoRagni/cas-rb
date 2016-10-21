@@ -89,6 +89,8 @@
     
     <li ><a href="#method-c-exp">::exp</a>
     
+    <li ><a href="#method-c-export_dot">::export_dot</a>
+    
     <li ><a href="#method-c-greater">::greater</a>
     
     <li ><a href="#method-c-greater_equal">::greater_equal</a>
@@ -117,6 +119,8 @@
     
     <li ><a href="#method-c-tan">::tan</a>
     
+    <li ><a href="#method-c-to_dot">::to_dot</a>
+    
     <li ><a href="#method-c-vars">::vars</a>
     
   </ul>
@@ -132,6 +136,22 @@
 
   <section class="description">
     
+<p><em>_</em> <strong>_ _ _  / | | _ \ |_ _ __ <em>(</em>)_ _ | ( | <em>/ | ||
+/ ` | | &#39; \  _</em>| |<em>| |</em>|_,<em>_</em>, |<em>|</em>||<em>| 
+|</em></strong>/</p>
+
+<p><strong>_ _ _ _ _ _  / |_ _ __ _ _ | |_ <em>(</em>)_ | _ \ |_ _ __
+<em>(</em>)_ _ | (_ | &#39;<em>/ <code>| &#39;_ \ &#39; \ V / |_ / |  _/ |
+|| / _</code> | | &#39; \  _</em>|<em>| _</em>,<em>|
+./</em>||<em>_/|</em>/| |<em>| |</em>|_,<em>_</em>, |<em>|</em>||<em>| 
+|</em>| |</strong>_/</p>
+
+<p>_ <em>_</em> <em>__</em> <strong>_ _ _ | | <em>_ |</em> <em>|</em>_ /_ __ |
+_ \ |_ _ __ <em>(</em>)_ _ | |</strong>/ <code><em>|| |  |_ \ \ / |  _/ |
+|| / _</code> | | &#39; \ |<strong>_</em>,<em>||</em>|
+|</strong><em>/_</em>\ |<em>| |</em>|_,<em>_</em>, |<em>|</em>||<em>| 
+|</em>__/</p>
+
   </section>
 
   
@@ -647,7 +667,7 @@ is the name of the function</p>
 
           
           <div class="method-source-code" id="declare-source">
-            <pre><span class="ruby-comment"># File lib/numbers/functions.rb, line 180</span>
+            <pre><span class="ruby-comment"># File lib/numbers/functions.rb, line 189</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">declare</span>(<span class="ruby-identifier">name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">xs</span>)
   <span class="ruby-identifier">xs</span>.<span class="ruby-identifier">flatten!</span>
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Function</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">xs</span>)
@@ -722,6 +742,50 @@ is the name of the function</p>
             <pre><span class="ruby-comment"># File lib/functions/fnc-trsc.rb, line 92</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">exp</span>(<span class="ruby-identifier">x</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Exp</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">x</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-export_dot" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">export_dot</span><span
+            class="method-args">(fl, op)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Export the input <code>CAS::Op</code> graphviz representation to a file.</p>
+<ul><li>
+<p><strong>argument</strong>: <code>String</code> with filename</p>
+</li><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> with the tree</p>
+</li><li>
+<p><strong>returns</strong>: <code>CAS::Op</code> in input</p>
+</li></ul>
+          
+          
+
+          
+          <div class="method-source-code" id="export_dot-source">
+            <pre><span class="ruby-comment"># File lib/ragni-cas/graphviz.rb, line 125</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">export_dot</span>(<span class="ruby-identifier">fl</span>, <span class="ruby-identifier">op</span>)
+  <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">fl</span>, <span class="ruby-constant">String</span>)
+  <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">op</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>)
+
+  <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">fl</span>, <span class="ruby-string">&quot;w&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">puts</span> <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">to_dot</span>(<span class="ruby-identifier">op</span>) <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">op</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -1224,6 +1288,78 @@ is the name of the function</p>
             <pre><span class="ruby-comment"># File lib/functions/fnc-trig.rb, line 405</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">tan</span>(<span class="ruby-identifier">x</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Tan</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">x</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-to_dot" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">to_dot</span><span
+            class="method-args">(op)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Return a string representation of the graph that is a Graphviz tree.
+Requires a <code>CAS::Op</code> as argument. In the next releases probably
+it will be moved inside <code>CAS::Op</code>.</p>
+<ul><li>
+<p><strong>argument</strong>: <code>CAS::Op</code> instance</p>
+</li><li>
+<p><strong>returns</strong>: <code>String</code></p>
+</li></ul>
+          
+          
+
+          
+          <div class="method-source-code" id="to_dot-source">
+            <pre><span class="ruby-comment"># File lib/ragni-cas/graphviz.rb, line 84</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">to_dot</span>(<span class="ruby-identifier">op</span>)
+  <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">op</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>)
+  <span class="ruby-identifier">string</span> = <span class="ruby-identifier">op</span>.<span class="ruby-identifier">dot_graph</span>
+  <span class="ruby-identifier">labels</span> = <span class="ruby-string">&quot;&quot;</span>
+
+  <span class="ruby-identifier">dot_subs_hash</span> = {
+    <span class="ruby-string">&quot;Sum&quot;</span>                =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;+&quot;</span>,
+    <span class="ruby-string">&quot;Diff&quot;</span>               =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;-&quot;</span>,
+    <span class="ruby-string">&quot;Prod&quot;</span>               =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;×&quot;</span>,
+    <span class="ruby-string">&quot;Div&quot;</span>                =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;÷&quot;</span>,
+    <span class="ruby-string">&quot;Sqrt&quot;</span>               =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;√(∙)&quot;</span>,
+    <span class="ruby-string">&quot;Abs&quot;</span>                =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;|∙|&quot;</span>,
+    <span class="ruby-string">&quot;Invert&quot;</span>             =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;-(∙)&quot;</span>,
+    <span class="ruby-string">&quot;Exp&quot;</span>                =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;exp(∙)&quot;</span>,
+    <span class="ruby-string">&quot;Log&quot;</span>                =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;log(∙)&quot;</span>,
+    <span class="ruby-string">&quot;Pow&quot;</span>                =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;(∙)^(∙)&quot;</span>,
+    <span class="ruby-string">&quot;ZERO_CONSTANT&quot;</span>      =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;0&quot;</span>,
+    <span class="ruby-string">&quot;ONE_CONSTANT&quot;</span>       =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;1&quot;</span>,
+    <span class="ruby-string">&quot;TWO_CONSTANT&quot;</span>       =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;2&quot;</span>,
+    <span class="ruby-string">&quot;PI_CONSTANT&quot;</span>        =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;π&quot;</span>,
+    <span class="ruby-string">&quot;INFINITY_CONSTANT&quot;</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;∞&quot;</span>,
+    <span class="ruby-string">&quot;E_CONSTANT&quot;</span>         =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;e&quot;</span>,
+    <span class="ruby-string">&quot;MINUS_ONE_CONSTANT&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;-1&quot;</span>
+  }
+
+  <span class="ruby-identifier">lab</span> = {}
+  <span class="ruby-identifier">string</span>.<span class="ruby-identifier">scan</span>(<span class="ruby-regexp">/\w+\_\d+/</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">m</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/(\w+)\_\d+/</span>
+      <span class="ruby-identifier">lab</span>[<span class="ruby-identifier">m</span>] = <span class="ruby-identifier">dot_subs_hash</span>[<span class="ruby-node">$1</span>] <span class="ruby-operator">||</span> <span class="ruby-node">$1</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">lab</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">labels</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;  #{k} [label=\&quot;#{v}\&quot;]\n&quot;</span> }
+
+  <span class="ruby-keyword">return</span> <span class="ruby-node">&quot;digraph Op {\n  #{string}#{labels}}&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
