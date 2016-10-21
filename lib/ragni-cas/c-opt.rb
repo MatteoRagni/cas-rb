@@ -6,75 +6,101 @@
 #  \___| |_| |_|\_,_\__, |_|_||_|
 #                   |___/
 
+require 'pry'
+
 module CAS
-  module C_PLUGIN
+  class CLib < Hash
+    def initialize(name)
+      raise ArgumentError, "Name for the library undefined" unless name.is_a? String
+      @name            = name
+      @define          = {}
+      @include         = {}
+      @include[:std]   = []
+      @include[:local] = []
+      @type            = "double"
+      
+      # Default definitions
+      self.define "M_PI", Math::PI
+      self.define "M_INFINITY","HUGE_VAL"
+      self.define "M_E", Math::E
+      self.define "M_EPSILON", 1E-16
+      
+      # Default inclusions
+      self.include :std, "math.h"
+    end
+    
+    def as_double;   @type = "double";   end
+    def as_float;    @type = "float";    end
+    def as_int;      @type = "int";      end
+    def as_long_int; @type = "long int"; end
+  
     def define(k, v)
-      raise ArgumentError "k must be a String, received a #{k.class}" unless k.is_a? String
-      C_DEFINES[k] = v.to_s
-      C_DEFINES
+      raise ArgumentError, "k must be a String, received a #{k.class}" unless k.is_a? String
+      @define[k] = v.to_s
+      @define
     end
 
     def undefine(k)
-      C_DEFINES.delete k
-      return C_DEFINES
+      @define.delete k
+      return @define
     end
 
     def include(type, lib)
-      raise ArgumentError "type must be a Symbol (:std, :local), received #{type}" unless [:std, :local].include? type
-      raise ArgumentError "lib must be a String, received a #{lib.class}" unless lib.is_a? String
-      C_LIBRARIES[type] << lib unless C_LIBRARIES[type].include? lib
+      raise ArgumentError, "type must be a Symbol (:std, :local), received #{type}" unless [:std, :local].include? type
+      raise ArgumentError, "lib must be a String, received a #{lib.class}" unless lib.is_a? String
+      @include[type] << lib unless @include[type].include? lib
     end
 
-    C_DEFINES = {
-      "M_PI"       => Math::PI.to_s,
-      "M_INFINITY" => "HUGE_VAL",
-      "M_E"        => Math::E.to_s,
-      "M_EPSILON"  => (1E-16).to_s
-    }
 
-    #C_LIBRARIES {
-    #  :std => ["math.h"],
-    #  :local => []
-    #}
-
-    C_LOCAL_LIBRARIES = [ ] # TODO eliminare
-
-    C_STD_LIBRARIES = [
-      "math.h"
-    ] # TODO eliminare
-
-    def self.write_header(op, name)
+    def header
       <<-TO_HEADER
-#ifndef #{name}_HEADER
-#define #{name}_HEADER
+// Header file for library: #{@name}.c       
+      
+#ifndef #{@name}_H
+#define #{@name}_H
 
 // Standard Libraries
-#{ CAS::C_PLUGIN::C_STD_LIBRARIES.map { |e| "#include <#{e}>" }.join("\n") }
+#{ @include[:std].map { |e| "#include <#{e}>" }.join("\n") }
 
 // Local Libraries
-#{ CAS::C_PLUGIN::C_LOCAL_LIBRARIES.map { |e| "#include <#{e}>" }.join("\n") }
+#{ @include[:local].map { |e| "#include \"#{e}\"" }.join("\n") }
 
 // Definitions
-#{ CAS::C_PLUGIN::C_DEFINES.map { |k, v| "#define #{k} #{v}" }.join("\n") }
+#{ @define.map { |k, v| "#define #{k} #{v}" }.join("\n") }
 
-// Function
-double #{name}(#{ op.args.map { |x| "double #{x.name}"}.join(", ") });
+// Functions
+#{ 
+  self.keys.map do |fname|
+    "#{@type} #{fname}(#{ self[fname].args.map { |x| "#{@type} #{x.name}" }.join(", ")});"
+  end.join("\n") 
+}
 
-#endif // #{name}_HEADER
+#endif // #{@name}_H
       TO_HEADER
     end
 
-    def self.write_source(op, name)
-      c_op = op.to_c.sort_by { |k, v| v[:id] }
-
-      <<-TO_SOURCE
-#include "#{name}.h"
-
-double #{name}(#{ op.args.map { |x| "double #{x.name}"}.join(", ") }) {
+    def source
+      functions = []
+      
+      self.each do |fname, op|
+        c_op = op.to_c.sort_by { |_k, c| c[:id] }
+        nf = <<-NEWFUNCTION
+#{@type} #{fname}(#{ op.args.map { |x| "#{@type} #{x.name}" }.join(", ")}) {
 #{c_op.map { |e| "  double #{e[1][:var]} = #{e[1][:def]};"}.join("\n")}
 
-  return #{c_op[-1][1][:var]}
+  return #{c_op[-1][1][:var]};
 }
+NEWFUNCTION
+        functions << nf
+      end
+
+      <<-TO_SOURCE
+// Source file for library: #{@name}.c
+
+#include "#{@name}.h"
+
+#{functions.join("\n")}
+// end of #{@name}.c
       TO_SOURCE
     end
   end
@@ -97,11 +123,11 @@ double #{name}(#{ op.args.map { |x| "double #{x.name}"}.join(", ") }) {
 
   {
     # Base functions
-    CAS::Sum    => Proc.new { |v| "(#{x.__to_c(v)} + #{y.__to_c(v)})" },
+    CAS::Sum    => Proc.new { |v| "(#{@x.__to_c(v)} + #{@y.__to_c(v)})" },
     CAS::Diff   => Proc.new { |v| "(#{@x.__to_c(v)} - #{@y.__to_c(v)})" },
     CAS::Prod   => Proc.new { |v| "(#{@x.__to_c(v)} * #{@y.__to_c(v)})" },
     CAS::Pow    => Proc.new { |v| "pow(#{@x.__to_c(v)}, #{@y.__to_c(v)})" },
-    CAS::Div    => Proc.new { |v| "(#{@x.__to_c(v)}) / (#{@y.__to_c(v)} + )" },
+    CAS::Div    => Proc.new { |v| "(#{@x.__to_c(v)}) / (#{@y.__to_c(v)} + M_EPSILON)" },
     CAS::Sqrt   => Proc.new { |v| "sqrt(#{@x.__to_c(v)})" },
     CAS::Invert => Proc.new { |v| "(-#{@x.__to_c(v)})" },
     CAS::Abs    => Proc.new { |v| "fabs(#{@x.__to_c(v)})" },
