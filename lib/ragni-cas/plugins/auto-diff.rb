@@ -19,7 +19,7 @@ module CAS
       end
 
       def *(v)
-        DualNumber.new @x * v.x, @y * v.y + @x * v.y
+        DualNumber.new @x * v.x, @y * v.x + @x * v.y
       end
 
       def /(v)
@@ -64,8 +64,8 @@ module CAS
 
   {
     # Terminal nodes
-    CAS::Constant => Proc.new { |fd| puts fd; CAS::AutoDiff.vars (fd[CAS::Variable[name]] || fd[name]) },
-    CAS::Variable => Proc.new { |_fd| CAS::AutoDiff.const @x },
+    CAS::Variable => Proc.new { |fd| CAS::AutoDiff.vars (fd[CAS::Variable[@name]] || fd[@name]) },
+    CAS::Constant => Proc.new { |_fd| CAS::AutoDiff.const @x },
     CAS::Function => Proc.new { |_fd| raise RuntimeError, "Impossible for implicit functions" },
 
     # Base functions
@@ -74,7 +74,7 @@ module CAS
     CAS::Prod   => Proc.new { |fd| @x.auto_diff(fd) * @y.auto_diff(fd) },
     CAS::Pow    => Proc.new { |fd| @x.auto_diff(fd) ** @y.auto_diff(fd) },
     CAS::Div    => Proc.new { |fd| @x.auto_diff(fd) / @y.auto_diff(fd) },
-    CAS::Sqrt   => Proc.new { |fd| @x.auto_diff(fd) ** CAS::AutoDiff::Two },
+    CAS::Sqrt   => Proc.new { |fd| @x.auto_diff(fd) ** (CAS::AutoDiff::One / CAS::AutoDiff::Two) },
     CAS::Invert => Proc.new { |fd| -@x.auto_diff(fd) },
     CAS::Abs    => Proc.new { |fd| @x.auto_diff(fd).abs },
 
@@ -97,7 +97,7 @@ module CAS
     },
     CAS::Tan    => Proc.new { |fd|
       u = @x.auto_diff(fd)
-      CAS::AutoDiff::DualNumber.new Math.tan(u.x),  u.y / Math.cos(u.x)
+      CAS::AutoDiff::DualNumber.new Math.tan(u.x),  u.y / (Math.cos(u.x) ** 2)
     },
     CAS::Atan   => Proc.new { |fd|
       u = @x.auto_diff(fd)
@@ -105,22 +105,22 @@ module CAS
     },
 
     # Trascendent functions
-    CAS::Exp    => Proc.new { |fd| CAS::AutoDiff::E ** @x.diff_auto(fd) },
+    CAS::Exp    => Proc.new { |fd| CAS::AutoDiff::E ** @x.auto_diff(fd) },
     CAS::Ln     => Proc.new { |fd|
-      u = @x.diff_auto(fd)
+      u = @x.auto_diff(fd)
       CAS::AutoDiff::DualNumber.new Math.log(u.x), u.y / u.x
     },
 
     # Piecewise
     CAS::Piecewise => Proc.new { |_fd| raise RuntimeError, "Not implemented auto_diff for Piecewise" },
     CAS::Max       => Proc.new { |fd|
-      a = @x.diff_auto(fd)
-      b = @y.diff_auto(fd)
+      a = @x.auto_diff(fd)
+      b = @y.auto_diff(fd)
       (a.x >= b.x ? a : b)
     },
     CAS::Min       => Proc.new { |fd|
-      a = @x.diff_auto(fd)
-      b = @y.diff_auto(fd)
+      a = @x.auto_diff(fd)
+      b = @y.auto_diff(fd)
       (a.x >= b.x ? a : b)
     }
   }.each do |cls, blk|
