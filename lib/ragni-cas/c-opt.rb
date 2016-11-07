@@ -10,6 +10,12 @@ require 'pry'
 
 module CAS
   class CLib < Hash
+    def self.create(name, &blk)
+      a = CLib.new(name)
+      a.instance_eval(&blk)
+      return a
+    end
+
     def initialize(name)
       raise ArgumentError, "Name for the library undefined" unless name.is_a? String
       @name            = name
@@ -18,22 +24,22 @@ module CAS
       @include[:std]   = []
       @include[:local] = []
       @type            = "double"
-      
+
       # Default definitions
       self.define "M_PI", Math::PI
       self.define "M_INFINITY","HUGE_VAL"
       self.define "M_E", Math::E
       self.define "M_EPSILON", 1E-16
-      
+
       # Default inclusions
-      self.include :std, "math.h"
+      self.include "math.h"
     end
-    
+
     def as_double;   @type = "double";   end
     def as_float;    @type = "float";    end
     def as_int;      @type = "int";      end
     def as_long_int; @type = "long int"; end
-  
+
     def define(k, v)
       raise ArgumentError, "k must be a String, received a #{k.class}" unless k.is_a? String
       @define[k] = v.to_s
@@ -45,17 +51,20 @@ module CAS
       return @define
     end
 
-    def include(type, lib)
+    def include_type(type, lib)
       raise ArgumentError, "type must be a Symbol (:std, :local), received #{type}" unless [:std, :local].include? type
       raise ArgumentError, "lib must be a String, received a #{lib.class}" unless lib.is_a? String
       @include[type] << lib unless @include[type].include? lib
     end
+    def include(lib); self.include_type(:std, lib); end
+    def include_local(lib); self.include_type(:local, lib); end
 
+    def implements_as(name, op); self[name] = op; end
 
     def header
       <<-TO_HEADER
-// Header file for library: #{@name}.c       
-      
+// Header file for library: #{@name}.c
+
 #ifndef #{@name}_H
 #define #{@name}_H
 
@@ -69,10 +78,10 @@ module CAS
 #{ @define.map { |k, v| "#define #{k} #{v}" }.join("\n") }
 
 // Functions
-#{ 
+#{
   self.keys.map do |fname|
     "#{@type} #{fname}(#{ self[fname].args.map { |x| "#{@type} #{x.name}" }.join(", ")});"
-  end.join("\n") 
+  end.join("\n")
 }
 
 #endif // #{@name}_H
@@ -81,7 +90,7 @@ module CAS
 
     def source
       functions = []
-      
+
       self.each do |fname, op|
         c_op = op.to_c.sort_by { |_k, c| c[:id] }
         nf = <<-NEWFUNCTION
@@ -174,6 +183,7 @@ NEWFUNCTION
     # CAS::Piecewise => Proc.new { raise CASError, "Not implemented yet" },
     # CAS::Max       => Proc.new { raise CASError, "Not implemented yet" },
     # CAS::Min       => Proc.new { raise CASError, "Not implemented yet" }
+    CAS::Function    => Proc.new { |v| "#{@c_name}(#{@x.map {|e| e.__to_c(v)}.join(", ")})" }
   }.each do |cls, blk|
     cls.send(:define_method, "__to_c_impl", &blk)
   end.each do |cls, _blk|
@@ -198,4 +208,17 @@ NEWFUNCTION
       [CAS::C_PLUGIN.write_header(self, name), CAS::C_PLUGIN.write_source(self, name)]
     end
   end
+
+  class Function
+    def c_name=(s)
+      CAS::Help.assert_name s
+      @c_name = s
+    end
+
+    def Function.new(name, *xs)
+      super
+      @c_name = name
+    end
+  end
+  Function.list.each do |k, v| v.c_name = k; end
 end
