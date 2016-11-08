@@ -17,7 +17,7 @@ module CAS
     #  * **returns**: `CAS::NaryOp` instance
     def initialize(*xs)
       @x = []
-      xs.each do |x|
+      xs.flatten.each do |x|
         if x.is_a? Numeric
           x = Op.numeric_to_const x
         end
@@ -93,6 +93,7 @@ module CAS
     #  * **returns**: `CAS::NaryOp` (`self`) with substitution performed
     def subs(dt)
       CAS::Help.assert(dt, Hash)
+      @x = @x.map { |z| z.subs(dt) || z }
       @x.each_with_index do |x, k|
         sub = dt.keys.select { |e| e == x }[0]
         if sub

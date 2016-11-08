@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
 require_relative '../lib/ragni-cas.rb'
-require_relative '../lib/ragni-cas/c.rb'
 require 'colorize'
 require 'pry-byebug'
 
@@ -20,15 +19,18 @@ if __FILE__ == $0
   # puts
   # puts
   @x, @y, @z = CAS::vars :x, :y, :z
-  @f = CAS::Function.new :f, @x, @y, @z
-  @g = (CAS.sin(CAS.sqrt(@x)) ** 2 + CAS.cos(CAS.sqrt(@x)) ** 2)
-  @h = @g + CAS.ln(CAS.exp(@y))
+  #@f = CAS::Function.new :f, @x, @y, @z
+  #@g = (CAS.sin(CAS.sqrt(@x)) ** 2 + CAS.cos(CAS.sqrt(@x)) ** 2)
+  #@h = @g + CAS.ln(CAS.exp(@y))
 
-  h_ret = (CAS.sin(@f ** 5) ** 2 + CAS.cos(@f ** 5) ** 2) + (@z - @f)
-  h_sub = {
-    CAS.sqrt(@x) => @f ** 5,
-    CAS.ln(CAS.exp(@y)) => (@z - @f)
-  }
+  #h_ret = (CAS.sin(@f ** 5) ** 2 + CAS.cos(@f ** 5) ** 2) + (@z - @f)
+  #h_sub = {
+  #  CAS.sqrt(@x) => @f ** 5,
+  #  CAS.ln(CAS.exp(@y)) => (@z - @f)
+  #}
+  #@h.subs(h_sub).to_s
+  #puts @h
+  a = (@x + @x)
   binding.pry
-  @h.subs(h_sub)
+  a.subs({})
 end

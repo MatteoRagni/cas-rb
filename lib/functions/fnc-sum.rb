@@ -66,9 +66,9 @@ module CAS
       super
       return @x[0] if @x.size == 1
 
-      return CAS::Zero if @x == -@y or -@x == @y
-      return (@x - @y.x) if @y.is_a? CAS::Invert
-      return CAS.const(self.call({})) if (@x.is_a? CAS::Constant and @y.is_a? CAS::Constant)
+      # return CAS::Zero if @x == -@y or -@x == @y
+      # return (@x - @y.x) if @y.is_a? CAS::Invert
+      # return CAS.const(self.call({})) if (@x.is_a? CAS::Constant and @y.is_a? CAS::Constant)
       # Removing Zeros
       @x = @x - [CAS::Zero]
       # Multeplicity and associativity executed
@@ -107,26 +107,35 @@ module CAS
     #
     #  * **returns**: A `CAS::Diff` or a `CAS::Sum`
     def reduce_associativity
-      positive, negative = [], []
+      pos, neg = [], []
 
       @x.each do |x_el|
-        case x_el.class
+        case x_el
         when CAS::Invert
-          negative << x_el.x
+          neg << x_el.x
         when CAS::Diff
-          positive << x_el.x
-          negative << x_el.y
+          pos << x_el.x
+          neg << x_el.y
         else
-          positive << x_el
+          pos << x_el
         end
       end
-      positive, negative = self.reduce_associativity_array positive, negative
-      positive = self.__reduce_multeplicity positive
-      negative = self.__reduce_multeplicity negative
+
+      pos, neg = self.reduce_associativity_array pos, neg
+      pos = self.__reduce_multeplicity pos
+      neg = self.__reduce_multeplicity neg
+
       # TODO : Add rules for simplifications
-      return  CAS::Sum(positive) if negative.size == 0
-      return -CAS::Sum(negative) if positive.size == 0
-      return (CAS::Sum.new(positive) - CAS::Sum.new(negative))
+      left, right = nil, nil
+      left  = CAS::Sum.new(pos) if pos.size > 1
+      left  = pos[0]            if pos.size == 1
+      right = CAS::Sum.new(neg) if neg.size > 1
+      right = neg[0]            if neg.size == 1
+
+      return  CAS::Zero unless left || right
+      return  left unless right
+      return  -right unless left
+      return left - right
     end
 
     # Reduce the positive and the negative associative part of
@@ -139,12 +148,15 @@ module CAS
     def reduce_associativity_array(p_old, n_old)
       p_del, n_del = [], []
       p_old.each do |p|
-        p_old.each do |n|
-          p_del, n_del = p, n if p == n
+        n_old.each do |n|
+          if p == n
+            p_del << p
+            n_del << n
+          end
         end
       end
 
-      return (p_old - p_del), (n_new - n_del)
+      return (p_old - p_del), (n_old - n_del)
     end
 
     # Convert expression to code (internal, for `CAS::Op#to_proc` method)

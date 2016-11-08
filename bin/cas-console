@@ -50,7 +50,8 @@ Pry.hooks.add_hook(:before_session, "print_banner") do |output, _, pry|
   pry.config.print = proc { |out, value|
     if value.class.include? CAS
       if value.respond_to? :puts_ascii
-        out.puts ("\n" + (value.puts_ascii(3)).green + "\n\n")
+        # out.puts ("\n" + (value.puts_ascii(3)).green + "\n\n")
+        out.puts "#{value}".green # TODO: solve this problem with sum
       else
         out.puts "#{value}".green
       end

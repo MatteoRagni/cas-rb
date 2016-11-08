@@ -20,6 +20,6 @@ class TestGeneral < Test::Unit::TestCase
       CAS.ln(CAS.exp(@y)) => (@z - @f)
     }
 
-    assert_equal(h_ret, @h.subs(h_sub))
+    assert_equal(h_ret.to_s, @h.subs(h_sub).to_s)
   end
 end

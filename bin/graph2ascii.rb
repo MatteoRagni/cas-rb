@@ -54,6 +54,8 @@ module CAS
 
   class Sum
     def to_ascii
+      x_ascii = []
+      x_ul    = []
       x_ascii, x_ul = @x.to_ascii
       y_ascii, y_ul = @y.to_ascii
       x_ll = x_ascii.size - x_ul

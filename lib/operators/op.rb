@@ -141,7 +141,7 @@ module CAS
     #  * **argument**: `CAS::Op` tree
     #  * **returns**: `CAS::Op` new object
     def +(op)
-      CAS::Sum.new self, op
+      CAS::Sum.new [self, op]
     end
 
     # Returns a difference of two `CAS::Op`s
