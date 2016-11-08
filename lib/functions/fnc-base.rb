@@ -1,6 +1,7 @@
 #!/usr/vin/env ruby
 
 module CAS
+=begin
   #  ___
   # / __|_  _ _ __
   # \__ \ || | '  \
@@ -79,6 +80,7 @@ module CAS
     end
   end # Sum
   CAS::Sum.init_simplify_dict
+=end
 
   #  ___  _  __  __
   # |   \(_)/ _|/ _|
@@ -300,7 +302,7 @@ module CAS
       return self if (@x == CAS::Infinity and @y == CAS::Infinity)
       return self if (@x == CAS::Infinity and @y == CAS::Zero)
       return self if (@x == CAS::Zero and @y == CAS::Infinity)
-      
+
       return CAS::Zero if @x == CAS::Zero
       return CAS::One if @x == CAS::One
       return @x if @y == CAS::One
