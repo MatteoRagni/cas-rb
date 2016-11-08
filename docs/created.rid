@@ -1,4 +1,4 @@
-Fri, 21 Oct 2016 18:14:25 +0200
+Tue, 08 Nov 2016 14:55:00 +0100
 README.md	Fri, 07 Oct 2016 22:46:35 +0200
 lib/ragni-cas.rb	Wed, 12 Oct 2016 17:22:47 +0200
 lib/version.rb	Thu, 13 Oct 2016 13:31:23 +0200
@@ -9,13 +9,16 @@ lib/functions/fnc-piecewise.rb	Thu, 06 Oct 2016 10:18:06 +0200
 lib/functions/fnc-trig.rb	Mon, 10 Oct 2016 08:39:08 +0200
 lib/functions/fnc-trsc.rb	Mon, 10 Oct 2016 08:39:08 +0200
 lib/numbers/constants.rb	Wed, 12 Oct 2016 17:22:47 +0200
-lib/numbers/functions.rb	Thu, 20 Oct 2016 17:43:51 +0200
+lib/numbers/functions.rb	Tue, 08 Nov 2016 14:52:14 +0100
 lib/numbers/variables.rb	Wed, 12 Oct 2016 17:22:47 +0200
-lib/operators/bary-op.rb	Thu, 20 Oct 2016 17:43:51 +0200
-lib/operators/nary-op.rb	Thu, 20 Oct 2016 17:43:51 +0200
-lib/operators/op.rb	Thu, 20 Oct 2016 17:43:51 +0200
+lib/operators/bary-op.rb	Tue, 08 Nov 2016 14:52:14 +0100
+lib/operators/nary-op.rb	Tue, 08 Nov 2016 14:52:14 +0100
+lib/operators/op.rb	Tue, 08 Nov 2016 14:52:14 +0100
 lib/overloading/fixnum.rb	Sat, 13 Aug 2016 13:19:21 +0200
 lib/overloading/float.rb	Sat, 13 Aug 2016 13:21:08 +0200
-lib/ragni-cas/c.rb	Thu, 20 Oct 2016 17:43:51 +0200
-lib/ragni-cas/graphviz.rb	Fri, 07 Oct 2016 22:03:37 +0200
-lib/ragni-cas/latex.rb	Fri, 07 Oct 2016 21:16:49 +0200
+lib/ragni-cas/auto-diff.rb	Tue, 08 Nov 2016 14:52:19 +0100
+lib/ragni-cas/c-opt.rb	Tue, 08 Nov 2016 14:52:49 +0100
+lib/ragni-cas/c.rb	Tue, 08 Nov 2016 14:52:14 +0100
+lib/ragni-cas/graphviz.rb	Tue, 08 Nov 2016 14:50:53 +0100
+lib/ragni-cas/latex.rb	Tue, 08 Nov 2016 14:50:53 +0100
+lib/ragni-cas/matlab.rb	Tue, 08 Nov 2016 14:52:41 +0100

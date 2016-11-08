@@ -1385,7 +1385,7 @@ substitution performed</p>
 
           
           <div class="method-source-code" id="to_c_lib-source">
-            <pre><span class="ruby-comment"># File lib/ragni-cas/c.rb, line 120</span>
+            <pre><span class="ruby-comment"># File lib/ragni-cas/c-opt.rb, line 206</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_c_lib</span>(<span class="ruby-identifier">name</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">name</span>, <span class="ruby-constant">String</span>)
   [<span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">C_PLUGIN</span>.<span class="ruby-identifier">write_header</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">name</span>), <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">C_PLUGIN</span>.<span class="ruby-identifier">write_source</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">name</span>)]

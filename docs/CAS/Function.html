@@ -88,6 +88,8 @@
     
     <li ><a href="#method-i-args">#args</a>
     
+    <li ><a href="#method-i-c_name-3D">#c_name=</a>
+    
     <li ><a href="#method-i-call">#call</a>
     
     <li ><a href="#method-i-diff">#diff</a>
@@ -529,6 +531,40 @@ args.</p>
     <span class="ruby-identifier">ret</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">args</span>
   <span class="ruby-keyword">end</span>
   <span class="ruby-identifier">ret</span>.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">uniq</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-c_name-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">c_name=</span><span
+            class="method-args">(s)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="c_name-3D-source">
+            <pre><span class="ruby-comment"># File lib/ragni-cas/c-opt.rb, line 213</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">c_name=</span>(<span class="ruby-identifier">s</span>)
+  <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert_name</span> <span class="ruby-identifier">s</span>
+  <span class="ruby-ivar">@c_name</span> = <span class="ruby-identifier">s</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
