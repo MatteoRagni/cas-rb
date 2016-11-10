@@ -157,7 +157,7 @@ module CAS
     #  * **argument**: `CAS::Op` tree
     #  * **returns**: `CAS::Op` new object
     def *(op)
-      CAS::Prod.new self, op
+      CAS::Prod.new [self, op]
     end
 
     # Returns a division of two `CAS::Op`s

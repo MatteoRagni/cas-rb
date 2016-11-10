@@ -30,7 +30,7 @@ if __FILE__ == $0
   #}
   #@h.subs(h_sub).to_s
   #puts @h
-  a = (@x + @x)
+  a = (@x * @x * @y * @y * @y)
   binding.pry
   a.subs({})
 end

@@ -73,8 +73,8 @@ module CAS
       @x = @x - [CAS::Zero]
       return CAS::Zero if @x.size == 0
       # Reduce constants
-      @x = self.__reduce_constants(@xs) do |cs, xs|
-        [cs.inject { |t, c| t += c.call({}) }] + xs
+      @x = self.__reduce_constants(@x) do |cs, xs|
+        xs + [cs.inject { |t, c| t += c.call({}) }]
       end
       # Multeplicity and associativity executed
       return self.reduce_associativity

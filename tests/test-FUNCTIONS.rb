@@ -46,7 +46,7 @@ class TestFunction < Test::Unit::TestCase
 
     dl = @l.diff(@x).simplify
     assert_equal(CAS.cos(@x + @y) * CAS::Function[:"Dl[0]"] +
-                (@x * 2) * CAS::Function[:"Dl[1]"] , dl)
+                (2 * @x) * CAS::Function[:"Dl[1]"] , dl)
 
     v = CAS::vars :v
     assert_equal(CAS::Zero, @f.diff(v).simplify)

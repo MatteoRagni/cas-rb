@@ -10,7 +10,15 @@ module CAS
   ##
   # Product class. Performs the product between two elements.
   # This class will be soon modified as an n-ary operator.
-  class Prod < CAS::BinaryOp
+  class Prod < CAS::NaryOp
+    # The new element of a sum accumulates inside the
+    # vector that holds the elements
+    def *(op)
+      CAS::Help.assert(op, CAS::Op)
+      @x << op
+      self
+    end
+
     # Performs the product between two `CAS::Op`
     #
     # ```
