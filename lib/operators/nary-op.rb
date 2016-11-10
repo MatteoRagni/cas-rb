@@ -170,6 +170,63 @@ module CAS
       @x.each { |x| r += x.args }
       return r.uniq
     end
+
+    # Reduce multeplicity will scan for elements that are equal in the definition
+    # of the sum and will reduce their multeplicity. A block can be used to do something
+    # different. For example in nary-product we use it like this:
+    #
+    # ``` ruby
+    # @x = self.__reduce_multeplicity(@x) do |count, op|
+    #   count > 1 ? (op ** count) : op
+    # end
+    # ```
+    #
+    # In general it works like that:
+    #
+    # ```
+    #  a + a + b + c => 2 * a + b + c
+    #  a * a * b * a => (a ** b) * b
+    # ```
+    # But operates only on Array level! This is an internal function
+    # and should never be used
+    #
+    #  * **requires**: An `Array`
+    #  * **returns**: An `Array` with multeplicity reduced
+    #  * **block**: yields the count and the op. Get the value to insert in a new
+    #    `Array` that is the returned `Array`
+    def __reduce_multeplicity(xs)
+      count = Hash.new(0)
+      xs.each do |x|
+        e = x
+        count.keys.each { |d| e = d if x == d  }
+        count[e] += 1
+      end
+      count.map do |k, v|
+        if block_given?
+          yield(k, v)
+        else
+          v > 1 ? CAS.const(v) * k : k
+        end
+      end
+    end
+
+    # Collects all the constants and tries to reduce them to a single constant.
+    # Requires a block to understand what it should do with the constants
+    #
+    # * **requires**: input `Array` of `CAS::Op`
+    # * **returns**: new `Array` of `CAS::Op`
+    # * **block**: yields an `Array` of `CAS::Constant` and an `Array` of others `CAS::Op`,
+    #   requires an `Array` back
+    def __reduce_constants(xs)
+      const = []
+      xs.each { |x| const << x if x.is_a? CAS::Constant }
+      if const.size > 0
+        yield const, (xs - const)
+      else
+        xs
+      end
+    end
+
   end # NaryOp
   CAS::NaryOp.init_simplify_dict
 end

@@ -71,32 +71,13 @@ module CAS
       # return CAS.const(self.call({})) if (@x.is_a? CAS::Constant and @y.is_a? CAS::Constant)
       # Removing Zeros
       @x = @x - [CAS::Zero]
+      return CAS::Zero if @x.size == 0
+      # Reduce constants
+      @x = self.__reduce_constants(@xs) do |cs, xs|
+        [cs.inject { |t, c| t += c.call({}) }] + xs
+      end
       # Multeplicity and associativity executed
       return self.reduce_associativity
-    end
-
-    # Reduce multeplicity will scan for elements that are equal in the definition
-    # of the sum and will reduce their multeplicity
-    # That means that if I have some sort of
-    #
-    # ```
-    #  a + a + b + c => 2 * a + b + c
-    # ```
-    # But operates only on Array level! This is an internal function
-    # and should never be used
-    #
-    #  * **requires**: An `Array`
-    #  * **returns**: An `Array` with multeplicity reduced
-    def __reduce_multeplicity(xs)
-      count = Hash.new(0)
-      xs.each do |x|
-        e = x
-        count.keys.each { |d| e = d if x == d  }
-        count[e] += 1
-      end
-      count.map do |k, v|
-        v > 1 ? CAS.const(v) * k : k
-      end
     end
 
     # Reduces from an associative point of view, by a segregation
@@ -122,7 +103,7 @@ module CAS
       end
 
       pos, neg = self.reduce_associativity_array pos, neg
-      pos = self.__reduce_multeplicity pos
+      pos = self.__reduce_multeplicity(pos)
       neg = self.__reduce_multeplicity neg
 
       # TODO : Add rules for simplifications
