@@ -74,6 +74,10 @@
     
     <li ><a href="#method-i-3D-3D">#==</a>
     
+    <li ><a href="#method-i-__reduce_constants">#__reduce_constants</a>
+    
+    <li ><a href="#method-i-__reduce_multeplicity">#__reduce_multeplicity</a>
+    
     <li ><a href="#method-i-args">#args</a>
     
     <li ><a href="#method-i-call">#call</a>
@@ -184,7 +188,7 @@ class, and other must inherit from this basical container</p>
             <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 18</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">xs</span>)
   <span class="ruby-ivar">@x</span> = []
-  <span class="ruby-identifier">xs</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">xs</span>.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Numeric</span>
       <span class="ruby-identifier">x</span> = <span class="ruby-constant">Op</span>.<span class="ruby-identifier">numeric_to_const</span> <span class="ruby-identifier">x</span>
     <span class="ruby-keyword">end</span>
@@ -236,7 +240,7 @@ operates on the graph, not on the math See <code>CAS::equal</code>, etc.</p>
 
           
           <div class="method-source-code" id="3D-3D-source">
-            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 152</span>
+            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 153</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">op</span>)
   <span class="ruby-comment"># CAS::Help.assert(op, CAS::Op)</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">NaryOp</span>
@@ -247,6 +251,123 @@ operates on the graph, not on the math See <code>CAS::equal</code>, etc.</p>
     <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
   <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-__reduce_constants" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">__reduce_constants</span><span
+            class="method-args">(xs) { |const, (xs - const)| ... }</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Collects all the constants and tries to reduce them to a single constant.
+Requires a block to understand what it should do with the constants</p>
+<ul><li>
+<p><strong>requires</strong>: input <code>Array</code> of <code>CAS::Op</code></p>
+</li><li>
+<p><strong>returns</strong>: new <code>Array</code> of <code>CAS::Op</code></p>
+</li><li>
+<p><strong>block</strong>: yields an <code>Array</code> of
+<code>CAS::Constant</code> and an <code>Array</code> of others
+<code>CAS::Op</code>,  requires an <code>Array</code> back</p>
+</li></ul>
+          
+          
+
+          
+          <div class="method-source-code" id="__reduce_constants-source">
+            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 220</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">__reduce_constants</span>(<span class="ruby-identifier">xs</span>)
+  <span class="ruby-identifier">const</span> = []
+  <span class="ruby-identifier">xs</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">const</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">x</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Constant</span> }
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">const</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+    <span class="ruby-keyword">yield</span> <span class="ruby-identifier">const</span>, (<span class="ruby-identifier">xs</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">const</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">xs</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-__reduce_multeplicity" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">__reduce_multeplicity</span><span
+            class="method-args">(xs) { |k, v| ... }</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Reduce multeplicity will scan for elements that are equal in the definition
+of the sum and will reduce their multeplicity. A block can be used to do
+something different. For example in nary-product we use it like this:</p>
+
+<pre class="ruby"><span class="ruby-ivar">@x</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">__reduce_multeplicity</span>(<span class="ruby-ivar">@x</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">count</span>, <span class="ruby-identifier">op</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">count</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span> <span class="ruby-operator">?</span> (<span class="ruby-identifier">op</span> <span class="ruby-operator">**</span> <span class="ruby-identifier">count</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">op</span>
+<span class="ruby-keyword">end</span>
+</pre>
+
+<p>In general it works like that:</p>
+
+<pre>a + a + b + c =&gt; 2 * a + b + c
+ a * a * b * a =&gt; (a ** b) * b</pre>
+
+<p>But operates only on Array level! This is an internal function and should
+never be used</p>
+<ul><li>
+<p><strong>requires</strong>: An <code>Array</code></p>
+</li><li>
+<p><strong>returns</strong>: An <code>Array</code> with multeplicity reduced</p>
+</li><li>
+<p><strong>block</strong>: yields the count and the op. Get the value to
+insert in a new  <code>Array</code> that is the returned <code>Array</code></p>
+</li></ul>
+          
+          
+
+          
+          <div class="method-source-code" id="__reduce_multeplicity-source">
+            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 197</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">__reduce_multeplicity</span>(<span class="ruby-identifier">xs</span>)
+  <span class="ruby-identifier">count</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">0</span>)
+  <span class="ruby-identifier">xs</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">e</span> = <span class="ruby-identifier">x</span>
+    <span class="ruby-identifier">count</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">d</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span> = <span class="ruby-identifier">d</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">x</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">d</span>  }
+    <span class="ruby-identifier">count</span>[<span class="ruby-identifier">e</span>] <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">count</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
+      <span class="ruby-keyword">yield</span>(<span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span>)
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">v</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span> <span class="ruby-operator">?</span> <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">const</span>(<span class="ruby-identifier">v</span>) <span class="ruby-operator">*</span> <span class="ruby-identifier">k</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">k</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -280,7 +401,7 @@ operates on the graph, not on the math See <code>CAS::equal</code>, etc.</p>
 
           
           <div class="method-source-code" id="args-source">
-            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 167</span>
+            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 168</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">args</span>
   <span class="ruby-identifier">r</span> = []
   <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">r</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">args</span> }
@@ -460,7 +581,7 @@ tree resolution)</p>
 
           
           <div class="method-source-code" id="dot_graph-source">
-            <pre><span class="ruby-comment"># File lib/ragni-cas/graphviz.rb, line 39</span>
+            <pre><span class="ruby-comment"># File lib/Mr.CAS/graphviz.rb, line 39</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">dot_graph</span>
   <span class="ruby-identifier">cls</span> = <span class="ruby-node">&quot;#{self.class.to_s.gsub(&quot;CAS::&quot;, &quot;&quot;)}_#{self.object_id}&quot;</span>
   <span class="ruby-identifier">ret</span> = <span class="ruby-string">&quot;&quot;</span>
@@ -501,7 +622,7 @@ tree resolution)</p>
 
           
           <div class="method-source-code" id="inspect-source">
-            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 142</span>
+            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 143</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">inspect</span>
   <span class="ruby-node">&quot;#{self.class}(#{@x.map(&amp;:inspect).join(&quot;, &quot;)})&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -539,7 +660,7 @@ deterministic).</p>
 
           
           <div class="method-source-code" id="simplify-source">
-            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 130</span>
+            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 131</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">simplify</span>
   <span class="ruby-identifier">hash</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">to_s</span>
   <span class="ruby-ivar">@x</span> = <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">simplify</span> }
@@ -594,6 +715,7 @@ substitution performed</p>
             <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 94</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">subs</span>(<span class="ruby-identifier">dt</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">dt</span>, <span class="ruby-constant">Hash</span>)
+  <span class="ruby-ivar">@x</span> = <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">z</span><span class="ruby-operator">|</span> <span class="ruby-identifier">z</span>.<span class="ruby-identifier">subs</span>(<span class="ruby-identifier">dt</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">z</span> }
   <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span>, <span class="ruby-identifier">k</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">sub</span> = <span class="ruby-identifier">dt</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">select</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">x</span> }[<span class="ruby-value">0</span>]
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">sub</span>
@@ -642,7 +764,7 @@ be parsed in <code>CAS::Op#to_proc</code></p>
 
           
           <div class="method-source-code" id="to_code-source">
-            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 121</span>
+            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 122</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_code</span>
   <span class="ruby-keyword">return</span> <span class="ruby-node">&quot;(#{@x.map(&amp;:to_code).join(&quot;, &quot;)})&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -678,7 +800,7 @@ be parsed in <code>CAS::Op#to_proc</code></p>
 
           
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 114</span>
+            <pre><span class="ruby-comment"># File lib/operators/nary-op.rb, line 115</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
   <span class="ruby-keyword">return</span> <span class="ruby-node">&quot;(#{@x.map(&amp;:to_s).join(&quot;, &quot;)})&quot;</span>
 <span class="ruby-keyword">end</span></pre>

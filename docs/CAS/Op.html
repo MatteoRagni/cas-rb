@@ -145,12 +145,12 @@
 
   <section class="description">
     
-<p><strong>_  / _ \ _ <em>_ | (</em>) | &#39;_ \  _</strong>/| ._<em>/ 
-|</em>|</p>
-
 <p><em>_ _ _  / <strong>|</strong> _ | | __ ()</em> _ <strong>_ _ _ _ | (/ _ \
 &#39; \ <em>/ ` | | &#39; / -) &#39;</em>(<em>-&lt; 
 __/</em>||<em>_</em>_<em>,</em>|<em>|</em>||<em>_|</em>| /</strong>/</p>
+
+<p><strong>_  / _ \ _ <em>_ | (</em>) | &#39;_ \  _</strong>/| ._<em>/ 
+|</em>|</p>
 
   </section>
 
@@ -425,7 +425,7 @@ operates on the graph, not on the math See <code>CAS::equal</code>, etc.</p>
           <div class="method-source-code" id="2A-source">
             <pre><span class="ruby-comment"># File lib/operators/op.rb, line 159</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">*</span>(<span class="ruby-identifier">op</span>)
-  <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Prod</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword">self</span>, <span class="ruby-identifier">op</span>
+  <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Prod</span>.<span class="ruby-identifier">new</span> [<span class="ruby-keyword">self</span>, <span class="ruby-identifier">op</span>]
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -501,7 +501,7 @@ operates on the graph, not on the math See <code>CAS::equal</code>, etc.</p>
           <div class="method-source-code" id="2B-source">
             <pre><span class="ruby-comment"># File lib/operators/op.rb, line 143</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">+</span>(<span class="ruby-identifier">op</span>)
-  <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Sum</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword">self</span>, <span class="ruby-identifier">op</span>
+  <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Sum</span>.<span class="ruby-identifier">new</span> [<span class="ruby-keyword">self</span>, <span class="ruby-identifier">op</span>]
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -929,7 +929,7 @@ functions. E.g.:</p>
 
           
           <div class="method-source-code" id="dot_graph-source">
-            <pre><span class="ruby-comment"># File lib/ragni-cas/graphviz.rb, line 19</span>
+            <pre><span class="ruby-comment"># File lib/Mr.CAS/graphviz.rb, line 19</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">dot_graph</span>
   <span class="ruby-identifier">cls</span> = <span class="ruby-node">&quot;#{self.class.to_s.gsub(&quot;CAS::&quot;, &quot;&quot;)}_#{self.object_id}&quot;</span>
   <span class="ruby-node">&quot;#{cls} -&gt; #{@x.dot_graph}\n&quot;</span>
@@ -1385,7 +1385,7 @@ substitution performed</p>
 
           
           <div class="method-source-code" id="to_c_lib-source">
-            <pre><span class="ruby-comment"># File lib/ragni-cas/c-opt.rb, line 206</span>
+            <pre><span class="ruby-comment"># File lib/Mr.CAS/c-opt.rb, line 206</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_c_lib</span>(<span class="ruby-identifier">name</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">name</span>, <span class="ruby-constant">String</span>)
   [<span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">C_PLUGIN</span>.<span class="ruby-identifier">write_header</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">name</span>), <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">C_PLUGIN</span>.<span class="ruby-identifier">write_source</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">name</span>)]

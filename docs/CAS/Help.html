@@ -131,7 +131,7 @@ an <code>ArgumentError</code> if check fails</p>
 
           
           <div class="method-source-code" id="assert-source">
-            <pre><span class="ruby-comment"># File lib/ragni-cas.rb, line 35</span>
+            <pre><span class="ruby-comment"># File lib/Mr.CAS.rb, line 35</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">obj</span>, <span class="ruby-identifier">type</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;required #{type}, received #{obj.class}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-identifier">type</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
@@ -174,7 +174,7 @@ must be a <code>String</code> instance or <code>Symbol</code> instance</p>
 
           
           <div class="method-source-code" id="assert_name-source">
-            <pre><span class="ruby-comment"># File lib/ragni-cas.rb, line 46</span>
+            <pre><span class="ruby-comment"># File lib/Mr.CAS.rb, line 46</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">assert_name</span>(<span class="ruby-identifier">obj</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&quot;Input name must be a String/Symbol&quot;</span> <span class="ruby-keyword">unless</span> [<span class="ruby-constant">Symbol</span>, <span class="ruby-constant">String</span>].<span class="ruby-identifier">include?</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">class</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>

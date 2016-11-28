@@ -270,7 +270,7 @@ with <code>CAs::Constant</code> value</p>
 
           
           <div class="method-source-code" id="abs-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 668</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 512</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">abs</span>(<span class="ruby-identifier">x</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Abs</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">x</span>
 <span class="ruby-keyword">end</span></pre>
@@ -785,7 +785,7 @@ is the name of the function</p>
 
           
           <div class="method-source-code" id="export_dot-source">
-            <pre><span class="ruby-comment"># File lib/ragni-cas/graphviz.rb, line 125</span>
+            <pre><span class="ruby-comment"># File lib/Mr.CAS/graphviz.rb, line 125</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">export_dot</span>(<span class="ruby-identifier">fl</span>, <span class="ruby-identifier">op</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">fl</span>, <span class="ruby-constant">String</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">op</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>)
@@ -921,7 +921,7 @@ is the name of the function</p>
 
           
           <div class="method-source-code" id="invert-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 583</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 427</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">invert</span>(<span class="ruby-identifier">x</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Invert</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">x</span>
 <span class="ruby-keyword">end</span></pre>
@@ -1111,7 +1111,7 @@ is the name of the function</p>
 
           
           <div class="method-source-code" id="pow-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 326</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 170</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">pow</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Pow</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>
 <span class="ruby-keyword">end</span></pre>
@@ -1253,7 +1253,7 @@ is the name of the function</p>
 
           
           <div class="method-source-code" id="sqrt-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 498</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 342</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">sqrt</span>(<span class="ruby-identifier">x</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Sqrt</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">x</span>
 <span class="ruby-keyword">end</span></pre>
@@ -1331,7 +1331,7 @@ it will be moved inside <code>CAS::Op</code>.</p>
 
           
           <div class="method-source-code" id="to_dot-source">
-            <pre><span class="ruby-comment"># File lib/ragni-cas/graphviz.rb, line 84</span>
+            <pre><span class="ruby-comment"># File lib/Mr.CAS/graphviz.rb, line 84</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">to_dot</span>(<span class="ruby-identifier">op</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">op</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>)
   <span class="ruby-identifier">string</span> = <span class="ruby-identifier">op</span>.<span class="ruby-identifier">dot_graph</span>
