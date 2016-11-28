@@ -26,10 +26,10 @@ module CAS
       @type            = "double"
 
       # Default definitions
-      self.define "M_PI", Math::PI
-      self.define "M_INFINITY","HUGE_VAL"
-      self.define "M_E", Math::E
-      self.define "M_EPSILON", 1E-16
+      # self.define "M_PI", Math::PI
+      # self.define "M_INFINITY","HUGE_VAL"
+      # self.define "M_E", Math::E
+      # self.define "M_EPSILON", 1E-16
 
       # Default inclusions
       self.include "math.h"
@@ -132,9 +132,9 @@ NEWFUNCTION
 
   {
     # Base functions
-    CAS::Sum    => Proc.new { |v| "(#{@x.__to_c(v)} + #{@y.__to_c(v)})" },
+    CAS::Sum    => Proc.new { |v| "(#{@x.map { |e| e.__to_c(v) }.join(" + ")})" },
     CAS::Diff   => Proc.new { |v| "(#{@x.__to_c(v)} - #{@y.__to_c(v)})" },
-    CAS::Prod   => Proc.new { |v| "(#{@x.__to_c(v)} * #{@y.__to_c(v)})" },
+    CAS::Prod   => Proc.new { |v| "(#{@x.map { |e| e.__to_c(v) }.join(" + ")})" },
     CAS::Pow    => Proc.new { |v| "pow(#{@x.__to_c(v)}, #{@y.__to_c(v)})" },
     CAS::Div    => Proc.new { |v| "(#{@x.__to_c(v)}) / (#{@y.__to_c(v)} + M_EPSILON)" },
     CAS::Sqrt   => Proc.new { |v| "sqrt(#{@x.__to_c(v)})" },
@@ -216,8 +216,9 @@ NEWFUNCTION
     end
 
     def Function.new(name, *xs)
-      super
-      @c_name = name
+      a = super
+      a.c_name = name
+      return a
     end
   end
   Function.list.each do |k, v| v.c_name = k; end
