@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require_relative '../lib/ragni-cas.rb'
+require_relative '../lib/Mr.CAS.rb'
 require 'colorize'
 require 'pry-byebug'
 

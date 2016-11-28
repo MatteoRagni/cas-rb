@@ -6,10 +6,10 @@
     exit 1
   end unless require g
 end
-require_relative '../lib/ragni-cas.rb'
+require_relative '../lib/Mr.CAS.rb'
 require_relative 'graph2ascii.rb'
 
-$0 = "ragni-cas"
+$0 = "Mr.CAS"
 
 # Pry configuration
 Pry.config.should_load_rc = false
@@ -24,7 +24,7 @@ $x, $y, $z = CAS::vars :x, :y, :z
 Pry.hooks.add_hook(:before_session, "print_banner") do |output, _, pry|
   BANNER = <<-BANNER
 
-    #{"RAGNI-CAS = A very simple Computer Algebra System".green}
+    #{"Mr.CAS = A very simple Computer Algebra System".green}
 
     Version: #{CAS::VERSION.join(".")} - Author: Matteo Ragni © 2016
     Licensed under MIT license  [https://github.com/MatteoRagni/cas-rb]
@@ -91,5 +91,5 @@ alias :ln :log
 # Starting Console
 binding.pry
 
-puts "Thank you for using ragni-cas\nBye".cyan
+puts "Thank you for using Mr.CAS\nBye".cyan
 exit(0)

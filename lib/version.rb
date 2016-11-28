@@ -1,4 +1,3 @@
-
 #!/usr/bin/env ruby
 
 module CAS
@@ -10,4 +9,3 @@ module CAS
   #  * Patchlevel
   VERSION = [0, 2, 5]
 end
-

@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'test/unit'
-require_relative '../lib/ragni-cas.rb'
+require_relative '../lib/Mr.CAS.rb'
 
 class TestVariable < Test::Unit::TestCase
   def setup

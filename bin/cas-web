@@ -58,12 +58,12 @@ WEBPAGE = <<-EOS
   </head>
   <body>
     <div classs="container">
-      <h1>ragni-cas web console</h1>
+      <h1>Mr.CAS web console</h1>
       <div id="space">
         <textarea rows="1" class="code-input"> </textarea>
       </div>
       <hr>
-      <p>Copyright 2016 - <a href="mailto:info@ragni.me">Matteo Ragni</a> - <a href="http://www.unitn.it">University of Trento</a> - <a href="https://github.com/MatteoRagni/cas-rb">ragni-cas homepage</a></p>
+      <p>Copyright 2016 - <a href="mailto:info@ragni.me">Matteo Ragni</a> - <a href="http://www.unitn.it">University of Trento</a> - <a href="https://github.com/MatteoRagni/cas-rb">Mr.CAS homepage</a></p>
     </div>
 
     <script
@@ -105,7 +105,7 @@ NEWLINE = <<-EOS
 <textarea rows="1" class="code-input"></textarea>
 EOS
 
-require 'ragni-cas'
+require 'Mr.CAS'
 require 'sinatra'
 
 module SandBox;

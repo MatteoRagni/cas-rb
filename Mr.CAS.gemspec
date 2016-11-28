@@ -15,7 +15,6 @@ end
 
 VERSION = "#{version_MAYOR}.#{version_MINOR}.#{version_PATCH}"
 version_rb = <<-EOV
-
 #!/usr/bin/env ruby
 
 module CAS
@@ -35,10 +34,10 @@ File.open(File.expand_path('lib/version.rb', File.dirname(__FILE__)), "w") { |f|
 DATE = Time.new
 
 Gem::Specification.new do |s|
-  s.name = 'ragni-cas'
+  s.name = 'Mr.CAS'
   s.version = VERSION
   s.date = "#{'%04d' % DATE.year}-#{'%02d' % DATE.month}-#{'%02d' % DATE.day}"
-  s.summary = 'An extremely simple CAS, for rapid prototyping and meta-programming'
+  s.summary = 'A Minimalistic Ruby CAS, for rapid prototyping and meta-programming'
   s.authors = ['Matteo Ragni']
   s.email = 'info@ragni.me'
   s.files = Dir["lib/**/**"]

@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 
 ##
-# ragni-cas
-# A very simple CAS engine with encapsuled graph
+# Mr.CAS
+# A minmalistic CAS engine with encapsuled graph
 # representation. This will make impossible to
 # perform complex high level simplifications, but
 # it is powerful enough to define simple algorithm

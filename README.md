@@ -1,6 +1,6 @@
-# RAGNI-CAS
+# Mr.CAS
 
-[![Gem Version](https://badge.fury.io/rb/ragni-cas.svg)](https://badge.fury.io/rb/ragni-cas)
+[![Gem Version](https://badge.fury.io/rb/Mr.CAS.svg)](https://badge.fury.io/rb/Mr.CAS)
 [![Code Climate](https://codeclimate.com/github/MatteoRagni/cas-rb/badges/gpa.svg)](https://codeclimate.com/github/MatteoRagni/cas-rb)
 [![Build Status](https://travis-ci.org/MatteoRagni/cas-rb.svg?branch=master)](https://travis-ci.org/MatteoRagni/cas-rb)
 
@@ -16,14 +16,14 @@ Given the function of Rosenbrock, find the optimum of such a function.
 
 ### Installation
 
-First of all is necessary to install and load the `ragni-cas` gem.
+First of all is necessary to install and load the `Mr.CAS` gem.
 
 ``` bash
-gem install ragni-cas
+gem install Mr.CAS
 ```
 
 ``` ruby
-require 'ragni-cas'
+require 'Mr.CAS'
 ```
 
 ### Define a function
@@ -172,7 +172,7 @@ What really is missing is a ~~graph~~ a way to perform better simplifications.
 ## Full example code
 
 ``` ruby
-require 'ragni-cas'
+require 'Mr.CAS'
 
 # Define the function
 x, y = CAS::vars "x", "y"
@@ -257,8 +257,8 @@ puts "Optimum in #{x} = #{x_opt} and #{y} = #{g.call({x => x_opt})}"
 
  * [ ] substitute `CAS::Invert` with `CAS::Neg`
  * [ ] substitute `CAS::Condition` with `CAS::Expression`
- * [ ] move code generation to external plugins that can be loaded on demand
- * [ ] `CAS::Sum` and `CAS::Prod` inherits from `CAS::NaryOp` instead of `CAS::BinaryOp`
+ * [x] move code generation to external plugins that can be loaded on demand
+ * [x] `CAS::Sum` and `CAS::Prod` inherits from `CAS::NaryOp` instead of `CAS::BinaryOp`
 
 #### Complex
 
@@ -267,4 +267,4 @@ puts "Optimum in #{x} = #{x_opt} and #{y} = #{g.call({x => x_opt})}"
 
 ##### Extremely complex
 
- * [ ] Implement the Risch algorithm for symbolic integrations
+ * [ ] Implement the Risch algorithms for symbolic integrations
