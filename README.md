@@ -8,6 +8,10 @@
 
 An extremely simple graph, that handles only differentiation and simplification with one step ahead in the graph.
 
+## Module Structure
+
+!(module structure image)[https://gist.githubusercontent.com/MatteoRagni/639294457d97858bbb3cee2ffaf782dc/raw/2854e8877f2106307bfa190649e4253c70282139/graphviz.png]
+
 ## Example
 
 Given the function of Rosenbrock, find the optimum of such a function.

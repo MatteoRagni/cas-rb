@@ -37,8 +37,7 @@ module CAS
     CAS::PI_CONSTANT           => Proc.new { |_v| "pi", nil },
     CAS::INFINITY_CONSTANT     => Proc.new { |_v| "Inf", nil },
     CAS::NEG_INFINITY_CONSTANT => Proc.new { |_v| "(-Inf)", nil },
-    CAS::E_CONSTANT            => Proc.new { |_v|
-    },
+    CAS::E_CONSTANT            => Proc.new { |_v| "exp(1.0)", nil },
     # Base functions
     CAS::Sum    => Proc.new { "(#{x.to_c} + #{y.to_c})" },
     CAS::Diff   => Proc.new { "(#{x.to_c} - #{y.to_c})" },

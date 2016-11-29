@@ -221,7 +221,7 @@ module CAS
     end
 
     # Simplify dictionary performs a dictionary simplification
-    # that is the class variable `@@simplify_dict`
+    # that is the class variable `@simplify_dict`
     #
     #  * **returns**: `CAS::Op` self
     def simplify_dictionary

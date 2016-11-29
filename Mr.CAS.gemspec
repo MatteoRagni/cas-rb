@@ -60,7 +60,7 @@ Gem::Specification.new do |s|
   s.name = 'Mr.CAS'
   s.version = VERSION
   s.date = "#{'%04d' % DATE.year}-#{'%02d' % DATE.month}-#{'%02d' % DATE.day}"
-  s.summary = 'A Minimalistic Ruby CAS, for rapid prototyping and meta-programming'
+  s.summary = 'A [M]inimalistic [R]uby [C]omputer [A]lgebra [S]ystem, for rapid prototyping and meta-programming'
   s.authors = ['Matteo Ragni']
   s.email = 'info@ragni.me'
   s.files = Dir["lib/**/**"]

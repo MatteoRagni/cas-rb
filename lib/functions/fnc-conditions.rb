@@ -137,10 +137,10 @@ module CAS
 
     # Return true if two functions are equal, false if different
     #
-    #  * **argument**: `CAS::Op` operator to check against for equality
+    #  * **argument**: `CAS::Condition` operator to check against for equality
     #  * **returns**: `TrueClass` or `FalseClass`
     def ==(op)
-      CAS::Help.assert(op, CAS::Op)
+      CAS::Help.assert(op, CAS::Condition)
 
       # condB = (@x == op.y) and (@y == op.x)
       return ((@x == op.x) and (@y == op.y) and (self.class == op.class))
@@ -150,8 +150,8 @@ module CAS
     #
     #  * **returns**: `CAS::Condition`
     def simplify
-      @x.simplify
-      @y.simplify
+      @x = @x.simplify
+      @x = @y.simplify
       return self
     end
 
@@ -163,14 +163,6 @@ module CAS
       @x.subs(fd)
       @y.subs(fd)
       return self
-    end
-
-    # Returns the dot graphviz representation of the code
-    #
-    #  * **returns**: `String`
-    def dot_graph(node)
-      cls = "#{self.class.to_s.gsub("CAS::", "")}_#{self.object_id}"
-      "#{cls} -> #{@x.dot_graph node}\n  #{cls} -> #{@y.dot_graph node}"
     end
   end # Condition
 

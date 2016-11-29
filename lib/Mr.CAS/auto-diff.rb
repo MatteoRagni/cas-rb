@@ -50,7 +50,7 @@ module CAS
       end
 
       def -@
-        DualNumber.new -@x, -@y
+        DualNumber.new(-@x, -@y)
       end
 
       def **(v)
@@ -92,9 +92,13 @@ module CAS
     CAS::Function => Proc.new { |_fd| raise RuntimeError, "Impossible for implicit functions" },
 
     # Base functions
-    CAS::Sum    => Proc.new { |fd| @x.auto_diff(fd) + @y.auto_diff(fd) },
+    CAS::Sum    => Proc.new { |fd|
+      @x.map { |e| e.auto_diff(fd) }.inject { |s, e| s += e }
+    },
     CAS::Diff   => Proc.new { |fd| @x.auto_diff(fd) - @y.auto_diff(fd) },
-    CAS::Prod   => Proc.new { |fd| @x.auto_diff(fd) * @y.auto_diff(fd) },
+    CAS::Prod   => Proc.new { |fd|
+      @x.map { |e| e.auto_diff(fd) }.inject { |s, e| s += e } 
+    },
     CAS::Pow    => Proc.new { |fd| @x.auto_diff(fd) ** @y.auto_diff(fd) },
     CAS::Div    => Proc.new { |fd| @x.auto_diff(fd) / @y.auto_diff(fd) },
     CAS::Sqrt   => Proc.new { |fd| @x.auto_diff(fd) ** (CAS::AutoDiff::One / CAS::AutoDiff::Two) },
@@ -135,7 +139,7 @@ module CAS
     },
 
     # Piecewise
-    CAS::Piecewise => Proc.new { |_fd| raise RuntimeError, "Not implemented auto_diff for Piecewise" },
+    CAS::Piecewise => Proc.new { |_fd| raise RuntimeError, "Not implemented AutoDiff for Piecewise" },
     CAS::Max       => Proc.new { |fd|
       a = @x.auto_diff(fd)
       b = @y.auto_diff(fd)
@@ -145,7 +149,9 @@ module CAS
       a = @x.auto_diff(fd)
       b = @y.auto_diff(fd)
       (a.x >= b.x ? a : b)
-    }
+    },
+
+    CAS::Function => Proc.new { |_fd| raise RuntimeError, "Not implemented AutoDiff for implicit functions" }
   }.each do |cls, blk|
     cls.send(:define_method, "auto_diff", &blk)
   end
