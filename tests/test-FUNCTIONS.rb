@@ -52,6 +52,16 @@ class TestFunction < Test::Unit::TestCase
     assert_equal(CAS::Zero, @f.diff(v).simplify)
   end
 
+  def test_diff_combined
+    a = CAS.declare :a, @x
+    b = CAS.declare :b, a
+    bd = b.diff(@x)
+
+    bd0 = CAS::Function[:"Db[0]"]
+    ad0 = CAS::Function[:"Da[0]"]
+    assert_equal(bd, (CAS::One * ad0 * bd0))
+  end
+
   def tes_to_s
     assert_equal("f(x, y, z)", @f.to_s, "Function#to_s failed")
     assert_equal("f(x, y, z)", @f.inspect, "Function#inspect failed")
@@ -78,6 +88,6 @@ class TestFunction < Test::Unit::TestCase
     #   @f.subs(@x => @y ** 2)
     # end
     g = CAS.declare :sub_test, CAS.sin(@x + @y), @x ** 2
-    assert_equal("sub_test(sin((y + y)), (y)^(2))", g.subs({@x => @y}).inspect)
+    assert_equal("sub_test(sin((y + y)), (y)^(2))", g.subs({@x => @y}).to_s)
   end
 end

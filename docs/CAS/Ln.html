@@ -140,7 +140,7 @@
 
           
           <div class="method-source-code" id="init_simplify_dict-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-trsc.rb, line 158</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-trsc.rb, line 181</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">init_simplify_dict</span>
   <span class="ruby-ivar">@simplify_dict</span> = {
     <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">invert</span>(<span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Infinity</span>),
@@ -194,7 +194,7 @@ value</p>
 
           
           <div class="method-source-code" id="call-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-trsc.rb, line 133</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-trsc.rb, line 156</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">f</span>)
   <span class="ruby-comment"># I&#39;m leaving to Math the honor</span>
   <span class="ruby-comment"># of handling negative values...</span>
@@ -242,7 +242,7 @@ dx               f(x)</pre>
 
           
           <div class="method-source-code" id="diff-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-trsc.rb, line 118</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-trsc.rb, line 141</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">depend?</span> <span class="ruby-identifier">v</span>
     <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">One</span> <span class="ruby-operator">/</span> <span class="ruby-ivar">@x</span>
@@ -289,7 +289,7 @@ deterministic).</p>
 
           
           <div class="method-source-code" id="simplify-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-trsc.rb, line 152</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-trsc.rb, line 175</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">simplify</span>
   <span class="ruby-keyword">super</span>
   <span class="ruby-keyword">return</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">x</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Exp</span>
@@ -329,7 +329,7 @@ be parsed in <code>CAS::Op#to_proc</code></p>
 
           
           <div class="method-source-code" id="to_code-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-trsc.rb, line 169</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-trsc.rb, line 192</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_code</span>
   <span class="ruby-node">&quot;Math::log(#{@x.to_code})&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -365,7 +365,7 @@ be parsed in <code>CAS::Op#to_proc</code></p>
 
           
           <div class="method-source-code" id="to_latex-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-trsc.rb, line 176</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-trsc.rb, line 199</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_latex</span>
   <span class="ruby-node">&quot;\\log\\left( #{@x.to_latex} \\right)&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -401,7 +401,7 @@ be parsed in <code>CAS::Op#to_proc</code></p>
 
           
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-trsc.rb, line 143</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-trsc.rb, line 166</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
   <span class="ruby-node">&quot;log(#{@x})&quot;</span>
 <span class="ruby-keyword">end</span></pre>

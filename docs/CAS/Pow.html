@@ -145,7 +145,7 @@ that is the old plus function.</p>
 
           
           <div class="method-source-code" id="call-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 118</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 141</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">f</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">f</span>, <span class="ruby-constant">Hash</span>)
   <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">f</span>).<span class="ruby-identifier">overloaded_pow</span>(<span class="ruby-ivar">@y</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">f</span>))
@@ -201,7 +201,7 @@ that is the old plus function.</p>
 
           
           <div class="method-source-code" id="diff-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 99</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 122</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-identifier">diff_x</span>, <span class="ruby-identifier">diff_y</span> = <span class="ruby-keyword">super</span> <span class="ruby-identifier">v</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">diff_y</span> <span class="ruby-operator">==</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>
@@ -261,7 +261,7 @@ that is the old plus function.</p>
 
           
           <div class="method-source-code" id="simplify-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 141</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 164</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">simplify</span>
   <span class="ruby-keyword">super</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span> <span class="ruby-keyword">if</span> (<span class="ruby-ivar">@x</span> <span class="ruby-operator">==</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span> <span class="ruby-keyword">and</span> <span class="ruby-ivar">@y</span> <span class="ruby-operator">==</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>)
@@ -310,7 +310,7 @@ be parsed in <code>CAS::Op#to_proc</code></p>
 
           
           <div class="method-source-code" id="to_code-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 159</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 182</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_code</span>
   <span class="ruby-node">&quot;(#{@x.to_code} ** #{@y.to_code})&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -346,7 +346,7 @@ be parsed in <code>CAS::Op#to_proc</code></p>
 
           
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 126</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-base.rb, line 149</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
   <span class="ruby-node">&quot;(#{@x})^(#{@y})&quot;</span>
 <span class="ruby-keyword">end</span></pre>

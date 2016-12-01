@@ -144,7 +144,7 @@
 
           
           <div class="method-source-code" id="write_header-source">
-            <pre><span class="ruby-comment"># File lib/Mr.CAS/c.rb, line 24</span>
+            <pre><span class="ruby-comment"># File lib/Mr.CAS/c.rb, line 47</span>
     <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">write_header</span>(<span class="ruby-identifier">op</span>, <span class="ruby-identifier">name</span>)
       <span class="ruby-value">&lt;&lt;-TO_HEADER
 #ifndef #{name}_HEADER
@@ -194,7 +194,7 @@ double #{name}(#{ op.args.map { |x| &quot;double #{x.name}&quot;}.join(&quot;, &
 
           
           <div class="method-source-code" id="write_source-source">
-            <pre><span class="ruby-comment"># File lib/Mr.CAS/c.rb, line 45</span>
+            <pre><span class="ruby-comment"># File lib/Mr.CAS/c.rb, line 68</span>
     <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">write_source</span>(<span class="ruby-identifier">op</span>, <span class="ruby-identifier">name</span>)
       <span class="ruby-value">&lt;&lt;-TO_SOURCE
 #include &quot;#{name}.h&quot;

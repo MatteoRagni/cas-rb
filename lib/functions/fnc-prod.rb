@@ -75,8 +75,11 @@ module CAS
     #  * **returns**: `Numeric`
     def call(f)
       CAS::Help.assert(f, Hash)
-
-      return @x.inject { |p, y| p = p.overloaded_mul(y.call(f)) }
+      p = 1
+      @x.each do  |y|
+        p = p.overloaded_mul(y.call(f))
+      end
+      p
     end
 
     # Convert expression to string

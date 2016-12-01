@@ -143,7 +143,7 @@ elements</p>
 
           
           <div class="method-source-code" id="2B-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-sum.rb, line 27</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-sum.rb, line 52</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">+</span>(<span class="ruby-identifier">op</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">op</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>)
   <span class="ruby-ivar">@x</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">op</span>
@@ -188,10 +188,14 @@ that is the old plus function.</p>
 
           
           <div class="method-source-code" id="call-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-sum.rb, line 41</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-sum.rb, line 66</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">f</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">f</span>, <span class="ruby-constant">Hash</span>)
-  <span class="ruby-keyword">return</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">inject</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">val</span>, <span class="ruby-identifier">x_i</span><span class="ruby-operator">|</span> <span class="ruby-identifier">val</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">x_i</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">f</span>) }
+  <span class="ruby-identifier">p</span> = <span class="ruby-value">0</span>
+  <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">y</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">p</span> = <span class="ruby-identifier">p</span>.<span class="ruby-identifier">overloaded_plus</span>(<span class="ruby-identifier">y</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">f</span>))
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">p</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -231,7 +235,7 @@ that is the old plus function.</p>
 
           
           <div class="method-source-code" id="diff-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-sum.rb, line 21</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-sum.rb, line 46</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>) }.<span class="ruby-identifier">inject</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">sum_x</span>, <span class="ruby-identifier">dx</span><span class="ruby-operator">|</span> <span class="ruby-identifier">sum_x</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">dx</span> }
 <span class="ruby-keyword">end</span></pre>
@@ -272,7 +276,7 @@ Should not be used outside</p>
 
           
           <div class="method-source-code" id="reduce_associativity-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-sum.rb, line 90</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-sum.rb, line 119</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">reduce_associativity</span>
   <span class="ruby-identifier">pos</span>, <span class="ruby-identifier">neg</span> = [], []
 
@@ -342,7 +346,7 @@ the symbolic difference. Does not take into account multeplicity</p>
 
           
           <div class="method-source-code" id="reduce_associativity_array-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-sum.rb, line 129</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-sum.rb, line 158</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">reduce_associativity_array</span>(<span class="ruby-identifier">p_old</span>, <span class="ruby-identifier">n_old</span>)
   <span class="ruby-identifier">p_del</span>, <span class="ruby-identifier">n_del</span> = [], []
   <span class="ruby-identifier">p_old</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">p</span><span class="ruby-operator">|</span>
@@ -407,7 +411,7 @@ the symbolic difference. Does not take into account multeplicity</p>
 
           
           <div class="method-source-code" id="simplify-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-sum.rb, line 65</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-sum.rb, line 94</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">simplify</span>
   <span class="ruby-keyword">super</span>
   <span class="ruby-keyword">return</span> <span class="ruby-ivar">@x</span>[<span class="ruby-value">0</span>] <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
@@ -459,7 +463,7 @@ be parsed in <code>CAS::Op#to_proc</code></p>
 
           
           <div class="method-source-code" id="to_code-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-sum.rb, line 146</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-sum.rb, line 175</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_code</span>
   <span class="ruby-node">&quot;(#{@x.map(&amp;:to_code).join(&quot; + &quot;)})&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -495,7 +499,7 @@ be parsed in <code>CAS::Op#to_proc</code></p>
 
           
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-sum.rb, line 49</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-sum.rb, line 78</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
   <span class="ruby-node">&quot;(#{@x.map(&amp;:to_s).join(&quot; + &quot;)})&quot;</span>
 <span class="ruby-keyword">end</span></pre>

@@ -56,7 +56,11 @@ module CAS
     #  * **returns**: `TrueClass` or `FalseClass`
     def depend?(v)
       CAS::Help.assert(v, CAS::Op)
-      @x.include? v
+      ret = false
+      @x.each do |y|
+        ret |= y.depend?(v)
+      end
+      return ret
     end
 
     # Return a list of derivative using the chain rule. The input is a

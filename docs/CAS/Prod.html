@@ -139,7 +139,7 @@ elements</p>
 
           
           <div class="method-source-code" id="2A-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-prod.rb, line 16</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-prod.rb, line 39</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">*</span>(<span class="ruby-identifier">op</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">op</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>)
   <span class="ruby-ivar">@x</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">op</span>
@@ -184,11 +184,14 @@ that is the old plus function.</p>
 
           
           <div class="method-source-code" id="call-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-prod.rb, line 53</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-prod.rb, line 76</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">f</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert</span>(<span class="ruby-identifier">f</span>, <span class="ruby-constant">Hash</span>)
-
-  <span class="ruby-keyword">return</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">inject</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">p</span>, <span class="ruby-identifier">y</span><span class="ruby-operator">|</span> <span class="ruby-identifier">p</span> = <span class="ruby-identifier">p</span>.<span class="ruby-identifier">overloaded_mul</span>(<span class="ruby-identifier">y</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">f</span>)) }
+  <span class="ruby-identifier">p</span> = <span class="ruby-value">1</span>
+  <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span>  <span class="ruby-operator">|</span><span class="ruby-identifier">y</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">p</span> = <span class="ruby-identifier">p</span>.<span class="ruby-identifier">overloaded_mul</span>(<span class="ruby-identifier">y</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">f</span>))
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">p</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -231,7 +234,7 @@ that is the old plus function.</p>
 
           
           <div class="method-source-code" id="diff-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-prod.rb, line 35</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-prod.rb, line 58</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-identifier">xdiff</span> = <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">y</span><span class="ruby-operator">|</span> <span class="ruby-identifier">y</span>.<span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>) }
 
@@ -290,7 +293,7 @@ that is the old plus function.</p>
 
           
           <div class="method-source-code" id="simplify-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-prod.rb, line 77</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-prod.rb, line 103</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">simplify</span>
   <span class="ruby-keyword">super</span>
   <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">include?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>
@@ -341,7 +344,7 @@ be parsed in <code>CAS::Op#to_proc</code></p>
 
           
           <div class="method-source-code" id="to_code-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-prod.rb, line 97</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-prod.rb, line 123</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_code</span>
   <span class="ruby-node">&quot;(#{@x.map(&amp;:to_code).join(&quot; * &quot;)})&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -377,7 +380,7 @@ be parsed in <code>CAS::Op#to_proc</code></p>
 
           
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-prod.rb, line 62</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-prod.rb, line 88</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
   <span class="ruby-node">&quot;(#{@x.map(&amp;:to_s).join(&quot; * &quot;)})&quot;</span>
 <span class="ruby-keyword">end</span></pre>

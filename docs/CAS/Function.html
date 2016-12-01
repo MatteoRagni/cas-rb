@@ -94,8 +94,6 @@
     
     <li ><a href="#method-i-diff">#diff</a>
     
-    <li ><a href="#method-i-inspect">#inspect</a>
-    
     <li ><a href="#method-i-simplify">#simplify</a>
     
     <li ><a href="#method-i-subs">#subs</a>
@@ -188,7 +186,7 @@ raises a <code>CAS::CASError</code>  if not</p>
 
           
           <div class="method-source-code" id="5B-5D-source">
-            <pre><span class="ruby-comment"># File lib/numbers/functions.rb, line 39</span>
+            <pre><span class="ruby-comment"># File lib/numbers/functions.rb, line 62</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-operator">[]</span>(<span class="ruby-identifier">s</span>)
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">@@container</span>[<span class="ruby-identifier">s</span>] <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">exist?</span> <span class="ruby-identifier">s</span>
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">CASError</span>, <span class="ruby-node">&quot;Function #{s} not found&quot;</span>
@@ -225,7 +223,7 @@ raises a <code>CAS::CASError</code>  if not</p>
 
           
           <div class="method-source-code" id="exist-3F-source">
-            <pre><span class="ruby-comment"># File lib/numbers/functions.rb, line 24</span>
+            <pre><span class="ruby-comment"># File lib/numbers/functions.rb, line 47</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">name</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert_name</span> <span class="ruby-identifier">name</span>
   (<span class="ruby-identifier">@@container</span>[<span class="ruby-identifier">name</span>] <span class="ruby-operator">?</span> <span class="ruby-keyword">true</span> <span class="ruby-operator">:</span> <span class="ruby-keyword">false</span>)
@@ -262,7 +260,7 @@ raises a <code>CAS::CASError</code>  if not</p>
 
           
           <div class="method-source-code" id="list-source">
-            <pre><span class="ruby-comment"># File lib/numbers/functions.rb, line 19</span>
+            <pre><span class="ruby-comment"># File lib/numbers/functions.rb, line 42</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">list</span>; <span class="ruby-identifier">@@container</span>; <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -298,7 +296,7 @@ raises a <code>CAS::CASError</code>  if not</p>
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/Mr.CAS/c-opt.rb, line 218</span>
+            <pre><span class="ruby-comment"># File lib/Mr.CAS/c-opt.rb, line 241</span>
 <span class="ruby-keyword">def</span> <span class="ruby-constant">Function</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">xs</span>)
   <span class="ruby-identifier">a</span> = <span class="ruby-keyword">super</span>
   <span class="ruby-identifier">a</span>.<span class="ruby-identifier">c_name</span> = <span class="ruby-identifier">name</span>
@@ -343,7 +341,7 @@ that are argument of the function</p>
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/numbers/functions.rb, line 60</span>
+            <pre><span class="ruby-comment"># File lib/numbers/functions.rb, line 83</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">xs</span>)
   <span class="ruby-identifier">xs</span>.<span class="ruby-identifier">flatten!</span>
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert_name</span> <span class="ruby-identifier">name</span>
@@ -388,7 +386,7 @@ that are argument of the function</p>
 
           
           <div class="method-source-code" id="size-source">
-            <pre><span class="ruby-comment"># File lib/numbers/functions.rb, line 32</span>
+            <pre><span class="ruby-comment"># File lib/numbers/functions.rb, line 55</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">size</span>; <span class="ruby-identifier">@@container</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">size</span>; <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -433,7 +431,7 @@ that are argument of the function</p>
 
           
           <div class="method-source-code" id="3D-3D-source">
-            <pre><span class="ruby-comment"># File lib/numbers/functions.rb, line 176</span>
+            <pre><span class="ruby-comment"># File lib/numbers/functions.rb, line 203</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">op</span>)
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">class</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> (<span class="ruby-ivar">@name</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">name</span> <span class="ruby-keyword">and</span> <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">uniq</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">x</span>.<span class="ruby-identifier">uniq</span>)
@@ -474,7 +472,7 @@ that are argument of the function</p>
 
           
           <div class="method-source-code" id="5B-5D-source">
-            <pre><span class="ruby-comment"># File lib/numbers/functions.rb, line 104</span>
+            <pre><span class="ruby-comment"># File lib/numbers/functions.rb, line 127</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">[]</span>(<span class="ruby-identifier">i</span>); <span class="ruby-ivar">@x</span>[<span class="ruby-identifier">i</span>]; <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -511,7 +509,7 @@ args.</p>
 
           
           <div class="method-source-code" id="args-source">
-            <pre><span class="ruby-comment"># File lib/numbers/functions.rb, line 92</span>
+            <pre><span class="ruby-comment"># File lib/numbers/functions.rb, line 115</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">args</span>
   <span class="ruby-identifier">ret</span> = []
   <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span>
@@ -548,7 +546,7 @@ args.</p>
 
           
           <div class="method-source-code" id="c_name-3D-source">
-            <pre><span class="ruby-comment"># File lib/Mr.CAS/c-opt.rb, line 213</span>
+            <pre><span class="ruby-comment"># File lib/Mr.CAS/c-opt.rb, line 236</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">c_name=</span>(<span class="ruby-identifier">s</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Help</span>.<span class="ruby-identifier">assert_name</span> <span class="ruby-identifier">s</span>
   <span class="ruby-ivar">@c_name</span> = <span class="ruby-identifier">s</span>
@@ -586,7 +584,7 @@ args.</p>
 
           
           <div class="method-source-code" id="call-source">
-            <pre><span class="ruby-comment"># File lib/numbers/functions.rb, line 156</span>
+            <pre><span class="ruby-comment"># File lib/numbers/functions.rb, line 181</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">_v</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">CASError</span>, <span class="ruby-node">&quot;Cannot call a #{self.class}&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -626,53 +624,20 @@ make it variable and user defined).</p>
 
           
           <div class="method-source-code" id="diff-source">
-            <pre><span class="ruby-comment"># File lib/numbers/functions.rb, line 141</span>
+            <pre><span class="ruby-comment"># File lib/numbers/functions.rb, line 164</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-comment"># return CAS.declare :&quot;d#{@name}[#{v}]&quot;, @x</span>
   <span class="ruby-identifier">ret</span> = []
-  <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span>, <span class="ruby-identifier">k</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">dx</span> = (<span class="ruby-identifier">x</span>.<span class="ruby-identifier">depend?</span>(<span class="ruby-identifier">v</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>) <span class="ruby-operator">:</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>)
-    <span class="ruby-identifier">dfx</span> = <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">declare</span> <span class="ruby-value">:&quot;D#{@name}[#{k}]&quot;</span>, <span class="ruby-ivar">@x</span>
-    <span class="ruby-identifier">ret</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">dx</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">dfx</span>
+  <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">y</span>, <span class="ruby-identifier">k</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">dy</span> = (<span class="ruby-identifier">y</span>.<span class="ruby-identifier">depend?</span>(<span class="ruby-identifier">v</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">y</span>.<span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>) <span class="ruby-operator">:</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>)
+    <span class="ruby-identifier">dfy</span> = <span class="ruby-constant">CAS</span>.<span class="ruby-identifier">declare</span> <span class="ruby-value">:&quot;D#{@name}[#{k}]&quot;</span>, <span class="ruby-ivar">@x</span>
+    <span class="ruby-identifier">ret</span> <span class="ruby-operator">&lt;&lt;</span> (<span class="ruby-identifier">dy</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">dfy</span>)
   <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">return</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">ret</span> <span class="ruby-operator">==</span> []
-  <span class="ruby-keyword">return</span> <span class="ruby-identifier">ret</span>.<span class="ruby-identifier">inject</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">d</span>, <span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">d</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">e</span> }
+  <span class="ruby-identifier">a</span> = <span class="ruby-identifier">ret</span>[<span class="ruby-value">0</span>]
+  <span class="ruby-identifier">ret</span>[<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>].<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">a</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">e</span> } <span class="ruby-keyword">if</span> <span class="ruby-identifier">ret</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">a</span>
 <span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-inspect" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">inspect</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Returns the inspect string of the function, that is similar to
-<code>CAS::Function#to_s</code></p>
-<ul><li>
-<p><strong>returns</strong>: inspection <code>String</code></p>
-</li></ul>
-          
-          
-
-          
-          <div class="method-source-code" id="inspect-source">
-            <pre><span class="ruby-comment"># File lib/numbers/functions.rb, line 163</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">inspect</span>; <span class="ruby-keyword">self</span>.<span class="ruby-identifier">to_s</span>; <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -706,7 +671,7 @@ always return the <code>self</code> <code>CAS::Function</code> object</p>
 
           
           <div class="method-source-code" id="simplify-source">
-            <pre><span class="ruby-comment"># File lib/numbers/functions.rb, line 110</span>
+            <pre><span class="ruby-comment"># File lib/numbers/functions.rb, line 133</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">simplify</span>; <span class="ruby-keyword">self</span>; <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -751,7 +716,7 @@ resppect to a <code>CAS::Variable</code> is a active substitution</p>
 
           
           <div class="method-source-code" id="subs-source">
-            <pre><span class="ruby-comment"># File lib/numbers/functions.rb, line 131</span>
+            <pre><span class="ruby-comment"># File lib/numbers/functions.rb, line 154</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">subs</span>(<span class="ruby-identifier">s</span>)
   <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">subs</span>(<span class="ruby-identifier">s</span>) }
   <span class="ruby-keyword">self</span>
@@ -791,7 +756,7 @@ CAs::Function cannot be generated</p>
 
           
           <div class="method-source-code" id="to_code-source">
-            <pre><span class="ruby-comment"># File lib/numbers/functions.rb, line 116</span>
+            <pre><span class="ruby-comment"># File lib/numbers/functions.rb, line 139</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_code</span>
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">CASError</span>, <span class="ruby-node">&quot;Ruby code for #{self.class} cannot be generated&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -828,7 +793,7 @@ CAs::Function cannot be generated</p>
 
           
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/numbers/functions.rb, line 168</span>
+            <pre><span class="ruby-comment"># File lib/numbers/functions.rb, line 195</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
   <span class="ruby-node">&quot;#{@name}(#{@x.map(&amp;:to_s).join(&quot;, &quot;)})&quot;</span>
 <span class="ruby-keyword">end</span></pre>

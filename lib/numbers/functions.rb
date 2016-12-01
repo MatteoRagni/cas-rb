@@ -164,13 +164,15 @@ module CAS
     def diff(v)
       # return CAS.declare :"d#{@name}[#{v}]", @x
       ret = []
-      @x.each_with_index do |x, k|
-        dx = (x.depend?(v) ? x.diff(v) : CAS::Zero)
-        dfx = CAS.declare :"D#{@name}[#{k}]", @x
-        ret << dx * dfx
+      @x.each_with_index do |y, k|
+        dy = (y.depend?(v) ? y.diff(v) : CAS::Zero)
+        dfy = CAS.declare :"D#{@name}[#{k}]", @x
+        ret << (dy * dfy)
       end
       return CAS::Zero if ret == []
-      return ret.inject { |d, e| d += e }
+      a = ret[0]
+      ret[1..-1].each { |e| a += e } if ret.size > 1
+      return a
     end
 
     # Trying to call a `CAS::Function` will always return a `CAS::Error`
@@ -180,10 +182,12 @@ module CAS
       raise CASError, "Cannot call a #{self.class}"
     end
 
-    # Returns the inspect string of the function, that is similar to `CAS::Function#to_s`
+    # # Returns the inspect string of the function, that is similar to `CAS::Function#to_s`
+    # #
+    # #  * **returns**: inspection `String`
+    # def inspect;
     #
-    #  * **returns**: inspection `String`
-    def inspect; self.to_s; end
+    # end
 
     # Returns a description `String` for the `CAS::Function`
     #

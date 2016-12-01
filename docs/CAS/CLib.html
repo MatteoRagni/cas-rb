@@ -151,7 +151,7 @@
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File lib/Mr.CAS/c-opt.rb, line 13</span>
+            <pre><span class="ruby-comment"># File lib/Mr.CAS/c-opt.rb, line 36</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">blk</span>)
   <span class="ruby-identifier">a</span> = <span class="ruby-constant">CLib</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">name</span>)
   <span class="ruby-identifier">a</span>.<span class="ruby-identifier">instance_eval</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">blk</span>)
@@ -186,7 +186,7 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/Mr.CAS/c-opt.rb, line 19</span>
+            <pre><span class="ruby-comment"># File lib/Mr.CAS/c-opt.rb, line 42</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">name</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&quot;Name for the library undefined&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">name</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">String</span>
   <span class="ruby-ivar">@name</span>            = <span class="ruby-identifier">name</span>
@@ -242,7 +242,7 @@
 
           
           <div class="method-source-code" id="as_double-source">
-            <pre><span class="ruby-comment"># File lib/Mr.CAS/c-opt.rb, line 38</span>
+            <pre><span class="ruby-comment"># File lib/Mr.CAS/c-opt.rb, line 61</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">as_double</span>;   <span class="ruby-ivar">@type</span> = <span class="ruby-string">&quot;double&quot;</span>;   <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -273,7 +273,7 @@
 
           
           <div class="method-source-code" id="as_float-source">
-            <pre><span class="ruby-comment"># File lib/Mr.CAS/c-opt.rb, line 39</span>
+            <pre><span class="ruby-comment"># File lib/Mr.CAS/c-opt.rb, line 62</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">as_float</span>;    <span class="ruby-ivar">@type</span> = <span class="ruby-string">&quot;float&quot;</span>;    <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -304,7 +304,7 @@
 
           
           <div class="method-source-code" id="as_int-source">
-            <pre><span class="ruby-comment"># File lib/Mr.CAS/c-opt.rb, line 40</span>
+            <pre><span class="ruby-comment"># File lib/Mr.CAS/c-opt.rb, line 63</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">as_int</span>;      <span class="ruby-ivar">@type</span> = <span class="ruby-string">&quot;int&quot;</span>;      <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -335,7 +335,7 @@
 
           
           <div class="method-source-code" id="as_long_int-source">
-            <pre><span class="ruby-comment"># File lib/Mr.CAS/c-opt.rb, line 41</span>
+            <pre><span class="ruby-comment"># File lib/Mr.CAS/c-opt.rb, line 64</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">as_long_int</span>; <span class="ruby-ivar">@type</span> = <span class="ruby-string">&quot;long int&quot;</span>; <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -366,7 +366,7 @@
 
           
           <div class="method-source-code" id="define-source">
-            <pre><span class="ruby-comment"># File lib/Mr.CAS/c-opt.rb, line 43</span>
+            <pre><span class="ruby-comment"># File lib/Mr.CAS/c-opt.rb, line 66</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">define</span>(<span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;k must be a String, received a #{k.class}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">k</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">String</span>
   <span class="ruby-ivar">@define</span>[<span class="ruby-identifier">k</span>] = <span class="ruby-identifier">v</span>.<span class="ruby-identifier">to_s</span>
@@ -401,7 +401,7 @@
 
           
           <div class="method-source-code" id="header-source">
-            <pre><span class="ruby-comment"># File lib/Mr.CAS/c-opt.rb, line 64</span>
+            <pre><span class="ruby-comment"># File lib/Mr.CAS/c-opt.rb, line 87</span>
     <span class="ruby-keyword">def</span> <span class="ruby-identifier">header</span>
       <span class="ruby-value">&lt;&lt;-TO_HEADER
 // Header file for library: #{@name}.c
@@ -457,7 +457,7 @@
 
           
           <div class="method-source-code" id="implements_as-source">
-            <pre><span class="ruby-comment"># File lib/Mr.CAS/c-opt.rb, line 62</span>
+            <pre><span class="ruby-comment"># File lib/Mr.CAS/c-opt.rb, line 85</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">implements_as</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">op</span>); <span class="ruby-keyword">self</span>[<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">op</span>; <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -488,7 +488,7 @@
 
           
           <div class="method-source-code" id="include-source">
-            <pre><span class="ruby-comment"># File lib/Mr.CAS/c-opt.rb, line 59</span>
+            <pre><span class="ruby-comment"># File lib/Mr.CAS/c-opt.rb, line 82</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">include</span>(<span class="ruby-identifier">lib</span>); <span class="ruby-keyword">self</span>.<span class="ruby-identifier">include_type</span>(<span class="ruby-value">:std</span>, <span class="ruby-identifier">lib</span>); <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -519,7 +519,7 @@
 
           
           <div class="method-source-code" id="include_local-source">
-            <pre><span class="ruby-comment"># File lib/Mr.CAS/c-opt.rb, line 60</span>
+            <pre><span class="ruby-comment"># File lib/Mr.CAS/c-opt.rb, line 83</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">include_local</span>(<span class="ruby-identifier">lib</span>); <span class="ruby-keyword">self</span>.<span class="ruby-identifier">include_type</span>(<span class="ruby-value">:local</span>, <span class="ruby-identifier">lib</span>); <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -550,7 +550,7 @@
 
           
           <div class="method-source-code" id="include_type-source">
-            <pre><span class="ruby-comment"># File lib/Mr.CAS/c-opt.rb, line 54</span>
+            <pre><span class="ruby-comment"># File lib/Mr.CAS/c-opt.rb, line 77</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">include_type</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">lib</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;type must be a Symbol (:std, :local), received #{type}&quot;</span> <span class="ruby-keyword">unless</span> [<span class="ruby-value">:std</span>, <span class="ruby-value">:local</span>].<span class="ruby-identifier">include?</span> <span class="ruby-identifier">type</span>
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;lib must be a String, received a #{lib.class}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">lib</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">String</span>
@@ -585,7 +585,7 @@
 
           
           <div class="method-source-code" id="source-source">
-            <pre><span class="ruby-comment"># File lib/Mr.CAS/c-opt.rb, line 91</span>
+            <pre><span class="ruby-comment"># File lib/Mr.CAS/c-opt.rb, line 114</span>
     <span class="ruby-keyword">def</span> <span class="ruby-identifier">source</span>
       <span class="ruby-identifier">functions</span> = []
 
@@ -639,7 +639,7 @@ NEWFUNCTION</span>
 
           
           <div class="method-source-code" id="undefine-source">
-            <pre><span class="ruby-comment"># File lib/Mr.CAS/c-opt.rb, line 49</span>
+            <pre><span class="ruby-comment"># File lib/Mr.CAS/c-opt.rb, line 72</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">undefine</span>(<span class="ruby-identifier">k</span>)
   <span class="ruby-ivar">@define</span>.<span class="ruby-identifier">delete</span> <span class="ruby-identifier">k</span>
   <span class="ruby-keyword">return</span> <span class="ruby-ivar">@define</span>

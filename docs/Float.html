@@ -158,7 +158,7 @@ are oveloaded are:</p>
 
           
           <div class="method-source-code" id="2A-source">
-            <pre><span class="ruby-comment"># File lib/overloading/float.rb, line 41</span>
+            <pre><span class="ruby-comment"># File lib/overloading/float.rb, line 64</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">*</span>(<span class="ruby-identifier">a</span>)
   <span class="ruby-keyword">return</span> (<span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">const</span>(<span class="ruby-keyword">self</span>) <span class="ruby-operator">*</span> <span class="ruby-identifier">a</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">overloaded_mul</span> <span class="ruby-identifier">a</span>
@@ -197,7 +197,7 @@ are oveloaded are:</p>
 
           
           <div class="method-source-code" id="2A-2A-source">
-            <pre><span class="ruby-comment"># File lib/overloading/float.rb, line 57</span>
+            <pre><span class="ruby-comment"># File lib/overloading/float.rb, line 80</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">**</span>(<span class="ruby-identifier">a</span>)
   <span class="ruby-keyword">return</span> (<span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">const</span>(<span class="ruby-keyword">self</span>) <span class="ruby-operator">**</span> <span class="ruby-identifier">a</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">overloaded_pow</span> <span class="ruby-identifier">a</span>
@@ -236,7 +236,7 @@ are oveloaded are:</p>
 
           
           <div class="method-source-code" id="2B-source">
-            <pre><span class="ruby-comment"># File lib/overloading/float.rb, line 25</span>
+            <pre><span class="ruby-comment"># File lib/overloading/float.rb, line 48</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">+</span>(<span class="ruby-identifier">a</span>)
   <span class="ruby-keyword">return</span> (<span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">const</span>(<span class="ruby-keyword">self</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">a</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">overloaded_plus</span> <span class="ruby-identifier">a</span>
@@ -275,7 +275,7 @@ are oveloaded are:</p>
 
           
           <div class="method-source-code" id="2D-source">
-            <pre><span class="ruby-comment"># File lib/overloading/float.rb, line 33</span>
+            <pre><span class="ruby-comment"># File lib/overloading/float.rb, line 56</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">-</span>(<span class="ruby-identifier">a</span>)
   <span class="ruby-keyword">return</span> (<span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">const</span>(<span class="ruby-keyword">self</span>) <span class="ruby-operator">-</span> <span class="ruby-identifier">a</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">overloaded_minus</span> <span class="ruby-identifier">a</span>
@@ -314,7 +314,7 @@ are oveloaded are:</p>
 
           
           <div class="method-source-code" id="2F-source">
-            <pre><span class="ruby-comment"># File lib/overloading/float.rb, line 49</span>
+            <pre><span class="ruby-comment"># File lib/overloading/float.rb, line 72</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">/</span>(<span class="ruby-identifier">a</span>)
   <span class="ruby-keyword">return</span> (<span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">const</span>(<span class="ruby-keyword">self</span>) <span class="ruby-operator">/</span> <span class="ruby-identifier">a</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Op</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">overloaded_div</span> <span class="ruby-identifier">a</span>

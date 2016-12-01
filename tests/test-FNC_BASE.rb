@@ -28,6 +28,12 @@ class TestSum < Test::Unit::TestCase
     assert_equal(@a + @b, (@a + @y).subs(s))
   end
 
+  def test_call
+    a = @x + @y + @z
+    f = {@x => 1, @y => 2, @z => 3}
+    assert_equal(6, a.call(f))
+  end
+
   def test_to_code
     assert_equal("(x + y)", (@x + @y).to_code)
   end
@@ -105,6 +111,12 @@ class TestProd < Test::Unit::TestCase
     assert_equal(@a * @b, (@x * @b).subs(s))
     assert_equal(@a * @b, (@a * @y).subs(s))
     assert_equal(@a * @b, (@x * @y).subs(s))
+  end
+
+  def test_call
+    a = @x * @y * @z
+    f = {@x => 1, @y => 2, @z => 3}
+    assert_equal(6, a.call(f))
   end
 
   def test_to_code

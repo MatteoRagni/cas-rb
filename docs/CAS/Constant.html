@@ -145,7 +145,7 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 13</span>
+            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 36</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">x</span>)
   <span class="ruby-ivar">@x</span> = <span class="ruby-identifier">x</span>
 <span class="ruby-keyword">end</span></pre>
@@ -191,7 +191,7 @@
 
           
           <div class="method-source-code" id="3D-3D-source">
-            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 84</span>
+            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 107</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">op</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Constant</span>
     <span class="ruby-keyword">return</span> <span class="ruby-ivar">@x</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">op</span>.<span class="ruby-identifier">x</span>
@@ -231,7 +231,7 @@
 
           
           <div class="method-source-code" id="args-source">
-            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 76</span>
+            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 99</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">args</span>
   []
 <span class="ruby-keyword">end</span></pre>
@@ -269,7 +269,7 @@
 
           
           <div class="method-source-code" id="call-source">
-            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 34</span>
+            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 57</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">_f</span>)
   <span class="ruby-ivar">@x</span>
 <span class="ruby-keyword">end</span></pre>
@@ -308,7 +308,7 @@ false</p>
 
           
           <div class="method-source-code" id="depend-3F-source">
-            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 43</span>
+            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 66</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">depend?</span>(<span class="ruby-identifier">_v</span>)
   <span class="ruby-keyword">false</span>
 <span class="ruby-keyword">end</span></pre>
@@ -347,7 +347,7 @@ false</p>
 
           
           <div class="method-source-code" id="diff-source">
-            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 25</span>
+            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 48</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">diff</span>(<span class="ruby-identifier">_v</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>
 <span class="ruby-keyword">end</span></pre>
@@ -383,7 +383,7 @@ false</p>
 
           
           <div class="method-source-code" id="inspect-source">
-            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 95</span>
+            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 118</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">inspect</span>
   <span class="ruby-node">&quot;Const(#{self})&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -421,7 +421,7 @@ deterministic).</p>
 
           
           <div class="method-source-code" id="simplify-source">
-            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 68</span>
+            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 91</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">simplify</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>
 <span class="ruby-keyword">end</span></pre>
@@ -460,7 +460,7 @@ deterministic).</p>
 
           
           <div class="method-source-code" id="subs-source">
-            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 59</span>
+            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 82</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">subs</span>(<span class="ruby-identifier">_dt</span>)
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>
 <span class="ruby-keyword">end</span></pre>
@@ -496,7 +496,7 @@ deterministic).</p>
 
           
           <div class="method-source-code" id="to_dot-source">
-            <pre><span class="ruby-comment"># File lib/Mr.CAS/graphviz.rb, line 62</span>
+            <pre><span class="ruby-comment"># File lib/Mr.CAS/graphviz.rb, line 85</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_dot</span>
   <span class="ruby-node">&quot;Const(#{@x})&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -532,7 +532,7 @@ deterministic).</p>
 
           
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 51</span>
+            <pre><span class="ruby-comment"># File lib/numbers/constants.rb, line 74</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
   <span class="ruby-node">&quot;#{@x}&quot;</span>
 <span class="ruby-keyword">end</span></pre>

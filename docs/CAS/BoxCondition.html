@@ -223,7 +223,7 @@ condition</p>
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 38</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 61</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">lower</span>, <span class="ruby-identifier">upper</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">lower</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Numeric</span>
     <span class="ruby-identifier">lower</span> = <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">const</span> <span class="ruby-identifier">lower</span>
@@ -285,7 +285,7 @@ for equality</p>
 
           
           <div class="method-source-code" id="3D-3D-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 116</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 139</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">cond</span>)
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">cond</span>.<span class="ruby-identifier">class</span>
   <span class="ruby-keyword">return</span> (<span class="ruby-ivar">@x</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">cond</span>.<span class="ruby-identifier">x</span> <span class="ruby-keyword">and</span> <span class="ruby-ivar">@lower</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">cond</span>.<span class="ruby-identifier">lower</span> <span class="ruby-keyword">and</span> <span class="ruby-ivar">@upper</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">cond</span>.<span class="ruby-identifier">upper</span>)
@@ -322,7 +322,7 @@ for equality</p>
 
           
           <div class="method-source-code" id="args-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 108</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 131</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">args</span>
   <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">args</span>
 <span class="ruby-keyword">end</span></pre>
@@ -361,7 +361,7 @@ functions to solve the relation</p>
 
           
           <div class="method-source-code" id="call-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 126</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 149</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">_fd</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">CASError</span>, <span class="ruby-string">&quot;This is a virtual method&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -401,7 +401,7 @@ for dependencies</p>
 
           
           <div class="method-source-code" id="depend-3F-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 68</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 91</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">depend?</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">depend?</span> <span class="ruby-identifier">v</span>
 <span class="ruby-keyword">end</span></pre>
@@ -445,7 +445,7 @@ is zero):</p>
 
           
           <div class="method-source-code" id="diff-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 101</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 124</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>)
   <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-identifier">equal</span>(<span class="ruby-ivar">@x</span>.<span class="ruby-identifier">diff</span>(<span class="ruby-identifier">v</span>).<span class="ruby-identifier">simplify</span>, <span class="ruby-constant">CAS</span><span class="ruby-operator">::</span><span class="ruby-constant">Zero</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -481,7 +481,7 @@ is zero):</p>
 
           
           <div class="method-source-code" id="inspect-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 133</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 156</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">inspect</span>
   <span class="ruby-node">&quot;(#{@lower.inspect} #{@lower_cond} #{@x.inspect} #{@upper_cond} #{@upper.inspect})&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -514,7 +514,7 @@ is zero):</p>
 
           
           <div class="method-source-code" id="representative-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 58</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 81</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">representative</span>
   <span class="ruby-ivar">@lower_cond</span>  = <span class="ruby-ivar">@upper_cond</span> = <span class="ruby-string">&quot;&lt;&quot;</span>
   <span class="ruby-ivar">@lower_str</span>   = <span class="ruby-ivar">@upper_str</span>  = <span class="ruby-string">&quot;&lt;&quot;</span>
@@ -552,7 +552,7 @@ is zero):</p>
 
           
           <div class="method-source-code" id="simplify-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 75</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 98</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">simplify</span>
   <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">simplify</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>
@@ -589,7 +589,7 @@ is zero):</p>
 
           
           <div class="method-source-code" id="subs-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 83</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 106</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">subs</span>(<span class="ruby-identifier">fd</span>)
   <span class="ruby-ivar">@x</span> = <span class="ruby-ivar">@x</span>.<span class="ruby-identifier">subs</span>(<span class="ruby-identifier">fd</span>)
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>
@@ -626,7 +626,7 @@ is zero):</p>
 
           
           <div class="method-source-code" id="to_code-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 147</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 170</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_code</span>
   <span class="ruby-node">&quot;((#{@lower.to_code} #{@lower_cond} (#{@x.to_code})) and ((#{@x.to_code}) #{@upper_cond} #{@upper.to_code}))&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -661,7 +661,7 @@ is zero):</p>
 
           
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 140</span>
+            <pre><span class="ruby-comment"># File lib/functions/fnc-box-conditions.rb, line 163</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
   <span class="ruby-node">&quot;#{@lower} #{@lower_str} #{@x} #{@upper_str} #{@upper}&quot;</span>
 <span class="ruby-keyword">end</span></pre>
