@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-# Copyright (c)  Matteo Ragni
+# Copyright (c) 2016 Matteo Ragni
 #
 # Permission is hereby granted, free of charge, to any person
 # obtaining a copy of this software and associated documentation
