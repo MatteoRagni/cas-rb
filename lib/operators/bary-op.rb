@@ -24,6 +24,154 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 
 module CAS
+  module Internals
+    module BinaryOP
+      # Return the dependencies of the operation. Requires a `CAS::Variable`
+      # and it is one of the recursve method (implicit tree resolution)
+      #
+      #  * **argument**: `CAS::Variable` instance
+      #  * **returns**: `TrueClass` if depends, `FalseClass` if not
+      def depend?(v)
+        CAS::Help.assert(v, CAS::Op)
+
+        @x.depend? v or @y.depend? v
+      end
+
+      # This method returns an array with the derivatives of the two branches
+      # of the node. This method is usually called by child classes, and it is not
+      # intended to be used directly.
+      #
+      #  * **argument**: `CAS::Op` operation to differentiate against
+      #  * **returns**: `Array` of differentiated branches ([0] for left, [1] for right)
+      def diff(v)
+        CAS::Help.assert(v, CAS::Op)
+        left, right = CAS::Zero, CAS::Zero
+
+        left = @x.diff(v) if @x.depend? v
+        right = @y.diff(v) if @y.depend? v
+
+        return left, right
+      end
+
+      # Substituitions for both branches of the graph, same as `CAS::Op#subs`
+      #
+      #  * **argument**: `Hash` of substitutions
+      #  * **returns**: `CAS::BinaryOp`, in practice `self`
+      def subs(dt)
+        return self.subs_lhs(dt).subs_rhs(dt)
+      end
+
+      # Substituitions for left branch of the graph, same as `CAS::Op#subs`
+      #
+      #  * **argument**: `Hash` of substitutions
+      #  * **returns**: `CAS::BinaryOp`, in practice `self`
+      def subs_lhs(dt)
+        CAS::Help.assert(dt, Hash)
+        sub = dt.keys.select { |e| e == @x }[0]
+        if sub
+          if dt[sub].is_a? CAS::Op
+            @x = dt[sub]
+          elsif dt[sub].is_a? Numeric
+            @x = CAS::const dt[sub]
+          else
+            raise CASError, "Impossible subs. Received a #{dt[sub].class} = #{dt[sub]}"
+          end
+        else
+          @x.subs(dt)
+        end
+        return self
+      end
+
+      # Substituitions for left branch of the graph, same as `CAS::Op#subs`
+      #
+      #  * **argument**: `Hash` of substitutions
+      #  * **returns**: `CAS::BinaryOp`, in practice `self`
+      def subs_rhs(dt)
+        CAS::Help.assert(dt, Hash)
+        sub = dt.keys.select { |e| e == @y }[0]
+        if sub
+          if dt[sub].is_a? CAS::Op
+            @y = dt[sub]
+          elsif dt[sub].is_a? Numeric
+            @y = CAS::const dt[sub]
+          else
+            raise CASError, "Impossible subs. Received a #{dt[sub].class} = #{dt[sub]}"
+          end
+        else
+          @y.subs(dt)
+        end
+        return self
+      end
+
+      # Same `CAS::Op#call`
+      #
+      #  * **argument**: `Hash` of values
+      #  * **returns**: `Numeric` for result
+      def call(_fd)
+        raise CAS::CASError, "Not Implemented. This is a virtual method"
+      end
+
+      # String representation of the tree
+      #
+      #  * **returns**: `String`
+      def to_s
+        raise CAS::CASError, "Not Implemented. This is a virtual method"
+      end
+
+      # Code to be used in `CAS::BinaryOp#to_proc`
+      #
+      #  * **returns**: `String`
+      def to_code
+        raise CAS::CASError, "Not implemented. This is a virtual method"
+      end
+
+      # Returns an array of all the variables that are in the graph
+      #
+      #  * **returns**: `Array` of `CAS::Variable`s
+      def args
+        (@x.args + @y.args).uniq
+      end
+
+      # Inspector
+      #
+      #  * **returns**: `String`
+      def inspect
+        "#{self.class}(#{@x.inspect}, #{@y.inspect})"
+      end
+
+      # Comparison with other `CAS::Op`. This is **not** a math operation.
+      #
+      #  * **argument**: `CAS::Op` to be compared against
+      #  * **returns**: `TrueClass` if equal, `FalseClass` if different
+      def ==(op)
+        CAS::Help.assert(op, CAS::Op)
+        if op.is_a? CAS::BinaryOp
+          return (self.class == op.class and @x == op.x and @y == op.y)
+        else
+          return false
+        end
+      end
+
+      # Executes simplifications of the two branches of the graph
+      #
+      #  * **returns**: `CAS::BinaryOp` as `self`
+      def simplify
+        hash = @x.to_s
+        @x = @x.simplify
+        while @x.to_s != hash
+          hash = @x.to_s
+          @x = @x.simplify
+        end
+        hash = @y.to_s
+        @y = @y.simplify
+        while @y.to_s != hash
+          hash = @y.to_s
+          @y = @y.simplify
+        end
+      end
+    end
+  end
+
   #  ___ _                     ___
   # | _ |_)_ _  __ _ _ _ _  _ / _ \ _ __
   # | _ \ | ' \/ _` | '_| || | (_) | '_ \
@@ -61,149 +209,7 @@ module CAS
       @y = y
     end
 
-    # Return the dependencies of the operation. Requires a `CAS::Variable`
-    # and it is one of the recursve method (implicit tree resolution)
-    #
-    #  * **argument**: `CAS::Variable` instance
-    #  * **returns**: `TrueClass` if depends, `FalseClass` if not
-    def depend?(v)
-      CAS::Help.assert(v, CAS::Op)
-
-      @x.depend? v or @y.depend? v
-    end
-
-    # This method returns an array with the derivatives of the two branches
-    # of the node. This method is usually called by child classes, and it is not
-    # intended to be used directly.
-    #
-    #  * **argument**: `CAS::Op` operation to differentiate against
-    #  * **returns**: `Array` of differentiated branches ([0] for left, [1] for right)
-    def diff(v)
-      CAS::Help.assert(v, CAS::Op)
-      left, right = CAS::Zero, CAS::Zero
-
-      left = @x.diff(v) if @x.depend? v
-      right = @y.diff(v) if @y.depend? v
-
-      return left, right
-    end
-
-    # Substituitions for both branches of the graph, same as `CAS::Op#subs`
-    #
-    #  * **argument**: `Hash` of substitutions
-    #  * **returns**: `CAS::BinaryOp`, in practice `self`
-    def subs(dt)
-      return self.subs_lhs(dt).subs_rhs(dt)
-    end
-
-    # Substituitions for left branch of the graph, same as `CAS::Op#subs`
-    #
-    #  * **argument**: `Hash` of substitutions
-    #  * **returns**: `CAS::BinaryOp`, in practice `self`
-    def subs_lhs(dt)
-      CAS::Help.assert(dt, Hash)
-      sub = dt.keys.select { |e| e == @x }[0]
-      if sub
-        if dt[sub].is_a? CAS::Op
-          @x = dt[sub]
-        elsif dt[sub].is_a? Numeric
-          @x = CAS::const dt[sub]
-        else
-          raise CASError, "Impossible subs. Received a #{dt[sub].class} = #{dt[sub]}"
-        end
-      else
-        @x.subs(dt)
-      end
-      return self
-    end
-
-    # Substituitions for left branch of the graph, same as `CAS::Op#subs`
-    #
-    #  * **argument**: `Hash` of substitutions
-    #  * **returns**: `CAS::BinaryOp`, in practice `self`
-    def subs_rhs(dt)
-      CAS::Help.assert(dt, Hash)
-      sub = dt.keys.select { |e| e == @y }[0]
-      if sub
-        if dt[sub].is_a? CAS::Op
-          @y = dt[sub]
-        elsif dt[sub].is_a? Numeric
-          @y = CAS::const dt[sub]
-        else
-          raise CASError, "Impossible subs. Received a #{dt[sub].class} = #{dt[sub]}"
-        end
-      else
-        @y.subs(dt)
-      end
-      return self
-    end
-
-    # Same `CAS::Op#call`
-    #
-    #  * **argument**: `Hash` of values
-    #  * **returns**: `Numeric` for result
-    def call(_fd)
-      raise CAS::CASError, "Not Implemented. This is a virtual method"
-    end
-
-    # String representation of the tree
-    #
-    #  * **returns**: `String`
-    def to_s
-      raise CAS::CASError, "Not Implemented. This is a virtual method"
-    end
-
-    # Code to be used in `CAS::BinaryOp#to_proc`
-    #
-    #  * **returns**: `String`
-    def to_code
-      raise CAS::CASError, "Not implemented. This is a virtual method"
-    end
-
-    # Returns an array of all the variables that are in the graph
-    #
-    #  * **returns**: `Array` of `CAS::Variable`s
-    def args
-      (@x.args + @y.args).uniq
-    end
-
-    # Inspector
-    #
-    #  * **returns**: `String`
-    def inspect
-      "#{self.class}(#{@x.inspect}, #{@y.inspect})"
-    end
-
-    # Comparison with other `CAS::Op`. This is **not** a math operation.
-    #
-    #  * **argument**: `CAS::Op` to be compared against
-    #  * **returns**: `TrueClass` if equal, `FalseClass` if different
-    def ==(op)
-      CAS::Help.assert(op, CAS::Op)
-      if op.is_a? CAS::BinaryOp
-        return (self.class == op.class and @x == op.x and @y == op.y)
-      else
-        return false
-      end
-    end
-
-    # Executes simplifications of the two branches of the graph
-    #
-    #  * **returns**: `CAS::BinaryOp` as `self`
-    def simplify
-      hash = @x.to_s
-      @x = @x.simplify
-      while @x.to_s != hash
-        hash = @x.to_s
-        @x = @x.simplify
-      end
-      hash = @y.to_s
-      @y = @y.simplify
-      while @y.to_s != hash
-        hash = @y.to_s
-        @y = @y.simplify
-      end
-    end
+    include CAS::Internals::BinaryOP
   end # BinaryOp
   CAS::BinaryOp.init_simplify_dict
 end
