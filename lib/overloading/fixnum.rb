@@ -24,7 +24,7 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 
 ##
-# Overloading operators for Fixnum. Operations that are
+# Overloading operators for Integer. Operations that are
 # oveloaded are:
 #
 # * `overloaded_plus` for `+`
@@ -32,7 +32,7 @@
 # * `overloaded_mul` for `*`
 # * `overloaded_div` for `/`
 # * `overloaded_pow` for `**`
-class Fixnum
+class Integer
   # Setting aliases
   alias :overloaded_plus  :+
   alias :overloaded_minus :-
